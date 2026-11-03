@@ -8,6 +8,14 @@ import { deleteContent, duplicateContent, listContent, restoreContent, syncPull,
 import { errorSnackbar, snackbar } from '../../notices';
 import ConfirmModal from '../ConfirmModal';
 import SourceBadge from '../SourceBadge';
+import { uiIcon } from '../../../shared/ui-icons';
+
+const EMPTY_ICONS = {
+	post_type: 'post-type',
+	taxonomy: 'taxonomy',
+	options_page: 'options-page',
+	connection: 'connection',
+};
 
 export default function ContentList( { kind, navigate } ) {
 	const names = kind.names;
@@ -150,6 +158,9 @@ export default function ContentList( { kind, navigate } ) {
 						<p>{ __( 'The trash is empty.', 'custom-fields-meta-box' ) }</p>
 					) : (
 						<>
+							<span className="cfmb-icon cfmb-empty__icon" aria-hidden="true">
+								{ uiIcon( EMPTY_ICONS[ kind.kind ] || 'groups' ) }
+							</span>
 							<h2>{ names.empty_title }</h2>
 							<p>{ names.empty_text }</p>
 							<Button variant="primary" onClick={ () => navigate( 'new' ) }>

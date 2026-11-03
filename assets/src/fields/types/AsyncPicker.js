@@ -10,6 +10,7 @@ import { __, sprintf } from '@wordpress/i18n';
 import { speak } from '@wordpress/a11y';
 import { useForm } from '../context';
 import { search } from '../api';
+import { uiIcon } from '../../shared/ui-icons';
 
 const STATUS_LABELS = {
 	draft: __( 'Draft', 'custom-fields-meta-box' ),
@@ -159,13 +160,13 @@ export default function AsyncPicker( { field, id, value, onChange, describedBy, 
 							<span className="cfmb-picker__item-actions">
 								{ multiple && selected.length > 1 && (
 									<>
-										<Button size="small" icon="arrow-up-alt2" label={ __( 'Move up', 'custom-fields-meta-box' ) } disabled={ index === 0 } onClick={ () => moveItem( index, -1 ) } />
-										<Button size="small" icon="arrow-down-alt2" label={ __( 'Move down', 'custom-fields-meta-box' ) } disabled={ index === selected.length - 1 } onClick={ () => moveItem( index, 1 ) } />
+										<Button size="small" icon={ uiIcon( 'arrow-up-alt2' ) } label={ __( 'Move up', 'custom-fields-meta-box' ) } disabled={ index === 0 } onClick={ () => moveItem( index, -1 ) } />
+										<Button size="small" icon={ uiIcon( 'arrow-down-alt2' ) } label={ __( 'Move down', 'custom-fields-meta-box' ) } disabled={ index === selected.length - 1 } onClick={ () => moveItem( index, 1 ) } />
 									</>
 								) }
 								<Button
 									size="small"
-									icon="no-alt"
+									icon={ uiIcon( 'no-alt' ) }
 									label={
 										/* translators: %s: item title */
 										sprintf( __( 'Remove %s', 'custom-fields-meta-box' ), item.title )

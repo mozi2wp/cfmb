@@ -6,8 +6,8 @@
 	"license": "GPL-2.0-or-later",
 	"author": "Mozi2WP",
 	"scripts": {
-		"prebuild": "node bin/build-icons.js",
-		"build:icons": "node bin/build-icons.js",
+		"prebuild": "node bin/build-icons.js && node bin/build-ui-icons.js",
+		"build:icons": "node bin/build-icons.js && node bin/build-ui-icons.js",
 		"build": "wp-scripts build",
 		"start": "wp-scripts start",
 		"lint:js": "wp-scripts lint-js assets/src",

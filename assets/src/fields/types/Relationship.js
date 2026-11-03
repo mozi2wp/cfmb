@@ -10,6 +10,7 @@ import { ItemLabel, useSearch } from './AsyncPicker';
 import { ordered } from './TermChoices';
 import { useForm } from '../context';
 import { search } from '../api';
+import { uiIcon } from '../../shared/ui-icons';
 
 export default function Relationship( { field, id, value, onChange, describedBy } ) {
 	const settings = field.settings || {};
@@ -167,11 +168,11 @@ export default function Relationship( { field, id, value, onChange, describedBy 
 						<li key={ item.id } className="cfmb-picker__item">
 							<ItemLabel item={ item } />
 							<span className="cfmb-picker__item-actions">
-								<Button size="small" icon="arrow-up-alt2" label={ __( 'Move up', 'custom-fields-meta-box' ) } disabled={ index === 0 } onClick={ () => move( index, -1 ) } />
-								<Button size="small" icon="arrow-down-alt2" label={ __( 'Move down', 'custom-fields-meta-box' ) } disabled={ index === selected.length - 1 } onClick={ () => move( index, 1 ) } />
+								<Button size="small" icon={ uiIcon( 'arrow-up-alt2' ) } label={ __( 'Move up', 'custom-fields-meta-box' ) } disabled={ index === 0 } onClick={ () => move( index, -1 ) } />
+								<Button size="small" icon={ uiIcon( 'arrow-down-alt2' ) } label={ __( 'Move down', 'custom-fields-meta-box' ) } disabled={ index === selected.length - 1 } onClick={ () => move( index, 1 ) } />
 								<Button
 									size="small"
-									icon="no-alt"
+									icon={ uiIcon( 'no-alt' ) }
 									label={
 										/* translators: %s: post title */
 										sprintf( __( 'Remove %s', 'custom-fields-meta-box' ), item.title )

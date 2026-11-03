@@ -78,11 +78,21 @@
 .cfmb-empty {
 	background: var(--cfmb-surface);
 	border: 1px solid var(--cfmb-border-light);
-	border-radius: var(--cfmb-radius);
+	border-radius: var(--cfmb-radius-large);
+	box-shadow: var(--cfmb-shadow);
 	margin-top: var(--cfmb-gap);
 	max-width: 640px;
-	padding: 24px;
+	padding: 32px;
 	animation: cfmb-appear var(--cfmb-duration) var(--cfmb-ease-out);
+
+	&__icon {
+		background: var(--cfmb-accent-soft);
+		border-radius: 50%;
+		color: var(--cfmb-accent);
+		height: 48px;
+		margin-bottom: var(--cfmb-gap);
+		width: 48px;
+	}
 
 	h2 {
 		margin-top: 0;
@@ -173,7 +183,8 @@
 		padding: 0;
 		list-style: none;
 		border: 1px solid var(--cfmb-border-light);
-		border-radius: var(--cfmb-radius);
+		border-radius: var(--cfmb-radius-large);
+		overflow: hidden;
 	}
 
 	&__empty {
@@ -288,6 +299,21 @@
 		min-width: 1.5em;
 	}
 
+	&__type-icon {
+		background: var(--cfmb-surface-alt);
+		border-radius: var(--cfmb-radius);
+		color: var(--cfmb-muted);
+		height: 28px;
+		width: 28px;
+		transition: background-color var(--cfmb-duration) var(--cfmb-ease-out), color var(--cfmb-duration) var(--cfmb-ease-out);
+	}
+
+	&.is-open > .cfmb-field-row__header &__type-icon,
+	&__toggle:hover &__type-icon {
+		background: var(--cfmb-accent-soft);
+		color: var(--cfmb-accent);
+	}
+
 	&__label {
 		flex: 1 1 auto;
 		font-weight: 600;
@@ -304,9 +330,6 @@
 
 	&__flag {
 		color: var(--cfmb-muted);
-		font-size: 16px;
-		height: 16px;
-		width: 16px;
 		margin-inline-start: 6px;
 		vertical-align: text-bottom;
 	}
@@ -333,6 +356,11 @@
 
 	&__chevron {
 		color: var(--cfmb-muted);
+		transition: color var(--cfmb-duration) var(--cfmb-ease-out);
+	}
+
+	&__toggle:hover &__chevron {
+		color: var(--cfmb-text);
 	}
 
 	&__body {

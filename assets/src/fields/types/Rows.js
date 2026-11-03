@@ -7,7 +7,7 @@
  * pages never opened are sent back as references and left untouched.
  */
 import { useEffect, useMemo, useRef, useState } from '@wordpress/element';
-import { Button, Dashicon, DropdownMenu, Spinner } from '@wordpress/components';
+import { Button, DropdownMenu, Spinner } from '@wordpress/components';
 import { __, _n, sprintf } from '@wordpress/i18n';
 import { speak } from '@wordpress/a11y';
 import Fields from '../Fields';
@@ -15,6 +15,7 @@ import { joinPath, useForm } from '../context';
 import { loadRows } from '../api';
 import { validateSet } from '../validation';
 import { cloneRow, fieldSignature, newRow, prepareRow, remapRow, rowFields } from '../values';
+import { uiIcon } from '../../shared/ui-icons';
 
 const CLIPBOARD_KEY = 'cfmb-row-clipboard';
 
@@ -349,29 +350,29 @@ export default function Rows( { field, value, onChange, path, id } ) {
 						} }
 						onDragEnd={ () => setDrag( null ) }
 					>
-						<Dashicon icon="menu" />
+						{ uiIcon( 'menu', 20 ) }
 					</span>
 					<button type="button" className="cfmb-row__toggle" aria-expanded={ open } aria-controls={ bodyId } onClick={ () => expand( row._uid, ! open ) }>
 						<span className="cfmb-row__number">{ index + 1 }</span>
 						{ layout && <span className="cfmb-row__layout">{ layout.label }</span> }
 						<span className="cfmb-row__title">{ title || ( layout ? '' : label ) }</span>
 						{ broken && <span className="cfmb-row__flag">{ __( 'Needs attention', 'custom-fields-meta-box' ) }</span> }
-						<Dashicon icon={ open ? 'arrow-up-alt2' : 'arrow-down-alt2' } className="cfmb-row__chevron" />
+						<span className="cfmb-row__chevron" aria-hidden="true">{ uiIcon( open ? 'arrow-up-alt2' : 'arrow-down-alt2', 20 ) }</span>
 					</button>
 					<DropdownMenu
-						icon="ellipsis"
+						icon={ uiIcon( 'ellipsis' ) }
 						label={
 							/* translators: %s: row label, like "Row 2" */
 							sprintf( __( 'Actions for %s', 'custom-fields-meta-box' ), label )
 						}
 						toggleProps={ { size: 'compact' } }
 						controls={ [
-							{ title: __( 'Move up', 'custom-fields-meta-box' ), icon: 'arrow-up-alt', isDisabled: index === 0, onClick: () => move( row._uid, index - 1 ) },
-							{ title: __( 'Move down', 'custom-fields-meta-box' ), icon: 'arrow-down-alt', isDisabled: index === rows.length - 1, onClick: () => move( row._uid, index + 1 ) },
-							{ title: __( 'Move to position…', 'custom-fields-meta-box' ), icon: 'sort', isDisabled: rows.length < 2, onClick: () => setMoving( { uid: row._uid, to: String( index + 1 ) } ) },
-							{ title: __( 'Duplicate', 'custom-fields-meta-box' ), icon: 'admin-page', isDisabled: full || row._unloaded || ( layout && layoutFull( layout ) ), onClick: () => duplicate( row._uid ) },
-							{ title: __( 'Copy', 'custom-fields-meta-box' ), icon: 'clipboard', isDisabled: row._unloaded, onClick: () => copy( [ row ] ) },
-							{ title: __( 'Remove', 'custom-fields-meta-box' ), icon: 'trash', onClick: () => remove( row._uid ) },
+							{ title: __( 'Move up', 'custom-fields-meta-box' ), icon: uiIcon( 'arrow-up-alt' ), isDisabled: index === 0, onClick: () => move( row._uid, index - 1 ) },
+							{ title: __( 'Move down', 'custom-fields-meta-box' ), icon: uiIcon( 'arrow-down-alt' ), isDisabled: index === rows.length - 1, onClick: () => move( row._uid, index + 1 ) },
+							{ title: __( 'Move to position…', 'custom-fields-meta-box' ), icon: uiIcon( 'sort' ), isDisabled: rows.length < 2, onClick: () => setMoving( { uid: row._uid, to: String( index + 1 ) } ) },
+							{ title: __( 'Duplicate', 'custom-fields-meta-box' ), icon: uiIcon( 'admin-page' ), isDisabled: full || row._unloaded || ( layout && layoutFull( layout ) ), onClick: () => duplicate( row._uid ) },
+							{ title: __( 'Copy', 'custom-fields-meta-box' ), icon: uiIcon( 'clipboard' ), isDisabled: row._unloaded, onClick: () => copy( [ row ] ) },
+							{ title: __( 'Remove', 'custom-fields-meta-box' ), icon: uiIcon( 'trash' ), onClick: () => remove( row._uid ) },
 						] }
 					/>
 				</div>
@@ -472,13 +473,13 @@ export default function Rows( { field, value, onChange, path, id } ) {
 					<Button variant="link" onClick={ undo }>
 						{ __( 'Undo', 'custom-fields-meta-box' ) }
 					</Button>
-					<Button variant="link" className="cfmb-rows__undo-dismiss" label={ __( 'Dismiss', 'custom-fields-meta-box' ) } icon="no-alt" size="small" onClick={ () => setRemoved( null ) } />
+					<Button variant="link" className="cfmb-rows__undo-dismiss" label={ __( 'Dismiss', 'custom-fields-meta-box' ) } icon={ uiIcon( 'no-alt' ) } size="small" onClick={ () => setRemoved( null ) } />
 				</div>
 			) }
 
 			{ paginate && pageCount > 1 && (
 				<nav className="cfmb-rows__pages" aria-label={ __( 'Row pages', 'custom-fields-meta-box' ) }>
-					<Button variant="tertiary" size="compact" icon="arrow-left-alt2" label={ __( 'Previous page', 'custom-fields-meta-box' ) } disabled={ page === 0 } onClick={ () => setPage( page - 1 ) } />
+					<Button variant="tertiary" size="compact" icon={ uiIcon( 'arrow-left-alt2' ) } label={ __( 'Previous page', 'custom-fields-meta-box' ) } disabled={ page === 0 } onClick={ () => setPage( page - 1 ) } />
 					<label>
 						<span className="screen-reader-text">{ __( 'Page', 'custom-fields-meta-box' ) }</span>
 						<select className="cfmb-input cfmb-input--small" value={ Math.min( page, pageCount - 1 ) } onChange={ ( event ) => setPage( Number( event.target.value ) ) }>
@@ -494,14 +495,14 @@ export default function Rows( { field, value, onChange, path, id } ) {
 							) ) }
 						</select>
 					</label>
-					<Button variant="tertiary" size="compact" icon="arrow-right-alt2" label={ __( 'Next page', 'custom-fields-meta-box' ) } disabled={ page >= pageCount - 1 } onClick={ () => setPage( page + 1 ) } />
+					<Button variant="tertiary" size="compact" icon={ uiIcon( 'arrow-right-alt2' ) } label={ __( 'Next page', 'custom-fields-meta-box' ) } disabled={ page >= pageCount - 1 } onClick={ () => setPage( page + 1 ) } />
 				</nav>
 			) }
 
 			<div className="cfmb-rows__actions">
 				{ isStacks ? (
 					<DropdownMenu
-						icon="plus-alt2"
+						icon={ uiIcon( 'plus-alt2' ) }
 						text={ settings.button_label || __( 'Add row', 'custom-fields-meta-box' ) }
 						label={ __( 'Choose a layout for the new row', 'custom-fields-meta-box' ) }
 						toggleProps={ { variant: 'secondary', disabled: full || layouts.length === 0 } }
@@ -512,12 +513,12 @@ export default function Rows( { field, value, onChange, path, id } ) {
 						} ) ) }
 					/>
 				) : (
-					<Button variant="secondary" icon="plus-alt2" disabled={ full } onClick={ () => add() }>
+					<Button variant="secondary" icon={ uiIcon( 'plus-alt2' ) } disabled={ full } onClick={ () => add() }>
 						{ addLabel }
 					</Button>
 				) }
 				{ canPaste && (
-					<Button variant="tertiary" icon="clipboard" onClick={ paste }>
+					<Button variant="tertiary" icon={ uiIcon( 'clipboard' ) } onClick={ paste }>
 						{ sprintf(
 							/* translators: %d: number of rows */
 							_n( 'Paste %d row', 'Paste %d rows', clipboard.rows.length, 'custom-fields-meta-box' ),

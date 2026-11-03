@@ -12,6 +12,7 @@ import { newFieldKey, newLayoutKey } from '../../shared/keys';
 import { snackbar } from '../notices';
 import { useBuilder } from '../context';
 import FieldRow from './FieldRow';
+import { uiIcon } from '../../shared/ui-icons';
 
 export function blankLayout() {
 	return { key: newLayoutKey(), name: '', label: '', min: 0, max: 0, fields: [] };
@@ -297,7 +298,7 @@ export default function FieldList( { fields, setFields, expanded, setExpanded, e
 				</ol>
 			) }
 			<div className="cfmb-field-list__add">
-				<Button variant={ depth > 0 ? 'tertiary' : 'secondary' } icon="plus-alt2" onClick={ add }>
+				<Button variant={ depth > 0 ? 'tertiary' : 'secondary' } icon={ uiIcon( 'plus-alt2' ) } onClick={ add }>
 					{ depth > 0 ? __( 'Add sub-field', 'custom-fields-meta-box' ) : __( 'Add field', 'custom-fields-meta-box' ) }
 				</Button>
 			</div>

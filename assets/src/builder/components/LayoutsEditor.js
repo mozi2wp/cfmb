@@ -8,6 +8,7 @@ import { speak } from '@wordpress/a11y';
 import { toFieldName } from '../../shared/keys';
 import { snackbar } from '../notices';
 import FieldList, { blankLayout, copyField } from './FieldList';
+import { uiIcon } from '../../shared/ui-icons';
 
 const common = { __nextHasNoMarginBottom: true, __next40pxDefaultSize: true };
 
@@ -116,16 +117,16 @@ export default function LayoutsEditor( { field, updateField, expanded, setExpand
 									</span>
 								</button>
 								<DropdownMenu
-									icon="ellipsis"
+									icon={ uiIcon( 'ellipsis' ) }
 									label={
 										/* translators: %s: layout label */
 										sprintf( __( 'Actions for layout %s', 'custom-fields-meta-box' ), label )
 									}
 									controls={ [
-										{ title: __( 'Move up', 'custom-fields-meta-box' ), icon: 'arrow-up-alt', isDisabled: index === 0, onClick: () => moveLayout( index, -1 ) },
-										{ title: __( 'Move down', 'custom-fields-meta-box' ), icon: 'arrow-down-alt', isDisabled: index === layouts.length - 1, onClick: () => moveLayout( index, 1 ) },
-										{ title: __( 'Duplicate', 'custom-fields-meta-box' ), icon: 'admin-page', onClick: () => duplicate( index ) },
-										{ title: __( 'Delete', 'custom-fields-meta-box' ), icon: 'trash', onClick: () => remove( index ) },
+										{ title: __( 'Move up', 'custom-fields-meta-box' ), icon: uiIcon( 'arrow-up-alt' ), isDisabled: index === 0, onClick: () => moveLayout( index, -1 ) },
+										{ title: __( 'Move down', 'custom-fields-meta-box' ), icon: uiIcon( 'arrow-down-alt' ), isDisabled: index === layouts.length - 1, onClick: () => moveLayout( index, 1 ) },
+										{ title: __( 'Duplicate', 'custom-fields-meta-box' ), icon: uiIcon( 'admin-page' ), onClick: () => duplicate( index ) },
+										{ title: __( 'Delete', 'custom-fields-meta-box' ), icon: uiIcon( 'trash' ), onClick: () => remove( index ) },
 									] }
 								/>
 							</div>
@@ -185,7 +186,7 @@ export default function LayoutsEditor( { field, updateField, expanded, setExpand
 					);
 				} ) }
 			</ol>
-			<Button variant="secondary" size="compact" icon="plus-alt2" onClick={ add }>
+			<Button variant="secondary" size="compact" icon={ uiIcon( 'plus-alt2' ) } onClick={ add }>
 				{ __( 'Add layout', 'custom-fields-meta-box' ) }
 			</Button>
 		</div>

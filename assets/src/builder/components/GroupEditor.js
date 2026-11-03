@@ -15,6 +15,7 @@ import FieldBlockSettings from './FieldBlockSettings';
 import FieldList from './FieldList';
 import GroupSettings from './GroupSettings';
 import LocationEditor from './LocationEditor';
+import { uiIcon } from '../../shared/ui-icons';
 
 /**
  * Location to start a new group with. A link such as the empty state of an
@@ -252,7 +253,7 @@ export default function GroupEditor( { groupKey, navigate } ) {
 		<BuilderContext.Provider value={ builder }>
 		<div className="cfmb-editor">
 			<div className="cfmb-editor__bar">
-				<Button variant="tertiary" icon="arrow-left-alt2" onClick={ back }>
+				<Button variant="tertiary" icon={ uiIcon( 'arrow-left-alt2' ) } onClick={ back }>
 					{ __( 'All field groups', 'custom-fields-meta-box' ) }
 				</Button>
 				<div className="cfmb-editor__status" aria-live="polite">

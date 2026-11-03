@@ -5,6 +5,7 @@ import { useRef, useState } from '@wordpress/element';
 import { Button } from '@wordpress/components';
 import { __, sprintf } from '@wordpress/i18n';
 import { speak } from '@wordpress/a11y';
+import { uiIcon } from '../../shared/ui-icons';
 
 function toItem( attachment, previewSize ) {
 	const sizes = attachment.sizes || {};
@@ -94,11 +95,11 @@ export default function Gallery( { field, id, value, onChange, describedBy, obje
 						>
 							<img src={ item.preview || item.url } alt={ item.alt } />
 							<div className="cfmb-gallery__item-actions">
-								<Button size="small" icon="arrow-left-alt2" label={ __( 'Move earlier', 'custom-fields-meta-box' ) } disabled={ index === 0 } onClick={ () => move( index, index - 1 ) } />
-								<Button size="small" icon="arrow-right-alt2" label={ __( 'Move later', 'custom-fields-meta-box' ) } disabled={ index === items.length - 1 } onClick={ () => move( index, index + 1 ) } />
+								<Button size="small" icon={ uiIcon( 'arrow-left-alt2' ) } label={ __( 'Move earlier', 'custom-fields-meta-box' ) } disabled={ index === 0 } onClick={ () => move( index, index - 1 ) } />
+								<Button size="small" icon={ uiIcon( 'arrow-right-alt2' ) } label={ __( 'Move later', 'custom-fields-meta-box' ) } disabled={ index === items.length - 1 } onClick={ () => move( index, index + 1 ) } />
 								<Button
 									size="small"
-									icon="no-alt"
+									icon={ uiIcon( 'no-alt' ) }
 									isDestructive
 									label={
 										/* translators: %s: image title */
@@ -115,7 +116,7 @@ export default function Gallery( { field, id, value, onChange, describedBy, obje
 				</ul>
 			) }
 			<div className="cfmb-gallery__actions">
-				<Button id={ id } variant="secondary" icon="format-gallery" disabled={ max > 0 && items.length >= max } onClick={ open }>
+				<Button id={ id } variant="secondary" icon={ uiIcon( 'format-gallery' ) } disabled={ max > 0 && items.length >= max } onClick={ open }>
 					{ items.length ? __( 'Add more images', 'custom-fields-meta-box' ) : __( 'Add images', 'custom-fields-meta-box' ) }
 				</Button>
 				{ items.length > 0 && (

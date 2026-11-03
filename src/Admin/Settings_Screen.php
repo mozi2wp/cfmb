@@ -14,6 +14,17 @@ defined( 'ABSPATH' ) || exit;
  */
 class Settings_Screen {
 
+	/**
+	 * Icon per settings section.
+	 */
+	private const SECTION_ICONS = array(
+		'cfmb_fields'    => 'more-fields',
+		'cfmb_display'   => 'display',
+		'cfmb_sync'      => 'sync',
+		'cfmb_switching' => 'acf',
+		'cfmb_data'      => 'data',
+	);
+
 	public const SLUG   = 'cfmb-settings';
 	public const OPTION = 'cfmb_settings';
 
@@ -374,12 +385,49 @@ class Settings_Screen {
 			return;
 		}
 
-		echo '<div class="wrap">';
+		echo '<div class="wrap cfmb-screen cfmb-settings">';
+		echo '<div class="cfmb-screen__header">';
+		printf( '<span class="cfmb-screen__mark">%s</span>', Ui_Icons::svg( 'settings' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Ui_Icons::svg() runs wp_kses().
 		printf( '<h1>%s</h1>', esc_html__( 'CFMB Settings', 'custom-fields-meta-box' ) );
+		echo '</div>';
 		echo '<form method="post" action="options.php">';
 		settings_fields( self::SLUG );
-		do_settings_sections( self::SLUG );
+		$this->render_sections();
 		submit_button();
 		echo '</form></div>';
+	}
+
+	/**
+	 * Print each settings section as a card. Same output as
+	 * do_settings_sections(), with an icon and a wrapper per section.
+	 *
+	 * @return void
+	 */
+	private function render_sections(): void {
+		global $wp_settings_sections, $wp_settings_fields;
+
+		foreach ( (array) ( $wp_settings_sections[ self::SLUG ] ?? array() ) as $section ) {
+			$id = (string) $section['id'];
+
+			printf( '<section class="cfmb-card" aria-labelledby="%s-title">', esc_attr( $id ) );
+			printf(
+				'<h2 class="cfmb-card__title" id="%1$s-title"><span class="cfmb-icon">%2$s</span>%3$s</h2>',
+				esc_attr( $id ),
+				Ui_Icons::svg( self::SECTION_ICONS[ $id ] ?? 'settings', 20 ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Ui_Icons::svg() runs wp_kses().
+				esc_html( (string) $section['title'] )
+			);
+
+			if ( is_callable( $section['callback'] ) ) {
+				call_user_func( $section['callback'], $section );
+			}
+
+			if ( ! empty( $wp_settings_fields[ self::SLUG ][ $id ] ) ) {
+				echo '<table class="form-table" role="presentation">';
+				do_settings_fields( self::SLUG, $id );
+				echo '</table>';
+			}
+
+			echo '</section>';
+		}
 	}
 }

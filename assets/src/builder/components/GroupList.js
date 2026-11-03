@@ -26,6 +26,7 @@ function groupPlaces( group ) {
 	return group.location?.length ? `${ label }; ${ locationSummary( group.location ) }` : label;
 }
 import SourceBadge from './SourceBadge';
+import { uiIcon } from '../../shared/ui-icons';
 
 export default function GroupList( { navigate } ) {
 	const [ view, setView ] = useState( 'any' );
@@ -165,6 +166,9 @@ export default function GroupList( { navigate } ) {
 						<p>{ __( 'The trash is empty.', 'custom-fields-meta-box' ) }</p>
 					) : (
 						<>
+							<span className="cfmb-icon cfmb-empty__icon" aria-hidden="true">
+								{ uiIcon( 'groups' ) }
+							</span>
 							<h2>{ __( 'Create your first field group', 'custom-fields-meta-box' ) }</h2>
 							<p>
 								{ __( 'A field group is a set of fields, like Price and Gallery, shown on the screens you choose, such as every Product or the Contact page.', 'custom-fields-meta-box' ) }

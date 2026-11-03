@@ -3,7 +3,7 @@
  * settings, and for Group, Repeater and Stacks fields, their own fields.
  */
 import { useState } from '@wordpress/element';
-import { Button, Dashicon, DropdownMenu, SelectControl } from '@wordpress/components';
+import { Button, DropdownMenu, SelectControl } from '@wordpress/components';
 import { __, sprintf } from '@wordpress/i18n';
 import { typesByName } from '../config';
 import { useBuilder } from '../context';
@@ -12,6 +12,7 @@ import ConfirmModal from './ConfirmModal';
 import FieldList from './FieldList';
 import FieldSettings from './FieldSettings';
 import LayoutsEditor from './LayoutsEditor';
+import { typeIcon, uiIcon } from '../../shared/ui-icons';
 
 function MoveModal( { field, listId, onClose } ) {
 	const builder = useBuilder();
@@ -104,10 +105,13 @@ export default function FieldRow( {
 					aria-hidden="true"
 					{ ...dragHandlers.handle }
 				>
-					<Dashicon icon="menu" />
+					{ uiIcon( 'menu', 20 ) }
 				</span>
 				<button type="button" className="cfmb-field-row__toggle" aria-expanded={ isOpen } aria-controls={ bodyId } onClick={ onToggle }>
 					<span className="cfmb-field-row__order">{ index + 1 }</span>
+					<span className="cfmb-field-row__type-icon" aria-hidden="true">
+						{ typeIcon( field.type ) }
+					</span>
 					<span className="cfmb-field-row__label">
 						{ label }
 						{ field.required && (
@@ -115,7 +119,7 @@ export default function FieldRow( {
 								{ ' *' }
 							</span>
 						) }
-						{ field.conditions?.length > 0 && <Dashicon icon="randomize" className="cfmb-field-row__flag" /> }
+						{ field.conditions?.length > 0 && <span className="cfmb-field-row__flag" aria-hidden="true">{ uiIcon( 'randomize', 20 ) }</span> }
 					</span>
 					{ field.name && <code className="cfmb-field-row__name">{ field.name }</code> }
 					{ ( holdsFields( field ) || field.type === 'stacks' ) && (
@@ -128,20 +132,20 @@ export default function FieldRow( {
 						</span>
 					) }
 					<span className="cfmb-field-row__type">{ type?.label || field.type }</span>
-					<Dashicon icon={ isOpen ? 'arrow-up-alt2' : 'arrow-down-alt2' } className="cfmb-field-row__chevron" />
+					<span className="cfmb-field-row__chevron" aria-hidden="true">{ uiIcon( isOpen ? 'arrow-up-alt2' : 'arrow-down-alt2', 20 ) }</span>
 				</button>
 				<DropdownMenu
-					icon="ellipsis"
+					icon={ uiIcon( 'ellipsis' ) }
 					label={
 						/* translators: %s: field label */
 						sprintf( __( 'Actions for %s', 'custom-fields-meta-box' ), label )
 					}
 					controls={ [
-						{ title: __( 'Move up', 'custom-fields-meta-box' ), icon: 'arrow-up-alt', isDisabled: index === 0, onClick: () => onMove( -1 ) },
-						{ title: __( 'Move down', 'custom-fields-meta-box' ), icon: 'arrow-down-alt', isDisabled: index === count - 1, onClick: () => onMove( 1 ) },
-						{ title: __( 'Move to…', 'custom-fields-meta-box' ), icon: 'migrate', onClick: () => setMoving( true ) },
-						{ title: __( 'Duplicate', 'custom-fields-meta-box' ), icon: 'admin-page', onClick: onDuplicate },
-						{ title: __( 'Delete', 'custom-fields-meta-box' ), icon: 'trash', onClick: onRemove },
+						{ title: __( 'Move up', 'custom-fields-meta-box' ), icon: uiIcon( 'arrow-up-alt' ), isDisabled: index === 0, onClick: () => onMove( -1 ) },
+						{ title: __( 'Move down', 'custom-fields-meta-box' ), icon: uiIcon( 'arrow-down-alt' ), isDisabled: index === count - 1, onClick: () => onMove( 1 ) },
+						{ title: __( 'Move to…', 'custom-fields-meta-box' ), icon: uiIcon( 'migrate' ), onClick: () => setMoving( true ) },
+						{ title: __( 'Duplicate', 'custom-fields-meta-box' ), icon: uiIcon( 'admin-page' ), onClick: onDuplicate },
+						{ title: __( 'Delete', 'custom-fields-meta-box' ), icon: uiIcon( 'trash' ), onClick: onRemove },
 					] }
 				/>
 			</div>

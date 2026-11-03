@@ -8,6 +8,7 @@
 import { Button, DatePicker, DateTimePicker, Dropdown } from '@wordpress/components';
 import { dateI18n, getSettings } from '@wordpress/date';
 import { __ } from '@wordpress/i18n';
+import { uiIcon } from '../../shared/ui-icons';
 
 const pad = ( number ) => String( number ).padStart( 2, '0' );
 
@@ -88,7 +89,7 @@ export default function DateTime( props ) {
 					<Button
 						id={ id }
 						className="cfmb-datetime__toggle"
-						icon="calendar-alt"
+						icon={ uiIcon( 'calendar-alt' ) }
 						aria-expanded={ isOpen }
 						aria-describedby={ describedBy }
 						onClick={ onToggle }

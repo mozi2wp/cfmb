@@ -10,6 +10,7 @@ import { snackbar, syncNoteSnackbar } from '../../notices';
 import ConfirmModal from '../ConfirmModal';
 import ContentSettingControl from './ContentSettingControl';
 import { suggestName } from './labels';
+import { uiIcon } from '../../../shared/ui-icons';
 
 const common = { __nextHasNoMarginBottom: true };
 
@@ -239,7 +240,7 @@ export default function ContentEditor( { kind, itemKey, navigate } ) {
 	return (
 		<div className="cfmb-editor cfmb-content-editor">
 			<div className="cfmb-editor__bar">
-				<Button variant="tertiary" icon="arrow-left-alt2" onClick={ back }>
+				<Button variant="tertiary" icon={ uiIcon( 'arrow-left-alt2' ) } onClick={ back }>
 					{ sprintf(
 						/* translators: %s: plural kind name, e.g. Post Types */
 						__( 'All %s', 'custom-fields-meta-box' ),

@@ -464,7 +464,7 @@ final class Plugin {
 		$c->set( Assets::class, static fn() => new Assets() );
 		$c->set(
 			Menu::class,
-			static fn( Container $c ) => new Menu( $c->get( Builder_Screen::class ), $c->get( Settings_Screen::class ), new Go_Pro_Screen() )
+			static fn( Container $c ) => new Menu( $c->get( Builder_Screen::class ), $c->get( Settings_Screen::class ), new Go_Pro_Screen(), $c->get( Assets::class ) )
 		);
 		$c->set(
 			Builder_Screen::class,

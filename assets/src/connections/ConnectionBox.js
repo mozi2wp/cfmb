@@ -10,6 +10,7 @@ import { applyFilters } from '@wordpress/hooks';
 import apiFetch from '@wordpress/api-fetch';
 import { addQueryArgs } from '@wordpress/url';
 import { moveItem, toggleItem } from './list';
+import { uiIcon } from '../shared/ui-icons';
 
 const settings = window.cfmbConnections || {};
 
@@ -142,7 +143,7 @@ export default function ConnectionBox( { config } ) {
 									<>
 										<Button
 											size="small"
-											icon="arrow-up-alt2"
+											icon={ uiIcon( 'arrow-up-alt2' ) }
 											label={ __( 'Move up', 'custom-fields-meta-box' ) }
 											disabled={ index === 0 }
 											accessibleWhenDisabled
@@ -150,7 +151,7 @@ export default function ConnectionBox( { config } ) {
 										/>
 										<Button
 											size="small"
-											icon="arrow-down-alt2"
+											icon={ uiIcon( 'arrow-down-alt2' ) }
 											label={ __( 'Move down', 'custom-fields-meta-box' ) }
 											disabled={ index === selected.length - 1 }
 											accessibleWhenDisabled
@@ -160,7 +161,7 @@ export default function ConnectionBox( { config } ) {
 								) }
 								<Button
 									size="small"
-									icon="no-alt"
+									icon={ uiIcon( 'no-alt' ) }
 									isDestructive
 									label={ sprintf(
 										/* translators: %s: item title */

@@ -14,6 +14,7 @@ import { useRegistry } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 import { renderBlock } from './api';
 import { htmlToElements } from './preview';
+import { uiIcon } from '../shared/ui-icons';
 
 const CONVERT_DELAY = 350;
 const PREVIEW_DELAY = 250;
@@ -395,7 +396,7 @@ export default function createEdit( name, definition ) {
 		let canvas;
 		if ( definition.templateError && mode === 'preview' ) {
 			canvas = (
-				<Placeholder icon="warning" label={ __( 'Template missing', 'custom-fields-meta-box' ) } instructions={ definition.templateError } />
+				<Placeholder icon={ uiIcon( 'warning' ) } label={ __( 'Template missing', 'custom-fields-meta-box' ) } instructions={ definition.templateError } />
 			);
 		} else if ( mode === 'edit' ) {
 			canvas = (
@@ -418,7 +419,7 @@ export default function createEdit( name, definition ) {
 		} else if ( html.trim() === '' && ! definition.innerBlocks ) {
 			canvas = (
 				<Placeholder
-					icon="edit"
+					icon={ uiIcon( 'edit' ) }
 					label={ __( 'Nothing to show yet', 'custom-fields-meta-box' ) }
 					instructions={ __( 'Fill in the block\'s fields in the sidebar, or switch to editing the fields here.', 'custom-fields-meta-box' ) }
 				/>
@@ -432,7 +433,7 @@ export default function createEdit( name, definition ) {
 				<BlockControls>
 					<ToolbarGroup>
 						<ToolbarButton
-							icon={ mode === 'edit' ? 'visibility' : 'edit' }
+							icon={ uiIcon( mode === 'edit' ? 'visibility' : 'edit' ) }
 							label={ mode === 'edit' ? __( 'Show preview', 'custom-fields-meta-box' ) : __( 'Edit fields in the block', 'custom-fields-meta-box' ) }
 							onClick={ switchMode }
 							isPressed={ mode === 'edit' }

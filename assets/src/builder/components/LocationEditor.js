@@ -6,6 +6,7 @@ import { Button, Notice, SelectControl, Spinner, TextControl } from '@wordpress/
 import { __ } from '@wordpress/i18n';
 import config, { rulesByParam } from '../config';
 import { ruleChoices } from '../api';
+import { uiIcon } from '../../shared/ui-icons';
 
 const common = { __nextHasNoMarginBottom: true, __next40pxDefaultSize: true };
 
@@ -122,7 +123,7 @@ export default function LocationEditor( { location, onChange } ) {
 									onChange={ ( value ) => setRule( setIndex, ruleIndex, { value } ) }
 								/>
 								<Button
-									icon="no-alt"
+									icon={ uiIcon( 'no-alt' ) }
 									label={ __( 'Remove rule', 'custom-fields-meta-box' ) }
 									size="compact"
 									onClick={ () => update( ( list ) => list.map( ( item, s ) => ( s === setIndex ? item.filter( ( _, r ) => r !== ruleIndex ) : item ) ) ) }

@@ -17,7 +17,7 @@ class Assets {
 	/**
 	 * Bundles in build/.
 	 */
-	private const BUNDLES = array( 'builder', 'fields', 'map', 'blocks', 'bindings', 'connections', 'seo', 'location-watch' );
+	private const BUNDLES = array( 'builder', 'fields', 'map', 'blocks', 'bindings', 'connections', 'seo', 'location-watch', 'screens' );
 
 	/**
 	 * Handles a bundle needs besides the packages it imports.
@@ -74,7 +74,8 @@ class Assets {
 			wp_set_script_translations( $handle, 'custom-fields-meta-box' );
 
 			if ( file_exists( CFMB_DIR . "build/{$bundle}.css" ) ) {
-				wp_register_style( $handle, CFMB_URL . "build/{$bundle}.css", array( 'wp-components' ), $asset['version'] );
+				// The PHP screens use plain admin markup, so they skip the components stylesheet.
+				wp_register_style( $handle, CFMB_URL . "build/{$bundle}.css", 'screens' === $bundle ? array() : array( 'wp-components' ), $asset['version'] );
 
 				// wp-scripts writes an -rtl file; the styles use logical properties, so it is optional.
 				if ( file_exists( CFMB_DIR . "build/{$bundle}-rtl.css" ) ) {
@@ -82,6 +83,17 @@ class Assets {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Enqueue only the stylesheet of a bundle.
+	 *
+	 * @param string $bundle Bundle name.
+	 * @return void
+	 */
+	public function enqueue_style( string $bundle ): void {
+		$this->register_bundles();
+		wp_enqueue_style( "cfmb-{$bundle}" );
 	}
 
 	/**

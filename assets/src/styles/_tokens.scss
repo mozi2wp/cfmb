@@ -1,8 +1,12 @@
 /*
  * Design tokens. Plain custom properties so themes of the admin and add-ons
  * can read them. This file only uses CSS that Sass and browsers both accept.
+ *
+ * Declared on body too: WordPress sets the admin colour scheme's
+ * --wp-admin-theme-color on body, while :root keeps the components default.
  */
-:root {
+:root,
+body {
 	--cfmb-accent: var(--wp-admin-theme-color, #2271b1);
 	--cfmb-accent-darker: var(--wp-admin-theme-color-darker-10, #135e96);
 	--cfmb-text: #1e1e1e;
@@ -14,7 +18,10 @@
 	--cfmb-error: #d63638;
 	--cfmb-error-bg: #fcf0f1;
 	--cfmb-warning: #dba617;
+	--cfmb-accent-soft: color-mix(in srgb, var(--cfmb-accent) 10%, #fff);
 	--cfmb-radius: 4px;
+	--cfmb-radius-large: 8px;
+	--cfmb-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
 	--cfmb-gap: 16px;
 	--cfmb-gap-small: 8px;
 	--cfmb-ease-out: cubic-bezier(0.215, 0.61, 0.355, 1);
@@ -33,7 +40,26 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-	:root {
+	:root,
+	body {
 		--cfmb-duration: 0ms;
+	}
+}
+
+/* WordPress icons (assets/src/shared/ui-icons.js) inside our own spans. */
+.cfmb-icon,
+.cfmb-field-row__type-icon,
+.cfmb-field-row__handle,
+.cfmb-field-row__flag,
+.cfmb-field-row__chevron,
+.cfmb-row__handle,
+.cfmb-row__chevron {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex: 0 0 auto;
+
+	svg {
+		display: block;
 	}
 }

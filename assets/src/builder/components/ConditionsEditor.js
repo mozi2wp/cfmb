@@ -4,6 +4,7 @@
 import { Button, Notice, SelectControl, TextControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import config, { storesValue } from '../config';
+import { uiIcon } from '../../shared/ui-icons';
 
 const common = { __nextHasNoMarginBottom: true, __next40pxDefaultSize: true };
 
@@ -97,7 +98,7 @@ export default function ConditionsEditor( { field, siblings, onChange } ) {
 									<span className="cfmb-rules__spacer" />
 								) }
 								<Button
-									icon="no-alt"
+									icon={ uiIcon( 'no-alt' ) }
 									label={ __( 'Remove condition', 'custom-fields-meta-box' ) }
 									size="compact"
 									onClick={ () => update( ( list ) => list.map( ( item, s ) => ( s === setIndex ? item.filter( ( _, r ) => r !== ruleIndex ) : item ) ) ) }

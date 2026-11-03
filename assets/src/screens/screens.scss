@@ -1,0 +1,140 @@
+@import "../styles/tokens";
+
+/* Page header shared by the PHP screens. */
+.cfmb-screen {
+	max-width: 1080px;
+
+	&__header {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		margin: 8px 0 4px;
+
+		h1 {
+			margin: 0;
+			padding: 0;
+		}
+	}
+
+	&__mark {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 36px;
+		height: 36px;
+		border-radius: var(--cfmb-radius-large);
+		background: var(--cfmb-accent-soft);
+		color: var(--cfmb-accent);
+	}
+
+	&__intro {
+		color: var(--cfmb-muted);
+		font-size: 14px;
+		margin: 0 0 20px;
+		max-width: 720px;
+	}
+}
+
+/* A settings section or feature group as a card. */
+.cfmb-card {
+	background: var(--cfmb-surface);
+	border: 1px solid var(--cfmb-border-light);
+	border-radius: var(--cfmb-radius-large);
+	box-shadow: var(--cfmb-shadow);
+	margin: 0 0 var(--cfmb-gap);
+	padding: 4px 24px 8px;
+	animation: cfmb-appear var(--cfmb-duration) var(--cfmb-ease-out);
+
+	&__title {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		font-size: 15px;
+		margin: 16px 0 8px;
+
+		.cfmb-icon {
+			color: var(--cfmb-accent);
+		}
+	}
+
+	> p,
+	&__intro p {
+		color: var(--cfmb-muted);
+	}
+
+	.form-table {
+		margin-top: 0;
+
+		tr + tr {
+			border-top: 1px solid var(--cfmb-border-light);
+		}
+
+		th {
+			padding-inline-start: 0;
+		}
+	}
+
+	code {
+		border-radius: 2px;
+	}
+}
+
+.cfmb-settings .submit {
+	margin-top: 0;
+	padding-top: 4px;
+}
+
+/* Go Pro: feature groups in a grid. */
+.cfmb-go-pro {
+	&__grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+		gap: var(--cfmb-gap);
+		margin-bottom: 20px;
+	}
+
+	.cfmb-card {
+		margin: 0;
+		padding-bottom: 16px;
+	}
+
+	&__list {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+
+		li {
+			position: relative;
+			margin: 0 0 8px;
+			padding-inline-start: 18px;
+			color: var(--cfmb-text);
+			line-height: 1.5;
+
+			&::before {
+				content: "";
+				position: absolute;
+				inset-inline-start: 2px;
+				top: 0.6em;
+				width: 6px;
+				height: 6px;
+				border-radius: 50%;
+				background: var(--cfmb-accent);
+				opacity: 0.6;
+			}
+		}
+	}
+
+	&__footer {
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: 12px;
+		color: var(--cfmb-muted);
+	}
+}
+
+@media (max-width: 782px) {
+	.cfmb-card {
+		padding: 4px 16px 8px;
+	}
+}
