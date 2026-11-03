@@ -131,6 +131,7 @@ const body = `/**
  * bin/build-ui-icons.js from assets/icons/wordpress.json (@wordpress/icons,
  * GPL-2.0-or-later). Do not edit by hand.
  */
+/* eslint-disable prettier/prettier -- Generated; rebuilt on every npm run build. */
 import { createElement } from '@wordpress/element';
 
 const ICONS = ${ JSON.stringify( icons ) };
