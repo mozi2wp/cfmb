@@ -27,8 +27,8 @@ export default function locationSummary( location ) {
 					rule.value
 				);
 			} )
-			.join( __( ' and ', 'custom-fields-meta-box' ) )
+			.join( ` ${ __( 'and', 'custom-fields-meta-box' ) } ` )
 	);
 
-	return sets.join( __( ' or ', 'custom-fields-meta-box' ) );
+	return sets.join( ` ${ __( 'or', 'custom-fields-meta-box' ) } ` );
 }

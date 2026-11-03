@@ -49,6 +49,7 @@ function CheckboxesControl( { setting, value, onChange, options } ) {
 		);
 
 	return (
+		// eslint-disable-next-line @wordpress/no-base-control-with-label-without-id -- A label for a group of controls; each control has its own label.
 		<BaseControl
 			{ ...common }
 			label={ setting.label }

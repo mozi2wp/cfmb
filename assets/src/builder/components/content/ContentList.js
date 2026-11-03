@@ -119,7 +119,7 @@ export default function ContentList( { kind, navigate } ) {
 			/* translators: %s: title */
 			snackbar(
 				sprintf(
-					__(
+					/* translators: %s: item title */ __(
 						'"%s" imported. You can edit it here now.',
 						'custom-fields-meta-box'
 					),
@@ -137,7 +137,7 @@ export default function ContentList( { kind, navigate } ) {
 			snackbar(
 				/* translators: %s: title */
 				sprintf(
-					__(
+					/* translators: %s: item title */ __(
 						'"%s" moved to the trash. Its content stays in the database.',
 						'custom-fields-meta-box'
 					),
@@ -165,7 +165,7 @@ export default function ContentList( { kind, navigate } ) {
 			/* translators: %s: title */
 			snackbar(
 				sprintf(
-					__( '"%s" restored.', 'custom-fields-meta-box' ),
+					/* translators: %s: item title */ __( '"%s" restored.', 'custom-fields-meta-box' ),
 					item.title
 				)
 			);
@@ -181,7 +181,7 @@ export default function ContentList( { kind, navigate } ) {
 			/* translators: %s: title */
 			snackbar(
 				sprintf(
-					__( '"%s" deleted.', 'custom-fields-meta-box' ),
+					/* translators: %s: item title */ __( '"%s" deleted.', 'custom-fields-meta-box' ),
 					item.title
 				)
 			);
@@ -419,7 +419,7 @@ export default function ContentList( { kind, navigate } ) {
 											aria-label={
 												/* translators: %s: title */
 												sprintf(
-													__(
+													/* translators: %s: item title */ __(
 														'Turn "%s" on',
 														'custom-fields-meta-box'
 													),

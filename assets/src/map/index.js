@@ -391,7 +391,7 @@ function MapView( { field, id, place, onPlace } ) {
 				/* translators: %s: address */
 				speak(
 					sprintf(
-						__( 'Address set to %s.', 'custom-fields-meta-box' ),
+						/* translators: %s: address */ __( 'Address set to %s.', 'custom-fields-meta-box' ),
 						address
 					)
 				);

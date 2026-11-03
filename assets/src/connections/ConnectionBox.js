@@ -138,7 +138,7 @@ export default function ConnectionBox( { config } ) {
 		setSelected( next );
 		/* translators: %s: item title */
 		speak(
-			sprintf( __( '%s linked.', 'custom-fields-meta-box' ), item.title )
+			sprintf( /* translators: %s: item title */ __( '%s linked.', 'custom-fields-meta-box' ), item.title )
 		);
 	};
 
@@ -147,7 +147,7 @@ export default function ConnectionBox( { config } ) {
 		/* translators: %s: item title */
 		speak(
 			sprintf(
-				__( '%s unlinked.', 'custom-fields-meta-box' ),
+				/* translators: %s: item title */ __( '%s unlinked.', 'custom-fields-meta-box' ),
 				item.title
 			)
 		);

@@ -20,6 +20,7 @@ function LabelsControl( { setting, value, onChange, singular, plural } ) {
 	const entries = Object.entries( setting.labels || {} );
 
 	return (
+		// eslint-disable-next-line @wordpress/no-base-control-with-label-without-id -- A label for a group of controls; each control has its own label.
 		<BaseControl
 			{ ...common }
 			label={ setting.label }
@@ -104,6 +105,7 @@ function FreeCheckboxes( { setting, value, onChange } ) {
 	} );
 
 	return (
+		// eslint-disable-next-line @wordpress/no-base-control-with-label-without-id -- A label for a group of controls; each control has its own label.
 		<BaseControl
 			{ ...common }
 			label={ setting.label }

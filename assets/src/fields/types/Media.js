@@ -160,7 +160,7 @@ export default function Media( {
 						speak(
 							/* translators: %s: field label */
 							sprintf(
-								__( '%s removed.', 'custom-fields-meta-box' ),
+								/* translators: %s: field label */ __( '%s removed.', 'custom-fields-meta-box' ),
 								field.label
 							)
 						);

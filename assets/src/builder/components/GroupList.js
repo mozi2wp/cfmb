@@ -31,7 +31,7 @@ function groupPlaces( group ) {
 	}
 	/* translators: %s: block name */
 	const label = sprintf(
-		__( 'Field Block cfmb/%s', 'custom-fields-meta-box' ),
+		/* translators: %s: block name */ __( 'Field Block cfmb/%s', 'custom-fields-meta-box' ),
 		block.name
 	);
 	return group.location?.length
@@ -130,7 +130,7 @@ export default function GroupList( { navigate } ) {
 			snackbar(
 				/* translators: %s: field group title */
 				sprintf(
-					__( '"%s" moved to the trash.', 'custom-fields-meta-box' ),
+					/* translators: %s: group title */ __( '"%s" moved to the trash.', 'custom-fields-meta-box' ),
 					group.title
 				),
 				[
@@ -155,7 +155,7 @@ export default function GroupList( { navigate } ) {
 			/* translators: %s: field group title */
 			snackbar(
 				sprintf(
-					__( '"%s" restored.', 'custom-fields-meta-box' ),
+					/* translators: %s: group title */ __( '"%s" restored.', 'custom-fields-meta-box' ),
 					group.title
 				)
 			);
@@ -173,7 +173,7 @@ export default function GroupList( { navigate } ) {
 			/* translators: %s: field group title */
 			snackbar(
 				sprintf(
-					__(
+					/* translators: %s: group title */ __(
 						'"%s" imported. You can edit it here now.',
 						'custom-fields-meta-box'
 					),
@@ -192,7 +192,7 @@ export default function GroupList( { navigate } ) {
 			/* translators: %s: field group title */
 			snackbar(
 				sprintf(
-					__( '"%s" deleted.', 'custom-fields-meta-box' ),
+					/* translators: %s: group title */ __( '"%s" deleted.', 'custom-fields-meta-box' ),
 					group.title
 				)
 			);
@@ -481,7 +481,7 @@ export default function GroupList( { navigate } ) {
 											aria-label={
 												/* translators: %s: field group title */
 												sprintf(
-													__(
+													/* translators: %s: group title */ __(
 														'Show "%s" on edit screens',
 														'custom-fields-meta-box'
 													),

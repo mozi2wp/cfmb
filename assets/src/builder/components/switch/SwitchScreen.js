@@ -70,7 +70,7 @@ function Item( { item, picked, onToggle } ) {
 		/* translators: %d: number of fields */
 		detail.push(
 			sprintf(
-				_n(
+				/* translators: %d: fields */ _n(
 					'%d field',
 					'%d fields',
 					item.fields,
@@ -489,7 +489,7 @@ export default function SwitchScreen() {
 			/* translators: %d: number of definitions */
 			snackbar(
 				sprintf(
-					_n(
+					/* translators: %d: created */ _n(
 						'Imported %d definition.',
 						'Imported %d definitions.',
 						run.created,

@@ -109,7 +109,7 @@ function typeError( field, value, enforceRequired ) {
 			) {
 				/* translators: %s: minimum allowed number */
 				return sprintf(
-					__(
+					/* translators: %s: min */ __(
 						'Enter a number of %s or more.',
 						'custom-fields-meta-box'
 					),
@@ -123,7 +123,7 @@ function typeError( field, value, enforceRequired ) {
 			) {
 				/* translators: %s: maximum allowed number */
 				return sprintf(
-					__(
+					/* translators: %s: max */ __(
 						'Enter a number of %s or less.',
 						'custom-fields-meta-box'
 					),
@@ -148,7 +148,7 @@ function typeError( field, value, enforceRequired ) {
 			if ( min && String( value ) < min ) {
 				/* translators: %s: earliest allowed date */
 				return sprintf(
-					__(
+					/* translators: %s: value */ __(
 						'Choose a date on or after %s.',
 						'custom-fields-meta-box'
 					),
@@ -158,7 +158,7 @@ function typeError( field, value, enforceRequired ) {
 			if ( max && String( value ) > max ) {
 				/* translators: %s: latest allowed date */
 				return sprintf(
-					__(
+					/* translators: %s: value */ __(
 						'Choose a date on or before %s.',
 						'custom-fields-meta-box'
 					),
@@ -256,7 +256,7 @@ function rowsError( field, value, enforceRequired ) {
 	) {
 		/* translators: %d: minimum number of rows */
 		return sprintf(
-			_n(
+			/* translators: %d: min */ _n(
 				'Add at least %d row.',
 				'Add at least %d rows.',
 				min,
@@ -268,7 +268,7 @@ function rowsError( field, value, enforceRequired ) {
 	if ( max > 0 && rows.length > max ) {
 		/* translators: %d: maximum number of rows */
 		return sprintf(
-			_n(
+			/* translators: %d: max */ _n(
 				'Use %d row or fewer.',
 				'Use %d rows or fewer.',
 				max,

@@ -174,7 +174,7 @@ export default function FieldList( {
 			/* translators: %s: field label */
 			label: source.label
 				? sprintf(
-						__( '%s (copy)', 'custom-fields-meta-box' ),
+						/* translators: %s: source label */ __( '%s (copy)', 'custom-fields-meta-box' ),
 						source.label
 				  )
 				: '',
@@ -200,7 +200,7 @@ export default function FieldList( {
 		snackbar(
 			/* translators: %s: field label */
 			sprintf(
-				__(
+				/* translators: %s: value */ __(
 					'"%s" removed. Save to make it final.',
 					'custom-fields-meta-box'
 				),

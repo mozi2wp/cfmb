@@ -81,7 +81,7 @@ export default function Gallery( {
 		/* translators: %d: new position */
 		speak(
 			sprintf(
-				__( 'Image moved to position %d.', 'custom-fields-meta-box' ),
+				/* translators: %d: new position number */ __( 'Image moved to position %d.', 'custom-fields-meta-box' ),
 				to + 1
 			)
 		);
@@ -150,7 +150,7 @@ export default function Gallery( {
 									label={
 										/* translators: %s: image title */
 										sprintf(
-											__(
+											/* translators: %s: value */ __(
 												'Remove %s',
 												'custom-fields-meta-box'
 											),

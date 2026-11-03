@@ -178,7 +178,7 @@ export default function AsyncPicker( {
 		setActive( -1 );
 		/* translators: %s: chosen item title */
 		speak(
-			sprintf( __( '%s chosen.', 'custom-fields-meta-box' ), item.title )
+			sprintf( /* translators: %s: item title */ __( '%s chosen.', 'custom-fields-meta-box' ), item.title )
 		);
 	};
 
@@ -190,7 +190,7 @@ export default function AsyncPicker( {
 		);
 		/* translators: %s: removed item title */
 		speak(
-			sprintf( __( '%s removed.', 'custom-fields-meta-box' ), item.title )
+			sprintf( /* translators: %s: item title */ __( '%s removed.', 'custom-fields-meta-box' ), item.title )
 		);
 	};
 
@@ -270,7 +270,7 @@ export default function AsyncPicker( {
 									label={
 										/* translators: %s: item title */
 										sprintf(
-											__(
+											/* translators: %s: item title */ __(
 												'Remove %s',
 												'custom-fields-meta-box'
 											),
@@ -326,6 +326,7 @@ export default function AsyncPicker( {
 							) }
 						>
 							{ options.map( ( item, index ) => (
+								// eslint-disable-next-line jsx-a11y/click-events-have-key-events -- Arrow keys and Enter are handled on the combobox input.
 								<li
 									key={ item.id }
 									id={ `${ listId }-${ item.id }` }

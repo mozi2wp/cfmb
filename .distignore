@@ -22,3 +22,4 @@
 /phpstan-baseline.neon
 /.wordpress-org
 /.gitattributes
+/.eslintrc.js

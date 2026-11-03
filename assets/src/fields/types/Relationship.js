@@ -60,7 +60,7 @@ export default function Relationship( {
 		onChange( [ ...selected, item ] );
 		/* translators: %s: post title */
 		speak(
-			sprintf( __( '%s added.', 'custom-fields-meta-box' ), item.title )
+			sprintf( /* translators: %s: item title */ __( '%s added.', 'custom-fields-meta-box' ), item.title )
 		);
 	};
 
@@ -68,7 +68,7 @@ export default function Relationship( {
 		onChange( selected.filter( ( other ) => other.id !== item.id ) );
 		/* translators: %s: post title */
 		speak(
-			sprintf( __( '%s removed.', 'custom-fields-meta-box' ), item.title )
+			sprintf( /* translators: %s: item title */ __( '%s removed.', 'custom-fields-meta-box' ), item.title )
 		);
 	};
 
@@ -287,7 +287,7 @@ export default function Relationship( {
 									label={
 										/* translators: %s: post title */
 										sprintf(
-											__(
+											/* translators: %s: item title */ __(
 												'Remove %s',
 												'custom-fields-meta-box'
 											),

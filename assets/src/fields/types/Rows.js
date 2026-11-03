@@ -355,7 +355,7 @@ export default function Rows( { field, value, onChange, path, id } ) {
 		/* translators: %d: new row position */
 		speak(
 			sprintf(
-				__( 'Row moved to position %d.', 'custom-fields-meta-box' ),
+				/* translators: %d: new position number */ __( 'Row moved to position %d.', 'custom-fields-meta-box' ),
 				to + 1
 			)
 		);
@@ -577,7 +577,7 @@ export default function Rows( { field, value, onChange, path, id } ) {
 						label={
 							/* translators: %s: row label, like "Row 2" */
 							sprintf(
-								__(
+								/* translators: %s: label */ __(
 									'Actions for %s',
 									'custom-fields-meta-box'
 								),
