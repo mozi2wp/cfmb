@@ -92,9 +92,9 @@ class Oxygen {
 		}
 
 		$labels = array(
-			'cfmb_field' => __( 'CFMB Field', 'cfmb' ),
-			'cfmb_url'   => __( 'CFMB URL', 'cfmb' ),
-			'cfmb_image' => __( 'CFMB Image', 'cfmb' ),
+			'cfmb_field' => __( 'CFMB Field', 'custom-fields-meta-box' ),
+			'cfmb_url'   => __( 'CFMB URL', 'custom-fields-meta-box' ),
+			'cfmb_image' => __( 'CFMB Image', 'custom-fields-meta-box' ),
 		);
 
 		foreach ( self::ENTRIES as $data => $entry ) {
@@ -107,7 +107,7 @@ class Oxygen {
 			$dynamic_data[] = array(
 				'name'       => $labels[ $data ],
 				'mode'       => $entry[0],
-				'position'   => __( 'CFMB', 'cfmb' ),
+				'position'   => __( 'CFMB', 'custom-fields-meta-box' ),
 				'data'       => $data,
 				'handler'    => array( $this, 'handle_' . substr( $data, 5 ) ),
 				'properties' => $this->properties( $entry[1], $choices ),
@@ -200,21 +200,21 @@ class Oxygen {
 	private function properties( string $kind, array $choices ): array {
 		$properties = array(
 			array(
-				'name'    => __( 'Field', 'cfmb' ),
+				'name'    => __( 'Field', 'custom-fields-meta-box' ),
 				'data'    => 'field',
 				'type'    => 'select',
 				'options' => $choices,
 				'nullval' => '',
 			),
 			array(
-				'name'    => __( 'Read from', 'cfmb' ),
+				'name'    => __( 'Read from', 'custom-fields-meta-box' ),
 				'data'    => 'source',
 				'type'    => 'select',
 				'options' => Field_Catalog::sources(),
 				'nullval' => '',
 			),
 			array(
-				'name' => __( 'Object (options page ID, post_12, term_5, user_3)', 'cfmb' ),
+				'name' => __( 'Object (options page ID, post_12, term_5, user_3)', 'custom-fields-meta-box' ),
 				'data' => 'object',
 				'type' => 'text',
 			),
@@ -222,7 +222,7 @@ class Oxygen {
 
 		if ( 'text' === $kind ) {
 			$properties[] = array(
-				'name' => __( 'Date format for date fields (PHP)', 'cfmb' ),
+				'name' => __( 'Date format for date fields (PHP)', 'custom-fields-meta-box' ),
 				'data' => 'format',
 				'type' => 'text',
 			);
@@ -230,7 +230,7 @@ class Oxygen {
 
 		if ( 'text' !== $kind ) {
 			$properties[] = array(
-				'name' => __( 'Image size', 'cfmb' ),
+				'name' => __( 'Image size', 'custom-fields-meta-box' ),
 				'data' => 'size',
 				'type' => 'text',
 			);

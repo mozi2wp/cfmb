@@ -32,7 +32,7 @@ class File_Field extends Abstract_Field {
 	 * @return string
 	 */
 	public function label(): string {
-		return __( 'File', 'cfmb' );
+		return __( 'File', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -55,12 +55,12 @@ class File_Field extends Abstract_Field {
 			$this->library_setting(),
 			$this->setting(
 				'mime_types',
-				__( 'Allowed file types', 'cfmb' ),
+				__( 'Allowed file types', 'custom-fields-meta-box' ),
 				'text',
 				'',
 				array(
 					'advanced' => true,
-					'help'     => __( 'Comma-separated extensions, like pdf, docx. Leave empty to allow all.', 'cfmb' ),
+					'help'     => __( 'Comma-separated extensions, like pdf, docx. Leave empty to allow all.', 'custom-fields-meta-box' ),
 				)
 			),
 		);
@@ -96,7 +96,7 @@ class File_Field extends Abstract_Field {
 		}
 
 		if ( 'attachment' !== get_post_type( (int) $value ) ) {
-			return __( 'That file is no longer in the media library. Choose another one.', 'cfmb' );
+			return __( 'That file is no longer in the media library. Choose another one.', 'custom-fields-meta-box' );
 		}
 
 		$allowed = $this->allowed_extensions( $field );
@@ -105,7 +105,7 @@ class File_Field extends Abstract_Field {
 
 			if ( ! in_array( $extension, $allowed, true ) ) {
 				/* translators: %s: comma-separated list of file extensions */
-				return sprintf( __( 'Choose a file of one of these types: %s.', 'cfmb' ), implode( ', ', $allowed ) );
+				return sprintf( __( 'Choose a file of one of these types: %s.', 'custom-fields-meta-box' ), implode( ', ', $allowed ) );
 			}
 		}
 
@@ -249,16 +249,16 @@ class File_Field extends Abstract_Field {
 	protected function return_format_setting(): array {
 		return $this->setting(
 			'return_format',
-			__( 'Template value', 'cfmb' ),
+			__( 'Template value', 'custom-fields-meta-box' ),
 			'select',
 			'array',
 			array(
 				'options' => array(
-					'array' => __( 'Details array', 'cfmb' ),
-					'url'   => __( 'URL', 'cfmb' ),
-					'id'    => __( 'Attachment ID', 'cfmb' ),
+					'array' => __( 'Details array', 'custom-fields-meta-box' ),
+					'url'   => __( 'URL', 'custom-fields-meta-box' ),
+					'id'    => __( 'Attachment ID', 'custom-fields-meta-box' ),
 				),
-				'help'    => __( 'What cfmb_get_field() returns for this field.', 'cfmb' ),
+				'help'    => __( 'What cfmb_get_field() returns for this field.', 'custom-fields-meta-box' ),
 			)
 		);
 	}
@@ -271,13 +271,13 @@ class File_Field extends Abstract_Field {
 	protected function library_setting(): array {
 		return $this->setting(
 			'library',
-			__( 'Media library', 'cfmb' ),
+			__( 'Media library', 'custom-fields-meta-box' ),
 			'select',
 			'all',
 			array(
 				'options' => array(
-					'all'      => __( 'All files', 'cfmb' ),
-					'uploaded' => __( 'Uploaded to this post', 'cfmb' ),
+					'all'      => __( 'All files', 'custom-fields-meta-box' ),
+					'uploaded' => __( 'Uploaded to this post', 'custom-fields-meta-box' ),
 				),
 			)
 		);

@@ -32,7 +32,7 @@ class Message_Field extends Abstract_Field {
 	 * @return string
 	 */
 	public function label(): string {
-		return __( 'Message', 'cfmb' );
+		return __( 'Message', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -51,7 +51,7 @@ class Message_Field extends Abstract_Field {
 	 */
 	public function settings_schema(): array {
 		return array(
-			$this->setting( 'message', __( 'Message', 'cfmb' ), 'html', '', array( 'help' => __( 'Basic HTML is allowed.', 'cfmb' ) ) ),
+			$this->setting( 'message', __( 'Message', 'custom-fields-meta-box' ), 'html', '', array( 'help' => __( 'Basic HTML is allowed.', 'custom-fields-meta-box' ) ) ),
 		);
 	}
 

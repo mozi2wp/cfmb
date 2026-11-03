@@ -228,7 +228,7 @@ abstract class Abstract_Field implements Field_Type {
 	 */
 	protected function scalar_text( $value ): string {
 		if ( is_bool( $value ) ) {
-			return $value ? __( 'Yes', 'cfmb' ) : __( 'No', 'cfmb' );
+			return $value ? __( 'Yes', 'custom-fields-meta-box' ) : __( 'No', 'custom-fields-meta-box' );
 		}
 
 		return is_scalar( $value ) ? (string) $value : '';

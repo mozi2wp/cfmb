@@ -32,7 +32,7 @@ class Tab_Field extends Abstract_Field {
 	 * @return string
 	 */
 	public function label(): string {
-		return __( 'Tab', 'cfmb' );
+		return __( 'Tab', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -53,15 +53,15 @@ class Tab_Field extends Abstract_Field {
 		return array(
 			$this->setting(
 				'placement',
-				__( 'Tab position', 'cfmb' ),
+				__( 'Tab position', 'custom-fields-meta-box' ),
 				'select',
 				'top',
 				array(
 					'options' => array(
-						'top'  => __( 'Top', 'cfmb' ),
-						'left' => __( 'Left', 'cfmb' ),
+						'top'  => __( 'Top', 'custom-fields-meta-box' ),
+						'left' => __( 'Left', 'custom-fields-meta-box' ),
 					),
-					'help'    => __( 'The first tab in a group sets the position for all its tabs.', 'cfmb' ),
+					'help'    => __( 'The first tab in a group sets the position for all its tabs.', 'custom-fields-meta-box' ),
 				)
 			),
 		);

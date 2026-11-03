@@ -32,9 +32,9 @@ class Field_Loop_Module extends FLBuilderModule {
 	public function __construct() {
 		parent::__construct(
 			array(
-				'name'            => __( 'Field Loop', 'cfmb' ),
-				'description'     => __( 'Repeat a saved row for each Repeater row, gallery image or linked post.', 'cfmb' ),
-				'category'        => __( 'CFMB', 'cfmb' ),
+				'name'            => __( 'Field Loop', 'custom-fields-meta-box' ),
+				'description'     => __( 'Repeat a saved row for each Repeater row, gallery image or linked post.', 'custom-fields-meta-box' ),
+				'category'        => __( 'CFMB', 'custom-fields-meta-box' ),
 				'dir'             => CFMB_DIR . 'src/Integrations/Beaver/field-loop/',
 				'url'             => CFMB_URL . 'src/Integrations/Beaver/field-loop/',
 				'partial_refresh' => true,
@@ -52,20 +52,20 @@ class Field_Loop_Module extends FLBuilderModule {
 
 		return array(
 			'general' => array(
-				'title'    => __( 'Loop', 'cfmb' ),
+				'title'    => __( 'Loop', 'custom-fields-meta-box' ),
 				'sections' => array(
 					'loop'   => array(
 						'title'  => '',
 						'fields' => array(
 							'cfmb_field'    => array(
 								'type'    => 'select',
-								'label'   => __( 'Loop over', 'cfmb' ),
+								'label'   => __( 'Loop over', 'custom-fields-meta-box' ),
 								'default' => '',
-								'options' => array( '' => __( '— Choose a field —', 'cfmb' ) ) + $catalog->flat( 'loop' ),
+								'options' => array( '' => __( '— Choose a field —', 'custom-fields-meta-box' ) ) + $catalog->flat( 'loop' ),
 							),
 							'cfmb_source'   => array(
 								'type'    => 'select',
-								'label'   => __( 'Read from', 'cfmb' ),
+								'label'   => __( 'Read from', 'custom-fields-meta-box' ),
 								'default' => '',
 								'options' => Field_Catalog::sources(),
 								'toggle'  => array(
@@ -75,52 +75,52 @@ class Field_Loop_Module extends FLBuilderModule {
 							),
 							'cfmb_object'   => array(
 								'type'        => 'text',
-								'label'       => __( 'Object', 'cfmb' ),
-								'description' => __( 'Options page ID, or post_12, term_5, user_3.', 'cfmb' ),
+								'label'       => __( 'Object', 'custom-fields-meta-box' ),
+								'description' => __( 'Options page ID, or post_12, term_5, user_3.', 'custom-fields-meta-box' ),
 							),
 							'cfmb_template' => array(
 								'type'        => 'select',
-								'label'       => __( 'Saved row or layout', 'cfmb' ),
+								'label'       => __( 'Saved row or layout', 'custom-fields-meta-box' ),
 								'default'     => '',
-								'options'     => array( '' => __( '— Choose a template —', 'cfmb' ) ) + self::templates(),
-								'description' => __( 'Shown once per item. Save a row from its settings menu to use it here.', 'cfmb' ),
+								'options'     => array( '' => __( '— Choose a template —', 'custom-fields-meta-box' ) ) + self::templates(),
+								'description' => __( 'Shown once per item. Save a row from its settings menu to use it here.', 'custom-fields-meta-box' ),
 							),
 							'cfmb_layouts'  => array(
 								'type'        => 'text',
-								'label'       => __( 'Only these Stacks layouts', 'cfmb' ),
-								'description' => __( 'Layout names, separated by commas. Leave empty for all.', 'cfmb' ),
+								'label'       => __( 'Only these Stacks layouts', 'custom-fields-meta-box' ),
+								'description' => __( 'Layout names, separated by commas. Leave empty for all.', 'custom-fields-meta-box' ),
 							),
 							'cfmb_limit'    => array(
 								'type'        => 'unit',
-								'label'       => __( 'Number of items', 'cfmb' ),
+								'label'       => __( 'Number of items', 'custom-fields-meta-box' ),
 								'default'     => '0',
-								'description' => __( '0 shows all.', 'cfmb' ),
+								'description' => __( '0 shows all.', 'custom-fields-meta-box' ),
 							),
 							'cfmb_offset'   => array(
 								'type'    => 'unit',
-								'label'   => __( 'Skip first', 'cfmb' ),
+								'label'   => __( 'Skip first', 'custom-fields-meta-box' ),
 								'default' => '0',
 							),
 							'cfmb_empty'    => array(
 								'type'  => 'text',
-								'label' => __( 'Text when there are no items', 'cfmb' ),
+								'label' => __( 'Text when there are no items', 'custom-fields-meta-box' ),
 							),
 						),
 					),
 					'layout' => array(
-						'title'  => __( 'Layout', 'cfmb' ),
+						'title'  => __( 'Layout', 'custom-fields-meta-box' ),
 						'fields' => array(
 							'cfmb_columns' => array(
 								'type'    => 'select',
-								'label'   => __( 'Columns', 'cfmb' ),
+								'label'   => __( 'Columns', 'custom-fields-meta-box' ),
 								'default' => '1',
 								'options' => array_combine( array( '1', '2', '3', '4', '5', '6' ), array( '1', '2', '3', '4', '5', '6' ) ),
 							),
 							'cfmb_gap'     => array(
 								'type'        => 'text',
-								'label'       => __( 'Gap', 'cfmb' ),
+								'label'       => __( 'Gap', 'custom-fields-meta-box' ),
 								'default'     => '20px',
-								'description' => __( 'A CSS length such as 20px or 1.5em.', 'cfmb' ),
+								'description' => __( 'A CSS length such as 20px or 1.5em.', 'custom-fields-meta-box' ),
 							),
 						),
 					),
@@ -140,7 +140,7 @@ class Field_Loop_Module extends FLBuilderModule {
 		$editing  = class_exists( 'FLBuilderModel' ) && FLBuilderModel::is_builder_active();
 
 		if ( ! $template ) {
-			return $editing ? Loop_Markup::notice( __( 'Choose a field and a saved row to show here.', 'cfmb' ) ) : '';
+			return $editing ? Loop_Markup::notice( __( 'Choose a field and a saved row to show here.', 'custom-fields-meta-box' ) ) : '';
 		}
 
 		$loops = cfmb()->get( Loop_Items::class );
@@ -197,7 +197,7 @@ class Field_Loop_Module extends FLBuilderModule {
 			array(
 				'post_type'      => 'fl-builder-template',
 				'post_status'    => 'publish',
-				'posts_per_page' => 200,
+				'posts_per_page' => 200, // phpcs:ignore WordPress.WP.PostsPerPage.posts_per_page_posts_per_page -- Template picker in the builder; one query of IDs and titles.
 				'orderby'        => 'title',
 				'order'          => 'ASC',
 				'no_found_rows'  => true,

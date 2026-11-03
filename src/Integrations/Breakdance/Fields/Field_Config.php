@@ -64,7 +64,7 @@ trait Field_Config {
 	 * Constructor.
 	 *
 	 * @param array{path: string, label: string, group: string, object: string, slug: string} $config Field setup.
-	 * @param Tag_Values                                                                       $values Values.
+	 * @param Tag_Values                                                                      $values Values.
 	 */
 	public function __construct( array $config, Tag_Values $values ) {
 		$this->path   = $config['path'];
@@ -90,7 +90,7 @@ trait Field_Config {
 	 * @return string
 	 */
 	public function category(): string {
-		return __( 'CFMB', 'cfmb' );
+		return __( 'CFMB', 'custom-fields-meta-box' );
 	}
 
 	/**

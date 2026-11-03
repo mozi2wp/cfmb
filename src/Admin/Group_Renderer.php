@@ -217,7 +217,7 @@ class Group_Renderer {
 
 		printf(
 			'<div class="cfmb-group__root"><p class="cfmb-group__loading">%s</p></div>',
-			esc_html__( 'Loading fields…', 'cfmb' )
+			esc_html__( 'Loading fields…', 'custom-fields-meta-box' )
 		);
 
 		echo '</div>';

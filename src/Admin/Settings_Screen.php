@@ -7,8 +7,6 @@
 
 namespace CFMB\Admin;
 
-use CFMB\Compat\Compat_Mode;
-
 defined( 'ABSPATH' ) || exit;
 
 /**
@@ -54,11 +52,11 @@ class Settings_Screen {
 			)
 		);
 
-		add_settings_section( 'cfmb_fields', __( 'Fields', 'cfmb' ), '__return_false', self::SLUG );
+		add_settings_section( 'cfmb_fields', __( 'Fields', 'custom-fields-meta-box' ), '__return_false', self::SLUG );
 
 		add_settings_field(
 			'map_provider',
-			__( 'Map fields', 'cfmb' ),
+			__( 'Map fields', 'custom-fields-meta-box' ),
 			array( $this, 'render_map_provider_field' ),
 			self::SLUG,
 			'cfmb_fields'
@@ -66,7 +64,7 @@ class Settings_Screen {
 
 		add_settings_field(
 			'map_google_key',
-			__( 'Google Maps API key', 'cfmb' ),
+			__( 'Google Maps API key', 'custom-fields-meta-box' ),
 			array( $this, 'render_google_key_field' ),
 			self::SLUG,
 			'cfmb_fields',
@@ -75,7 +73,7 @@ class Settings_Screen {
 
 		add_settings_field(
 			'map_google_map_id',
-			__( 'Google Map ID', 'cfmb' ),
+			__( 'Google Map ID', 'custom-fields-meta-box' ),
 			array( $this, 'render_google_map_id_field' ),
 			self::SLUG,
 			'cfmb_fields',
@@ -84,51 +82,42 @@ class Settings_Screen {
 
 		add_settings_field(
 			'allow_svg_uploads',
-			__( 'SVG uploads', 'cfmb' ),
+			__( 'SVG uploads', 'custom-fields-meta-box' ),
 			array( $this, 'render_svg_field' ),
 			self::SLUG,
 			'cfmb_fields',
 			array( 'label_for' => 'cfmb-allow-svg' )
 		);
 
-		add_settings_section( 'cfmb_display', __( 'Display', 'cfmb' ), '__return_false', self::SLUG );
+		add_settings_section( 'cfmb_display', __( 'Display', 'custom-fields-meta-box' ), '__return_false', self::SLUG );
 
 		add_settings_field(
 			'shortcode_enabled',
-			__( 'Shortcode', 'cfmb' ),
+			__( 'Shortcode', 'custom-fields-meta-box' ),
 			array( $this, 'render_shortcode_field' ),
 			self::SLUG,
 			'cfmb_display',
 			array( 'label_for' => 'cfmb-shortcode' )
 		);
 
-		add_settings_section( 'cfmb_sync', __( 'Schema Sync', 'cfmb' ), array( $this, 'render_sync_intro' ), self::SLUG );
+		add_settings_section( 'cfmb_sync', __( 'Schema Sync', 'custom-fields-meta-box' ), array( $this, 'render_sync_intro' ), self::SLUG );
 
 		add_settings_field(
 			'sync_auto_write',
-			__( 'Sync files', 'cfmb' ),
+			__( 'Sync files', 'custom-fields-meta-box' ),
 			array( $this, 'render_sync_field' ),
 			self::SLUG,
 			'cfmb_sync',
 			array( 'label_for' => 'cfmb-sync-auto' )
 		);
 
-		add_settings_section( 'cfmb_switching', __( 'Coming from ACF', 'cfmb' ), array( $this, 'render_switching_intro' ), self::SLUG );
+		add_settings_section( 'cfmb_switching', __( 'Coming from ACF', 'custom-fields-meta-box' ), array( $this, 'render_switching_intro' ), self::SLUG );
 
-		add_settings_field(
-			'compat_mode',
-			__( 'Compatibility Mode', 'cfmb' ),
-			array( $this, 'render_compat_field' ),
-			self::SLUG,
-			'cfmb_switching',
-			array( 'label_for' => 'cfmb-compat-mode' )
-		);
-
-		add_settings_section( 'cfmb_data', __( 'Data', 'cfmb' ), '__return_false', self::SLUG );
+		add_settings_section( 'cfmb_data', __( 'Data', 'custom-fields-meta-box' ), '__return_false', self::SLUG );
 
 		add_settings_field(
 			'delete_data_on_uninstall',
-			__( 'When CFMB is deleted', 'cfmb' ),
+			__( 'When CFMB is deleted', 'custom-fields-meta-box' ),
 			array( $this, 'render_uninstall_field' ),
 			self::SLUG,
 			'cfmb_data',
@@ -149,7 +138,6 @@ class Settings_Screen {
 			'allow_svg_uploads'        => false,
 			'sync_auto_write'          => true,
 			'shortcode_enabled'        => true,
-			'compat_mode'              => false,
 			'delete_data_on_uninstall' => false,
 		);
 	}
@@ -183,7 +171,6 @@ class Settings_Screen {
 			'allow_svg_uploads'        => ! empty( $input['allow_svg_uploads'] ),
 			'sync_auto_write'          => ! empty( $input['sync_auto_write'] ),
 			'shortcode_enabled'        => ! empty( $input['shortcode_enabled'] ),
-			'compat_mode'              => ! empty( $input['compat_mode'] ) && '' === Compat_Mode::blocker(),
 			'delete_data_on_uninstall' => ! empty( $input['delete_data_on_uninstall'] ),
 		);
 	}
@@ -196,45 +183,16 @@ class Settings_Screen {
 	public function render_switching_intro(): void {
 		printf(
 			'<p>%1$s <a href="%2$s">%3$s</a></p>',
-			esc_html__( 'The Switch Assistant brings field groups, post types, taxonomies, options pages and values over from ACF or Secure Custom Fields.', 'cfmb' ),
+			esc_html__( 'The Switch Assistant brings field groups, post types, taxonomies, options pages and values over from ACF or Secure Custom Fields.', 'custom-fields-meta-box' ),
 			esc_url( admin_url( 'admin.php?page=cfmb-switch' ) ),
-			esc_html__( 'Open the Switch Assistant', 'cfmb' )
-		);
-	}
-
-	/**
-	 * Compatibility Mode checkbox. Locked while ACF or SCF is active.
-	 *
-	 * @return void
-	 */
-	public function render_compat_field(): void {
-		$blocker = Compat_Mode::blocker();
-
-		printf(
-			'<label><input type="checkbox" id="cfmb-compat-mode" name="%1$s[compat_mode]" value="1" %2$s %3$s /> %4$s</label>',
-			esc_attr( self::OPTION ),
-			checked( ! empty( self::current()['compat_mode'] ) && '' === $blocker, true, false ),
-			disabled( '' !== $blocker, true, false ),
-			esc_html__( 'Let themes built for ACF keep using get_field(), have_rows() and the other ACF functions', 'cfmb' )
+			esc_html__( 'Open the Switch Assistant', 'custom-fields-meta-box' )
 		);
 
-		if ( '' !== $blocker ) {
-			printf(
-				'<p class="description">%s</p>',
-				esc_html(
-					sprintf(
-						/* translators: %s: plugin name, e.g. Advanced Custom Fields */
-						__( '%s is active, and it defines these functions itself. Deactivate it to turn this on.', 'cfmb' ),
-						$blocker
-					)
-				)
-			);
-			return;
-		}
-
 		printf(
-			'<p class="description">%s</p>',
-			esc_html__( 'Off by default. Each ACF function calls its CFMB version, so templates work without edits. It turns itself off if ACF or Secure Custom Fields is activated. New templates should use the cfmb_ functions.', 'cfmb' )
+			'<p class="description">%1$s <a href="%2$s">%3$s</a></p>',
+			esc_html__( 'Themes built for ACF can keep their get_field() and have_rows() calls with the separate CFMB Compatibility Mode plugin.', 'custom-fields-meta-box' ),
+			esc_url( admin_url( 'plugin-install.php?s=cfmb-compatibility-mode&tab=search&type=term' ) ),
+			esc_html__( 'Find it in Plugins', 'custom-fields-meta-box' )
 		);
 	}
 
@@ -246,12 +204,12 @@ class Settings_Screen {
 	public function render_map_provider_field(): void {
 		$current = (string) self::current()['map_provider'];
 		$choices = array(
-			'none'   => __( 'No map. Editors type the address and coordinates.', 'cfmb' ),
-			'osm'    => __( 'OpenStreetMap. Map tiles and address search load from openstreetmap.org.', 'cfmb' ),
-			'google' => __( 'Google Maps. Loads from googleapis.com with your API key.', 'cfmb' ),
+			'none'   => __( 'No map. Editors type the address and coordinates.', 'custom-fields-meta-box' ),
+			'osm'    => __( 'OpenStreetMap. Map tiles and address search load from openstreetmap.org.', 'custom-fields-meta-box' ),
+			'google' => __( 'Google Maps. Loads from googleapis.com with your API key.', 'custom-fields-meta-box' ),
 		);
 
-		echo '<fieldset><legend class="screen-reader-text">' . esc_html__( 'Map fields', 'cfmb' ) . '</legend>';
+		echo '<fieldset><legend class="screen-reader-text">' . esc_html__( 'Map fields', 'custom-fields-meta-box' ) . '</legend>';
 
 		foreach ( $choices as $value => $label ) {
 			printf(
@@ -265,7 +223,7 @@ class Settings_Screen {
 
 		printf(
 			'<p class="description">%s</p></fieldset>',
-			esc_html__( 'Choosing a map service means editors\' browsers contact it when a map field is shown. Each map field can also pick its own service.', 'cfmb' )
+			esc_html__( 'Choosing a map service means editors\' browsers contact it when a map field is shown. Each map field can also pick its own service.', 'custom-fields-meta-box' )
 		);
 	}
 
@@ -283,7 +241,7 @@ class Settings_Screen {
 
 		printf(
 			'<p class="description">%s</p>',
-			esc_html__( 'Needs the Maps JavaScript API and Geocoding API turned on. Restrict the key to your site\'s address in the Google Cloud console.', 'cfmb' )
+			esc_html__( 'Needs the Maps JavaScript API and Geocoding API turned on. Restrict the key to your site\'s address in the Google Cloud console.', 'custom-fields-meta-box' )
 		);
 	}
 
@@ -301,7 +259,7 @@ class Settings_Screen {
 
 		printf(
 			'<p class="description">%s</p>',
-			esc_html__( 'Optional. With a Map ID from the Google Cloud console, map fields use Google\'s current pin (Advanced Markers). Without one they use the older pin, which Google has deprecated but still supports.', 'cfmb' )
+			esc_html__( 'Optional. With a Map ID from the Google Cloud console, map fields use Google\'s current pin (Advanced Markers). Without one they use the older pin, which Google has deprecated but still supports.', 'custom-fields-meta-box' )
 		);
 	}
 
@@ -315,12 +273,12 @@ class Settings_Screen {
 			'<label><input type="checkbox" id="cfmb-allow-svg" name="%1$s[allow_svg_uploads]" value="1" %2$s /> %3$s</label>',
 			esc_attr( self::OPTION ),
 			checked( ! empty( self::current()['allow_svg_uploads'] ), true, false ),
-			esc_html__( 'Allow SVG files in the media library', 'cfmb' )
+			esc_html__( 'Allow SVG files in the media library', 'custom-fields-meta-box' )
 		);
 
 		printf(
 			'<p class="description">%s</p>',
-			esc_html__( 'Off by default. Every uploaded SVG is cleaned first: scripts, event handlers and outside references are removed. Only users who can upload files can add them.', 'cfmb' )
+			esc_html__( 'Off by default. Every uploaded SVG is cleaned first: scripts, event handlers and outside references are removed. Only users who can upload files can add them.', 'custom-fields-meta-box' )
 		);
 	}
 
@@ -334,12 +292,12 @@ class Settings_Screen {
 			'<label><input type="checkbox" id="cfmb-shortcode" name="%1$s[shortcode_enabled]" value="1" %2$s /> %3$s</label>',
 			esc_attr( self::OPTION ),
 			checked( ! empty( self::current()['shortcode_enabled'] ), true, false ),
-			esc_html__( 'Allow the [cfmb] shortcode', 'cfmb' )
+			esc_html__( 'Allow the [cfmb] shortcode', 'custom-fields-meta-box' )
 		);
 
 		printf(
 			'<p class="description">%s</p>',
-			esc_html__( 'On by default. [cfmb field="price"] shows a field value in content. It only shows values visitors may already see: no drafts, private posts, password fields, or other people\'s profile fields. Turn it off if authors should not print field values in their content.', 'cfmb' )
+			esc_html__( 'On by default. [cfmb field="price"] shows a field value in content. It only shows values visitors may already see: no drafts, private posts, password fields, or other people\'s profile fields. Turn it off if authors should not print field values in their content.', 'custom-fields-meta-box' )
 		);
 	}
 
@@ -353,16 +311,16 @@ class Settings_Screen {
 
 		printf(
 			'<p>%s</p>',
-			esc_html__( 'Field groups, post types, taxonomies, options pages and Connections are also saved as JSON files, so you can keep them in version control and move them between sites.', 'cfmb' )
+			esc_html__( 'Field groups, post types, taxonomies, options pages and Connections are also saved as JSON files, so you can keep them in version control and move them between sites.', 'custom-fields-meta-box' )
 		);
 		printf(
 			'<p>%1$s <code>%2$s</code></p>',
-			esc_html__( 'Files are saved to:', 'cfmb' ),
+			esc_html__( 'Files are saved to:', 'custom-fields-meta-box' ),
 			esc_html( $files->save_dir() )
 		);
 		printf(
 			'<p>%s</p>',
-			esc_html__( 'They are also read from a cfmb-json folder in your theme or child theme, if there is one. Review changes under CFMB > Sync.', 'cfmb' )
+			esc_html__( 'They are also read from a cfmb-json folder in your theme or child theme, if there is one. Review changes under CFMB > Sync.', 'custom-fields-meta-box' )
 		);
 	}
 
@@ -376,12 +334,12 @@ class Settings_Screen {
 			'<label><input type="checkbox" id="cfmb-sync-auto" name="%1$s[sync_auto_write]" value="1" %2$s /> %3$s</label>',
 			esc_attr( self::OPTION ),
 			checked( ! empty( self::current()['sync_auto_write'] ), true, false ),
-			esc_html__( 'Write the file each time something is saved', 'cfmb' )
+			esc_html__( 'Write the file each time something is saved', 'custom-fields-meta-box' )
 		);
 
 		printf(
 			'<p class="description">%s</p>',
-			esc_html__( 'On by default. A file that was changed outside CFMB is never overwritten; it shows under CFMB > Sync for review. When off, write files from CFMB > Sync or with wp cfmb sync push.', 'cfmb' )
+			esc_html__( 'On by default. A file that was changed outside CFMB is never overwritten; it shows under CFMB > Sync for review. When off, write files from CFMB > Sync or with wp cfmb sync push.', 'custom-fields-meta-box' )
 		);
 	}
 
@@ -397,12 +355,12 @@ class Settings_Screen {
 			'<label><input type="checkbox" id="cfmb-delete-data" name="%1$s[delete_data_on_uninstall]" value="1" %2$s /> %3$s</label>',
 			esc_attr( self::OPTION ),
 			checked( ! empty( $settings['delete_data_on_uninstall'] ), true, false ),
-			esc_html__( 'Delete field groups and CFMB settings', 'cfmb' )
+			esc_html__( 'Delete field groups and CFMB settings', 'custom-fields-meta-box' )
 		);
 
 		printf(
 			'<p class="description">%s</p>',
-			esc_html__( 'Off by default. Values saved on your posts, terms and users are always kept, so your content stays intact if you reinstall.', 'cfmb' )
+			esc_html__( 'Off by default. Values saved on your posts, terms and users are always kept, so your content stays intact if you reinstall.', 'custom-fields-meta-box' )
 		);
 	}
 
@@ -417,7 +375,7 @@ class Settings_Screen {
 		}
 
 		echo '<div class="wrap">';
-		printf( '<h1>%s</h1>', esc_html__( 'CFMB Settings', 'cfmb' ) );
+		printf( '<h1>%s</h1>', esc_html__( 'CFMB Settings', 'custom-fields-meta-box' ) );
 		echo '<form method="post" action="options.php">';
 		settings_fields( self::SLUG );
 		do_settings_sections( self::SLUG );

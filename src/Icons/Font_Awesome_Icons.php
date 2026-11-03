@@ -49,7 +49,7 @@ class Font_Awesome_Icons implements Icon_Library {
 	 * @return string
 	 */
 	public function label(): string {
-		return __( 'Font Awesome', 'cfmb' );
+		return __( 'Font Awesome', 'custom-fields-meta-box' );
 	}
 
 	/**

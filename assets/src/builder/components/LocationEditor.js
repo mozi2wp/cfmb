@@ -41,7 +41,7 @@ function RuleValue( { rule, onChange } ) {
 	}
 
 	if ( state.failed || ! state.choices.length ) {
-		return <TextControl { ...common } label={ __( 'Value', 'cfmb' ) } hideLabelFromVision value={ rule.value } onChange={ onChange } />;
+		return <TextControl { ...common } label={ __( 'Value', 'custom-fields-meta-box' ) } hideLabelFromVision value={ rule.value } onChange={ onChange } />;
 	}
 
 	const known = state.choices.some( ( choice ) => choice.value === rule.value );
@@ -49,7 +49,7 @@ function RuleValue( { rule, onChange } ) {
 	return (
 		<SelectControl
 			{ ...common }
-			label={ __( 'Value', 'cfmb' ) }
+			label={ __( 'Value', 'custom-fields-meta-box' ) }
 			hideLabelFromVision
 			value={ rule.value }
 			options={ [ ...( known || ! rule.value ? [] : [ { value: rule.value, label: rule.value } ] ), ...state.choices ] }
@@ -70,7 +70,7 @@ function ParamSelect( { value, onChange } ) {
 	} );
 
 	return (
-		<SelectControl { ...common } label={ __( 'Rule', 'cfmb' ) } hideLabelFromVision value={ value } onChange={ onChange }>
+		<SelectControl { ...common } label={ __( 'Rule', 'custom-fields-meta-box' ) } hideLabelFromVision value={ value } onChange={ onChange }>
 			{ categories.map( ( category ) => (
 				<optgroup key={ category.label } label={ category.label }>
 					{ category.rules.map( ( rule ) => (
@@ -96,21 +96,21 @@ export default function LocationEditor( { location, onChange } ) {
 		<div className="cfmb-rules cfmb-rules--location">
 			{ ! sets.length && (
 				<Notice status="warning" isDismissible={ false }>
-					{ __( 'This group has no location rules, so it does not show on any screen yet.', 'cfmb' ) }
+					{ __( 'This group has no location rules, so it does not show on any screen yet.', 'custom-fields-meta-box' ) }
 				</Notice>
 			) }
 			{ sets.map( ( set, setIndex ) => (
 				<div className="cfmb-rules__set" key={ setIndex }>
-					<p className="cfmb-rules__set-label">{ setIndex === 0 ? __( 'Show this group when', 'cfmb' ) : __( 'or when', 'cfmb' ) }</p>
+					<p className="cfmb-rules__set-label">{ setIndex === 0 ? __( 'Show this group when', 'custom-fields-meta-box' ) : __( 'or when', 'custom-fields-meta-box' ) }</p>
 					{ set.map( ( rule, ruleIndex ) => {
 						const type = rulesByParam[ rule.param ];
 						return (
 							<div className="cfmb-rules__rule" key={ ruleIndex }>
-								{ ruleIndex > 0 && <span className="cfmb-rules__joiner">{ __( 'and', 'cfmb' ) }</span> }
+								{ ruleIndex > 0 && <span className="cfmb-rules__joiner">{ __( 'and', 'custom-fields-meta-box' ) }</span> }
 								<ParamSelect value={ rule.param } onChange={ ( param ) => setRule( setIndex, ruleIndex, { param, operator: '==', value: '' } ) } />
 								<SelectControl
 									{ ...common }
-									label={ __( 'Comparison', 'cfmb' ) }
+									label={ __( 'Comparison', 'custom-fields-meta-box' ) }
 									hideLabelFromVision
 									value={ rule.operator }
 									options={ ( type?.operators || [] ).map( ( item ) => ( { value: item.value, label: item.label } ) ) }
@@ -123,7 +123,7 @@ export default function LocationEditor( { location, onChange } ) {
 								/>
 								<Button
 									icon="no-alt"
-									label={ __( 'Remove rule', 'cfmb' ) }
+									label={ __( 'Remove rule', 'custom-fields-meta-box' ) }
 									size="compact"
 									onClick={ () => update( ( list ) => list.map( ( item, s ) => ( s === setIndex ? item.filter( ( _, r ) => r !== ruleIndex ) : item ) ) ) }
 								/>
@@ -131,12 +131,12 @@ export default function LocationEditor( { location, onChange } ) {
 						);
 					} ) }
 					<Button variant="secondary" size="compact" onClick={ () => update( ( list ) => list.map( ( item, s ) => ( s === setIndex ? [ ...item, newRule() ] : item ) ) ) }>
-						{ __( 'Add "and" rule', 'cfmb' ) }
+						{ __( 'Add "and" rule', 'custom-fields-meta-box' ) }
 					</Button>
 				</div>
 			) ) }
 			<Button variant="link" onClick={ () => update( ( list ) => [ ...list, [ newRule() ] ] ) }>
-				{ sets.length ? __( 'Add "or" group', 'cfmb' ) : __( 'Add a rule', 'cfmb' ) }
+				{ sets.length ? __( 'Add "or" group', 'custom-fields-meta-box' ) : __( 'Add a rule', 'custom-fields-meta-box' ) }
 			</Button>
 		</div>
 	);

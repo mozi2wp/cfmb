@@ -32,7 +32,7 @@ class Number_Field extends Abstract_Field {
 	 * @return string
 	 */
 	public function label(): string {
-		return __( 'Number', 'cfmb' );
+		return __( 'Number', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -42,13 +42,13 @@ class Number_Field extends Abstract_Field {
 	 */
 	public function settings_schema(): array {
 		return array(
-			$this->setting( 'default_value', __( 'Default value', 'cfmb' ), 'number' ),
-			$this->setting( 'placeholder', __( 'Placeholder', 'cfmb' ), 'text' ),
-			$this->setting( 'min', __( 'Minimum', 'cfmb' ), 'number' ),
-			$this->setting( 'max', __( 'Maximum', 'cfmb' ), 'number' ),
-			$this->setting( 'step', __( 'Step', 'cfmb' ), 'number', '', array( 'advanced' => true ) ),
-			$this->setting( 'prepend', __( 'Text before the input', 'cfmb' ), 'text', '', array( 'advanced' => true ) ),
-			$this->setting( 'append', __( 'Text after the input', 'cfmb' ), 'text', '', array( 'advanced' => true ) ),
+			$this->setting( 'default_value', __( 'Default value', 'custom-fields-meta-box' ), 'number' ),
+			$this->setting( 'placeholder', __( 'Placeholder', 'custom-fields-meta-box' ), 'text' ),
+			$this->setting( 'min', __( 'Minimum', 'custom-fields-meta-box' ), 'number' ),
+			$this->setting( 'max', __( 'Maximum', 'custom-fields-meta-box' ), 'number' ),
+			$this->setting( 'step', __( 'Step', 'custom-fields-meta-box' ), 'number', '', array( 'advanced' => true ) ),
+			$this->setting( 'prepend', __( 'Text before the input', 'custom-fields-meta-box' ), 'text', '', array( 'advanced' => true ) ),
+			$this->setting( 'append', __( 'Text after the input', 'custom-fields-meta-box' ), 'text', '', array( 'advanced' => true ) ),
 		);
 	}
 
@@ -83,7 +83,7 @@ class Number_Field extends Abstract_Field {
 		}
 
 		if ( ! is_numeric( $value ) ) {
-			return __( 'Enter a number.', 'cfmb' );
+			return __( 'Enter a number.', 'custom-fields-meta-box' );
 		}
 
 		$min = $field->setting( 'min', '' );
@@ -91,12 +91,12 @@ class Number_Field extends Abstract_Field {
 
 		if ( is_numeric( $min ) && $value + 0 < $min + 0 ) {
 			/* translators: %s: minimum allowed number */
-			return sprintf( __( 'Enter a number of %s or more.', 'cfmb' ), number_format_i18n( $min + 0, $this->decimals( $min ) ) );
+			return sprintf( __( 'Enter a number of %s or more.', 'custom-fields-meta-box' ), number_format_i18n( $min + 0, $this->decimals( $min ) ) );
 		}
 
 		if ( is_numeric( $max ) && $value + 0 > $max + 0 ) {
 			/* translators: %s: maximum allowed number */
-			return sprintf( __( 'Enter a number of %s or less.', 'cfmb' ), number_format_i18n( $max + 0, $this->decimals( $max ) ) );
+			return sprintf( __( 'Enter a number of %s or less.', 'custom-fields-meta-box' ), number_format_i18n( $max + 0, $this->decimals( $max ) ) );
 		}
 
 		return null;

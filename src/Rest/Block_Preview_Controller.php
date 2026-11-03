@@ -154,13 +154,13 @@ class Block_Preview_Controller {
 	 */
 	public function can_use( WP_REST_Request $request ) {
 		if ( ! current_user_can( 'edit_posts' ) && ! current_user_can( 'edit_theme_options' ) ) {
-			return new WP_Error( 'rest_forbidden', __( 'You are not allowed to edit blocks.', 'cfmb' ), array( 'status' => rest_authorization_required_code() ) );
+			return new WP_Error( 'rest_forbidden', __( 'You are not allowed to edit blocks.', 'custom-fields-meta-box' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
 		$post_id = $this->context_post( $request );
 
 		if ( $post_id && ! current_user_can( 'read_post', $post_id ) ) {
-			return new WP_Error( 'rest_forbidden', __( 'You are not allowed to preview this post.', 'cfmb' ), array( 'status' => rest_authorization_required_code() ) );
+			return new WP_Error( 'rest_forbidden', __( 'You are not allowed to preview this post.', 'custom-fields-meta-box' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
 		return true;
@@ -176,7 +176,7 @@ class Block_Preview_Controller {
 		$name = (string) $request['name'];
 
 		if ( ! $this->blocks->get( $name ) ) {
-			return new WP_Error( 'cfmb_block_unknown', __( 'This block is no longer available. Its field group may be inactive or deleted.', 'cfmb' ), array( 'status' => 404 ) );
+			return new WP_Error( 'cfmb_block_unknown', __( 'This block is no longer available. Its field group may be inactive or deleted.', 'custom-fields-meta-box' ), array( 'status' => 404 ) );
 		}
 
 		$ref    = $this->renderer->clean_instance( $name, (array) $request['data'] );

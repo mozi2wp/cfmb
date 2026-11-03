@@ -180,7 +180,7 @@ class Connection_Panels {
 
 		$this->enqueue();
 
-		echo '<h2 class="cfmb-connection-heading">' . esc_html__( 'Connections', 'cfmb' ) . '</h2><table class="form-table" role="presentation">';
+		echo '<h2 class="cfmb-connection-heading">' . esc_html__( 'Connections', 'custom-fields-meta-box' ) . '</h2><table class="form-table" role="presentation">';
 
 		foreach ( $entries as $entry ) {
 			echo '<tr class="cfmb-connection-row"><th scope="row">' . esc_html( $entry['connection']->label( $entry['side'] ) ) . '</th><td>';
@@ -259,7 +259,7 @@ class Connection_Panels {
 			}
 			echo '</ul>';
 		} else {
-			echo '<p class="cfmb-connection__static description">' . esc_html__( 'Nothing linked yet.', 'cfmb' ) . '</p>';
+			echo '<p class="cfmb-connection__static description">' . esc_html__( 'Nothing linked yet.', 'custom-fields-meta-box' ) . '</p>';
 		}
 
 		echo '</div>';
@@ -290,7 +290,7 @@ class Connection_Panels {
 
 			return array(
 				'id'    => (int) $post->ID,
-				'title' => '' !== $post->post_title ? $post->post_title : __( '(no title)', 'cfmb' ),
+				'title' => '' !== $post->post_title ? $post->post_title : __( '(no title)', 'custom-fields-meta-box' ),
 				'meta'  => (string) $meta,
 				'url'   => current_user_can( 'edit_post', $post->ID ) ? (string) get_edit_post_link( $post->ID, 'raw' ) : '',
 			);

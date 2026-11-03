@@ -7,6 +7,8 @@
 
 namespace CFMB\Core;
 
+defined( 'ABSPATH' ) || exit;
+
 use CFMB\Admin\Assets;
 use CFMB\Admin\Builder_Screen;
 use CFMB\Admin\Edit_Screens;
@@ -23,7 +25,6 @@ use CFMB\Blocks\Block_Registry;
 use CFMB\Blocks\Block_Renderer;
 use CFMB\Blocks\Template_Locator;
 use CFMB\Cli\Cli;
-use CFMB\Compat\Compat_Mode;
 use CFMB\Connections\Connection_Panels;
 use CFMB\Connections\Connection_Registry;
 use CFMB\Connections\Connection_Repository;
@@ -94,7 +95,6 @@ use CFMB\Switching\Value_Converter;
 use CFMB\Sync\Sync_Files;
 use CFMB\Sync\Sync_Manager;
 
-defined( 'ABSPATH' ) || exit;
 
 /**
  * Entry point. Builds the container and registers hooks.
@@ -157,11 +157,14 @@ final class Plugin {
 	 * @template T of object
 	 * @param class-string<T> $id Service id.
 	 * @return T
+	 *
+	 * phpcs:disable Squiz.Commenting.FunctionComment.IncorrectTypeHint, Generic.Commenting.DocComment.MissingShort
 	 */
 	public function get( string $id ): object {
 		/** @var T */
 		return $this->container->get( $id );
 	}
+	// phpcs:enable
 
 	/**
 	 * Wire services and register hooks. Safe to call more than once.
@@ -178,7 +181,6 @@ final class Plugin {
 
 		$hooked = array(
 			Migrations::class,
-			Compat_Mode::class,
 			Registry::class,
 			Rule_Registry::class,
 			Group_Repository::class,
@@ -298,7 +300,6 @@ final class Plugin {
 		$c->set( Connection_Registry::class, static fn( Container $c ) => new Connection_Registry( $c->get( Connection_Repository::class ) ) );
 		$c->set( Connection_Store::class, static fn() => new Connection_Store() );
 		$c->set( Migrations::class, static fn() => new Migrations() );
-		$c->set( Compat_Mode::class, static fn() => new Compat_Mode() );
 		$c->set(
 			Group_Sanitizer::class,
 			static fn( Container $c ) => new Group_Sanitizer( $c->get( Registry::class ), $c->get( Rule_Registry::class ), $c->get( Group_Repository::class ) )

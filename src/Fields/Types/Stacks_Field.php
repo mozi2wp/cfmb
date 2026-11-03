@@ -36,7 +36,7 @@ class Stacks_Field extends Structure_Base {
 	 * @return string
 	 */
 	public function label(): string {
-		return __( 'Stacks', 'cfmb' );
+		return __( 'Stacks', 'custom-fields-meta-box' );
 	}
 
 	/**

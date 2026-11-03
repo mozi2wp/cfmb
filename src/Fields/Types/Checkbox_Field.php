@@ -32,7 +32,7 @@ class Checkbox_Field extends Choice_Field {
 	 * @return string
 	 */
 	public function label(): string {
-		return __( 'Checkboxes', 'cfmb' );
+		return __( 'Checkboxes', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -45,7 +45,7 @@ class Checkbox_Field extends Choice_Field {
 			$this->choices_setting(),
 			$this->default_setting( true ),
 			$this->layout_setting(),
-			$this->setting( 'toggle_all', __( 'Show a "Select all" checkbox', 'cfmb' ), 'toggle', false, array( 'advanced' => true ) ),
+			$this->setting( 'toggle_all', __( 'Show a "Select all" checkbox', 'custom-fields-meta-box' ), 'toggle', false, array( 'advanced' => true ) ),
 			$this->return_format_setting(),
 		);
 	}

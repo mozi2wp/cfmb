@@ -33,7 +33,7 @@ class Page_Link_Field extends Post_Field {
 	 * @return string
 	 */
 	public function label(): string {
-		return __( 'Page link', 'cfmb' );
+		return __( 'Page link', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -44,7 +44,7 @@ class Page_Link_Field extends Post_Field {
 	public function settings_schema(): array {
 		return array(
 			$this->post_type_setting(),
-			$this->setting( 'multiple', __( 'Allow several pages', 'cfmb' ), 'toggle', false ),
+			$this->setting( 'multiple', __( 'Allow several pages', 'custom-fields-meta-box' ), 'toggle', false ),
 		);
 	}
 

@@ -32,7 +32,7 @@ class Select_Field extends Choice_Field {
 	 * @return string
 	 */
 	public function label(): string {
-		return __( 'Select', 'cfmb' );
+		return __( 'Select', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -43,10 +43,10 @@ class Select_Field extends Choice_Field {
 	public function settings_schema(): array {
 		return array(
 			$this->choices_setting(),
-			$this->setting( 'multiple', __( 'Allow several choices', 'cfmb' ), 'toggle', false ),
-			$this->setting( 'allow_null', __( 'Allow no choice', 'cfmb' ), 'toggle', false ),
+			$this->setting( 'multiple', __( 'Allow several choices', 'custom-fields-meta-box' ), 'toggle', false ),
+			$this->setting( 'allow_null', __( 'Allow no choice', 'custom-fields-meta-box' ), 'toggle', false ),
 			$this->default_setting( true ),
-			$this->setting( 'placeholder', __( 'Placeholder', 'cfmb' ), 'text', '', array( 'advanced' => true ) ),
+			$this->setting( 'placeholder', __( 'Placeholder', 'custom-fields-meta-box' ), 'text', '', array( 'advanced' => true ) ),
 			$this->return_format_setting(),
 		);
 	}

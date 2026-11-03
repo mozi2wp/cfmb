@@ -118,8 +118,8 @@ export default function FieldList( { fields, setFields, expanded, setExpanded, e
 		speak(
 			sprintf(
 				/* translators: 1: field label, 2: new position */
-				__( '%1$s moved to position %2$d.', 'cfmb' ),
-				fields[ index ].label || __( '(no label)', 'cfmb' ),
+				__( '%1$s moved to position %2$d.', 'custom-fields-meta-box' ),
+				fields[ index ].label || __( '(no label)', 'custom-fields-meta-box' ),
 				target + 1
 			)
 		);
@@ -130,7 +130,7 @@ export default function FieldList( { fields, setFields, expanded, setExpanded, e
 		const copy = {
 			...copyField( source ),
 			/* translators: %s: field label */
-			label: source.label ? sprintf( __( '%s (copy)', 'cfmb' ), source.label ) : '',
+			label: source.label ? sprintf( __( '%s (copy)', 'custom-fields-meta-box' ), source.label ) : '',
 			name: source.name ? `${ source.name }_copy` : '',
 		};
 		setFields( ( current ) => {
@@ -148,10 +148,10 @@ export default function FieldList( { fields, setFields, expanded, setExpanded, e
 		setFields( ( current ) => current.filter( ( field ) => field.key !== removed.key ) );
 		snackbar(
 			/* translators: %s: field label */
-			sprintf( __( '"%s" removed. Save to make it final.', 'cfmb' ), removed.label || __( '(no label)', 'cfmb' ) ),
+			sprintf( __( '"%s" removed. Save to make it final.', 'custom-fields-meta-box' ), removed.label || __( '(no label)', 'custom-fields-meta-box' ) ),
 			[
 				{
-					label: __( 'Undo', 'cfmb' ),
+					label: __( 'Undo', 'custom-fields-meta-box' ),
 					onClick: () =>
 						setFields( ( current ) => {
 							if ( current.some( ( field ) => field.key === removed.key ) ) {
@@ -266,7 +266,7 @@ export default function FieldList( { fields, setFields, expanded, setExpanded, e
 						dropAt( 0 );
 					} }
 				>
-					<p>{ emptyText || __( 'No fields yet. Add the first one, like "Subtitle" or "Price".', 'cfmb' ) }</p>
+					<p>{ emptyText || __( 'No fields yet. Add the first one, like "Subtitle" or "Price".', 'custom-fields-meta-box' ) }</p>
 				</div>
 			) : (
 				<ol className="cfmb-field-list__items">
@@ -298,7 +298,7 @@ export default function FieldList( { fields, setFields, expanded, setExpanded, e
 			) }
 			<div className="cfmb-field-list__add">
 				<Button variant={ depth > 0 ? 'tertiary' : 'secondary' } icon="plus-alt2" onClick={ add }>
-					{ depth > 0 ? __( 'Add sub-field', 'cfmb' ) : __( 'Add field', 'cfmb' ) }
+					{ depth > 0 ? __( 'Add sub-field', 'custom-fields-meta-box' ) : __( 'Add field', 'custom-fields-meta-box' ) }
 				</Button>
 			</div>
 		</div>

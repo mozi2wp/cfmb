@@ -94,7 +94,7 @@ class Editor_Values {
 				'get_callback'    => array( $this, 'get' ),
 				'update_callback' => array( $this, 'update' ),
 				'schema'          => array(
-					'description'          => __( 'CFMB field values that bound blocks can edit.', 'cfmb' ),
+					'description'          => __( 'CFMB field values that bound blocks can edit.', 'custom-fields-meta-box' ),
 					'type'                 => 'object',
 					'context'              => array( 'edit' ),
 					'additionalProperties' => array( 'type' => array( 'string', 'number', 'null' ) ),
@@ -140,7 +140,7 @@ class Editor_Values {
 		}
 
 		if ( ! current_user_can( 'edit_post', $post->ID ) ) {
-			return new WP_Error( 'rest_forbidden', __( 'You are not allowed to edit these fields.', 'cfmb' ), array( 'status' => rest_authorization_required_code() ) );
+			return new WP_Error( 'rest_forbidden', __( 'You are not allowed to edit these fields.', 'custom-fields-meta-box' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
 		$fields = $this->editable_fields( (int) $post->ID );
@@ -159,7 +159,7 @@ class Editor_Values {
 				return new WP_Error(
 					'cfmb_binding_invalid',
 					/* translators: 1: field label, 2: error message */
-					sprintf( __( '%1$s: %2$s', 'cfmb' ), $entry[0]->label(), $error ),
+					sprintf( __( '%1$s: %2$s', 'custom-fields-meta-box' ), $entry[0]->label(), $error ),
 					array( 'status' => 400 )
 				);
 			}

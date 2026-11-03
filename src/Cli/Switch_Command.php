@@ -69,7 +69,12 @@ class Switch_Command {
 		$scan = $this->assistant()->scan();
 		$rows = array();
 
-		foreach ( array( 'groups' => 'group', 'postTypes' => 'post_type', 'taxonomies' => 'taxonomy', 'optionsPages' => 'options_page' ) as $list => $kind ) {
+		foreach ( array(
+			'groups'       => 'group',
+			'postTypes'    => 'post_type',
+			'taxonomies'   => 'taxonomy',
+			'optionsPages' => 'options_page',
+		) as $list => $kind ) {
 			foreach ( (array) $scan[ $list ] as $item ) {
 				$rows[] = array(
 					'kind'     => $kind,
@@ -84,7 +89,7 @@ class Switch_Command {
 		\WP_CLI\Utils\format_items( (string) ( $assoc_args['format'] ?? 'table' ), $rows, array( 'kind', 'key', 'title', 'imported', 'notes' ) );
 
 		if ( $scan['sourceActive'] ) {
-			\WP_CLI::warning( __( 'ACF or SCF is active. Groups are imported inactive and values convert after it is deactivated.', 'cfmb' ) );
+			\WP_CLI::warning( __( 'ACF or SCF is active. Groups are imported inactive and values convert after it is deactivated.', 'custom-fields-meta-box' ) );
 		}
 	}
 
@@ -115,7 +120,7 @@ class Switch_Command {
 		$keys      = static fn( array $items ): array => array_map( static fn( array $item ): string => (string) $item['key'], array_filter( $items, static fn( array $item ): bool => empty( $item['imported'] ) ) );
 
 		if ( '' !== $source_id && ! $source ) {
-			\WP_CLI::error( __( 'That plugin can\'t be switched from here.', 'cfmb' ) );
+			\WP_CLI::error( __( 'That plugin can\'t be switched from here.', 'custom-fields-meta-box' ) );
 		}
 
 		if ( $source ) {
@@ -144,14 +149,14 @@ class Switch_Command {
 		}
 
 		/* translators: 1: number of definitions, 2: run ID */
-		\WP_CLI::log( sprintf( __( 'Imported %1$d definitions (run %2$s).', 'cfmb' ), (int) $run['created'], (string) $run['id'] ) );
+		\WP_CLI::log( sprintf( __( 'Imported %1$d definitions (run %2$s).', 'custom-fields-meta-box' ), (int) $run['created'], (string) $run['id'] ) );
 
 		foreach ( (array) $run['notes'] as $note ) {
 			\WP_CLI::log( '- ' . $note );
 		}
 
 		if ( ! empty( $assoc_args['skip-values'] ) || ( $source ? $source->active() : Switch_Assistant::source_active() ) ) {
-			\WP_CLI::success( __( 'Definitions imported. Convert values with: wp cfmb switch convert', 'cfmb' ) . ' ' . $run['id'] );
+			\WP_CLI::success( __( 'Definitions imported. Convert values with: wp cfmb switch convert', 'custom-fields-meta-box' ) . ' ' . $run['id'] );
 			return;
 		}
 
@@ -182,7 +187,7 @@ class Switch_Command {
 		} while ( 'done' !== $run['status'] );
 
 		/* translators: 1: rows converted, 2: options moved, 3: options kept */
-		\WP_CLI::success( sprintf( __( 'Values converted: %1$d rows changed, %2$d options page values moved, %3$d kept where a CFMB value existed.', 'cfmb' ), $run['counts']['converted'], $run['counts']['moved'], $run['counts']['kept'] ) );
+		\WP_CLI::success( sprintf( __( 'Values converted: %1$d rows changed, %2$d options page values moved, %3$d kept where a CFMB value existed.', 'custom-fields-meta-box' ), $run['counts']['converted'], $run['counts']['moved'], $run['counts']['kept'] ) );
 	}
 
 	/**
@@ -203,7 +208,7 @@ class Switch_Command {
 	public function undo( $args, $assoc_args ): void {
 		$id = (string) ( $args[0] ?? '' );
 
-		\WP_CLI::confirm( __( 'Restore the values ACF had and move the imported definitions to the trash?', 'cfmb' ), $assoc_args );
+		\WP_CLI::confirm( __( 'Restore the values ACF had and move the imported definitions to the trash?', 'custom-fields-meta-box' ), $assoc_args );
 
 		do {
 			$run = $this->assistant()->undo( $id );
@@ -213,7 +218,7 @@ class Switch_Command {
 			}
 		} while ( 'undone' !== $run['status'] );
 
-		\WP_CLI::success( __( 'Undone.', 'cfmb' ) );
+		\WP_CLI::success( __( 'Undone.', 'custom-fields-meta-box' ) );
 	}
 
 	/**
@@ -248,7 +253,7 @@ class Switch_Command {
 
 		if ( $scan['sourceActive'] ) {
 			/* translators: %s: plugin name */
-			\WP_CLI::warning( sprintf( __( '%s is active. Groups are imported inactive and values convert after it is deactivated.', 'cfmb' ), (string) $scan['label'] ) );
+			\WP_CLI::warning( sprintf( __( '%s is active. Groups are imported inactive and values convert after it is deactivated.', 'custom-fields-meta-box' ), (string) $scan['label'] ) );
 		}
 	}
 

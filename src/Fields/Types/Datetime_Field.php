@@ -33,7 +33,7 @@ class Datetime_Field extends Date_Field {
 	 * @return string
 	 */
 	public function label(): string {
-		return __( 'Date and time', 'cfmb' );
+		return __( 'Date and time', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -78,6 +78,6 @@ class Datetime_Field extends Date_Field {
 	 * @return string
 	 */
 	protected function invalid_message(): string {
-		return __( 'Enter a valid date and time.', 'cfmb' );
+		return __( 'Enter a valid date and time.', 'custom-fields-meta-box' );
 	}
 }

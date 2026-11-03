@@ -19,8 +19,8 @@ export default function Oembed( { field, id, value, onChange, describedBy } ) {
 		const timer = window.setTimeout( () => {
 			setPreview( ( current ) => ( { ...current, loading: true, error: '' } ) );
 			embedPreview( url )
-				.then( ( response ) => ! cancelled && setPreview( { url, html: response?.html || '', error: response?.html ? '' : __( 'No preview for this address.', 'cfmb' ), loading: false } ) )
-				.catch( () => ! cancelled && setPreview( { url, html: '', error: __( 'This address can\'t be embedded. It is saved as a plain link.', 'cfmb' ), loading: false } ) );
+				.then( ( response ) => ! cancelled && setPreview( { url, html: response?.html || '', error: response?.html ? '' : __( 'No preview for this address.', 'custom-fields-meta-box' ), loading: false } ) )
+				.catch( () => ! cancelled && setPreview( { url, html: '', error: __( 'This address can\'t be embedded. It is saved as a plain link.', 'custom-fields-meta-box' ), loading: false } ) );
 		}, 600 );
 		return () => {
 			cancelled = true;
@@ -34,7 +34,7 @@ export default function Oembed( { field, id, value, onChange, describedBy } ) {
 				id={ id }
 				className="cfmb-input"
 				type="url"
-				placeholder={ __( 'Paste a YouTube, Vimeo or other link', 'cfmb' ) }
+				placeholder={ __( 'Paste a YouTube, Vimeo or other link', 'custom-fields-meta-box' ) }
 				value={ value ?? '' }
 				aria-describedby={ describedBy }
 				aria-required={ field.required || undefined }
@@ -42,13 +42,13 @@ export default function Oembed( { field, id, value, onChange, describedBy } ) {
 			/>
 			{ preview.loading && (
 				<p className="cfmb-oembed__status">
-					<Spinner /> { __( 'Loading preview…', 'cfmb' ) }
+					<Spinner /> { __( 'Loading preview…', 'custom-fields-meta-box' ) }
 				</p>
 			) }
 			{ preview.error && <p className="cfmb-oembed__status">{ preview.error }</p> }
 			{ preview.html && ! preview.loading && (
 				<div className="cfmb-oembed__preview">
-					<SandBox html={ preview.html } title={ __( 'Embed preview', 'cfmb' ) } />
+					<SandBox html={ preview.html } title={ __( 'Embed preview', 'custom-fields-meta-box' ) } />
 				</div>
 			) }
 		</div>

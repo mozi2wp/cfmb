@@ -457,10 +457,10 @@ class Row_Values {
 
 		if ( $min > 0 && $count < $min && ( $count > 0 || $enforce ) ) {
 			/* translators: %d: minimum number of rows */
-			$errors[''] = sprintf( _n( 'Add at least %d row.', 'Add at least %d rows.', $min, 'cfmb' ), $min );
+			$errors[''] = sprintf( _n( 'Add at least %d row.', 'Add at least %d rows.', $min, 'custom-fields-meta-box' ), $min );
 		} elseif ( $max > 0 && $count > $max ) {
 			/* translators: %d: maximum number of rows */
-			$errors[''] = sprintf( _n( 'Use %d row or fewer.', 'Use %d rows or fewer.', $max, 'cfmb' ), $max );
+			$errors[''] = sprintf( _n( 'Use %d row or fewer.', 'Use %d rows or fewer.', $max, 'custom-fields-meta-box' ), $max );
 		}
 
 		if ( Structure_Field::STACKS === $structure && ! isset( $errors[''] ) ) {
@@ -493,7 +493,7 @@ class Row_Values {
 			} elseif ( ! isset( $errors[''] ) ) {
 				$errors[''] = sprintf(
 					/* translators: 1: row number, 2: error message */
-					__( 'New row %1$d was not saved: %2$s', 'cfmb' ),
+					__( 'New row %1$d was not saved: %2$s', 'custom-fields-meta-box' ),
 					$index + 1,
 					reset( $row_errors )
 				);
@@ -699,8 +699,8 @@ class Row_Values {
 
 		foreach ( $children as $child ) {
 			if ( $this->stores_value( $child ) ) {
-				$name                = $child->base_name();
-				$value               = array_key_exists( $name, $raw ) ? $raw[ $name ] : $this->values->default_raw( $child );
+				$name                 = $child->base_name();
+				$value                = array_key_exists( $name, $raw ) ? $raw[ $name ] : $this->values->default_raw( $child );
 				$set[ $child->key() ] = $this->values->editor_raw( $child, $value );
 			}
 		}
@@ -833,7 +833,7 @@ class Row_Values {
 			if ( $layout['min'] > 0 && $count < $layout['min'] && $enforce ) {
 				return sprintf(
 					/* translators: 1: number of rows, 2: layout label */
-					_n( 'Add at least %1$d "%2$s" row.', 'Add at least %1$d "%2$s" rows.', $layout['min'], 'cfmb' ),
+					_n( 'Add at least %1$d "%2$s" row.', 'Add at least %1$d "%2$s" rows.', $layout['min'], 'custom-fields-meta-box' ),
 					$layout['min'],
 					$layout['label']
 				);
@@ -842,7 +842,7 @@ class Row_Values {
 			if ( $layout['max'] > 0 && $count > $layout['max'] ) {
 				return sprintf(
 					/* translators: 1: number of rows, 2: layout label */
-					_n( 'Use %1$d "%2$s" row or fewer.', 'Use %1$d "%2$s" rows or fewer.', $layout['max'], 'cfmb' ),
+					_n( 'Use %1$d "%2$s" row or fewer.', 'Use %1$d "%2$s" rows or fewer.', $layout['max'], 'custom-fields-meta-box' ),
 					$layout['max'],
 					$layout['label']
 				);

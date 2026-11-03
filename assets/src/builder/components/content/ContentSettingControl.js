@@ -15,7 +15,7 @@ function LabelsControl( { setting, value, onChange, singular, plural } ) {
 	const entries = Object.entries( setting.labels || {} );
 
 	return (
-		<BaseControl { ...common } label={ setting.label } help={ __( 'Leave a label empty to build it from the singular and plural names.', 'cfmb' ) } className="cfmb-setting cfmb-setting--labels">
+		<BaseControl { ...common } label={ setting.label } help={ __( 'Leave a label empty to build it from the singular and plural names.', 'custom-fields-meta-box' ) } className="cfmb-setting cfmb-setting--labels">
 			<div className="cfmb-labels">
 				{ entries.map( ( [ key, [ label, template ] ] ) => (
 					<TextControl
@@ -70,7 +70,7 @@ function FreeCheckboxes( { setting, value, onChange } ) {
 	// Keep picked items that aren't registered right now, such as a post type from a deactivated plugin.
 	picked.forEach( ( item ) => {
 		if ( ! options.some( ( option ) => option.value === item ) ) {
-			options.push( { value: item, label: `${ item } ${ __( '(not registered)', 'cfmb' ) }` } );
+			options.push( { value: item, label: `${ item } ${ __( '(not registered)', 'custom-fields-meta-box' ) }` } );
 		}
 	} );
 

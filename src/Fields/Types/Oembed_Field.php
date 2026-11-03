@@ -32,7 +32,7 @@ class Oembed_Field extends Url_Field {
 	 * @return string
 	 */
 	public function label(): string {
-		return __( 'oEmbed', 'cfmb' );
+		return __( 'oEmbed', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -53,18 +53,18 @@ class Oembed_Field extends Url_Field {
 		return array(
 			$this->setting(
 				'return_format',
-				__( 'Template value', 'cfmb' ),
+				__( 'Template value', 'custom-fields-meta-box' ),
 				'select',
 				'html',
 				array(
 					'options' => array(
-						'html' => __( 'Embed HTML', 'cfmb' ),
-						'url'  => __( 'URL', 'cfmb' ),
+						'html' => __( 'Embed HTML', 'custom-fields-meta-box' ),
+						'url'  => __( 'URL', 'custom-fields-meta-box' ),
 					),
 				)
 			),
-			$this->setting( 'width', __( 'Embed width', 'cfmb' ), 'number', '', array( 'advanced' => true ) ),
-			$this->setting( 'height', __( 'Embed height', 'cfmb' ), 'number', '', array( 'advanced' => true ) ),
+			$this->setting( 'width', __( 'Embed width', 'custom-fields-meta-box' ), 'number', '', array( 'advanced' => true ) ),
+			$this->setting( 'height', __( 'Embed height', 'custom-fields-meta-box' ), 'number', '', array( 'advanced' => true ) ),
 		);
 	}
 

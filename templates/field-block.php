@@ -26,7 +26,7 @@ $cfmb_heading = cfmb_get_field( 'heading' );
 	<?php if ( $cfmb_heading ) : ?>
 		<h2 class="hero__heading"><?php cfmb_the_field( 'heading' ); ?></h2>
 	<?php elseif ( $is_preview ) : ?>
-		<p class="hero__hint"><?php esc_html_e( 'Add a heading in the block sidebar.', 'cfmb' ); ?></p>
+		<p class="hero__hint"><?php esc_html_e( 'Add a heading in the block sidebar.', 'custom-fields-meta-box' ); ?></p>
 	<?php endif; ?>
 
 	<?php cfmb_the_field( 'image' ); ?>

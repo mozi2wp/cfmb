@@ -226,9 +226,9 @@ final class Preset_Resolver {
 		$map = array();
 
 		foreach ( $fields as $index => $field ) {
-			$old                    = (string) ( $field['key'] ?? '' );
-			$new                    = $prefix . '__' . preg_replace( '/^fld_/', '', $old );
-			$map[ $old ]            = $new;
+			$old                     = (string) ( $field['key'] ?? '' );
+			$new                     = $prefix . '__' . preg_replace( '/^fld_/', '', $old );
+			$map[ $old ]             = $new;
 			$fields[ $index ]['key'] = $new;
 
 			if ( ! empty( $field['fields'] ) && is_array( $field['fields'] ) ) {

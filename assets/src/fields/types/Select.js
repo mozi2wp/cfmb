@@ -40,7 +40,7 @@ export default function Select( { field, id, value, onChange, describedBy } ) {
 			aria-required={ field.required || undefined }
 			onChange={ ( event ) => onChange( event.target.value ) }
 		>
-			{ showEmpty && <option value="">{ settings.placeholder || __( '— Select —', 'cfmb' ) }</option> }
+			{ showEmpty && <option value="">{ settings.placeholder || __( '— Select —', 'custom-fields-meta-box' ) }</option> }
 			{ choices.map( ( choice ) => (
 				<option key={ choice.value } value={ choice.value }>
 					{ choice.label }

@@ -223,7 +223,7 @@ class Content_Controller {
 		}
 
 		if ( $repo->find( (string) $clean['key'] ) ) {
-			return new WP_Error( 'cfmb_content_exists', __( 'Something with this key already exists.', 'cfmb' ), array( 'status' => 409 ) );
+			return new WP_Error( 'cfmb_content_exists', __( 'Something with this key already exists.', 'custom-fields-meta-box' ), array( 'status' => 409 ) );
 		}
 
 		$saved = $repo->save( $clean );
@@ -265,7 +265,7 @@ class Content_Controller {
 		}
 
 		if ( 'db' !== $existing['source'] ) {
-			return new WP_Error( 'cfmb_content_read_only', __( 'This is defined in code or a sync file. Import it under CFMB > Sync to edit it here.', 'cfmb' ), array( 'status' => 409 ) );
+			return new WP_Error( 'cfmb_content_read_only', __( 'This is defined in code or a sync file. Import it under CFMB > Sync to edit it here.', 'custom-fields-meta-box' ), array( 'status' => 409 ) );
 		}
 
 		$input = (array) $request->get_json_params();
@@ -406,6 +406,6 @@ class Content_Controller {
 	 * @return WP_Error
 	 */
 	private function not_found(): WP_Error {
-		return new WP_Error( 'cfmb_content_missing', __( 'That item no longer exists. It may have been deleted in another tab.', 'cfmb' ), array( 'status' => 404 ) );
+		return new WP_Error( 'cfmb_content_missing', __( 'That item no longer exists. It may have been deleted in another tab.', 'custom-fields-meta-box' ), array( 'status' => 404 ) );
 	}
 }

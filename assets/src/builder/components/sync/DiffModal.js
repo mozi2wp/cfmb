@@ -8,14 +8,14 @@ import { __ } from '@wordpress/i18n';
 import { syncDiff, syncMerge } from '../../api';
 
 const STATUS = {
-	changed: __( 'Changed', 'cfmb' ),
-	only_db: __( 'Only in the database', 'cfmb' ),
-	only_file: __( 'Only in the file', 'cfmb' ),
+	changed: __( 'Changed', 'custom-fields-meta-box' ),
+	only_db: __( 'Only in the database', 'custom-fields-meta-box' ),
+	only_file: __( 'Only in the file', 'custom-fields-meta-box' ),
 };
 
 function Value( { value } ) {
 	if ( value === null || value === undefined ) {
-		return <em className="cfmb-diff__missing">{ __( 'Not there', 'cfmb' ) }</em>;
+		return <em className="cfmb-diff__missing">{ __( 'Not there', 'custom-fields-meta-box' ) }</em>;
 	}
 	return <pre className="cfmb-diff__value">{ typeof value === 'string' ? value : JSON.stringify( value, null, 2 ) }</pre>;
 }
@@ -32,7 +32,7 @@ export default function DiffModal( { row, onClose, onMerged } ) {
 				setDiff( loaded );
 				setChoices( Object.fromEntries( loaded.entries.map( ( entry ) => [ entry.id, row.status === 'db_changed' ? 'db' : 'file' ] ) ) );
 			} )
-			.catch( ( failure ) => setError( failure.message || __( 'The differences could not be loaded.', 'cfmb' ) ) );
+			.catch( ( failure ) => setError( failure.message || __( 'The differences could not be loaded.', 'custom-fields-meta-box' ) ) );
 	}, [ row ] );
 
 	const pickAll = ( side ) => setChoices( ( current ) => Object.fromEntries( Object.keys( current ).map( ( id ) => [ id, side ] ) ) );
@@ -44,7 +44,7 @@ export default function DiffModal( { row, onClose, onMerged } ) {
 			const updated = await syncMerge( row.kind, row.key, choices );
 			onMerged( updated );
 		} catch ( failure ) {
-			setError( failure.message || __( 'The merge could not be saved.', 'cfmb' ) );
+			setError( failure.message || __( 'The merge could not be saved.', 'custom-fields-meta-box' ) );
 			setSaving( false );
 		}
 	};
@@ -59,23 +59,23 @@ export default function DiffModal( { row, onClose, onMerged } ) {
 
 			{ ! diff && ! error && (
 				<p>
-					<Spinner /> { __( 'Comparing…', 'cfmb' ) }
+					<Spinner /> { __( 'Comparing…', 'custom-fields-meta-box' ) }
 				</p>
 			) }
 
-			{ diff && diff.entries.length === 0 && <p>{ __( 'No differences. Saving writes the file again.', 'cfmb' ) }</p> }
+			{ diff && diff.entries.length === 0 && <p>{ __( 'No differences. Saving writes the file again.', 'custom-fields-meta-box' ) }</p> }
 
 			{ diff && diff.entries.length > 0 && (
 				<>
 					<p className="cfmb-diff__intro">
-						{ __( 'Choose which copy to keep for each difference. The result is saved to the database and written to the sync file.', 'cfmb' ) }
+						{ __( 'Choose which copy to keep for each difference. The result is saved to the database and written to the sync file.', 'custom-fields-meta-box' ) }
 					</p>
 					<div className="cfmb-diff__bulk">
 						<Button variant="secondary" onClick={ () => pickAll( 'db' ) }>
-							{ __( 'Keep the database for all', 'cfmb' ) }
+							{ __( 'Keep the database for all', 'custom-fields-meta-box' ) }
 						</Button>
 						<Button variant="secondary" onClick={ () => pickAll( 'file' ) }>
-							{ __( 'Use the file for all', 'cfmb' ) }
+							{ __( 'Use the file for all', 'custom-fields-meta-box' ) }
 						</Button>
 					</div>
 					<ol className="cfmb-diff__entries">
@@ -95,7 +95,7 @@ export default function DiffModal( { row, onClose, onMerged } ) {
 														checked={ choices[ entry.id ] === side }
 														onChange={ () => setChoices( ( current ) => ( { ...current, [ entry.id ]: side } ) ) }
 													/>{ ' ' }
-													{ side === 'db' ? __( 'Database', 'cfmb' ) : __( 'File', 'cfmb' ) }
+													{ side === 'db' ? __( 'Database', 'custom-fields-meta-box' ) : __( 'File', 'custom-fields-meta-box' ) }
 												</span>
 												<Value value={ entry[ side ] } />
 											</label>
@@ -110,10 +110,10 @@ export default function DiffModal( { row, onClose, onMerged } ) {
 
 			<div className="cfmb-confirm__actions">
 				<Button variant="tertiary" onClick={ onClose }>
-					{ __( 'Cancel', 'cfmb' ) }
+					{ __( 'Cancel', 'custom-fields-meta-box' ) }
 				</Button>
 				<Button variant="primary" isBusy={ saving } disabled={ ! diff || saving } onClick={ merge }>
-					{ __( 'Save to both', 'cfmb' ) }
+					{ __( 'Save to both', 'custom-fields-meta-box' ) }
 				</Button>
 			</div>
 		</Modal>

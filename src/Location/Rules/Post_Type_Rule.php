@@ -34,7 +34,7 @@ class Post_Type_Rule extends Abstract_Rule {
 	 * @return string
 	 */
 	public function label(): string {
-		return __( 'Post type', 'cfmb' );
+		return __( 'Post type', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -43,7 +43,7 @@ class Post_Type_Rule extends Abstract_Rule {
 	 * @return string
 	 */
 	public function category(): string {
-		return __( 'Post', 'cfmb' );
+		return __( 'Post', 'custom-fields-meta-box' );
 	}
 
 	/**

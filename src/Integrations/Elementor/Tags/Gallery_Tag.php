@@ -33,7 +33,7 @@ class Gallery_Tag extends Data_Tag {
 	 * @return string
 	 */
 	public function get_title() {
-		return __( 'CFMB Gallery', 'cfmb' );
+		return __( 'CFMB Gallery', 'custom-fields-meta-box' );
 	}
 
 	/**

@@ -7,7 +7,7 @@ export default function ConfirmModal( { title, children, confirmLabel, isDestruc
 			<div className="cfmb-confirm__body">{ children }</div>
 			<div className="cfmb-confirm__actions">
 				<Button variant="tertiary" onClick={ onCancel }>
-					{ __( 'Cancel', 'cfmb' ) }
+					{ __( 'Cancel', 'custom-fields-meta-box' ) }
 				</Button>
 				<Button variant="primary" isDestructive={ isDestructive } onClick={ onConfirm }>
 					{ confirmLabel }

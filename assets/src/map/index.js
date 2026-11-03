@@ -126,7 +126,7 @@ function Canvas( { provider, field, place, onPoint, onZoom } ) {
 
 					// Advanced Markers need a Map ID; without one the classic marker still works.
 					if ( mapId && maps.marker?.AdvancedMarkerElement ) {
-						const pin = new maps.marker.AdvancedMarkerElement( { gmpDraggable: true, title: __( 'Place', 'cfmb' ) } );
+						const pin = new maps.marker.AdvancedMarkerElement( { gmpDraggable: true, title: __( 'Place', 'custom-fields-meta-box' ) } );
 						marker.current = {
 							show: ( point ) => {
 								pin.position = point;
@@ -240,14 +240,14 @@ function Canvas( { provider, field, place, onPoint, onZoom } ) {
 				className="cfmb-map__canvas"
 				style={ { height: `${ Number( field.settings?.height ) || 320 }px` } }
 				role="application"
-				aria-label={ __( 'Map. Click to place the pin, or drag the pin to move it.', 'cfmb' ) }
+				aria-label={ __( 'Map. Click to place the pin, or drag the pin to move it.', 'custom-fields-meta-box' ) }
 			/>
 			{ status === 'loading' && (
 				<p className="cfmb-map__status">
-					<Spinner /> { __( 'Loading map…', 'cfmb' ) }
+					<Spinner /> { __( 'Loading map…', 'custom-fields-meta-box' ) }
 				</p>
 			) }
-			{ status === 'error' && <p className="cfmb-field__error">{ __( 'Google Maps could not load. Check the API key in CFMB settings.', 'cfmb' ) }</p> }
+			{ status === 'error' && <p className="cfmb-field__error">{ __( 'Google Maps could not load. Check the API key in CFMB settings.', 'custom-fields-meta-box' ) }</p> }
 		</div>
 	);
 }
@@ -271,7 +271,7 @@ function MapView( { field, id, place, onPlace } ) {
 			if ( address && request === lookup.current ) {
 				onPlace( { address } );
 				/* translators: %s: address */
-				speak( sprintf( __( 'Address set to %s.', 'cfmb' ), address ) );
+				speak( sprintf( __( 'Address set to %s.', 'custom-fields-meta-box' ), address ) );
 			}
 		} );
 	};
@@ -286,9 +286,9 @@ function MapView( { field, id, place, onPlace } ) {
 		geocode( provider, query.trim() )
 			.then( ( places ) => {
 				setResults( places );
-				speak( places.length ? __( 'Places found. Choose one below the search box.', 'cfmb' ) : __( 'No places found.', 'cfmb' ) );
+				speak( places.length ? __( 'Places found. Choose one below the search box.', 'custom-fields-meta-box' ) : __( 'No places found.', 'custom-fields-meta-box' ) );
 			} )
-			.catch( () => setError( __( 'Address search is not available right now.', 'cfmb' ) ) )
+			.catch( () => setError( __( 'Address search is not available right now.', 'custom-fields-meta-box' ) ) )
 			.finally( () => setBusy( false ) );
 	};
 
@@ -296,13 +296,13 @@ function MapView( { field, id, place, onPlace } ) {
 		<div className="cfmb-map__view">
 			<div className="cfmb-map__search">
 				<label className="screen-reader-text" htmlFor={ `${ id }-search` }>
-					{ __( 'Search for an address', 'cfmb' ) }
+					{ __( 'Search for an address', 'custom-fields-meta-box' ) }
 				</label>
 				<input
 					id={ `${ id }-search` }
 					className="cfmb-input"
 					type="search"
-					placeholder={ __( 'Search for an address', 'cfmb' ) }
+					placeholder={ __( 'Search for an address', 'custom-fields-meta-box' ) }
 					value={ query }
 					onChange={ ( event ) => setQuery( event.target.value ) }
 					onKeyDown={ ( event ) => {
@@ -313,7 +313,7 @@ function MapView( { field, id, place, onPlace } ) {
 					} }
 				/>
 				<Button variant="secondary" isBusy={ busy } onClick={ find }>
-					{ __( 'Search', 'cfmb' ) }
+					{ __( 'Search', 'custom-fields-meta-box' ) }
 				</Button>
 			</div>
 			{ error && <p className="cfmb-field__error">{ error }</p> }

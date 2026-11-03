@@ -276,7 +276,7 @@ class Form_Saver {
 		$page = $this->pages->get( $id );
 
 		if ( ! $page || ! $this->can_save( current_user_can( $page['capability'] ) ) ) {
-			wp_die( esc_html__( 'You are not allowed to change these options, or the page expired. Go back, reload and try again.', 'cfmb' ), 403 );
+			wp_die( esc_html__( 'You are not allowed to change these options, or the page expired. Go back, reload and try again.', 'custom-fields-meta-box' ), 403 );
 		}
 
 		$ref    = new Object_Ref( Object_Ref::OPTION, 0, $id );

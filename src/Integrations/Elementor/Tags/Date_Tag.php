@@ -35,7 +35,7 @@ class Date_Tag extends Tag {
 	 * @return string
 	 */
 	public function get_title() {
-		return __( 'CFMB Date', 'cfmb' );
+		return __( 'CFMB Date', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -67,9 +67,9 @@ class Date_Tag extends Tag {
 		$this->add_control(
 			'format',
 			array(
-				'label'       => __( 'Date format', 'cfmb' ),
+				'label'       => __( 'Date format', 'custom-fields-meta-box' ),
 				'type'        => Controls_Manager::TEXT,
-				'description' => __( 'A PHP date format such as F j, Y. Leave empty to use the field\'s own format. Use Y-m-d H:i for date controls.', 'cfmb' ),
+				'description' => __( 'A PHP date format such as F j, Y. Leave empty to use the field\'s own format. Use Y-m-d H:i for date controls.', 'custom-fields-meta-box' ),
 			)
 		);
 	}

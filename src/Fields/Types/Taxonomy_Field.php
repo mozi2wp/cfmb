@@ -33,7 +33,7 @@ class Taxonomy_Field extends Post_Field {
 	 * @return string
 	 */
 	public function label(): string {
-		return __( 'Taxonomy', 'cfmb' );
+		return __( 'Taxonomy', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -43,39 +43,39 @@ class Taxonomy_Field extends Post_Field {
 	 */
 	public function settings_schema(): array {
 		return array(
-			$this->setting( 'taxonomy', __( 'Taxonomy', 'cfmb' ), 'select', 'category', array( 'options' => self::taxonomy_options() ) ),
+			$this->setting( 'taxonomy', __( 'Taxonomy', 'custom-fields-meta-box' ), 'select', 'category', array( 'options' => self::taxonomy_options() ) ),
 			$this->setting(
 				'appearance',
-				__( 'Appearance', 'cfmb' ),
+				__( 'Appearance', 'custom-fields-meta-box' ),
 				'select',
 				'checkbox',
 				array(
 					'options' => array(
-						'checkbox'     => __( 'Checkboxes (several)', 'cfmb' ),
-						'multi_select' => __( 'Search box (several)', 'cfmb' ),
-						'radio'        => __( 'Radio buttons (one)', 'cfmb' ),
-						'select'       => __( 'Search box (one)', 'cfmb' ),
+						'checkbox'     => __( 'Checkboxes (several)', 'custom-fields-meta-box' ),
+						'multi_select' => __( 'Search box (several)', 'custom-fields-meta-box' ),
+						'radio'        => __( 'Radio buttons (one)', 'custom-fields-meta-box' ),
+						'select'       => __( 'Search box (one)', 'custom-fields-meta-box' ),
 					),
 				)
 			),
 			$this->setting(
 				'save_terms',
-				__( 'Also set the post\'s terms', 'cfmb' ),
+				__( 'Also set the post\'s terms', 'custom-fields-meta-box' ),
 				'toggle',
 				false,
-				array( 'help' => __( 'Chosen terms are assigned to the post, as if picked in the editor\'s taxonomy panel.', 'cfmb' ) )
+				array( 'help' => __( 'Chosen terms are assigned to the post, as if picked in the editor\'s taxonomy panel.', 'custom-fields-meta-box' ) )
 			),
-			$this->setting( 'load_terms', __( 'Show the post\'s current terms', 'cfmb' ), 'toggle', false, array( 'advanced' => true ) ),
+			$this->setting( 'load_terms', __( 'Show the post\'s current terms', 'custom-fields-meta-box' ), 'toggle', false, array( 'advanced' => true ) ),
 			$this->setting(
 				'return_format',
-				__( 'Template value', 'cfmb' ),
+				__( 'Template value', 'custom-fields-meta-box' ),
 				'select',
 				'object',
 				array(
 					'advanced' => true,
 					'options'  => array(
-						'object' => __( 'Term object', 'cfmb' ),
-						'id'     => __( 'Term ID', 'cfmb' ),
+						'object' => __( 'Term object', 'custom-fields-meta-box' ),
+						'id'     => __( 'Term ID', 'custom-fields-meta-box' ),
 					),
 				)
 			),

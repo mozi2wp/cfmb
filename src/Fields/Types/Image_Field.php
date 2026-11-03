@@ -31,7 +31,7 @@ class Image_Field extends File_Field {
 	 * @return string
 	 */
 	public function label(): string {
-		return __( 'Image', 'cfmb' );
+		return __( 'Image', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -44,7 +44,7 @@ class Image_Field extends File_Field {
 			$this->return_format_setting(),
 			$this->setting(
 				'preview_size',
-				__( 'Preview size', 'cfmb' ),
+				__( 'Preview size', 'custom-fields-meta-box' ),
 				'select',
 				'medium',
 				array( 'options' => $this->image_sizes() )
@@ -52,12 +52,12 @@ class Image_Field extends File_Field {
 			$this->library_setting(),
 			$this->setting(
 				'mime_types',
-				__( 'Allowed file types', 'cfmb' ),
+				__( 'Allowed file types', 'custom-fields-meta-box' ),
 				'text',
 				'',
 				array(
 					'advanced' => true,
-					'help'     => __( 'Comma-separated extensions, like jpg, png, webp. Leave empty to allow all images.', 'cfmb' ),
+					'help'     => __( 'Comma-separated extensions, like jpg, png, webp. Leave empty to allow all images.', 'custom-fields-meta-box' ),
 				)
 			),
 		);
@@ -72,7 +72,7 @@ class Image_Field extends File_Field {
 	 */
 	public function validate_value( $value, Field $field ): ?string {
 		if ( $value && ! wp_attachment_is_image( (int) $value ) ) {
-			return __( 'Choose an image file.', 'cfmb' );
+			return __( 'Choose an image file.', 'custom-fields-meta-box' );
 		}
 
 		return parent::validate_value( $value, $field );
@@ -157,10 +157,10 @@ class Image_Field extends File_Field {
 		$names = apply_filters(
 			'image_size_names_choose', // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Core filter.
 			array(
-				'thumbnail' => __( 'Thumbnail', 'cfmb' ),
-				'medium'    => __( 'Medium', 'cfmb' ),
-				'large'     => __( 'Large', 'cfmb' ),
-				'full'      => __( 'Full size', 'cfmb' ),
+				'thumbnail' => __( 'Thumbnail', 'custom-fields-meta-box' ),
+				'medium'    => __( 'Medium', 'custom-fields-meta-box' ),
+				'large'     => __( 'Large', 'custom-fields-meta-box' ),
+				'full'      => __( 'Full size', 'custom-fields-meta-box' ),
 			)
 		);
 

@@ -32,7 +32,7 @@ class Relationship_Field extends Post_Field {
 	 * @return string
 	 */
 	public function label(): string {
-		return __( 'Relationship', 'cfmb' );
+		return __( 'Relationship', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -43,18 +43,18 @@ class Relationship_Field extends Post_Field {
 	public function settings_schema(): array {
 		return array(
 			$this->post_type_setting(),
-			$this->setting( 'min', __( 'Minimum posts', 'cfmb' ), 'number', '' ),
-			$this->setting( 'max', __( 'Maximum posts', 'cfmb' ), 'number', '' ),
+			$this->setting( 'min', __( 'Minimum posts', 'custom-fields-meta-box' ), 'number', '' ),
+			$this->setting( 'max', __( 'Maximum posts', 'custom-fields-meta-box' ), 'number', '' ),
 			$this->setting(
 				'filters',
-				__( 'Filters', 'cfmb' ),
+				__( 'Filters', 'custom-fields-meta-box' ),
 				'checkboxes',
 				array( 'search', 'post_type' ),
 				array(
 					'options' => array(
-						'search'    => __( 'Search box', 'cfmb' ),
-						'post_type' => __( 'Post type menu', 'cfmb' ),
-						'taxonomy'  => __( 'Category and tag menu', 'cfmb' ),
+						'search'    => __( 'Search box', 'custom-fields-meta-box' ),
+						'post_type' => __( 'Post type menu', 'custom-fields-meta-box' ),
+						'taxonomy'  => __( 'Category and tag menu', 'custom-fields-meta-box' ),
 					),
 				)
 			),
@@ -86,12 +86,12 @@ class Relationship_Field extends Post_Field {
 
 		if ( $min > 0 && $count < $min ) {
 			/* translators: %d: minimum number of posts */
-			return sprintf( _n( 'Choose at least %d post.', 'Choose at least %d posts.', $min, 'cfmb' ), $min );
+			return sprintf( _n( 'Choose at least %d post.', 'Choose at least %d posts.', $min, 'custom-fields-meta-box' ), $min );
 		}
 
 		if ( $max > 0 && $count > $max ) {
 			/* translators: %d: maximum number of posts */
-			return sprintf( _n( 'Choose %d post or fewer.', 'Choose %d posts or fewer.', $max, 'cfmb' ), $max );
+			return sprintf( _n( 'Choose %d post or fewer.', 'Choose %d posts or fewer.', $max, 'custom-fields-meta-box' ), $max );
 		}
 
 		return parent::validate_value( $value, $field );

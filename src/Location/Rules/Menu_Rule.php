@@ -33,7 +33,7 @@ class Menu_Rule extends Abstract_Rule {
 	 * @return string
 	 */
 	public function label(): string {
-		return __( 'Menu', 'cfmb' );
+		return __( 'Menu', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -42,7 +42,7 @@ class Menu_Rule extends Abstract_Rule {
 	 * @return string
 	 */
 	public function category(): string {
-		return __( 'Forms', 'cfmb' );
+		return __( 'Forms', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -51,12 +51,12 @@ class Menu_Rule extends Abstract_Rule {
 	 * @return array<string, string>
 	 */
 	public function choices(): array {
-		$choices = array( self::ALL => __( 'Any menu', 'cfmb' ) );
+		$choices = array( self::ALL => __( 'Any menu', 'custom-fields-meta-box' ) );
 
 		foreach ( get_registered_nav_menus() as $location => $description ) {
 			$choices[ 'location/' . $location ] = sprintf(
 				/* translators: %s: theme menu location, such as "Primary" */
-				__( 'Menu in location: %s', 'cfmb' ),
+				__( 'Menu in location: %s', 'custom-fields-meta-box' ),
 				$description
 			);
 		}
@@ -108,7 +108,7 @@ class Menu_Rule extends Abstract_Rule {
 		if ( 0 === strpos( $value, 'menu/' ) ) {
 			$menu = wp_get_nav_menu_object( $menu_id );
 
-			return $menu instanceof \WP_Term && $menu->slug === substr( $value, 5 );
+			return $menu instanceof \WP_Term && substr( $value, 5 ) === $menu->slug;
 		}
 
 		return false;

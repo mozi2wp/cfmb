@@ -118,10 +118,10 @@ class Switch_Assistant {
 	 * @param Definition_Importer     $definitions   Definition saving for other sources.
 	 */
 	public function __construct( Acf_Reader $reader, Group_Repository $groups, Group_Sanitizer $sanitizer, Post_Type_Repository $post_types, Taxonomy_Repository $taxonomies, Options_Page_Repository $options_pages, Value_Converter $converter, Backup $backup, ?Definition_Importer $definitions = null ) {
-		$this->reader    = $reader;
-		$this->groups    = $groups;
-		$this->sanitizer = $sanitizer;
-		$this->content   = array(
+		$this->reader      = $reader;
+		$this->groups      = $groups;
+		$this->sanitizer   = $sanitizer;
+		$this->content     = array(
 			'post_type'    => $post_types,
 			'taxonomy'     => $taxonomies,
 			'options_page' => $options_pages,
@@ -329,7 +329,7 @@ class Switch_Assistant {
 
 		if ( $source->active() && ! empty( $run['activate'] ) ) {
 			/* translators: %s: plugin name */
-			$run['notes'][] = sprintf( __( '%s is still active, so the imported field groups are off for now. Deactivate it, then convert the values here; the groups turn on when that is done.', 'cfmb' ), $source->label() );
+			$run['notes'][] = sprintf( __( '%s is still active, so the imported field groups are off for now. Deactivate it, then convert the values here; the groups turn on when that is done.', 'custom-fields-meta-box' ), $source->label() );
 		}
 
 		$this->save_run( $run );
@@ -409,7 +409,7 @@ class Switch_Assistant {
 
 			if ( $this->groups->find( (string) $mapped['group']['key'] ) ) {
 				/* translators: %s: field group title */
-				$run['notes'][] = sprintf( __( '%s was imported before, so it was left as it is.', 'cfmb' ), $title );
+				$run['notes'][] = sprintf( __( '%s was imported before, so it was left as it is.', 'custom-fields-meta-box' ), $title );
 				continue;
 			}
 
@@ -424,7 +424,7 @@ class Switch_Assistant {
 
 			if ( is_wp_error( $saved ) ) {
 				/* translators: 1: field group title, 2: error message */
-				$run['notes'][] = sprintf( __( '%1$s could not be imported: %2$s', 'cfmb' ), $title, $saved->get_error_message() );
+				$run['notes'][] = sprintf( __( '%1$s could not be imported: %2$s', 'custom-fields-meta-box' ), $title, $saved->get_error_message() );
 				continue;
 			}
 
@@ -445,7 +445,7 @@ class Switch_Assistant {
 		$this->remember_option_ids( (array) $run['options'] );
 
 		if ( $active && $run['activate'] ) {
-			$run['notes'][] = __( 'ACF or SCF is still active, so the imported field groups are off for now. Deactivate it, then convert the values here; the groups turn on when that is done.', 'cfmb' );
+			$run['notes'][] = __( 'ACF or SCF is still active, so the imported field groups are off for now. Deactivate it, then convert the values here; the groups turn on when that is done.', 'custom-fields-meta-box' );
 		}
 
 		$this->save_run( $run );
@@ -477,8 +477,8 @@ class Switch_Assistant {
 				'cfmb_switch_source_active',
 				$source
 					/* translators: %s: plugin name */
-					? sprintf( __( 'Deactivate %s first. While it is active it would keep saving values in its own format.', 'cfmb' ), $source->label() )
-					: __( 'Deactivate ACF or SCF first. While it is active it would keep saving values in its own format.', 'cfmb' ),
+					? sprintf( __( 'Deactivate %s first. While it is active it would keep saving values in its own format.', 'custom-fields-meta-box' ), $source->label() )
+					: __( 'Deactivate ACF or SCF first. While it is active it would keep saving values in its own format.', 'custom-fields-meta-box' ),
 				array( 'status' => 409 )
 			);
 		}
@@ -639,7 +639,7 @@ class Switch_Assistant {
 
 			if ( $repo->find( (string) $raw['key'] ) || in_array( $name, $repo->names_taken(), true ) ) {
 				/* translators: %s: post type or taxonomy label */
-				$run['notes'][] = sprintf( __( '%s was imported before, so it was left as it is.', 'cfmb' ), $label );
+				$run['notes'][] = sprintf( __( '%s was imported before, so it was left as it is.', 'custom-fields-meta-box' ), $label );
 				continue;
 			}
 
@@ -647,7 +647,7 @@ class Switch_Assistant {
 
 			if ( $active && $exists ) {
 				/* translators: %s: post type or taxonomy label */
-				$run['notes'][] = sprintf( __( '%s is still registered by ACF or SCF. Deactivate it and run the import again to bring it over.', 'cfmb' ), $label );
+				$run['notes'][] = sprintf( __( '%s is still registered by ACF or SCF. Deactivate it and run the import again to bring it over.', 'custom-fields-meta-box' ), $label );
 				continue;
 			}
 
@@ -656,7 +656,7 @@ class Switch_Assistant {
 
 			if ( is_wp_error( $saved ) ) {
 				/* translators: 1: post type or taxonomy label, 2: error message */
-				$run['notes'][] = sprintf( __( '%1$s could not be imported: %2$s', 'cfmb' ), $label, $saved->get_error_message() );
+				$run['notes'][] = sprintf( __( '%1$s could not be imported: %2$s', 'custom-fields-meta-box' ), $label, $saved->get_error_message() );
 				continue;
 			}
 
@@ -697,7 +697,7 @@ class Switch_Assistant {
 
 			if ( is_wp_error( $saved ) ) {
 				/* translators: 1: options page title, 2: error message */
-				$run['notes'][] = sprintf( __( 'The options page %1$s could not be imported: %2$s', 'cfmb' ), (string) $raw['title'], $saved->get_error_message() );
+				$run['notes'][] = sprintf( __( 'The options page %1$s could not be imported: %2$s', 'custom-fields-meta-box' ), (string) $raw['title'], $saved->get_error_message() );
 				continue;
 			}
 
@@ -827,7 +827,7 @@ class Switch_Assistant {
 	 * @return void
 	 */
 	private function save_run( array $run ): void {
-		$runs                       = $this->runs();
+		$runs                        = $this->runs();
 		$runs[ (string) $run['id'] ] = $run;
 
 		update_option( self::RUNS_OPTION, $runs, false );
@@ -882,7 +882,7 @@ class Switch_Assistant {
 			return null;
 		}
 
-		return $this->source( $id ) ?? new WP_Error( 'cfmb_switch_source_missing', __( 'The plugin that made this import is not active, so it can\'t continue. Activate CFMB Pro again.', 'cfmb' ), array( 'status' => 409 ) );
+		return $this->source( $id ) ?? new WP_Error( 'cfmb_switch_source_missing', __( 'The plugin that made this import is not active, so it can\'t continue. Activate CFMB Pro again.', 'custom-fields-meta-box' ), array( 'status' => 409 ) );
 	}
 
 	/**
@@ -901,7 +901,7 @@ class Switch_Assistant {
 	 * @return WP_Error
 	 */
 	private static function unknown_source(): WP_Error {
-		return new WP_Error( 'cfmb_switch_source', __( 'That plugin can\'t be switched from here. Reload the page.', 'cfmb' ), array( 'status' => 404 ) );
+		return new WP_Error( 'cfmb_switch_source', __( 'That plugin can\'t be switched from here. Reload the page.', 'custom-fields-meta-box' ), array( 'status' => 404 ) );
 	}
 
 	/**
@@ -910,6 +910,6 @@ class Switch_Assistant {
 	 * @return WP_Error
 	 */
 	private static function missing(): WP_Error {
-		return new WP_Error( 'cfmb_switch_run', __( 'That import was not found. Reload the page.', 'cfmb' ), array( 'status' => 404 ) );
+		return new WP_Error( 'cfmb_switch_run', __( 'That import was not found. Reload the page.', 'custom-fields-meta-box' ), array( 'status' => 404 ) );
 	}
 }

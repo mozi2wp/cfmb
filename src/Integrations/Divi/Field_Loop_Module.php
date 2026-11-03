@@ -47,13 +47,13 @@ class Field_Loop_Module extends ET_Builder_Module {
 	 * @return void
 	 */
 	public function init() {
-		$this->name = __( 'Field Loop', 'cfmb' );
+		$this->name = __( 'Field Loop', 'custom-fields-meta-box' );
 
 		$this->settings_modal_toggles = array(
 			'general' => array(
 				'toggles' => array(
-					'main_content' => __( 'Loop', 'cfmb' ),
-					'loop_layout'  => __( 'Layout', 'cfmb' ),
+					'main_content' => __( 'Loop', 'custom-fields-meta-box' ),
+					'loop_layout'  => __( 'Layout', 'custom-fields-meta-box' ),
 				),
 			),
 		);
@@ -76,65 +76,65 @@ class Field_Loop_Module extends ET_Builder_Module {
 		);
 
 		return array(
-			'cfmb_field'  => $basic + array(
-				'label'   => __( 'Loop over', 'cfmb' ),
+			'cfmb_field'      => $basic + array(
+				'label'   => __( 'Loop over', 'custom-fields-meta-box' ),
 				'type'    => 'select',
-				'options' => array( '' => __( '— Choose a field —', 'cfmb' ) ) + cfmb()->get( Field_Catalog::class )->flat( 'loop' ),
+				'options' => array( '' => __( '— Choose a field —', 'custom-fields-meta-box' ) ) + cfmb()->get( Field_Catalog::class )->flat( 'loop' ),
 				'default' => '',
 			),
-			'cfmb_source' => $basic + array(
-				'label'   => __( 'Read from', 'cfmb' ),
+			'cfmb_source'     => $basic + array(
+				'label'   => __( 'Read from', 'custom-fields-meta-box' ),
 				'type'    => 'select',
 				'options' => $sources,
 				'default' => 'current',
 			),
-			'cfmb_object' => $basic + array(
-				'label'       => __( 'Object', 'cfmb' ),
+			'cfmb_object'     => $basic + array(
+				'label'       => __( 'Object', 'custom-fields-meta-box' ),
 				'type'        => 'text',
-				'description' => __( 'With "Options page": the page ID, empty for the default page. With "Other": post_12, term_5, user_3 or option:{page}.', 'cfmb' ),
+				'description' => __( 'With "Options page": the page ID, empty for the default page. With "Other": post_12, term_5, user_3 or option:{page}.', 'custom-fields-meta-box' ),
 			),
-			'cfmb_layout_id'   => $basic + array(
-				'label'       => __( 'Layout', 'cfmb' ),
+			'cfmb_layout_id'  => $basic + array(
+				'label'       => __( 'Layout', 'custom-fields-meta-box' ),
 				'type'        => 'select',
-				'options'     => array( '' => __( '— Choose a layout —', 'cfmb' ) ) + $this->layouts(),
+				'options'     => array( '' => __( '— Choose a layout —', 'custom-fields-meta-box' ) ) + $this->layouts(),
 				'default'     => '',
-				'description' => __( 'A Divi Library layout, shown once per item.', 'cfmb' ),
+				'description' => __( 'A Divi Library layout, shown once per item.', 'custom-fields-meta-box' ),
 			),
-			'cfmb_layouts' => $basic + array(
-				'label'       => __( 'Only these Stacks layouts', 'cfmb' ),
+			'cfmb_layouts'    => $basic + array(
+				'label'       => __( 'Only these Stacks layouts', 'custom-fields-meta-box' ),
 				'type'        => 'text',
-				'description' => __( 'Layout names, separated by commas. Leave empty for all.', 'cfmb' ),
+				'description' => __( 'Layout names, separated by commas. Leave empty for all.', 'custom-fields-meta-box' ),
 			),
-			'cfmb_limit'       => $basic + array(
-				'label'       => __( 'Number of items', 'cfmb' ),
+			'cfmb_limit'      => $basic + array(
+				'label'       => __( 'Number of items', 'custom-fields-meta-box' ),
 				'type'        => 'text',
 				'default'     => '0',
-				'description' => __( '0 shows all.', 'cfmb' ),
+				'description' => __( '0 shows all.', 'custom-fields-meta-box' ),
 			),
-			'cfmb_offset'      => $basic + array(
-				'label'   => __( 'Skip first', 'cfmb' ),
+			'cfmb_offset'     => $basic + array(
+				'label'   => __( 'Skip first', 'custom-fields-meta-box' ),
 				'type'    => 'text',
 				'default' => '0',
 			),
-			'cfmb_empty_text'  => $basic + array(
-				'label' => __( 'Text when there are no items', 'cfmb' ),
+			'cfmb_empty_text' => $basic + array(
+				'label' => __( 'Text when there are no items', 'custom-fields-meta-box' ),
 				'type'  => 'text',
 			),
-			'cfmb_columns'     => array(
-				'label'           => __( 'Columns', 'cfmb' ),
+			'cfmb_columns'    => array(
+				'label'           => __( 'Columns', 'custom-fields-meta-box' ),
 				'type'            => 'select',
 				'options'         => array_combine( array( '1', '2', '3', '4', '5', '6' ), array( '1', '2', '3', '4', '5', '6' ) ),
 				'default'         => '1',
 				'option_category' => 'layout',
 				'toggle_slug'     => 'loop_layout',
 			),
-			'cfmb_gap'         => array(
-				'label'           => __( 'Gap', 'cfmb' ),
+			'cfmb_gap'        => array(
+				'label'           => __( 'Gap', 'custom-fields-meta-box' ),
 				'type'            => 'text',
 				'default'         => '20px',
 				'option_category' => 'layout',
 				'toggle_slug'     => 'loop_layout',
-				'description'     => __( 'A CSS length such as 20px or 1.5em.', 'cfmb' ),
+				'description'     => __( 'A CSS length such as 20px or 1.5em.', 'custom-fields-meta-box' ),
 			),
 		);
 	}
@@ -212,7 +212,7 @@ class Field_Loop_Module extends ET_Builder_Module {
 			array(
 				'post_type'      => 'et_pb_layout',
 				'post_status'    => 'publish',
-				'posts_per_page' => 200,
+				'posts_per_page' => 200, // phpcs:ignore WordPress.WP.PostsPerPage.posts_per_page_posts_per_page -- Template picker in the builder; one query of IDs and titles.
 				'orderby'        => 'title',
 				'order'          => 'ASC',
 				'no_found_rows'  => true,

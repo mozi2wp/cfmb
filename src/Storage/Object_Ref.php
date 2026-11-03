@@ -30,9 +30,9 @@ defined( 'ABSPATH' ) || exit;
  */
 final class Object_Ref {
 
-	public const POST   = 'post';
-	public const TERM   = 'term';
-	public const USER   = 'user';
+	public const POST    = 'post';
+	public const TERM    = 'term';
+	public const USER    = 'user';
 	public const OPTION  = 'option';
 	public const COMMENT = 'comment';
 	public const WIDGET  = 'widget';

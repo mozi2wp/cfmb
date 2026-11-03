@@ -14,14 +14,14 @@ import { suggestName } from './labels';
 const common = { __nextHasNoMarginBottom: true };
 
 const SECTIONS = {
-	labels: __( 'Labels', 'cfmb' ),
-	visibility: __( 'Visibility', 'cfmb' ),
-	urls: __( 'URLs', 'cfmb' ),
-	terms: __( 'Terms', 'cfmb' ),
-	permissions: __( 'Permissions', 'cfmb' ),
-	rest: __( 'REST API', 'cfmb' ),
-	menu: __( 'Menu', 'cfmb' ),
-	display: __( 'Display', 'cfmb' ),
+	labels: __( 'Labels', 'custom-fields-meta-box' ),
+	visibility: __( 'Visibility', 'custom-fields-meta-box' ),
+	urls: __( 'URLs', 'custom-fields-meta-box' ),
+	terms: __( 'Terms', 'custom-fields-meta-box' ),
+	permissions: __( 'Permissions', 'custom-fields-meta-box' ),
+	rest: __( 'REST API', 'custom-fields-meta-box' ),
+	menu: __( 'Menu', 'custom-fields-meta-box' ),
+	display: __( 'Display', 'custom-fields-meta-box' ),
 };
 
 const randomHex = () => {
@@ -71,7 +71,7 @@ export default function ContentEditor( { kind, itemKey, navigate } ) {
 				setSaved( snapshot( loaded ) );
 				setStoredName( loaded.name );
 			} )
-			.catch( ( failure ) => setLoadError( failure.message || __( 'This could not be loaded.', 'cfmb' ) ) );
+			.catch( ( failure ) => setLoadError( failure.message || __( 'This could not be loaded.', 'custom-fields-meta-box' ) ) );
 	}, [ kind.kind, itemKey, isNew ] );
 
 	const readOnly = !! item && !! item.source && item.source !== 'db';
@@ -120,14 +120,14 @@ export default function ContentEditor( { kind, itemKey, navigate } ) {
 				snackbar(
 					sprintf(
 						/* translators: %d: number of posts or terms */
-						__( 'Saved. %d items moved to the new key.', 'cfmb' ),
+						__( 'Saved. %d items moved to the new key.', 'custom-fields-meta-box' ),
 						result.moved
 					)
 				);
 			} else if ( kind.kind === 'connection' ) {
-				snackbar( __( 'Saved.', 'cfmb' ) );
+				snackbar( __( 'Saved.', 'custom-fields-meta-box' ) );
 			} else {
-				snackbar( __( 'Saved. Reload other admin pages to see the change in menus.', 'cfmb' ) );
+				snackbar( __( 'Saved. Reload other admin pages to see the change in menus.', 'custom-fields-meta-box' ) );
 			}
 			syncNoteSnackbar( result.syncNote );
 
@@ -135,7 +135,7 @@ export default function ContentEditor( { kind, itemKey, navigate } ) {
 				navigate( result.key, { replace: true, keepState: true } );
 			}
 		} catch ( failure ) {
-			setError( failure.message || __( 'That could not be saved. Please try again.', 'cfmb' ) );
+			setError( failure.message || __( 'That could not be saved. Please try again.', 'custom-fields-meta-box' ) );
 		} finally {
 			setSaving( false );
 		}
@@ -182,9 +182,9 @@ export default function ContentEditor( { kind, itemKey, navigate } ) {
 			setItem( loaded );
 			setSaved( snapshot( loaded ) );
 			setStoredName( loaded.name );
-			snackbar( __( 'Imported. You can edit it here now.', 'cfmb' ) );
+			snackbar( __( 'Imported. You can edit it here now.', 'custom-fields-meta-box' ) );
 		} catch ( failure ) {
-			setError( failure.message || __( 'It could not be imported.', 'cfmb' ) );
+			setError( failure.message || __( 'It could not be imported.', 'custom-fields-meta-box' ) );
 		} finally {
 			setSaving( false );
 		}
@@ -199,7 +199,7 @@ export default function ContentEditor( { kind, itemKey, navigate } ) {
 					{ loadError }
 				</Notice>
 				<Button variant="link" onClick={ () => navigate( '' ) }>
-					{ __( 'Back to the list', 'cfmb' ) }
+					{ __( 'Back to the list', 'custom-fields-meta-box' ) }
 				</Button>
 			</div>
 		);
@@ -208,7 +208,7 @@ export default function ContentEditor( { kind, itemKey, navigate } ) {
 	if ( ! item ) {
 		return (
 			<div className="cfmb-editor cfmb-editor--loading">
-				<Spinner /> { __( 'Loading…', 'cfmb' ) }
+				<Spinner /> { __( 'Loading…', 'custom-fields-meta-box' ) }
 			</div>
 		);
 	}
@@ -242,20 +242,20 @@ export default function ContentEditor( { kind, itemKey, navigate } ) {
 				<Button variant="tertiary" icon="arrow-left-alt2" onClick={ back }>
 					{ sprintf(
 						/* translators: %s: plural kind name, e.g. Post Types */
-						__( 'All %s', 'cfmb' ),
+						__( 'All %s', 'custom-fields-meta-box' ),
 						names.plural
 					) }
 				</Button>
 				<div className="cfmb-editor__status" aria-live="polite">
-					{ dirty && <span className="cfmb-editor__dirty">{ __( 'Unsaved changes', 'cfmb' ) }</span> }
+					{ dirty && <span className="cfmb-editor__dirty">{ __( 'Unsaved changes', 'custom-fields-meta-box' ) }</span> }
 				</div>
 				{ readOnly ? (
 					<Button variant="primary" isBusy={ saving } aria-disabled={ saving } onClick={ importToEdit }>
-						{ __( 'Import to edit', 'cfmb' ) }
+						{ __( 'Import to edit', 'custom-fields-meta-box' ) }
 					</Button>
 				) : (
 					<Button variant="primary" isBusy={ saving } aria-disabled={ saving } onClick={ save }>
-						{ saving ? __( 'Saving…', 'cfmb' ) : __( 'Save', 'cfmb' ) }
+						{ saving ? __( 'Saving…', 'custom-fields-meta-box' ) : __( 'Save', 'custom-fields-meta-box' ) }
 					</Button>
 				) }
 			</div>
@@ -263,8 +263,8 @@ export default function ContentEditor( { kind, itemKey, navigate } ) {
 			{ readOnly && (
 				<Notice status="info" isDismissible={ false } className="cfmb-editor__source">
 					{ item.source === 'code'
-						? __( 'This is registered in code, so changes here can\'t be saved. Import it to edit it here; then remove it from your code.', 'cfmb' )
-						: __( 'This comes from a sync file and is not in the database yet. Import it to edit it here.', 'cfmb' ) }
+						? __( 'This is registered in code, so changes here can\'t be saved. Import it to edit it here; then remove it from your code.', 'custom-fields-meta-box' )
+						: __( 'This comes from a sync file and is not in the database yet. Import it to edit it here.', 'custom-fields-meta-box' ) }
 				</Notice>
 			) }
 
@@ -276,8 +276,8 @@ export default function ContentEditor( { kind, itemKey, navigate } ) {
 
 			{ ( groupLink || optionsLink ) && ! dirty && (
 				<Notice status="success" isDismissible={ false } className="cfmb-editor__next">
-					{ __( 'Add fields to it with a field group.', 'cfmb' ) }{ ' ' }
-					<a href={ groupLink || optionsLink }>{ __( 'Create a field group', 'cfmb' ) }</a>
+					{ __( 'Add fields to it with a field group.', 'custom-fields-meta-box' ) }{ ' ' }
+					<a href={ groupLink || optionsLink }>{ __( 'Create a field group', 'custom-fields-meta-box' ) }</a>
 				</Notice>
 			) }
 
@@ -314,14 +314,14 @@ export default function ContentEditor( { kind, itemKey, navigate } ) {
 
 					<Card className="cfmb-editor__card">
 						<CardHeader>
-							<h2 className="cfmb-editor__card-title">{ __( 'Settings', 'cfmb' ) }</h2>
+							<h2 className="cfmb-editor__card-title">{ __( 'Settings', 'custom-fields-meta-box' ) }</h2>
 						</CardHeader>
 						<CardBody className="cfmb-content-editor__settings">{ basic.map( control ) }</CardBody>
 					</Card>
 
 					<Card className="cfmb-editor__card cfmb-content-editor__advanced">
 						<CardHeader>
-							<h2 className="cfmb-editor__card-title">{ __( 'Advanced', 'cfmb' ) }</h2>
+							<h2 className="cfmb-editor__card-title">{ __( 'Advanced', 'custom-fields-meta-box' ) }</h2>
 						</CardHeader>
 						{ sections.map( ( section ) => (
 							<PanelBody key={ section } title={ SECTIONS[ section ] || section } initialOpen={ false }>
@@ -336,13 +336,13 @@ export default function ContentEditor( { kind, itemKey, navigate } ) {
 						<CardBody>
 							<ToggleControl
 								{ ...common }
-								label={ __( 'Active', 'cfmb' ) }
-								help={ __( 'Inactive items are kept but not registered with WordPress. Their content stays in the database.', 'cfmb' ) }
+								label={ __( 'Active', 'custom-fields-meta-box' ) }
+								help={ __( 'Inactive items are kept but not registered with WordPress. Their content stays in the database.', 'custom-fields-meta-box' ) }
 								checked={ !! item.active }
 								onChange={ ( active ) => setItem( ( current ) => ( { ...current, active } ) ) }
 							/>
 							<p className="cfmb-field-settings__key">
-								{ __( 'Key:', 'cfmb' ) } <code>{ item.key }</code>
+								{ __( 'Key:', 'custom-fields-meta-box' ) } <code>{ item.key }</code>
 							</p>
 						</CardBody>
 					</Card>
@@ -351,8 +351,8 @@ export default function ContentEditor( { kind, itemKey, navigate } ) {
 
 			{ leaving && (
 				<ConfirmModal
-					title={ __( 'Leave without saving?', 'cfmb' ) }
-					confirmLabel={ __( 'Leave', 'cfmb' ) }
+					title={ __( 'Leave without saving?', 'custom-fields-meta-box' ) }
+					confirmLabel={ __( 'Leave', 'custom-fields-meta-box' ) }
 					isDestructive
 					onConfirm={ () => {
 						setLeaving( false );
@@ -360,7 +360,7 @@ export default function ContentEditor( { kind, itemKey, navigate } ) {
 					} }
 					onCancel={ () => setLeaving( false ) }
 				>
-					<p>{ __( 'Your changes have not been saved.', 'cfmb' ) }</p>
+					<p>{ __( 'Your changes have not been saved.', 'custom-fields-meta-box' ) }</p>
 				</ConfirmModal>
 			) }
 
@@ -368,11 +368,11 @@ export default function ContentEditor( { kind, itemKey, navigate } ) {
 				<ConfirmModal
 					title={ sprintf(
 						/* translators: 1: old key, 2: new key */
-						__( 'Change the key from "%1$s" to "%2$s"?', 'cfmb' ),
+						__( 'Change the key from "%1$s" to "%2$s"?', 'custom-fields-meta-box' ),
 						storedName,
 						item.name
 					) }
-					confirmLabel={ __( 'Save', 'cfmb' ) }
+					confirmLabel={ __( 'Save', 'custom-fields-meta-box' ) }
 					onConfirm={ () => {
 						const move = renaming.move;
 						setRenaming( null );
@@ -381,11 +381,11 @@ export default function ContentEditor( { kind, itemKey, navigate } ) {
 					onCancel={ () => setRenaming( null ) }
 				>
 					{ kind.kind === 'options_page' && (
-						<p>{ __( 'Location rules that point at the old ID are updated. Values already saved stay under the old ID; copy them over if you need them.', 'cfmb' ) }</p>
+						<p>{ __( 'Location rules that point at the old ID are updated. Values already saved stay under the old ID; copy them over if you need them.', 'custom-fields-meta-box' ) }</p>
 					) }
 					{ kind.kind === 'connection' && (
 						<>
-							<p>{ __( 'Code that uses the old ID stops finding these links. Update your templates after saving.', 'cfmb' ) }</p>
+							<p>{ __( 'Code that uses the old ID stops finding these links. Update your templates after saving.', 'custom-fields-meta-box' ) }</p>
 							<CheckboxControl
 								{ ...common }
 								label={ names.move }
@@ -396,7 +396,7 @@ export default function ContentEditor( { kind, itemKey, navigate } ) {
 					) }
 					{ ( kind.kind === 'post_type' || kind.kind === 'taxonomy' ) && (
 						<>
-							<p>{ __( 'Content saved under the old key would no longer show in the admin. Location rules that point at the old key are updated either way.', 'cfmb' ) }</p>
+							<p>{ __( 'Content saved under the old key would no longer show in the admin. Location rules that point at the old key are updated either way.', 'custom-fields-meta-box' ) }</p>
 							<CheckboxControl
 								{ ...common }
 								label={ names.move }

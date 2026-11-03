@@ -37,7 +37,7 @@ class Dashicons implements Icon_Library {
 	 * @return string
 	 */
 	public function label(): string {
-		return __( 'Dashicons', 'cfmb' );
+		return __( 'Dashicons', 'custom-fields-meta-box' );
 	}
 
 	/**

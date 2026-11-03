@@ -176,7 +176,7 @@ class Switch_Controller {
 	 */
 	public function forget( WP_REST_Request $request ) {
 		if ( ! $this->assistant->forget( (string) $request['run'] ) ) {
-			return new WP_Error( 'cfmb_switch_run', __( 'That import was not found. Reload the page.', 'cfmb' ), array( 'status' => 404 ) );
+			return new WP_Error( 'cfmb_switch_run', __( 'That import was not found. Reload the page.', 'custom-fields-meta-box' ), array( 'status' => 404 ) );
 		}
 
 		return rest_ensure_response( array( 'forgotten' => true ) );

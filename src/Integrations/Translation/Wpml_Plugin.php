@@ -59,8 +59,8 @@ class Wpml_Plugin implements Language_Plugin {
 			return '';
 		}
 
-		return (string) apply_filters( // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WPML's hook.
-			'wpml_element_language_code',
+		return (string) apply_filters(
+			'wpml_element_language_code', // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WPML's hook.
 			'',
 			array(
 				'element_id'   => $post_id,
@@ -82,8 +82,8 @@ class Wpml_Plugin implements Language_Plugin {
 			return '';
 		}
 
-		return (string) apply_filters( // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WPML's hook.
-			'wpml_element_language_code',
+		return (string) apply_filters(
+			'wpml_element_language_code', // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WPML's hook.
 			'',
 			array(
 				'element_id'   => (int) $term->term_taxonomy_id,

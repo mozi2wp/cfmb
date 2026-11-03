@@ -99,7 +99,7 @@ class Svg_Uploads {
 		$clean = $this->clean( $path );
 
 		if ( null === $clean ) {
-			$file['error'] = __( 'This SVG file could not be cleaned safely, so it was not uploaded.', 'cfmb' );
+			$file['error'] = __( 'This SVG file could not be cleaned safely, so it was not uploaded.', 'custom-fields-meta-box' );
 
 			return $file;
 		}

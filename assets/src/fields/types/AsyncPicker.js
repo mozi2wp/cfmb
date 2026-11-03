@@ -12,17 +12,17 @@ import { useForm } from '../context';
 import { search } from '../api';
 
 const STATUS_LABELS = {
-	draft: __( 'Draft', 'cfmb' ),
-	pending: __( 'Pending', 'cfmb' ),
-	private: __( 'Private', 'cfmb' ),
-	future: __( 'Scheduled', 'cfmb' ),
+	draft: __( 'Draft', 'custom-fields-meta-box' ),
+	pending: __( 'Pending', 'custom-fields-meta-box' ),
+	private: __( 'Private', 'custom-fields-meta-box' ),
+	future: __( 'Scheduled', 'custom-fields-meta-box' ),
 };
 
 export function ItemLabel( { item } ) {
 	return (
 		<>
 			{ item.avatar && <img className="cfmb-picker__avatar" src={ item.avatar } alt="" /> }
-			<span className="cfmb-picker__title">{ item.title || __( '(no title)', 'cfmb' ) }</span>
+			<span className="cfmb-picker__title">{ item.title || __( '(no title)', 'custom-fields-meta-box' ) }</span>
 			{ item.typeLabel && <span className="cfmb-picker__meta">{ item.typeLabel }</span> }
 			{ STATUS_LABELS[ item.status ] && <span className="cfmb-picker__meta">{ STATUS_LABELS[ item.status ] }</span> }
 		</>
@@ -61,7 +61,7 @@ export function useSearch( field ) {
 			} )
 			.catch( ( error ) => {
 				if ( current === request.current ) {
-					setState( ( previous ) => ( { ...previous, loading: false, error: error.message || __( 'Search failed. Try again.', 'cfmb' ) } ) );
+					setState( ( previous ) => ( { ...previous, loading: false, error: error.message || __( 'Search failed. Try again.', 'custom-fields-meta-box' ) } ) );
 				}
 			} );
 	}, [ groupKey, objectRef, field.key ] );
@@ -110,13 +110,13 @@ export default function AsyncPicker( { field, id, value, onChange, describedBy, 
 		setText( '' );
 		setActive( -1 );
 		/* translators: %s: chosen item title */
-		speak( sprintf( __( '%s chosen.', 'cfmb' ), item.title ) );
+		speak( sprintf( __( '%s chosen.', 'custom-fields-meta-box' ), item.title ) );
 	};
 
 	const removeItem = ( item ) => {
 		onChange( multiple ? selected.filter( ( other ) => other.id !== item.id ) : null );
 		/* translators: %s: removed item title */
-		speak( sprintf( __( '%s removed.', 'cfmb' ), item.title ) );
+		speak( sprintf( __( '%s removed.', 'custom-fields-meta-box' ), item.title ) );
 	};
 
 	const moveItem = ( index, step ) => {
@@ -159,8 +159,8 @@ export default function AsyncPicker( { field, id, value, onChange, describedBy, 
 							<span className="cfmb-picker__item-actions">
 								{ multiple && selected.length > 1 && (
 									<>
-										<Button size="small" icon="arrow-up-alt2" label={ __( 'Move up', 'cfmb' ) } disabled={ index === 0 } onClick={ () => moveItem( index, -1 ) } />
-										<Button size="small" icon="arrow-down-alt2" label={ __( 'Move down', 'cfmb' ) } disabled={ index === selected.length - 1 } onClick={ () => moveItem( index, 1 ) } />
+										<Button size="small" icon="arrow-up-alt2" label={ __( 'Move up', 'custom-fields-meta-box' ) } disabled={ index === 0 } onClick={ () => moveItem( index, -1 ) } />
+										<Button size="small" icon="arrow-down-alt2" label={ __( 'Move down', 'custom-fields-meta-box' ) } disabled={ index === selected.length - 1 } onClick={ () => moveItem( index, 1 ) } />
 									</>
 								) }
 								<Button
@@ -168,7 +168,7 @@ export default function AsyncPicker( { field, id, value, onChange, describedBy, 
 									icon="no-alt"
 									label={
 										/* translators: %s: item title */
-										sprintf( __( 'Remove %s', 'cfmb' ), item.title )
+										sprintf( __( 'Remove %s', 'custom-fields-meta-box' ), item.title )
 									}
 									onClick={ () => removeItem( item ) }
 								/>
@@ -190,7 +190,7 @@ export default function AsyncPicker( { field, id, value, onChange, describedBy, 
 						aria-activedescendant={ open && options[ active ] ? `${ listId }-${ options[ active ].id }` : undefined }
 						aria-describedby={ describedBy }
 						aria-required={ field.required || undefined }
-						placeholder={ __( 'Search…', 'cfmb' ) }
+						placeholder={ __( 'Search…', 'custom-fields-meta-box' ) }
 						value={ text }
 						onFocus={ () => setOpen( true ) }
 						onKeyDown={ onKeyDown }
@@ -202,7 +202,7 @@ export default function AsyncPicker( { field, id, value, onChange, describedBy, 
 						} }
 					/>
 					{ open && (
-						<ul className="cfmb-picker__results" id={ listId } role="listbox" aria-label={ __( 'Search results', 'cfmb' ) }>
+						<ul className="cfmb-picker__results" id={ listId } role="listbox" aria-label={ __( 'Search results', 'custom-fields-meta-box' ) }>
 							{ options.map( ( item, index ) => (
 								<li
 									key={ item.id }
@@ -223,7 +223,7 @@ export default function AsyncPicker( { field, id, value, onChange, describedBy, 
 							) }
 							{ ! results.loading && ! options.length && ! results.error && (
 								<li className="cfmb-picker__note" role="presentation">
-									{ __( 'Nothing found.', 'cfmb' ) }
+									{ __( 'Nothing found.', 'custom-fields-meta-box' ) }
 								</li>
 							) }
 							{ results.error && (
@@ -234,7 +234,7 @@ export default function AsyncPicker( { field, id, value, onChange, describedBy, 
 							{ results.more && ! results.loading && (
 								<li className="cfmb-picker__note" role="presentation">
 									<Button variant="link" onMouseDown={ ( event ) => event.preventDefault() } onClick={ () => results.run( results.query || '', results.page + 1 ) }>
-										{ __( 'Show more', 'cfmb' ) }
+										{ __( 'Show more', 'custom-fields-meta-box' ) }
 									</Button>
 								</li>
 							) }

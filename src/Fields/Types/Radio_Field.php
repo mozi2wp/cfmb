@@ -31,7 +31,7 @@ class Radio_Field extends Choice_Field {
 	 * @return string
 	 */
 	public function label(): string {
-		return __( 'Radio buttons', 'cfmb' );
+		return __( 'Radio buttons', 'custom-fields-meta-box' );
 	}
 
 	/**

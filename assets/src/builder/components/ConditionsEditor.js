@@ -8,7 +8,7 @@ import config, { storesValue } from '../config';
 const common = { __nextHasNoMarginBottom: true, __next40pxDefaultSize: true };
 
 function ValueControl( { target, rule, onChange } ) {
-	const label = __( 'Value', 'cfmb' );
+	const label = __( 'Value', 'custom-fields-meta-box' );
 
 	if ( target?.type === 'toggle' ) {
 		return (
@@ -18,8 +18,8 @@ function ValueControl( { target, rule, onChange } ) {
 				hideLabelFromVision
 				value={ rule.value || '1' }
 				options={ [
-					{ value: '1', label: __( 'On', 'cfmb' ) },
-					{ value: '0', label: __( 'Off', 'cfmb' ) },
+					{ value: '1', label: __( 'On', 'custom-fields-meta-box' ) },
+					{ value: '0', label: __( 'Off', 'custom-fields-meta-box' ) },
 				] }
 				onChange={ onChange }
 			/>
@@ -34,7 +34,7 @@ function ValueControl( { target, rule, onChange } ) {
 				label={ label }
 				hideLabelFromVision
 				value={ rule.value }
-				options={ [ { value: '', label: __( '— Choose —', 'cfmb' ) }, ...choices ] }
+				options={ [ { value: '', label: __( '— Choose —', 'custom-fields-meta-box' ) }, ...choices ] }
 				onChange={ onChange }
 			/>
 		);
@@ -50,7 +50,7 @@ export default function ConditionsEditor( { field, siblings, onChange } ) {
 	if ( ! targets.length ) {
 		return (
 			<Notice status="info" isDismissible={ false }>
-				{ __( 'Add another field to this group first. Conditions compare against other fields.', 'cfmb' ) }
+				{ __( 'Add another field to this group first. Conditions compare against other fields.', 'custom-fields-meta-box' ) }
 			</Notice>
 		);
 	}
@@ -65,27 +65,27 @@ export default function ConditionsEditor( { field, siblings, onChange } ) {
 		<div className="cfmb-rules">
 			{ sets.map( ( set, setIndex ) => (
 				<div className="cfmb-rules__set" key={ setIndex }>
-					<p className="cfmb-rules__set-label">{ setIndex === 0 ? __( 'Show this field when', 'cfmb' ) : __( 'or when', 'cfmb' ) }</p>
+					<p className="cfmb-rules__set-label">{ setIndex === 0 ? __( 'Show this field when', 'custom-fields-meta-box' ) : __( 'or when', 'custom-fields-meta-box' ) }</p>
 					{ set.map( ( rule, ruleIndex ) => {
 						const target = targets.find( ( item ) => item.key === rule.field );
 						const operator = config.conditionOperators.find( ( item ) => item.value === rule.operator );
 						return (
 							<div className="cfmb-rules__rule" key={ ruleIndex }>
-								{ ruleIndex > 0 && <span className="cfmb-rules__joiner">{ __( 'and', 'cfmb' ) }</span> }
+								{ ruleIndex > 0 && <span className="cfmb-rules__joiner">{ __( 'and', 'custom-fields-meta-box' ) }</span> }
 								<SelectControl
 									{ ...common }
-									label={ __( 'Field', 'cfmb' ) }
+									label={ __( 'Field', 'custom-fields-meta-box' ) }
 									hideLabelFromVision
 									value={ rule.field }
 									options={ [
-										...( target ? [] : [ { value: rule.field, label: __( '(removed field)', 'cfmb' ) } ] ),
-										...targets.map( ( item ) => ( { value: item.key, label: item.label || item.name || __( '(no label)', 'cfmb' ) } ) ),
+										...( target ? [] : [ { value: rule.field, label: __( '(removed field)', 'custom-fields-meta-box' ) } ] ),
+										...targets.map( ( item ) => ( { value: item.key, label: item.label || item.name || __( '(no label)', 'custom-fields-meta-box' ) } ) ),
 									] }
 									onChange={ ( next ) => setRule( setIndex, ruleIndex, { field: next, value: '' } ) }
 								/>
 								<SelectControl
 									{ ...common }
-									label={ __( 'Comparison', 'cfmb' ) }
+									label={ __( 'Comparison', 'custom-fields-meta-box' ) }
 									hideLabelFromVision
 									value={ rule.operator }
 									options={ config.conditionOperators.map( ( item ) => ( { value: item.value, label: item.label } ) ) }
@@ -98,7 +98,7 @@ export default function ConditionsEditor( { field, siblings, onChange } ) {
 								) }
 								<Button
 									icon="no-alt"
-									label={ __( 'Remove condition', 'cfmb' ) }
+									label={ __( 'Remove condition', 'custom-fields-meta-box' ) }
 									size="compact"
 									onClick={ () => update( ( list ) => list.map( ( item, s ) => ( s === setIndex ? item.filter( ( _, r ) => r !== ruleIndex ) : item ) ) ) }
 								/>
@@ -106,12 +106,12 @@ export default function ConditionsEditor( { field, siblings, onChange } ) {
 						);
 					} ) }
 					<Button variant="secondary" size="compact" onClick={ () => update( ( list ) => list.map( ( item, s ) => ( s === setIndex ? [ ...item, newRule() ] : item ) ) ) }>
-						{ __( 'Add "and" condition', 'cfmb' ) }
+						{ __( 'Add "and" condition', 'custom-fields-meta-box' ) }
 					</Button>
 				</div>
 			) ) }
 			<Button variant="link" onClick={ () => update( ( list ) => [ ...list, [ newRule() ] ] ) }>
-				{ __( 'Add "or" group', 'cfmb' ) }
+				{ __( 'Add "or" group', 'custom-fields-meta-box' ) }
 			</Button>
 		</div>
 	);

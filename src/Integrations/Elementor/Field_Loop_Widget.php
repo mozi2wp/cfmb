@@ -40,7 +40,7 @@ class Field_Loop_Widget extends Widget_Base {
 	 * @return string
 	 */
 	public function get_title() {
-		return __( 'Field Loop', 'cfmb' );
+		return __( 'Field Loop', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -85,18 +85,18 @@ class Field_Loop_Widget extends Widget_Base {
 	 * @return void
 	 */
 	protected function register_controls() {
-		$this->start_controls_section( 'content', array( 'label' => __( 'Loop', 'cfmb' ) ) );
+		$this->start_controls_section( 'content', array( 'label' => __( 'Loop', 'custom-fields-meta-box' ) ) );
 
 		$this->add_control(
 			'field',
 			array(
-				'label'   => __( 'Loop over', 'cfmb' ),
+				'label'   => __( 'Loop over', 'custom-fields-meta-box' ),
 				'type'    => Controls_Manager::SELECT,
 				'groups'  => array_merge(
 					array(
 						array(
 							'label'   => '',
-							'options' => array( '' => __( '— Choose a field —', 'cfmb' ) ),
+							'options' => array( '' => __( '— Choose a field —', 'custom-fields-meta-box' ) ),
 						),
 					),
 					cfmb()->get( Field_Catalog::class )->grouped( 'loop' )
@@ -108,7 +108,7 @@ class Field_Loop_Widget extends Widget_Base {
 		$this->add_control(
 			'source',
 			array(
-				'label'   => __( 'Read from', 'cfmb' ),
+				'label'   => __( 'Read from', 'custom-fields-meta-box' ),
 				'type'    => Controls_Manager::SELECT,
 				'options' => Field_Catalog::sources(),
 				'default' => '',
@@ -118,9 +118,9 @@ class Field_Loop_Widget extends Widget_Base {
 		$this->add_control(
 			'object',
 			array(
-				'label'       => __( 'Object', 'cfmb' ),
+				'label'       => __( 'Object', 'custom-fields-meta-box' ),
 				'type'        => Controls_Manager::TEXT,
-				'description' => __( 'With "Options page": the page ID, empty for the default page. With "Other": post_12, term_5, user_3 or option:{page}.', 'cfmb' ),
+				'description' => __( 'With "Options page": the page ID, empty for the default page. With "Other": post_12, term_5, user_3 or option:{page}.', 'custom-fields-meta-box' ),
 				'condition'   => array( 'source' => array( 'option', 'custom' ) ),
 			)
 		);
@@ -128,38 +128,38 @@ class Field_Loop_Widget extends Widget_Base {
 		$this->add_control(
 			'template',
 			array(
-				'label'       => __( 'Template', 'cfmb' ),
+				'label'       => __( 'Template', 'custom-fields-meta-box' ),
 				'type'        => Controls_Manager::SELECT,
-				'options'     => array( '' => __( '— Choose a template —', 'cfmb' ) ) + $this->templates(),
+				'options'     => array( '' => __( '— Choose a template —', 'custom-fields-meta-box' ) ) + $this->templates(),
 				'default'     => '',
-				'description' => __( 'Shown once per item. Make one under Templates > Saved Templates.', 'cfmb' ),
+				'description' => __( 'Shown once per item. Make one under Templates > Saved Templates.', 'custom-fields-meta-box' ),
 			)
 		);
 
 		$this->add_control(
 			'layouts',
 			array(
-				'label'       => __( 'Only these Stacks layouts', 'cfmb' ),
+				'label'       => __( 'Only these Stacks layouts', 'custom-fields-meta-box' ),
 				'type'        => Controls_Manager::TEXT,
-				'description' => __( 'Layout names, separated by commas. Leave empty for all.', 'cfmb' ),
+				'description' => __( 'Layout names, separated by commas. Leave empty for all.', 'custom-fields-meta-box' ),
 			)
 		);
 
 		$this->add_control(
 			'limit',
 			array(
-				'label'   => __( 'Number of items', 'cfmb' ),
-				'type'    => Controls_Manager::NUMBER,
-				'min'     => 0,
-				'default' => 0,
-				'description' => __( '0 shows all.', 'cfmb' ),
+				'label'       => __( 'Number of items', 'custom-fields-meta-box' ),
+				'type'        => Controls_Manager::NUMBER,
+				'min'         => 0,
+				'default'     => 0,
+				'description' => __( '0 shows all.', 'custom-fields-meta-box' ),
 			)
 		);
 
 		$this->add_control(
 			'offset',
 			array(
-				'label'   => __( 'Skip first', 'cfmb' ),
+				'label'   => __( 'Skip first', 'custom-fields-meta-box' ),
 				'type'    => Controls_Manager::NUMBER,
 				'min'     => 0,
 				'default' => 0,
@@ -169,7 +169,7 @@ class Field_Loop_Widget extends Widget_Base {
 		$this->add_control(
 			'empty',
 			array(
-				'label' => __( 'Text when there are no items', 'cfmb' ),
+				'label' => __( 'Text when there are no items', 'custom-fields-meta-box' ),
 				'type'  => Controls_Manager::TEXT,
 			)
 		);
@@ -179,7 +179,7 @@ class Field_Loop_Widget extends Widget_Base {
 		$this->start_controls_section(
 			'layout',
 			array(
-				'label' => __( 'Layout', 'cfmb' ),
+				'label' => __( 'Layout', 'custom-fields-meta-box' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
 		);
@@ -187,7 +187,7 @@ class Field_Loop_Widget extends Widget_Base {
 		$this->add_responsive_control(
 			'columns',
 			array(
-				'label'     => __( 'Columns', 'cfmb' ),
+				'label'     => __( 'Columns', 'custom-fields-meta-box' ),
 				'type'      => Controls_Manager::SELECT,
 				'options'   => array_combine( array( '1', '2', '3', '4', '5', '6' ), array( '1', '2', '3', '4', '5', '6' ) ),
 				'default'   => '1',
@@ -200,7 +200,7 @@ class Field_Loop_Widget extends Widget_Base {
 		$this->add_responsive_control(
 			'gap',
 			array(
-				'label'      => __( 'Gap', 'cfmb' ),
+				'label'      => __( 'Gap', 'custom-fields-meta-box' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px', 'em', 'rem' ),
 				'default'    => array(
@@ -228,7 +228,7 @@ class Field_Loop_Widget extends Widget_Base {
 
 		if ( ! $this->usable_template( $template ) ) {
 			if ( $editing ) {
-				echo '<p class="cfmb-field-loop__notice">' . esc_html__( 'Choose a field and a saved template to show here.', 'cfmb' ) . '</p>';
+				echo '<p class="cfmb-field-loop__notice">' . esc_html__( 'Choose a field and a saved template to show here.', 'custom-fields-meta-box' ) . '</p>';
 			}
 
 			return;
@@ -253,7 +253,7 @@ class Field_Loop_Widget extends Widget_Base {
 			if ( '' !== $empty ) {
 				echo '<p class="cfmb-field-loop__empty">' . esc_html( $empty ) . '</p>';
 			} elseif ( $editing ) {
-				echo '<p class="cfmb-field-loop__notice">' . esc_html__( 'No items for this field on the post being previewed.', 'cfmb' ) . '</p>';
+				echo '<p class="cfmb-field-loop__notice">' . esc_html__( 'No items for this field on the post being previewed.', 'custom-fields-meta-box' ) . '</p>';
 			}
 
 			return;
@@ -302,7 +302,7 @@ class Field_Loop_Widget extends Widget_Base {
 			array(
 				'post_type'      => 'elementor_library',
 				'post_status'    => 'publish',
-				'posts_per_page' => 200,
+				'posts_per_page' => 200, // phpcs:ignore WordPress.WP.PostsPerPage.posts_per_page_posts_per_page -- Template picker in the builder; one query of IDs and titles.
 				'orderby'        => 'title',
 				'order'          => 'ASC',
 				'no_found_rows'  => true,
@@ -314,7 +314,7 @@ class Field_Loop_Widget extends Widget_Base {
 		foreach ( $posts as $post ) {
 			$type = (string) get_post_meta( $post->ID, '_elementor_template_type', true );
 			/* translators: 1: template title, 2: template type such as section or loop-item. */
-			$choices[ $post->ID ] = '' !== $type ? sprintf( __( '%1$s (%2$s)', 'cfmb' ), $post->post_title, $type ) : $post->post_title;
+			$choices[ $post->ID ] = '' !== $type ? sprintf( __( '%1$s (%2$s)', 'custom-fields-meta-box' ), $post->post_title, $type ) : $post->post_title;
 		}
 
 		return $choices;

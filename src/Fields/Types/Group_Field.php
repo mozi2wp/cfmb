@@ -33,7 +33,7 @@ class Group_Field extends Structure_Base {
 	 * @return string
 	 */
 	public function label(): string {
-		return __( 'Group', 'cfmb' );
+		return __( 'Group', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -54,13 +54,13 @@ class Group_Field extends Structure_Base {
 		return array(
 			$this->setting(
 				'display',
-				__( 'Display', 'cfmb' ),
+				__( 'Display', 'custom-fields-meta-box' ),
 				'select',
 				'box',
 				array(
 					'options' => array(
-						'box'   => __( 'In a box', 'cfmb' ),
-						'plain' => __( 'Plain, like other fields', 'cfmb' ),
+						'box'   => __( 'In a box', 'custom-fields-meta-box' ),
+						'plain' => __( 'Plain, like other fields', 'custom-fields-meta-box' ),
 					),
 				)
 			),

@@ -122,7 +122,7 @@ class Location_Match_Controller {
 		$post_type = (string) $request['post_type'];
 
 		if ( $post_id > 0 && get_post_type( $post_id ) !== $post_type ) {
-			return new WP_Error( 'cfmb_post_type', __( 'The post type does not match the post.', 'cfmb' ), array( 'status' => 400 ) );
+			return new WP_Error( 'cfmb_post_type', __( 'The post type does not match the post.', 'custom-fields-meta-box' ), array( 'status' => 400 ) );
 		}
 
 		$details = array();

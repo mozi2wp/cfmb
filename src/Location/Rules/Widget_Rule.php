@@ -33,7 +33,7 @@ class Widget_Rule extends Abstract_Rule {
 	 * @return string
 	 */
 	public function label(): string {
-		return __( 'Widget', 'cfmb' );
+		return __( 'Widget', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -42,7 +42,7 @@ class Widget_Rule extends Abstract_Rule {
 	 * @return string
 	 */
 	public function category(): string {
-		return __( 'Forms', 'cfmb' );
+		return __( 'Forms', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -53,7 +53,7 @@ class Widget_Rule extends Abstract_Rule {
 	public function choices(): array {
 		global $wp_widget_factory;
 
-		$choices = array( self::ALL => __( 'All widgets', 'cfmb' ) );
+		$choices = array( self::ALL => __( 'All widgets', 'custom-fields-meta-box' ) );
 
 		if ( $wp_widget_factory instanceof \WP_Widget_Factory ) {
 			foreach ( $wp_widget_factory->widgets as $widget ) {

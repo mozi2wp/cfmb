@@ -67,7 +67,8 @@ class Connection_Saver {
 	public function save_post( $post_id, $post = null ): void {
 		$post_id = (int) $post_id;
 
-		if ( wp_is_post_autosave( $post_id ) || wp_is_post_revision( $post_id ) || ! current_user_can( 'edit_post', $post_id ) ) {
+		// Posts of unregistered types (such as ACF's after it is deactivated) can't have a Connection box.
+		if ( wp_is_post_autosave( $post_id ) || wp_is_post_revision( $post_id ) || ! post_type_exists( (string) get_post_type( $post_id ) ) || ! current_user_can( 'edit_post', $post_id ) ) {
 			return;
 		}
 

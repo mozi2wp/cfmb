@@ -294,7 +294,7 @@ class Sync_Manager {
 		$item = $this->definition( $kind, $key );
 
 		if ( ! $item || 'db' !== $item['source'] ) {
-			return new WP_Error( 'cfmb_sync_missing', __( 'Only definitions saved in the database can be written to a file.', 'cfmb' ), array( 'status' => 400 ) );
+			return new WP_Error( 'cfmb_sync_missing', __( 'Only definitions saved in the database can be written to a file.', 'custom-fields-meta-box' ), array( 'status' => 400 ) );
 		}
 
 		$portable = $this->portable( $kind, $item );
@@ -326,7 +326,7 @@ class Sync_Manager {
 		} elseif ( $file && $file['kind'] === $kind ) {
 			$source = $file['item'];
 		} else {
-			return new WP_Error( 'cfmb_sync_no_file', __( 'There is no file for this definition.', 'cfmb' ), array( 'status' => 404 ) );
+			return new WP_Error( 'cfmb_sync_no_file', __( 'There is no file for this definition.', 'custom-fields-meta-box' ), array( 'status' => 404 ) );
 		}
 
 		$saved = $this->save( $kind, $this->portable( $kind, $source ), true );
@@ -416,8 +416,8 @@ class Sync_Manager {
 				do_action( 'cfmb/sync/saving_group', $item, $clean ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
 			}
 
-			$saved    = is_wp_error( $clean ) ? $clean : $this->groups->save( $clean );
-			$saved    = $saved instanceof Group ? $saved->to_array() : $saved;
+			$saved = is_wp_error( $clean ) ? $clean : $this->groups->save( $clean );
+			$saved = $saved instanceof Group ? $saved->to_array() : $saved;
 		} elseif ( isset( $this->content[ $kind ] ) ) {
 			$repo     = $this->content[ $kind ];
 			$existing = $repo->find( (string) ( $item['key'] ?? '' ) );
@@ -425,7 +425,7 @@ class Sync_Manager {
 			$clean    = $repo->schema()->sanitize( $item, $existing, $repo->names_taken( (string) ( $item['key'] ?? '' ) ) );
 			$saved    = is_wp_error( $clean ) ? $clean : $repo->save( $clean );
 		} else {
-			$saved = new WP_Error( 'cfmb_sync_kind', __( 'Unknown definition kind.', 'cfmb' ), array( 'status' => 400 ) );
+			$saved = new WP_Error( 'cfmb_sync_kind', __( 'Unknown definition kind.', 'custom-fields-meta-box' ), array( 'status' => 400 ) );
 		}
 
 		$this->force_write = false;
@@ -555,7 +555,7 @@ class Sync_Manager {
 		$file = $this->files->find( $key );
 
 		if ( ! $item || 'db' !== $item['source'] || ! $file || $file['kind'] !== $kind ) {
-			return new WP_Error( 'cfmb_sync_no_pair', __( 'This definition needs both a database copy and a file to compare.', 'cfmb' ), array( 'status' => 404 ) );
+			return new WP_Error( 'cfmb_sync_no_pair', __( 'This definition needs both a database copy and a file to compare.', 'custom-fields-meta-box' ), array( 'status' => 404 ) );
 		}
 
 		return array(

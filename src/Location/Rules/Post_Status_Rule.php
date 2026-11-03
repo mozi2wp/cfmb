@@ -33,7 +33,7 @@ class Post_Status_Rule extends Abstract_Rule {
 	 * @return string
 	 */
 	public function label(): string {
-		return __( 'Post status', 'cfmb' );
+		return __( 'Post status', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -42,7 +42,7 @@ class Post_Status_Rule extends Abstract_Rule {
 	 * @return string
 	 */
 	public function category(): string {
-		return __( 'Post', 'cfmb' );
+		return __( 'Post', 'custom-fields-meta-box' );
 	}
 
 	/**

@@ -33,7 +33,7 @@ class Repeater_Field extends Structure_Base {
 	 * @return string
 	 */
 	public function label(): string {
-		return __( 'Repeater', 'cfmb' );
+		return __( 'Repeater', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -60,10 +60,10 @@ class Repeater_Field extends Structure_Base {
 			array(
 				$this->setting(
 					'row_title',
-					__( 'Row title', 'cfmb' ),
+					__( 'Row title', 'custom-fields-meta-box' ),
 					'subfield',
 					'',
-					array( 'help' => __( 'Sub-field whose value names each row when it is collapsed.', 'cfmb' ) )
+					array( 'help' => __( 'Sub-field whose value names each row when it is collapsed.', 'custom-fields-meta-box' ) )
 				),
 			)
 		);

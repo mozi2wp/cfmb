@@ -79,7 +79,7 @@ class Icons_Controller {
 		$library = $this->libraries->get( (string) $request['library'] );
 
 		if ( ! $library ) {
-			return new WP_Error( 'cfmb_icon_library', __( 'That icon library is not available.', 'cfmb' ), array( 'status' => 404 ) );
+			return new WP_Error( 'cfmb_icon_library', __( 'That icon library is not available.', 'custom-fields-meta-box' ), array( 'status' => 404 ) );
 		}
 
 		$icons = array();

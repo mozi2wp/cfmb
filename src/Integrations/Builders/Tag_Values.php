@@ -18,6 +18,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * Paths starting with "@" read the current Field Loop item instead of a
  * field: @index, @count, @layout, @image, @image_url, @image_alt,
+ *
  * @image_title, @image_caption, @post_url, and for a loop over posts,
  * terms or users @title (title, term name or display name) and @url
  * (permalink, term link or author archive).

@@ -44,8 +44,8 @@ export default function Media( { field, id, value, onChange, describedBy, object
 			}
 
 			frameRef.current = media( {
-				title: isImage ? __( 'Choose an image', 'cfmb' ) : __( 'Choose a file', 'cfmb' ),
-				button: { text: isImage ? __( 'Use this image', 'cfmb' ) : __( 'Use this file', 'cfmb' ) },
+				title: isImage ? __( 'Choose an image', 'custom-fields-meta-box' ) : __( 'Choose a file', 'custom-fields-meta-box' ),
+				button: { text: isImage ? __( 'Use this image', 'custom-fields-meta-box' ) : __( 'Use this file', 'custom-fields-meta-box' ) },
 				library,
 				multiple: false,
 			} );
@@ -65,7 +65,7 @@ export default function Media( { field, id, value, onChange, describedBy, object
 		return (
 			<div className="cfmb-media cfmb-media--empty" aria-describedby={ describedBy }>
 				<Button id={ id } ref={ buttonRef } variant="secondary" onClick={ openModal }>
-					{ isImage ? __( 'Add image', 'cfmb' ) : __( 'Add file', 'cfmb' ) }
+					{ isImage ? __( 'Add image', 'custom-fields-meta-box' ) : __( 'Add file', 'custom-fields-meta-box' ) }
 				</Button>
 			</div>
 		);
@@ -90,7 +90,7 @@ export default function Media( { field, id, value, onChange, describedBy, object
 			) }
 			<div className="cfmb-media__actions">
 				<Button id={ id } ref={ buttonRef } variant="secondary" size="compact" onClick={ openModal }>
-					{ __( 'Replace', 'cfmb' ) }
+					{ __( 'Replace', 'custom-fields-meta-box' ) }
 				</Button>
 				<Button
 					variant="tertiary"
@@ -100,11 +100,11 @@ export default function Media( { field, id, value, onChange, describedBy, object
 						onChange( null );
 						speak(
 							/* translators: %s: field label */
-							sprintf( __( '%s removed.', 'cfmb' ), field.label )
+							sprintf( __( '%s removed.', 'custom-fields-meta-box' ), field.label )
 						);
 					} }
 				>
-					{ __( 'Remove', 'cfmb' ) }
+					{ __( 'Remove', 'custom-fields-meta-box' ) }
 				</Button>
 			</div>
 		</div>

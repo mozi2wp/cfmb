@@ -82,7 +82,7 @@ class Location_Controller {
 		$rule = $this->rules->get( (string) $request['param'] );
 
 		if ( ! $rule ) {
-			return new WP_Error( 'cfmb_unknown_rule', __( 'That location rule is not available.', 'cfmb' ), array( 'status' => 404 ) );
+			return new WP_Error( 'cfmb_unknown_rule', __( 'That location rule is not available.', 'custom-fields-meta-box' ), array( 'status' => 404 ) );
 		}
 
 		$choices = array();

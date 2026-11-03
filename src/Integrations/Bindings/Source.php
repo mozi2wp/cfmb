@@ -74,7 +74,7 @@ class Source {
 		register_block_bindings_source(
 			self::NAME,
 			array(
-				'label'              => __( 'CFMB fields', 'cfmb' ),
+				'label'              => __( 'CFMB fields', 'custom-fields-meta-box' ),
 				'get_value_callback' => array( $this, 'value' ),
 				'uses_context'       => array( 'postId', 'postType' ),
 			)

@@ -35,7 +35,7 @@ class Image_Tag extends Data_Tag {
 	 * @return string
 	 */
 	public function get_title() {
-		return __( 'CFMB Image', 'cfmb' );
+		return __( 'CFMB Image', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -67,7 +67,7 @@ class Image_Tag extends Data_Tag {
 		$this->add_control(
 			'fallback',
 			array(
-				'label' => __( 'Fallback image', 'cfmb' ),
+				'label' => __( 'Fallback image', 'custom-fields-meta-box' ),
 				'type'  => Controls_Manager::MEDIA,
 			)
 		);

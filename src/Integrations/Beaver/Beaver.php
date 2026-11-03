@@ -87,16 +87,16 @@ class Beaver {
 			return;
 		}
 
-		FLPageData::add_group( self::GROUP, array( 'label' => __( 'CFMB', 'cfmb' ) ) );
+		FLPageData::add_group( self::GROUP, array( 'label' => __( 'CFMB', 'custom-fields-meta-box' ) ) );
 
 		$labels = array(
-			'cfmb_field'   => __( 'CFMB Field', 'cfmb' ),
-			'cfmb_url'     => __( 'CFMB URL', 'cfmb' ),
-			'cfmb_image'   => __( 'CFMB Image', 'cfmb' ),
-			'cfmb_gallery' => __( 'CFMB Gallery', 'cfmb' ),
-			'cfmb_number'  => __( 'CFMB Number', 'cfmb' ),
-			'cfmb_color'   => __( 'CFMB Color', 'cfmb' ),
-			'cfmb_date'    => __( 'CFMB Date', 'cfmb' ),
+			'cfmb_field'   => __( 'CFMB Field', 'custom-fields-meta-box' ),
+			'cfmb_url'     => __( 'CFMB URL', 'custom-fields-meta-box' ),
+			'cfmb_image'   => __( 'CFMB Image', 'custom-fields-meta-box' ),
+			'cfmb_gallery' => __( 'CFMB Gallery', 'custom-fields-meta-box' ),
+			'cfmb_number'  => __( 'CFMB Number', 'custom-fields-meta-box' ),
+			'cfmb_color'   => __( 'CFMB Color', 'custom-fields-meta-box' ),
+			'cfmb_date'    => __( 'CFMB Date', 'custom-fields-meta-box' ),
 		);
 
 		foreach ( self::PROPERTIES as $name => $property ) {
@@ -278,12 +278,12 @@ class Beaver {
 		$settings = array(
 			'cfmb_field'  => array(
 				'type'    => 'select',
-				'label'   => __( 'Field', 'cfmb' ),
+				'label'   => __( 'Field', 'custom-fields-meta-box' ),
 				'options' => $choices,
 			),
 			'cfmb_source' => array(
 				'type'    => 'select',
-				'label'   => __( 'Read from', 'cfmb' ),
+				'label'   => __( 'Read from', 'custom-fields-meta-box' ),
 				'default' => '',
 				'options' => Field_Catalog::sources(),
 				'toggle'  => array(
@@ -293,34 +293,34 @@ class Beaver {
 			),
 			'cfmb_object' => array(
 				'type'        => 'text',
-				'label'       => __( 'Object', 'cfmb' ),
-				'description' => __( 'Options page ID, or post_12, term_5, user_3.', 'cfmb' ),
+				'label'       => __( 'Object', 'custom-fields-meta-box' ),
+				'description' => __( 'Options page ID, or post_12, term_5, user_3.', 'custom-fields-meta-box' ),
 			),
 		);
 
 		if ( in_array( $kind, array( 'text', 'date' ), true ) ) {
 			$settings['cfmb_before'] = array(
 				'type'  => 'text',
-				'label' => __( 'Before', 'cfmb' ),
+				'label' => __( 'Before', 'custom-fields-meta-box' ),
 			);
 			$settings['cfmb_after']  = array(
 				'type'  => 'text',
-				'label' => __( 'After', 'cfmb' ),
+				'label' => __( 'After', 'custom-fields-meta-box' ),
 			);
 		}
 
 		if ( 'date' === $kind ) {
 			$settings['cfmb_format'] = array(
 				'type'        => 'text',
-				'label'       => __( 'Date format', 'cfmb' ),
-				'description' => __( 'A PHP date format. Leave empty for the field\'s own.', 'cfmb' ),
+				'label'       => __( 'Date format', 'custom-fields-meta-box' ),
+				'description' => __( 'A PHP date format. Leave empty for the field\'s own.', 'custom-fields-meta-box' ),
 			);
 		}
 
 		if ( in_array( $kind, array( 'image', 'url' ), true ) ) {
 			$settings['cfmb_size'] = array(
 				'type'    => 'text',
-				'label'   => __( 'Image size', 'cfmb' ),
+				'label'   => __( 'Image size', 'custom-fields-meta-box' ),
 				'default' => 'full',
 			);
 		}

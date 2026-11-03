@@ -103,7 +103,7 @@ class Bindings_Controller {
 			return true;
 		}
 
-		return new WP_Error( 'rest_forbidden', __( 'You are not allowed to preview field values.', 'cfmb' ), array( 'status' => rest_authorization_required_code() ) );
+		return new WP_Error( 'rest_forbidden', __( 'You are not allowed to preview field values.', 'custom-fields-meta-box' ), array( 'status' => rest_authorization_required_code() ) );
 	}
 
 	/**

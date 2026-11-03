@@ -192,7 +192,7 @@ class Search_Controller {
 		$type                  = $field ? $this->values->type_of( $field ) : null;
 
 		if ( ! $group || ! $field || ! $type ) {
-			return new WP_Error( 'cfmb_search_field', __( 'That field no longer exists. Reload the page.', 'cfmb' ), array( 'status' => 404 ) );
+			return new WP_Error( 'cfmb_search_field', __( 'That field no longer exists. Reload the page.', 'custom-fields-meta-box' ), array( 'status' => 404 ) );
 		}
 
 		$search = sanitize_text_field( (string) $request['search'] );
@@ -215,7 +215,7 @@ class Search_Controller {
 			return $this->posts( $type, $field, $search, $page, sanitize_key( (string) $request['post_type'] ), (string) $request['term'] );
 		}
 
-		return new WP_Error( 'cfmb_search_field', __( 'That field does not search for content.', 'cfmb' ), array( 'status' => 400 ) );
+		return new WP_Error( 'cfmb_search_field', __( 'That field does not search for content.', 'custom-fields-meta-box' ), array( 'status' => 400 ) );
 	}
 
 	/**
@@ -292,7 +292,7 @@ class Search_Controller {
 		$taxonomy = get_taxonomy( $type->taxonomy( $field ) );
 
 		if ( ! $taxonomy || ( ! $form && ! current_user_can( $taxonomy->cap->assign_terms ) ) ) {
-			return new WP_Error( 'cfmb_search_forbidden', __( 'You are not allowed to choose these terms.', 'cfmb' ), array( 'status' => 403 ) );
+			return new WP_Error( 'cfmb_search_forbidden', __( 'You are not allowed to choose these terms.', 'custom-fields-meta-box' ), array( 'status' => 403 ) );
 		}
 
 		$per_page = $all ? 1000 : self::PER_PAGE;
@@ -341,7 +341,7 @@ class Search_Controller {
 		$full = current_user_can( 'list_users' );
 
 		if ( ! $full && ! $editable ) {
-			return new WP_Error( 'cfmb_search_forbidden', __( 'You are not allowed to browse users.', 'cfmb' ), array( 'status' => 403 ) );
+			return new WP_Error( 'cfmb_search_forbidden', __( 'You are not allowed to browse users.', 'custom-fields-meta-box' ), array( 'status' => 403 ) );
 		}
 
 		$args = array(

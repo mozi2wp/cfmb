@@ -112,8 +112,8 @@ final class Group {
 		$this->location = is_array( $group['location'] ) ? $group['location'] : array();
 		$this->settings = array_merge( self::default_settings(), is_array( $group['settings'] ) ? $group['settings'] : array() );
 		// Groups without a post and without a source come from code (the cfmb/groups/loaded filter).
-		$this->source   = in_array( $group['source'], array( 'db', 'code', 'file' ), true ) ? (string) $group['source'] : ( $this->id > 0 ? 'db' : 'code' );
-		$this->file     = (string) $group['file'];
+		$this->source        = in_array( $group['source'], array( 'db', 'code', 'file' ), true ) ? (string) $group['source'] : ( $this->id > 0 ? 'db' : 'code' );
+		$this->file          = (string) $group['file'];
 		$this->stored_fields = array_values( array_filter( (array) $group['fields'], 'is_array' ) );
 		$this->fields        = $this->build_fields( $this->stored_fields );
 	}

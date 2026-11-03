@@ -33,7 +33,7 @@ class Password_Field extends Abstract_Field {
 	 * @return string
 	 */
 	public function label(): string {
-		return __( 'Password', 'cfmb' );
+		return __( 'Password', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -43,7 +43,7 @@ class Password_Field extends Abstract_Field {
 	 */
 	public function settings_schema(): array {
 		return array(
-			$this->setting( 'placeholder', __( 'Placeholder', 'cfmb' ), 'text' ),
+			$this->setting( 'placeholder', __( 'Placeholder', 'custom-fields-meta-box' ), 'text' ),
 		);
 	}
 

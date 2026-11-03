@@ -21,7 +21,7 @@ export default function CheckboxList( { field, id, value, onChange } ) {
 							checked={ allChecked }
 							onChange={ ( event ) => onChange( event.target.checked ? allValues : [] ) }
 						/>
-						{ __( 'Select all', 'cfmb' ) }
+						{ __( 'Select all', 'custom-fields-meta-box' ) }
 					</label>
 				</li>
 			) }

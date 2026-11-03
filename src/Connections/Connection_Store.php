@@ -97,10 +97,10 @@ class Connection_Store {
 
 		if ( 'to' === $side ) {
 			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery -- Own table; cached above.
-			$rows = $wpdb->get_col( $wpdb->prepare( "SELECT from_id FROM {$table} WHERE connection = %s AND to_id = %d ORDER BY to_order ASC, id ASC", $connection, $id ) ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name from $wpdb->prefix.
+			$rows = $wpdb->get_col( $wpdb->prepare( 'SELECT from_id FROM %i WHERE connection = %s AND to_id = %d ORDER BY to_order ASC, id ASC', $table, $connection, $id ) );
 		} else {
 			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery -- Own table; cached above.
-			$rows = $wpdb->get_col( $wpdb->prepare( "SELECT to_id FROM {$table} WHERE connection = %s AND from_id = %d ORDER BY from_order ASC, id ASC", $connection, $id ) ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name from $wpdb->prefix.
+			$rows = $wpdb->get_col( $wpdb->prepare( 'SELECT to_id FROM %i WHERE connection = %s AND from_id = %d ORDER BY from_order ASC, id ASC', $table, $connection, $id ) );
 		}
 
 		$ids = array_map( 'intval', is_array( $rows ) ? $rows : array() );
@@ -137,10 +137,10 @@ class Connection_Store {
 
 		if ( 'to' === $side ) {
 			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery -- Own table; cached above.
-			$rows = $wpdb->get_results( $wpdb->prepare( "SELECT id, from_id AS other FROM {$table} WHERE connection = %s AND to_id = %d", $connection, $id ), ARRAY_A ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name from $wpdb->prefix.
+			$rows = $wpdb->get_results( $wpdb->prepare( 'SELECT id, from_id AS other FROM %i WHERE connection = %s AND to_id = %d', $table, $connection, $id ), ARRAY_A );
 		} else {
 			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery -- Own table; cached above.
-			$rows = $wpdb->get_results( $wpdb->prepare( "SELECT id, to_id AS other FROM {$table} WHERE connection = %s AND from_id = %d", $connection, $id ), ARRAY_A ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name from $wpdb->prefix.
+			$rows = $wpdb->get_results( $wpdb->prepare( 'SELECT id, to_id AS other FROM %i WHERE connection = %s AND from_id = %d', $table, $connection, $id ), ARRAY_A );
 		}
 
 		$map = array();
@@ -178,7 +178,7 @@ class Connection_Store {
 			$placeholders = implode( ',', array_fill( 0, count( $chunk ), '%d' ) );
 
 			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQL.NotPrepared -- Own table; placeholders built above.
-			$rows = $wpdb->get_results( $wpdb->prepare( "SELECT id, connection, from_id, to_id, from_order, to_order FROM {$table} WHERE id IN ({$placeholders})", $chunk ), ARRAY_A );
+			$rows = $wpdb->get_results( $wpdb->prepare( "SELECT id, connection, from_id, to_id, from_order, to_order FROM %i WHERE id IN ({$placeholders})", array_merge( array( $table ), $chunk ) ), ARRAY_A );
 
 			foreach ( is_array( $rows ) ? $rows : array() as $row ) {
 				$found[ (int) $row['id'] ] = array(
@@ -221,7 +221,7 @@ class Connection_Store {
 			$placeholders = implode( ',', array_fill( 0, count( $chunk ), '%d' ) );
 
 			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQL.NotPrepared -- Own table; whole cache group invalidated below.
-			$deleted += (int) $wpdb->query( $wpdb->prepare( "DELETE FROM {$table} WHERE id IN ({$placeholders})", $chunk ) );
+			$deleted += (int) $wpdb->query( $wpdb->prepare( "DELETE FROM %i WHERE id IN ({$placeholders})", array_merge( array( $table ), $chunk ) ) );
 		}
 
 		foreach ( $rows as $row ) {
@@ -260,7 +260,8 @@ class Connection_Store {
 			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Own table; cache flushed below.
 			$restored += (int) $wpdb->query(
 				$wpdb->prepare(
-					"INSERT IGNORE INTO {$table} (id, connection, from_id, to_id, from_order, to_order) VALUES (%d, %s, %d, %d, %d, %d)", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name from $wpdb->prefix.
+					'INSERT IGNORE INTO %i (id, connection, from_id, to_id, from_order, to_order) VALUES (%d, %s, %d, %d, %d, %d)',
+					$table,
 					(int) $row['id'],
 					substr( sanitize_key( (string) $row['connection'] ), 0, 64 ),
 					(int) $row['from_id'],
@@ -456,7 +457,7 @@ class Connection_Store {
 		$table = self::table();
 
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Own table; admin-only count.
-		return (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$table} WHERE connection = %s", $connection ) ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name from $wpdb->prefix.
+		return (int) $wpdb->get_var( $wpdb->prepare( 'SELECT COUNT(*) FROM %i WHERE connection = %s', $table, $connection ) );
 	}
 
 	/**

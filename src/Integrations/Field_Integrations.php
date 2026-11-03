@@ -130,7 +130,7 @@ final class Field_Integrations {
 		if ( array_key_exists( 'seo', $raw ) && null !== $raw['seo'] && '' !== $raw['seo'] ) {
 			$seo = (bool) $raw['seo'];
 
-			if ( $seo !== self::default_seo( $type ) ) {
+			if ( self::default_seo( $type ) !== $seo ) {
 				$clean['seo'] = $seo;
 			}
 		}

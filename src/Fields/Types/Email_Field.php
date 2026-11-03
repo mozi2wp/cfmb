@@ -31,7 +31,7 @@ class Email_Field extends Text_Field {
 	 * @return string
 	 */
 	public function label(): string {
-		return __( 'Email', 'cfmb' );
+		return __( 'Email', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -41,10 +41,10 @@ class Email_Field extends Text_Field {
 	 */
 	public function settings_schema(): array {
 		return array(
-			$this->setting( 'default_value', __( 'Default value', 'cfmb' ), 'text' ),
-			$this->setting( 'placeholder', __( 'Placeholder', 'cfmb' ), 'text' ),
-			$this->setting( 'prepend', __( 'Text before the input', 'cfmb' ), 'text', '', array( 'advanced' => true ) ),
-			$this->setting( 'append', __( 'Text after the input', 'cfmb' ), 'text', '', array( 'advanced' => true ) ),
+			$this->setting( 'default_value', __( 'Default value', 'custom-fields-meta-box' ), 'text' ),
+			$this->setting( 'placeholder', __( 'Placeholder', 'custom-fields-meta-box' ), 'text' ),
+			$this->setting( 'prepend', __( 'Text before the input', 'custom-fields-meta-box' ), 'text', '', array( 'advanced' => true ) ),
+			$this->setting( 'append', __( 'Text after the input', 'custom-fields-meta-box' ), 'text', '', array( 'advanced' => true ) ),
 		);
 	}
 
@@ -73,7 +73,7 @@ class Email_Field extends Text_Field {
 			return null;
 		}
 
-		return __( 'Enter an email address, like name@example.com.', 'cfmb' );
+		return __( 'Enter an email address, like name@example.com.', 'custom-fields-meta-box' );
 	}
 
 	/**

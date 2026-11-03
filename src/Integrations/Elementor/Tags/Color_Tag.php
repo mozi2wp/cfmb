@@ -33,7 +33,7 @@ class Color_Tag extends Data_Tag {
 	 * @return string
 	 */
 	public function get_title() {
-		return __( 'CFMB Color', 'cfmb' );
+		return __( 'CFMB Color', 'custom-fields-meta-box' );
 	}
 
 	/**

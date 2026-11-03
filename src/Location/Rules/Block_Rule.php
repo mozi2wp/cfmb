@@ -35,7 +35,7 @@ class Block_Rule extends Abstract_Rule {
 	 * @return string
 	 */
 	public function label(): string {
-		return __( 'Block', 'cfmb' );
+		return __( 'Block', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -44,7 +44,7 @@ class Block_Rule extends Abstract_Rule {
 	 * @return string
 	 */
 	public function category(): string {
-		return __( 'Forms', 'cfmb' );
+		return __( 'Forms', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -53,7 +53,7 @@ class Block_Rule extends Abstract_Rule {
 	 * @return array<string, string>
 	 */
 	public function choices(): array {
-		$choices = array( self::ALL => __( 'All Field Blocks', 'cfmb' ) );
+		$choices = array( self::ALL => __( 'All Field Blocks', 'custom-fields-meta-box' ) );
 
 		foreach ( Plugin::instance()->get( Block_Registry::class )->all() as $name => $definition ) {
 			$choices[ $name ] = $definition->title();

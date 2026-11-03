@@ -1,0 +1,396 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Method CFMB\\\\Admin\\\\List_Columns\\:\\:choices\\(\\) should return array\\<string, string\\> but returns array\\<int, string\\>\\.$#"
+			count: 1
+			path: src/Admin/List_Columns.php
+
+		-
+			message: "#^Property CFMB\\\\Admin\\\\List_Columns\\:\\:\\$kind is never read, only written\\.$#"
+			count: 1
+			path: src/Admin/List_Columns.php
+
+		-
+			message: "#^Property CFMB\\\\Admin\\\\Options_Screen\\:\\:\\$hooks is never read, only written\\.$#"
+			count: 1
+			path: src/Admin/Options_Screen.php
+
+		-
+			message: "#^Parameter \\#2 \\$callback of function array_filter expects \\(callable\\(string\\)\\: bool\\)\\|null, 'strlen' given\\.$#"
+			count: 1
+			path: src/Display/Formatter.php
+
+		-
+			message: "#^Parameter \\#2 \\$callback of function array_filter expects \\(callable\\(string\\)\\: bool\\)\\|null, 'strlen' given\\.$#"
+			count: 1
+			path: src/Fields/Abstract_Field.php
+
+		-
+			message: "#^Parameter \\#2 \\$callback of function array_filter expects \\(callable\\(string\\)\\: bool\\)\\|null, 'strlen' given\\.$#"
+			count: 2
+			path: src/Fields/Choice_Field.php
+
+		-
+			message: "#^Constant WPINC not found\\.$#"
+			count: 1
+			path: src/Icons/Dashicons.php
+
+		-
+			message: "#^Call to function method_exists\\(\\) with 'FLPageData' and 'add_archive_property'\\|'add_post_property'\\|'add_site_property' will always evaluate to false\\.$#"
+			count: 1
+			path: src/Integrations/Beaver/Beaver.php
+
+		-
+			message: "#^Access to an undefined property CFMB\\\\Integrations\\\\Beaver\\\\Field_Loop_Module\\:\\:\\$settings\\.$#"
+			count: 1
+			path: src/Integrations/Beaver/Field_Loop_Module.php
+
+		-
+			message: "#^Call to an undefined static method FLBuilderModel\\:\\:is_builder_active\\(\\)\\.$#"
+			count: 1
+			path: src/Integrations/Beaver/Field_Loop_Module.php
+
+		-
+			message: "#^Call to an undefined static method FLBuilderModule\\:\\:__construct\\(\\)\\.$#"
+			count: 1
+			path: src/Integrations/Beaver/Field_Loop_Module.php
+
+		-
+			message: "#^Call to static method render_content_by_id\\(\\) on an unknown class FLBuilder\\.$#"
+			count: 1
+			path: src/Integrations/Beaver/Field_Loop_Module.php
+
+		-
+			message: "#^Access to an undefined property Breakdance\\\\DynamicData\\\\GalleryData\\:\\:\\$images\\.$#"
+			count: 1
+			path: src/Integrations/Breakdance/Fields/Gallery_Field.php
+
+		-
+			message: "#^Call to an undefined static method Breakdance\\\\DynamicData\\\\RepeaterData\\:\\:fromArray\\(\\)\\.$#"
+			count: 1
+			path: src/Integrations/Breakdance/Fields/Loop_Field.php
+
+		-
+			message: "#^Call to an undefined static method Breakdance\\\\DynamicData\\\\StringData\\:\\:fromString\\(\\)\\.$#"
+			count: 1
+			path: src/Integrations/Breakdance/Fields/Text_Field.php
+
+		-
+			message: "#^Call to an undefined static method Breakdance\\\\DynamicData\\\\StringData\\:\\:fromString\\(\\)\\.$#"
+			count: 1
+			path: src/Integrations/Breakdance/Fields/Url_Field.php
+
+		-
+			message: "#^Call to function method_exists\\(\\) with '\\\\\\\\Bricks\\\\\\\\Query' and 'get_loop_object' will always evaluate to false\\.$#"
+			count: 1
+			path: src/Integrations/Bricks/Bricks.php
+
+		-
+			message: "#^Dead catch \\- ReflectionException is never thrown in the try block\\.$#"
+			count: 1
+			path: src/Integrations/Builders/Signature.php
+
+		-
+			message: "#^Access to an undefined property CFMB\\\\Integrations\\\\Divi\\\\Field_Loop_Module\\:\\:\\$name\\.$#"
+			count: 1
+			path: src/Integrations/Divi/Field_Loop_Module.php
+
+		-
+			message: "#^Access to an undefined property CFMB\\\\Integrations\\\\Divi\\\\Field_Loop_Module\\:\\:\\$props\\.$#"
+			count: 1
+			path: src/Integrations/Divi/Field_Loop_Module.php
+
+		-
+			message: "#^Access to an undefined property CFMB\\\\Integrations\\\\Divi\\\\Field_Loop_Module\\:\\:\\$settings_modal_toggles\\.$#"
+			count: 1
+			path: src/Integrations/Divi/Field_Loop_Module.php
+
+		-
+			message: "#^Call to method add_category\\(\\) on an unknown class Elementor\\\\Elements_Manager\\.$#"
+			count: 1
+			path: src/Integrations/Elementor/Elementor.php
+
+		-
+			message: "#^Call to method register\\(\\) on an unknown class Elementor\\\\Core\\\\DynamicTags\\\\Manager\\.$#"
+			count: 1
+			path: src/Integrations/Elementor/Elementor.php
+
+		-
+			message: "#^Call to method register\\(\\) on an unknown class Elementor\\\\Widgets_Manager\\.$#"
+			count: 1
+			path: src/Integrations/Elementor/Elementor.php
+
+		-
+			message: "#^Call to method register_group\\(\\) on an unknown class Elementor\\\\Core\\\\DynamicTags\\\\Manager\\.$#"
+			count: 1
+			path: src/Integrations/Elementor/Elementor.php
+
+		-
+			message: "#^Parameter \\$manager of method CFMB\\\\Integrations\\\\Elementor\\\\Elementor\\:\\:register_category\\(\\) has invalid type Elementor\\\\Elements_Manager\\.$#"
+			count: 1
+			path: src/Integrations/Elementor/Elementor.php
+
+		-
+			message: "#^Parameter \\$manager of method CFMB\\\\Integrations\\\\Elementor\\\\Elementor\\:\\:register_tags\\(\\) has invalid type Elementor\\\\Core\\\\DynamicTags\\\\Manager\\.$#"
+			count: 1
+			path: src/Integrations/Elementor/Elementor.php
+
+		-
+			message: "#^Parameter \\$manager of method CFMB\\\\Integrations\\\\Elementor\\\\Elementor\\:\\:register_widgets\\(\\) has invalid type Elementor\\\\Widgets_Manager\\.$#"
+			count: 1
+			path: src/Integrations/Elementor/Elementor.php
+
+		-
+			message: "#^Access to undefined constant Elementor\\\\Controls_Manager\\:\\:NUMBER\\.$#"
+			count: 2
+			path: src/Integrations/Elementor/Field_Loop_Widget.php
+
+		-
+			message: "#^Access to undefined constant Elementor\\\\Controls_Manager\\:\\:SELECT\\.$#"
+			count: 4
+			path: src/Integrations/Elementor/Field_Loop_Widget.php
+
+		-
+			message: "#^Access to undefined constant Elementor\\\\Controls_Manager\\:\\:SLIDER\\.$#"
+			count: 1
+			path: src/Integrations/Elementor/Field_Loop_Widget.php
+
+		-
+			message: "#^Access to undefined constant Elementor\\\\Controls_Manager\\:\\:TAB_STYLE\\.$#"
+			count: 1
+			path: src/Integrations/Elementor/Field_Loop_Widget.php
+
+		-
+			message: "#^Access to undefined constant Elementor\\\\Controls_Manager\\:\\:TEXT\\.$#"
+			count: 3
+			path: src/Integrations/Elementor/Field_Loop_Widget.php
+
+		-
+			message: "#^Call to an undefined method CFMB\\\\Integrations\\\\Elementor\\\\Field_Loop_Widget\\:\\:add_control\\(\\)\\.$#"
+			count: 8
+			path: src/Integrations/Elementor/Field_Loop_Widget.php
+
+		-
+			message: "#^Call to an undefined method CFMB\\\\Integrations\\\\Elementor\\\\Field_Loop_Widget\\:\\:add_responsive_control\\(\\)\\.$#"
+			count: 2
+			path: src/Integrations/Elementor/Field_Loop_Widget.php
+
+		-
+			message: "#^Call to an undefined method CFMB\\\\Integrations\\\\Elementor\\\\Field_Loop_Widget\\:\\:end_controls_section\\(\\)\\.$#"
+			count: 2
+			path: src/Integrations/Elementor/Field_Loop_Widget.php
+
+		-
+			message: "#^Call to an undefined method CFMB\\\\Integrations\\\\Elementor\\\\Field_Loop_Widget\\:\\:get_settings_for_display\\(\\)\\.$#"
+			count: 1
+			path: src/Integrations/Elementor/Field_Loop_Widget.php
+
+		-
+			message: "#^Call to an undefined method CFMB\\\\Integrations\\\\Elementor\\\\Field_Loop_Widget\\:\\:start_controls_section\\(\\)\\.$#"
+			count: 2
+			path: src/Integrations/Elementor/Field_Loop_Widget.php
+
+		-
+			message: "#^Call to an undefined static method Elementor\\\\Plugin\\:\\:instance\\(\\)\\.$#"
+			count: 2
+			path: src/Integrations/Elementor/Field_Loop_Widget.php
+
+		-
+			message: "#^Access to undefined constant Elementor\\\\Controls_Manager\\:\\:SELECT\\.$#"
+			count: 2
+			path: src/Integrations/Elementor/Tags/Color_Tag.php
+
+		-
+			message: "#^Access to undefined constant Elementor\\\\Controls_Manager\\:\\:TEXT\\.$#"
+			count: 1
+			path: src/Integrations/Elementor/Tags/Color_Tag.php
+
+		-
+			message: "#^Call to an undefined method CFMB\\\\Integrations\\\\Elementor\\\\Tags\\\\Color_Tag\\:\\:add_control\\(\\)\\.$#"
+			count: 3
+			path: src/Integrations/Elementor/Tags/Color_Tag.php
+
+		-
+			message: "#^Call to an undefined method CFMB\\\\Integrations\\\\Elementor\\\\Tags\\\\Color_Tag\\:\\:get_settings\\(\\)\\.$#"
+			count: 3
+			path: src/Integrations/Elementor/Tags/Color_Tag.php
+
+		-
+			message: "#^Access to undefined constant Elementor\\\\Controls_Manager\\:\\:SELECT\\.$#"
+			count: 2
+			path: src/Integrations/Elementor/Tags/Date_Tag.php
+
+		-
+			message: "#^Access to undefined constant Elementor\\\\Controls_Manager\\:\\:TEXT\\.$#"
+			count: 2
+			path: src/Integrations/Elementor/Tags/Date_Tag.php
+
+		-
+			message: "#^Call to an undefined method CFMB\\\\Integrations\\\\Elementor\\\\Tags\\\\Date_Tag\\:\\:add_control\\(\\)\\.$#"
+			count: 4
+			path: src/Integrations/Elementor/Tags/Date_Tag.php
+
+		-
+			message: "#^Call to an undefined method CFMB\\\\Integrations\\\\Elementor\\\\Tags\\\\Date_Tag\\:\\:get_settings\\(\\)\\.$#"
+			count: 4
+			path: src/Integrations/Elementor/Tags/Date_Tag.php
+
+		-
+			message: "#^Access to undefined constant Elementor\\\\Controls_Manager\\:\\:SELECT\\.$#"
+			count: 2
+			path: src/Integrations/Elementor/Tags/Field_Tag.php
+
+		-
+			message: "#^Access to undefined constant Elementor\\\\Controls_Manager\\:\\:TEXT\\.$#"
+			count: 3
+			path: src/Integrations/Elementor/Tags/Field_Tag.php
+
+		-
+			message: "#^Call to an undefined method CFMB\\\\Integrations\\\\Elementor\\\\Tags\\\\Field_Tag\\:\\:add_control\\(\\)\\.$#"
+			count: 5
+			path: src/Integrations/Elementor/Tags/Field_Tag.php
+
+		-
+			message: "#^Call to an undefined method CFMB\\\\Integrations\\\\Elementor\\\\Tags\\\\Field_Tag\\:\\:get_settings\\(\\)\\.$#"
+			count: 5
+			path: src/Integrations/Elementor/Tags/Field_Tag.php
+
+		-
+			message: "#^Access to undefined constant Elementor\\\\Controls_Manager\\:\\:SELECT\\.$#"
+			count: 2
+			path: src/Integrations/Elementor/Tags/Gallery_Tag.php
+
+		-
+			message: "#^Access to undefined constant Elementor\\\\Controls_Manager\\:\\:TEXT\\.$#"
+			count: 1
+			path: src/Integrations/Elementor/Tags/Gallery_Tag.php
+
+		-
+			message: "#^Call to an undefined method CFMB\\\\Integrations\\\\Elementor\\\\Tags\\\\Gallery_Tag\\:\\:add_control\\(\\)\\.$#"
+			count: 3
+			path: src/Integrations/Elementor/Tags/Gallery_Tag.php
+
+		-
+			message: "#^Call to an undefined method CFMB\\\\Integrations\\\\Elementor\\\\Tags\\\\Gallery_Tag\\:\\:get_settings\\(\\)\\.$#"
+			count: 3
+			path: src/Integrations/Elementor/Tags/Gallery_Tag.php
+
+		-
+			message: "#^Access to undefined constant Elementor\\\\Controls_Manager\\:\\:MEDIA\\.$#"
+			count: 1
+			path: src/Integrations/Elementor/Tags/Image_Tag.php
+
+		-
+			message: "#^Access to undefined constant Elementor\\\\Controls_Manager\\:\\:SELECT\\.$#"
+			count: 2
+			path: src/Integrations/Elementor/Tags/Image_Tag.php
+
+		-
+			message: "#^Access to undefined constant Elementor\\\\Controls_Manager\\:\\:TEXT\\.$#"
+			count: 1
+			path: src/Integrations/Elementor/Tags/Image_Tag.php
+
+		-
+			message: "#^Call to an undefined method CFMB\\\\Integrations\\\\Elementor\\\\Tags\\\\Image_Tag\\:\\:add_control\\(\\)\\.$#"
+			count: 4
+			path: src/Integrations/Elementor/Tags/Image_Tag.php
+
+		-
+			message: "#^Call to an undefined method CFMB\\\\Integrations\\\\Elementor\\\\Tags\\\\Image_Tag\\:\\:get_settings\\(\\)\\.$#"
+			count: 4
+			path: src/Integrations/Elementor/Tags/Image_Tag.php
+
+		-
+			message: "#^Access to undefined constant Elementor\\\\Controls_Manager\\:\\:SELECT\\.$#"
+			count: 2
+			path: src/Integrations/Elementor/Tags/Number_Tag.php
+
+		-
+			message: "#^Access to undefined constant Elementor\\\\Controls_Manager\\:\\:TEXT\\.$#"
+			count: 1
+			path: src/Integrations/Elementor/Tags/Number_Tag.php
+
+		-
+			message: "#^Call to an undefined method CFMB\\\\Integrations\\\\Elementor\\\\Tags\\\\Number_Tag\\:\\:add_control\\(\\)\\.$#"
+			count: 3
+			path: src/Integrations/Elementor/Tags/Number_Tag.php
+
+		-
+			message: "#^Call to an undefined method CFMB\\\\Integrations\\\\Elementor\\\\Tags\\\\Number_Tag\\:\\:get_settings\\(\\)\\.$#"
+			count: 3
+			path: src/Integrations/Elementor/Tags/Number_Tag.php
+
+		-
+			message: "#^Access to undefined constant Elementor\\\\Controls_Manager\\:\\:SELECT\\.$#"
+			count: 2
+			path: src/Integrations/Elementor/Tags/Url_Tag.php
+
+		-
+			message: "#^Access to undefined constant Elementor\\\\Controls_Manager\\:\\:TEXT\\.$#"
+			count: 2
+			path: src/Integrations/Elementor/Tags/Url_Tag.php
+
+		-
+			message: "#^Call to an undefined method CFMB\\\\Integrations\\\\Elementor\\\\Tags\\\\Url_Tag\\:\\:add_control\\(\\)\\.$#"
+			count: 4
+			path: src/Integrations/Elementor/Tags/Url_Tag.php
+
+		-
+			message: "#^Call to an undefined method CFMB\\\\Integrations\\\\Elementor\\\\Tags\\\\Url_Tag\\:\\:get_settings\\(\\)\\.$#"
+			count: 4
+			path: src/Integrations/Elementor/Tags/Url_Tag.php
+
+		-
+			message: "#^Dead catch \\- Throwable is never thrown in the try block\\.$#"
+			count: 1
+			path: src/Integrations/Graphql/Graphql.php
+
+		-
+			message: "#^Call to an undefined method CFMB\\\\Integrations\\\\Oxygen\\\\Field_Loop_Element\\:\\:addOptionControl\\(\\)\\.$#"
+			count: 3
+			path: src/Integrations/Oxygen/Field_Loop_Element.php
+
+		-
+			message: "#^Call to method get_id\\(\\) on an unknown class WC_Product_Variation\\.$#"
+			count: 1
+			path: src/Integrations/WooCommerce/WooCommerce.php
+
+		-
+			message: "#^Class WC_Product_Variation not found\\.$#"
+			count: 1
+			path: src/Integrations/WooCommerce/WooCommerce.php
+
+		-
+			message: "#^Call to method minify\\(\\) on an unknown class CFMB\\\\Vendor\\\\enshrined\\\\svgSanitize\\\\Sanitizer\\.$#"
+			count: 1
+			path: src/Media/Svg_Uploads.php
+
+		-
+			message: "#^Call to method removeRemoteReferences\\(\\) on an unknown class CFMB\\\\Vendor\\\\enshrined\\\\svgSanitize\\\\Sanitizer\\.$#"
+			count: 1
+			path: src/Media/Svg_Uploads.php
+
+		-
+			message: "#^Call to method sanitize\\(\\) on an unknown class CFMB\\\\Vendor\\\\enshrined\\\\svgSanitize\\\\Sanitizer\\.$#"
+			count: 1
+			path: src/Media/Svg_Uploads.php
+
+		-
+			message: "#^Instantiated class CFMB\\\\Vendor\\\\enshrined\\\\svgSanitize\\\\Sanitizer not found\\.$#"
+			count: 1
+			path: src/Media/Svg_Uploads.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between null and mixed will always evaluate to false\\.$#"
+			count: 1
+			path: src/Storage/Block_Store.php
+
+		-
+			message: "#^Function acf_get_local_fields not found\\.$#"
+			count: 1
+			path: src/Switching/Acf_Reader.php
+
+		-
+			message: "#^Offset 'kind' on array\\{pattern\\: string, kind\\: string\\} on left side of \\?\\? always exists and is not nullable\\.$#"
+			count: 1
+			path: src/Switching/Value_Converter.php

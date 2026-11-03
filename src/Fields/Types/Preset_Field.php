@@ -37,7 +37,7 @@ class Preset_Field extends Abstract_Field {
 	 * @return string
 	 */
 	public function label(): string {
-		return __( 'Preset', 'cfmb' );
+		return __( 'Preset', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -56,25 +56,25 @@ class Preset_Field extends Abstract_Field {
 	 */
 	public function settings_schema(): array {
 		return array(
-			$this->setting( 'source', __( 'Field group', 'cfmb' ), 'preset_source', '' ),
+			$this->setting( 'source', __( 'Field group', 'custom-fields-meta-box' ), 'preset_source', '' ),
 			$this->setting(
 				'fields',
-				__( 'Fields to insert', 'cfmb' ),
+				__( 'Fields to insert', 'custom-fields-meta-box' ),
 				'preset_fields',
 				array(),
-				array( 'help' => __( 'Leave all unchecked to insert every field, including ones added to the group later.', 'cfmb' ) )
+				array( 'help' => __( 'Leave all unchecked to insert every field, including ones added to the group later.', 'custom-fields-meta-box' ) )
 			),
 			$this->setting(
 				'naming',
-				__( 'Names', 'cfmb' ),
+				__( 'Names', 'custom-fields-meta-box' ),
 				'select',
 				'plain',
 				array(
 					'options' => array(
-						'plain'    => __( 'Plain: values saved as title, image', 'cfmb' ),
-						'prefixed' => __( 'Prefixed: values saved as {name}_title, {name}_image', 'cfmb' ),
+						'plain'    => __( 'Plain: values saved as title, image', 'custom-fields-meta-box' ),
+						'prefixed' => __( 'Prefixed: values saved as {name}_title, {name}_image', 'custom-fields-meta-box' ),
 					),
-					'help'    => __( 'Use prefixed names to insert the same preset more than once.', 'cfmb' ),
+					'help'    => __( 'Use prefixed names to insert the same preset more than once.', 'custom-fields-meta-box' ),
 				)
 			),
 		);

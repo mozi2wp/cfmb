@@ -136,7 +136,7 @@ class Rows_Controller {
 		$group = $ref ? $this->matcher->matching_group( (string) $request['group'], Context::from_ref( $ref ) ) : null;
 
 		if ( ! $ref || ! $group ) {
-			return new WP_Error( 'cfmb_rows_unavailable', __( 'These fields are not shown for this item.', 'cfmb' ), array( 'status' => 404 ) );
+			return new WP_Error( 'cfmb_rows_unavailable', __( 'These fields are not shown for this item.', 'custom-fields-meta-box' ), array( 'status' => 404 ) );
 		}
 
 		// Only top-level fields are paged, so their storage name is their own name.
@@ -149,7 +149,7 @@ class Rows_Controller {
 		}
 
 		if ( ! $field || ! $this->values->rows()->is_paged( $field ) ) {
-			return new WP_Error( 'cfmb_rows_unavailable', __( 'That field does not load rows in pages.', 'cfmb' ), array( 'status' => 404 ) );
+			return new WP_Error( 'cfmb_rows_unavailable', __( 'That field does not load rows in pages.', 'custom-fields-meta-box' ), array( 'status' => 404 ) );
 		}
 
 		return rest_ensure_response(

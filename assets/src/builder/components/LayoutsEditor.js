@@ -49,7 +49,7 @@ export default function LayoutsEditor( { field, updateField, expanded, setExpand
 			return next;
 		} );
 		/* translators: %d: new position */
-		speak( sprintf( __( 'Layout moved to position %d.', 'cfmb' ), target + 1 ) );
+		speak( sprintf( __( 'Layout moved to position %d.', 'custom-fields-meta-box' ), target + 1 ) );
 	};
 
 	const duplicate = ( index ) => {
@@ -58,7 +58,7 @@ export default function LayoutsEditor( { field, updateField, expanded, setExpand
 			...copyField( { key: 'fld_tmp000', fields: source.fields || [] } ),
 			key: blankLayout().key,
 			/* translators: %s: layout label */
-			label: source.label ? sprintf( __( '%s (copy)', 'cfmb' ), source.label ) : '',
+			label: source.label ? sprintf( __( '%s (copy)', 'custom-fields-meta-box' ), source.label ) : '',
 			name: source.name ? `${ source.name }_copy` : '',
 			min: source.min,
 			max: source.max,
@@ -75,10 +75,10 @@ export default function LayoutsEditor( { field, updateField, expanded, setExpand
 		setLayouts( ( list ) => list.filter( ( layout ) => layout.key !== removed.key ) );
 		snackbar(
 			/* translators: %s: layout label */
-			sprintf( __( 'Layout "%s" removed. Save to make it final.', 'cfmb' ), removed.label || removed.name || __( '(no label)', 'cfmb' ) ),
+			sprintf( __( 'Layout "%s" removed. Save to make it final.', 'custom-fields-meta-box' ), removed.label || removed.name || __( '(no label)', 'custom-fields-meta-box' ) ),
 			[
 				{
-					label: __( 'Undo', 'cfmb' ),
+					label: __( 'Undo', 'custom-fields-meta-box' ),
 					onClick: () =>
 						setLayouts( ( list ) => {
 							if ( list.some( ( layout ) => layout.key === removed.key ) ) {
@@ -95,12 +95,12 @@ export default function LayoutsEditor( { field, updateField, expanded, setExpand
 
 	return (
 		<div className="cfmb-layouts">
-			<h3 className="cfmb-field-row__children-title">{ __( 'Layouts', 'cfmb' ) }</h3>
-			<p className="description">{ __( 'Editors stack these in any order. Each layout has its own fields.', 'cfmb' ) }</p>
+			<h3 className="cfmb-field-row__children-title">{ __( 'Layouts', 'custom-fields-meta-box' ) }</h3>
+			<p className="description">{ __( 'Editors stack these in any order. Each layout has its own fields.', 'custom-fields-meta-box' ) }</p>
 			<ol className="cfmb-layouts__list">
 				{ layouts.map( ( layout, index ) => {
 					const isOpen = open.has( layout.key );
-					const label = layout.label || layout.name || __( '(no label)', 'cfmb' );
+					const label = layout.label || layout.name || __( '(no label)', 'custom-fields-meta-box' );
 					return (
 						<li key={ layout.key } className={ `cfmb-layout${ isOpen ? ' is-open' : '' }` }>
 							<div className="cfmb-layout__header">
@@ -110,7 +110,7 @@ export default function LayoutsEditor( { field, updateField, expanded, setExpand
 									<span className="cfmb-field-row__count">
 										{ sprintf(
 											/* translators: %d: number of fields */
-											__( '%d fields', 'cfmb' ),
+											__( '%d fields', 'custom-fields-meta-box' ),
 											( layout.fields || [] ).length
 										) }
 									</span>
@@ -119,13 +119,13 @@ export default function LayoutsEditor( { field, updateField, expanded, setExpand
 									icon="ellipsis"
 									label={
 										/* translators: %s: layout label */
-										sprintf( __( 'Actions for layout %s', 'cfmb' ), label )
+										sprintf( __( 'Actions for layout %s', 'custom-fields-meta-box' ), label )
 									}
 									controls={ [
-										{ title: __( 'Move up', 'cfmb' ), icon: 'arrow-up-alt', isDisabled: index === 0, onClick: () => moveLayout( index, -1 ) },
-										{ title: __( 'Move down', 'cfmb' ), icon: 'arrow-down-alt', isDisabled: index === layouts.length - 1, onClick: () => moveLayout( index, 1 ) },
-										{ title: __( 'Duplicate', 'cfmb' ), icon: 'admin-page', onClick: () => duplicate( index ) },
-										{ title: __( 'Delete', 'cfmb' ), icon: 'trash', onClick: () => remove( index ) },
+										{ title: __( 'Move up', 'custom-fields-meta-box' ), icon: 'arrow-up-alt', isDisabled: index === 0, onClick: () => moveLayout( index, -1 ) },
+										{ title: __( 'Move down', 'custom-fields-meta-box' ), icon: 'arrow-down-alt', isDisabled: index === layouts.length - 1, onClick: () => moveLayout( index, 1 ) },
+										{ title: __( 'Duplicate', 'custom-fields-meta-box' ), icon: 'admin-page', onClick: () => duplicate( index ) },
+										{ title: __( 'Delete', 'custom-fields-meta-box' ), icon: 'trash', onClick: () => remove( index ) },
 									] }
 								/>
 							</div>
@@ -135,7 +135,7 @@ export default function LayoutsEditor( { field, updateField, expanded, setExpand
 										<TextControl
 											{ ...common }
 											id={ `cfmb-layout-label-${ layout.key }` }
-											label={ __( 'Label', 'cfmb' ) }
+											label={ __( 'Label', 'custom-fields-meta-box' ) }
 											value={ layout.label || '' }
 											onChange={ ( value ) =>
 												patchLayout( layout.key, ( current ) => {
@@ -146,8 +146,8 @@ export default function LayoutsEditor( { field, updateField, expanded, setExpand
 										/>
 										<TextControl
 											{ ...common }
-											label={ __( 'Name', 'cfmb' ) }
-											help={ __( 'Saved with each row, so templates can tell layouts apart.', 'cfmb' ) }
+											label={ __( 'Name', 'custom-fields-meta-box' ) }
+											help={ __( 'Saved with each row, so templates can tell layouts apart.', 'custom-fields-meta-box' ) }
 											value={ layout.name || '' }
 											onChange={ ( value ) => patchLayout( layout.key, { name: toFieldName( value ) } ) }
 										/>
@@ -155,7 +155,7 @@ export default function LayoutsEditor( { field, updateField, expanded, setExpand
 											{ ...common }
 											type="number"
 											min={ 0 }
-											label={ __( 'Minimum rows', 'cfmb' ) }
+											label={ __( 'Minimum rows', 'custom-fields-meta-box' ) }
 											value={ layout.min || '' }
 											onChange={ ( value ) => patchLayout( layout.key, { min: Number( value ) || 0 } ) }
 										/>
@@ -163,7 +163,7 @@ export default function LayoutsEditor( { field, updateField, expanded, setExpand
 											{ ...common }
 											type="number"
 											min={ 0 }
-											label={ __( 'Maximum rows', 'cfmb' ) }
+											label={ __( 'Maximum rows', 'custom-fields-meta-box' ) }
 											value={ layout.max || '' }
 											onChange={ ( value ) => patchLayout( layout.key, { max: Number( value ) || 0 } ) }
 										/>
@@ -177,7 +177,7 @@ export default function LayoutsEditor( { field, updateField, expanded, setExpand
 										listId={ `${ field.key }:${ layout.key }` }
 										depth={ depth + 1 }
 										prefixLength={ prefixLength }
-										emptyText={ __( 'No fields in this layout yet.', 'cfmb' ) }
+										emptyText={ __( 'No fields in this layout yet.', 'custom-fields-meta-box' ) }
 									/>
 								</div>
 							) }
@@ -186,7 +186,7 @@ export default function LayoutsEditor( { field, updateField, expanded, setExpand
 				} ) }
 			</ol>
 			<Button variant="secondary" size="compact" icon="plus-alt2" onClick={ add }>
-				{ __( 'Add layout', 'cfmb' ) }
+				{ __( 'Add layout', 'custom-fields-meta-box' ) }
 			</Button>
 		</div>
 	);

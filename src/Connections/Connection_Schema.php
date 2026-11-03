@@ -69,18 +69,18 @@ class Connection_Schema extends Content_Schema {
 	 */
 	public function names(): array {
 		return array(
-			'singular'      => __( 'Connection', 'cfmb' ),
-			'plural'        => __( 'Connections', 'cfmb' ),
-			'add'           => __( 'Add connection', 'cfmb' ),
-			'title_label'   => __( 'Name', 'cfmb' ),
-			'title_example' => __( 'For example: Book authors', 'cfmb' ),
-			'name_label'    => __( 'Connection ID', 'cfmb' ),
-			'name_help'     => __( 'Used in code, such as cfmb_get_connected( \'book_authors\' ). Lowercase letters, numbers, dashes and underscores.', 'cfmb' ),
-			'title_missing' => __( 'Give the connection a name.', 'cfmb' ),
-			'name_missing'  => __( 'Give the connection an ID, such as book_authors.', 'cfmb' ),
-			'empty_title'   => __( 'Create your first connection', 'cfmb' ),
-			'empty_text'    => __( 'A connection links two kinds of content both ways, like books and their authors. Each side gets a box to pick the other.', 'cfmb' ),
-			'move'          => __( 'Keep existing links under the new ID', 'cfmb' ),
+			'singular'      => __( 'Connection', 'custom-fields-meta-box' ),
+			'plural'        => __( 'Connections', 'custom-fields-meta-box' ),
+			'add'           => __( 'Add connection', 'custom-fields-meta-box' ),
+			'title_label'   => __( 'Name', 'custom-fields-meta-box' ),
+			'title_example' => __( 'For example: Book authors', 'custom-fields-meta-box' ),
+			'name_label'    => __( 'Connection ID', 'custom-fields-meta-box' ),
+			'name_help'     => __( 'Used in code, such as cfmb_get_connected( \'book_authors\' ). Lowercase letters, numbers, dashes and underscores.', 'custom-fields-meta-box' ),
+			'title_missing' => __( 'Give the connection a name.', 'custom-fields-meta-box' ),
+			'name_missing'  => __( 'Give the connection an ID, such as book_authors.', 'custom-fields-meta-box' ),
+			'empty_title'   => __( 'Create your first connection', 'custom-fields-meta-box' ),
+			'empty_text'    => __( 'A connection links two kinds of content both ways, like books and their authors. Each side gets a box to pick the other.', 'custom-fields-meta-box' ),
+			'move'          => __( 'Keep existing links under the new ID', 'custom-fields-meta-box' ),
 			'name_from'     => 'title',
 		);
 	}
@@ -111,26 +111,26 @@ class Connection_Schema extends Content_Schema {
 
 		$settings[] = $this->setting(
 			'cardinality',
-			__( 'How many on each side', 'cfmb' ),
+			__( 'How many on each side', 'custom-fields-meta-box' ),
 			'select',
 			'many_to_many',
 			array(
 				'options' => array(
-					'many_to_many' => __( 'Many to many', 'cfmb' ),
-					'one_to_many'  => __( 'One to many (each "to" item has one "from" item)', 'cfmb' ),
-					'many_to_one'  => __( 'Many to one (each "from" item has one "to" item)', 'cfmb' ),
-					'one_to_one'   => __( 'One to one', 'cfmb' ),
+					'many_to_many' => __( 'Many to many', 'custom-fields-meta-box' ),
+					'one_to_many'  => __( 'One to many (each "to" item has one "from" item)', 'custom-fields-meta-box' ),
+					'many_to_one'  => __( 'Many to one (each "from" item has one "to" item)', 'custom-fields-meta-box' ),
+					'one_to_one'   => __( 'One to one', 'custom-fields-meta-box' ),
 				),
-				'help'    => __( 'Picking an item that is already taken moves its link here.', 'cfmb' ),
+				'help'    => __( 'Picking an item that is already taken moves its link here.', 'custom-fields-meta-box' ),
 			)
 		);
 
-		$settings[] = $this->setting( 'from_label', __( 'Box title on "from" items', 'cfmb' ), 'text', '', array( 'help' => __( 'Lists the "to" items. Defaults to the connection name.', 'cfmb' ) ) );
-		$settings[] = $this->setting( 'to_label', __( 'Box title on "to" items', 'cfmb' ), 'text', '', array( 'help' => __( 'Lists the "from" items. Defaults to the connection name.', 'cfmb' ) ) );
+		$settings[] = $this->setting( 'from_label', __( 'Box title on "from" items', 'custom-fields-meta-box' ), 'text', '', array( 'help' => __( 'Lists the "to" items. Defaults to the connection name.', 'custom-fields-meta-box' ) ) );
+		$settings[] = $this->setting( 'to_label', __( 'Box title on "to" items', 'custom-fields-meta-box' ), 'text', '', array( 'help' => __( 'Lists the "from" items. Defaults to the connection name.', 'custom-fields-meta-box' ) ) );
 
 		$settings[] = $this->setting(
 			'show_from',
-			__( 'Show the box on "from" items', 'cfmb' ),
+			__( 'Show the box on "from" items', 'custom-fields-meta-box' ),
 			'toggle',
 			true,
 			array(
@@ -140,7 +140,7 @@ class Connection_Schema extends Content_Schema {
 		);
 		$settings[] = $this->setting(
 			'show_to',
-			__( 'Show the box on "to" items', 'cfmb' ),
+			__( 'Show the box on "to" items', 'custom-fields-meta-box' ),
 			'toggle',
 			true,
 			array(
@@ -150,27 +150,27 @@ class Connection_Schema extends Content_Schema {
 		);
 		$settings[] = $this->setting(
 			'position',
-			__( 'Box position on post screens', 'cfmb' ),
+			__( 'Box position on post screens', 'custom-fields-meta-box' ),
 			'select',
 			'side',
 			array(
 				'advanced' => true,
 				'section'  => 'display',
 				'options'  => array(
-					'side'   => __( 'Sidebar', 'cfmb' ),
-					'normal' => __( 'Below the content', 'cfmb' ),
+					'side'   => __( 'Sidebar', 'custom-fields-meta-box' ),
+					'normal' => __( 'Below the content', 'custom-fields-meta-box' ),
 				),
 			)
 		);
 		$settings[] = $this->setting(
 			'show_in_rest',
-			__( 'Show in the REST API', 'cfmb' ),
+			__( 'Show in the REST API', 'custom-fields-meta-box' ),
 			'toggle',
 			false,
 			array(
 				'advanced' => true,
 				'section'  => 'rest',
-				'help'     => __( 'Adds the IDs of connected items to the cfmb_connections attribute of each side. Only items the reader may see are listed.', 'cfmb' ),
+				'help'     => __( 'Adds the IDs of connected items to the cfmb_connections attribute of each side. Only items the reader may see are listed.', 'custom-fields-meta-box' ),
 			)
 		);
 
@@ -200,51 +200,51 @@ class Connection_Schema extends Content_Schema {
 		return array(
 			$this->setting(
 				$side,
-				$is_from ? __( 'From', 'cfmb' ) : __( 'To', 'cfmb' ),
+				$is_from ? __( 'From', 'custom-fields-meta-box' ) : __( 'To', 'custom-fields-meta-box' ),
 				'select',
 				'post',
 				array(
 					'options' => array(
-						'post' => __( 'Posts', 'cfmb' ),
-						'term' => __( 'Terms', 'cfmb' ),
-						'user' => __( 'Users', 'cfmb' ),
+						'post' => __( 'Posts', 'custom-fields-meta-box' ),
+						'term' => __( 'Terms', 'custom-fields-meta-box' ),
+						'user' => __( 'Users', 'custom-fields-meta-box' ),
 					),
 				)
 			),
 			$this->setting(
 				$side . '_post_types',
-				$is_from ? __( '"From" post types', 'cfmb' ) : __( '"To" post types', 'cfmb' ),
+				$is_from ? __( '"From" post types', 'custom-fields-meta-box' ) : __( '"To" post types', 'custom-fields-meta-box' ),
 				'checkboxes',
 				array(),
 				array(
 					'options' => self::post_type_options(),
 					'free'    => true,
 					'when'    => array( $side => 'post' ),
-					'help'    => __( 'Leave all unchecked to allow every post type.', 'cfmb' ),
+					'help'    => __( 'Leave all unchecked to allow every post type.', 'custom-fields-meta-box' ),
 				)
 			),
 			$this->setting(
 				$side . '_taxonomies',
-				$is_from ? __( '"From" taxonomies', 'cfmb' ) : __( '"To" taxonomies', 'cfmb' ),
+				$is_from ? __( '"From" taxonomies', 'custom-fields-meta-box' ) : __( '"To" taxonomies', 'custom-fields-meta-box' ),
 				'checkboxes',
 				array(),
 				array(
 					'options' => self::taxonomy_options(),
 					'free'    => true,
 					'when'    => array( $side => 'term' ),
-					'help'    => __( 'Leave all unchecked to allow every taxonomy.', 'cfmb' ),
+					'help'    => __( 'Leave all unchecked to allow every taxonomy.', 'custom-fields-meta-box' ),
 				)
 			),
 			$this->setting(
 				$side . '_roles',
-				$is_from ? __( '"From" roles', 'cfmb' ) : __( '"To" roles', 'cfmb' ),
+				$is_from ? __( '"From" roles', 'custom-fields-meta-box' ) : __( '"To" roles', 'custom-fields-meta-box' ),
 				'checkboxes',
 				array(),
 				array(
 					'options' => self::role_options(),
 					'free'    => true,
 					'when'    => array( $side => 'user' ),
-					'help'    => __( 'Leave all unchecked to allow every role.', 'cfmb' ),
+					'help'    => __( 'Leave all unchecked to allow every role.', 'custom-fields-meta-box' ),
 				)
 			),
 		);

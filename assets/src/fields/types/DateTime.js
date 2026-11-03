@@ -48,7 +48,7 @@ function TimeInput( { field, id, value, onChange, describedBy } ) {
 			/>
 			{ value && (
 				<Button variant="tertiary" size="compact" onClick={ () => onChange( '' ) }>
-					{ __( 'Clear', 'cfmb' ) }
+					{ __( 'Clear', 'custom-fields-meta-box' ) }
 				</Button>
 			) }
 		</div>
@@ -93,7 +93,7 @@ export default function DateTime( props ) {
 						aria-describedby={ describedBy }
 						onClick={ onToggle }
 					>
-						{ shown || <span className="cfmb-datetime__placeholder">{ withTime ? __( 'Choose a date and time', 'cfmb' ) : __( 'Choose a date', 'cfmb' ) }</span> }
+						{ shown || <span className="cfmb-datetime__placeholder">{ withTime ? __( 'Choose a date and time', 'custom-fields-meta-box' ) : __( 'Choose a date', 'custom-fields-meta-box' ) }</span> }
 					</Button>
 				) }
 				renderContent={ ( { onClose } ) =>
@@ -120,7 +120,7 @@ export default function DateTime( props ) {
 			/>
 			{ value && (
 				<Button variant="tertiary" size="compact" onClick={ () => onChange( '' ) }>
-					{ __( 'Clear', 'cfmb' ) }
+					{ __( 'Clear', 'custom-fields-meta-box' ) }
 				</Button>
 			) }
 		</div>

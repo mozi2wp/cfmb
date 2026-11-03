@@ -32,7 +32,7 @@ class Attachment_Rule extends Abstract_Rule {
 	 * @return string
 	 */
 	public function label(): string {
-		return __( 'Attachment', 'cfmb' );
+		return __( 'Attachment', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -41,7 +41,7 @@ class Attachment_Rule extends Abstract_Rule {
 	 * @return string
 	 */
 	public function category(): string {
-		return __( 'Forms', 'cfmb' );
+		return __( 'Forms', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -51,12 +51,12 @@ class Attachment_Rule extends Abstract_Rule {
 	 */
 	public function choices(): array {
 		return array(
-			self::ALL     => __( 'All media', 'cfmb' ),
-			'image'       => __( 'Images', 'cfmb' ),
-			'video'       => __( 'Videos', 'cfmb' ),
-			'audio'       => __( 'Audio', 'cfmb' ),
-			'application' => __( 'Documents and other files', 'cfmb' ),
-			'text'        => __( 'Text files', 'cfmb' ),
+			self::ALL     => __( 'All media', 'custom-fields-meta-box' ),
+			'image'       => __( 'Images', 'custom-fields-meta-box' ),
+			'video'       => __( 'Videos', 'custom-fields-meta-box' ),
+			'audio'       => __( 'Audio', 'custom-fields-meta-box' ),
+			'application' => __( 'Documents and other files', 'custom-fields-meta-box' ),
+			'text'        => __( 'Text files', 'custom-fields-meta-box' ),
 		);
 	}
 

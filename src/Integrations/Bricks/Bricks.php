@@ -132,7 +132,7 @@ class Bricks {
 			return $tags;
 		}
 
-		$group = __( 'CFMB', 'cfmb' );
+		$group = __( 'CFMB', 'custom-fields-meta-box' );
 
 		foreach ( $this->catalog->grouped( 'text' ) as $section ) {
 			$suffix = $this->catalog->is_item_section( $section ) ? '' : $this->object_suffix( $section );
@@ -148,7 +148,7 @@ class Bricks {
 				$tags[] = array(
 					'name'  => '{' . $name . '}',
 					/* translators: 1: Field Group title, 2: field label. */
-					'label' => sprintf( __( '%1$s: %2$s', 'cfmb' ), $section['label'], $label ),
+					'label' => sprintf( __( '%1$s: %2$s', 'custom-fields-meta-box' ), $section['label'], $label ),
 					'group' => $group,
 				);
 			}
@@ -231,7 +231,7 @@ class Bricks {
 
 			foreach ( $section['options'] as $path => $label ) {
 				/* translators: 1: Field Group title, 2: field label. */
-				$options['queryTypes'][ self::QUERY_PREFIX . $path . $suffix ] = sprintf( __( 'CFMB: %1$s › %2$s', 'cfmb' ), $section['label'], $label );
+				$options['queryTypes'][ self::QUERY_PREFIX . $path . $suffix ] = sprintf( __( 'CFMB: %1$s › %2$s', 'custom-fields-meta-box' ), $section['label'], $label );
 			}
 		}
 
@@ -325,8 +325,8 @@ class Bricks {
 	 * The value for a parsed tag in a Bricks context.
 	 *
 	 * @param array{path: string, args: array<string, string>} $parsed  Parsed tag.
-	 * @param mixed                                             $post    Post being rendered.
-	 * @param string                                            $context Render context.
+	 * @param mixed                                            $post    Post being rendered.
+	 * @param string                                           $context Render context.
 	 * @return mixed
 	 */
 	private function value( array $parsed, $post, string $context ) {
@@ -383,7 +383,7 @@ class Bricks {
 		$item = Field_Source::nearest_object_item();
 
 		// A CFMB loop over connected terms or users: Field_Source reads its item.
-		if ( $item && ( $loop instanceof WP_Term || $loop instanceof WP_User ) && (int) $item['id'] === (int) ( $loop instanceof WP_Term ? $loop->term_id : $loop->ID ) ) {
+		if ( $item && ( $loop instanceof WP_Term || $loop instanceof WP_User ) && (int) ( $loop instanceof WP_Term ? $loop->term_id : $loop->ID ) === (int) $item['id'] ) {
 			return '';
 		}
 
@@ -426,9 +426,9 @@ class Bricks {
 	 */
 	private function item_label( string $suffix ): string {
 		$labels = array(
-			'item_image'     => __( 'Loop item: Image', 'cfmb' ),
-			'item_image_url' => __( 'Loop item: Image URL', 'cfmb' ),
-			'item_post_url'  => __( 'Loop item: Post URL', 'cfmb' ),
+			'item_image'     => __( 'Loop item: Image', 'custom-fields-meta-box' ),
+			'item_image_url' => __( 'Loop item: Image URL', 'custom-fields-meta-box' ),
+			'item_post_url'  => __( 'Loop item: Post URL', 'custom-fields-meta-box' ),
 		);
 
 		return $labels[ $suffix ] ?? $suffix;

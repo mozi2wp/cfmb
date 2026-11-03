@@ -83,8 +83,8 @@ class Menu {
 		$capability = cfmb_admin_capability();
 
 		add_menu_page(
-			__( 'Field Groups', 'cfmb' ),
-			__( 'CFMB', 'cfmb' ),
+			__( 'Field Groups', 'custom-fields-meta-box' ),
+			__( 'CFMB', 'custom-fields-meta-box' ),
 			$capability,
 			self::SLUG,
 			array( $this->builder, 'render' ),
@@ -93,13 +93,13 @@ class Menu {
 		);
 
 		$pages = array(
-			'cfmb'               => __( 'Field Groups', 'cfmb' ),
-			'cfmb-post-types'    => __( 'Post Types', 'cfmb' ),
-			'cfmb-taxonomies'    => __( 'Taxonomies', 'cfmb' ),
-			'cfmb-options-pages' => __( 'Options Pages', 'cfmb' ),
-			'cfmb-connections'   => __( 'Connections', 'cfmb' ),
-			'cfmb-sync'          => __( 'Sync', 'cfmb' ),
-			'cfmb-switch'        => __( 'Switch Assistant', 'cfmb' ),
+			'cfmb'               => __( 'Field Groups', 'custom-fields-meta-box' ),
+			'cfmb-post-types'    => __( 'Post Types', 'custom-fields-meta-box' ),
+			'cfmb-taxonomies'    => __( 'Taxonomies', 'custom-fields-meta-box' ),
+			'cfmb-options-pages' => __( 'Options Pages', 'custom-fields-meta-box' ),
+			'cfmb-connections'   => __( 'Connections', 'custom-fields-meta-box' ),
+			'cfmb-sync'          => __( 'Sync', 'custom-fields-meta-box' ),
+			'cfmb-switch'        => __( 'Switch Assistant', 'custom-fields-meta-box' ),
 		);
 
 		foreach ( $pages as $slug => $title ) {
@@ -112,8 +112,8 @@ class Menu {
 
 		add_submenu_page(
 			self::SLUG,
-			__( 'CFMB Settings', 'cfmb' ),
-			__( 'Settings', 'cfmb' ),
+			__( 'CFMB Settings', 'custom-fields-meta-box' ),
+			__( 'Settings', 'custom-fields-meta-box' ),
 			$capability,
 			Settings_Screen::SLUG,
 			array( $this->settings, 'render' )
@@ -122,8 +122,8 @@ class Menu {
 		if ( ! Go_Pro_Screen::pro_active() ) {
 			add_submenu_page(
 				self::SLUG,
-				__( 'CFMB Pro', 'cfmb' ),
-				__( 'Go Pro', 'cfmb' ),
+				__( 'CFMB Pro', 'custom-fields-meta-box' ),
+				__( 'Go Pro', 'custom-fields-meta-box' ),
 				$capability,
 				Go_Pro_Screen::SLUG,
 				array( $this->go_pro, 'render' )

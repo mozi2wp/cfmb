@@ -40,7 +40,7 @@ class Map_Field extends Abstract_Field implements Compound_Field {
 	 * @return string
 	 */
 	public function label(): string {
-		return __( 'Map', 'cfmb' );
+		return __( 'Map', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -70,22 +70,22 @@ class Map_Field extends Abstract_Field implements Compound_Field {
 		return array(
 			$this->setting(
 				'provider',
-				__( 'Map', 'cfmb' ),
+				__( 'Map', 'custom-fields-meta-box' ),
 				'select',
 				'default',
 				array(
 					'options' => array(
-						'default' => __( 'As in CFMB settings', 'cfmb' ),
-						'osm'     => __( 'OpenStreetMap', 'cfmb' ),
-						'google'  => __( 'Google Maps (needs an API key in CFMB settings)', 'cfmb' ),
-						'none'    => __( 'No map, address and coordinates only', 'cfmb' ),
+						'default' => __( 'As in CFMB settings', 'custom-fields-meta-box' ),
+						'osm'     => __( 'OpenStreetMap', 'custom-fields-meta-box' ),
+						'google'  => __( 'Google Maps (needs an API key in CFMB settings)', 'custom-fields-meta-box' ),
+						'none'    => __( 'No map, address and coordinates only', 'custom-fields-meta-box' ),
 					),
 				)
 			),
-			$this->setting( 'center_lat', __( 'Start latitude', 'cfmb' ), 'text', '', array( 'advanced' => true ) ),
-			$this->setting( 'center_lng', __( 'Start longitude', 'cfmb' ), 'text', '', array( 'advanced' => true ) ),
-			$this->setting( 'zoom', __( 'Start zoom', 'cfmb' ), 'number', 13, array( 'advanced' => true ) ),
-			$this->setting( 'height', __( 'Map height (px)', 'cfmb' ), 'number', 320, array( 'advanced' => true ) ),
+			$this->setting( 'center_lat', __( 'Start latitude', 'custom-fields-meta-box' ), 'text', '', array( 'advanced' => true ) ),
+			$this->setting( 'center_lng', __( 'Start longitude', 'custom-fields-meta-box' ), 'text', '', array( 'advanced' => true ) ),
+			$this->setting( 'zoom', __( 'Start zoom', 'custom-fields-meta-box' ), 'number', 13, array( 'advanced' => true ) ),
+			$this->setting( 'height', __( 'Map height (px)', 'custom-fields-meta-box' ), 'number', 320, array( 'advanced' => true ) ),
 		);
 	}
 
@@ -159,11 +159,11 @@ class Map_Field extends Abstract_Field implements Compound_Field {
 		}
 
 		if ( '' === $lat || '' === $lng ) {
-			return __( 'Enter both latitude and longitude, or pick the place on the map.', 'cfmb' );
+			return __( 'Enter both latitude and longitude, or pick the place on the map.', 'custom-fields-meta-box' );
 		}
 
 		if ( abs( (float) $lat ) > 90 || abs( (float) $lng ) > 180 ) {
-			return __( 'Latitude must be between -90 and 90, longitude between -180 and 180.', 'cfmb' );
+			return __( 'Latitude must be between -90 and 90, longitude between -180 and 180.', 'custom-fields-meta-box' );
 		}
 
 		return null;

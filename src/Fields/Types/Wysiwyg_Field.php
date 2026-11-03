@@ -32,7 +32,7 @@ class Wysiwyg_Field extends Abstract_Field {
 	 * @return string
 	 */
 	public function label(): string {
-		return __( 'Rich text editor', 'cfmb' );
+		return __( 'Rich text editor', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -51,34 +51,34 @@ class Wysiwyg_Field extends Abstract_Field {
 	 */
 	public function settings_schema(): array {
 		return array(
-			$this->setting( 'default_value', __( 'Default value', 'cfmb' ), 'html' ),
+			$this->setting( 'default_value', __( 'Default value', 'custom-fields-meta-box' ), 'html' ),
 			$this->setting(
 				'tabs',
-				__( 'Editor tabs', 'cfmb' ),
+				__( 'Editor tabs', 'custom-fields-meta-box' ),
 				'select',
 				'all',
 				array(
 					'options' => array(
-						'all'    => __( 'Visual and Text', 'cfmb' ),
-						'visual' => __( 'Visual only', 'cfmb' ),
-						'text'   => __( 'Text only', 'cfmb' ),
+						'all'    => __( 'Visual and Text', 'custom-fields-meta-box' ),
+						'visual' => __( 'Visual only', 'custom-fields-meta-box' ),
+						'text'   => __( 'Text only', 'custom-fields-meta-box' ),
 					),
 				)
 			),
 			$this->setting(
 				'toolbar',
-				__( 'Toolbar', 'cfmb' ),
+				__( 'Toolbar', 'custom-fields-meta-box' ),
 				'select',
 				'full',
 				array(
 					'options' => array(
-						'full'  => __( 'Full', 'cfmb' ),
-						'basic' => __( 'Basic', 'cfmb' ),
+						'full'  => __( 'Full', 'custom-fields-meta-box' ),
+						'basic' => __( 'Basic', 'custom-fields-meta-box' ),
 					),
 				)
 			),
-			$this->setting( 'media_upload', __( 'Show "Add Media" button', 'cfmb' ), 'toggle', true ),
-			$this->setting( 'rows', __( 'Height in rows', 'cfmb' ), 'number', 10, array( 'advanced' => true ) ),
+			$this->setting( 'media_upload', __( 'Show "Add Media" button', 'custom-fields-meta-box' ), 'toggle', true ),
+			$this->setting( 'rows', __( 'Height in rows', 'custom-fields-meta-box' ), 'number', 10, array( 'advanced' => true ) ),
 		);
 	}
 

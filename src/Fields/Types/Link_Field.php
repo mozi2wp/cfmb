@@ -34,7 +34,7 @@ class Link_Field extends Abstract_Field implements Compound_Field {
 	 * @return string
 	 */
 	public function label(): string {
-		return __( 'Link', 'cfmb' );
+		return __( 'Link', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -64,13 +64,13 @@ class Link_Field extends Abstract_Field implements Compound_Field {
 		return array(
 			$this->setting(
 				'return_format',
-				__( 'Template value', 'cfmb' ),
+				__( 'Template value', 'custom-fields-meta-box' ),
 				'select',
 				'array',
 				array(
 					'options' => array(
-						'array' => __( 'URL, text and target', 'cfmb' ),
-						'url'   => __( 'URL only', 'cfmb' ),
+						'array' => __( 'URL, text and target', 'custom-fields-meta-box' ),
+						'url'   => __( 'URL only', 'custom-fields-meta-box' ),
 					),
 				)
 			),
@@ -118,7 +118,7 @@ class Link_Field extends Abstract_Field implements Compound_Field {
 	 */
 	public function validate_value( $value, Field $field ): ?string {
 		if ( is_array( $value ) && '' === ( $value['url'] ?? '' ) && '' !== ( $value['title'] ?? '' ) ) {
-			return __( 'Add the address the link points to.', 'cfmb' );
+			return __( 'Add the address the link points to.', 'custom-fields-meta-box' );
 		}
 
 		return null;

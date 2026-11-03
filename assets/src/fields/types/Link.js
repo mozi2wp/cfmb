@@ -11,7 +11,7 @@ export default function Link( { id, value, onChange, describedBy, field } ) {
 		<div className="cfmb-link" aria-describedby={ describedBy }>
 			<div className="cfmb-link__row">
 				<label className="cfmb-link__label" htmlFor={ id }>
-					{ __( 'Address', 'cfmb' ) }
+					{ __( 'Address', 'custom-fields-meta-box' ) }
 				</label>
 				<input
 					id={ id }
@@ -25,13 +25,13 @@ export default function Link( { id, value, onChange, describedBy, field } ) {
 			</div>
 			<div className="cfmb-link__row">
 				<label className="cfmb-link__label" htmlFor={ `${ id }-text` }>
-					{ __( 'Link text', 'cfmb' ) }
+					{ __( 'Link text', 'custom-fields-meta-box' ) }
 				</label>
 				<input id={ `${ id }-text` } className="cfmb-input" type="text" value={ link.title || '' } onChange={ ( event ) => set( { title: event.target.value } ) } />
 			</div>
 			<label className="cfmb-link__target">
 				<input type="checkbox" checked={ link.target === '_blank' } onChange={ ( event ) => set( { target: event.target.checked ? '_blank' : '' } ) } />
-				{ __( 'Open in a new tab', 'cfmb' ) }
+				{ __( 'Open in a new tab', 'custom-fields-meta-box' ) }
 			</label>
 		</div>
 	);

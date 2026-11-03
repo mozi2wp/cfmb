@@ -33,7 +33,7 @@ class Taxonomy_Rule extends Abstract_Rule {
 	 * @return string
 	 */
 	public function label(): string {
-		return __( 'Taxonomy', 'cfmb' );
+		return __( 'Taxonomy', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -42,7 +42,7 @@ class Taxonomy_Rule extends Abstract_Rule {
 	 * @return string
 	 */
 	public function category(): string {
-		return __( 'Taxonomy', 'cfmb' );
+		return __( 'Taxonomy', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -51,7 +51,7 @@ class Taxonomy_Rule extends Abstract_Rule {
 	 * @return array<string, string>
 	 */
 	public function choices(): array {
-		$choices = array( self::ALL => __( 'All taxonomies', 'cfmb' ) );
+		$choices = array( self::ALL => __( 'All taxonomies', 'custom-fields-meta-box' ) );
 
 		foreach ( get_taxonomies( array( 'show_ui' => true ), 'objects' ) as $name => $taxonomy ) {
 			$choices[ $name ] = $taxonomy->labels->singular_name;

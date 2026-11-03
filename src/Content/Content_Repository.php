@@ -134,7 +134,7 @@ class Content_Repository {
 		if ( null === $this->loaded || $this->local->revision() !== $this->local_revision ) {
 			$this->local_revision = $this->local->revision();
 			$this->loaded         = array();
-			$stored       = $this->load_stored();
+			$stored               = $this->load_stored();
 
 			foreach ( $stored['items'] as $item ) {
 				$this->loaded[ $item['key'] ] = $item;
@@ -259,7 +259,7 @@ class Content_Repository {
 		$saved = get_post( $post_id );
 
 		if ( ! $saved instanceof WP_Post ) {
-			return new WP_Error( 'cfmb_content_not_saved', __( 'That could not be saved. Please try again.', 'cfmb' ) );
+			return new WP_Error( 'cfmb_content_not_saved', __( 'That could not be saved. Please try again.', 'custom-fields-meta-box' ) );
 		}
 
 		$stored = $this->hydrate( $saved );
@@ -357,7 +357,7 @@ class Content_Repository {
 		$source = $this->find( $key );
 
 		if ( ! $source ) {
-			return new WP_Error( 'cfmb_content_missing', __( 'That item no longer exists.', 'cfmb' ), array( 'status' => 404 ) );
+			return new WP_Error( 'cfmb_content_missing', __( 'That item no longer exists.', 'custom-fields-meta-box' ), array( 'status' => 404 ) );
 		}
 
 		$taken  = $this->names_taken();
@@ -375,7 +375,7 @@ class Content_Repository {
 		$copy['active'] = false;
 		$copy['title']  = sprintf(
 			/* translators: %s: original title */
-			__( '%s (copy)', 'cfmb' ),
+			__( '%s (copy)', 'custom-fields-meta-box' ),
 			$source['title']
 		);
 

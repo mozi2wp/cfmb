@@ -40,7 +40,7 @@ function apply( matched ) {
 	// Maps and editors inside a box that just appeared need to measure again.
 	window.dispatchEvent( new window.Event( 'resize' ) );
 	if ( shown ) {
-		speak( __( 'More fields are available for this post.', 'cfmb' ) );
+		speak( __( 'More fields are available for this post.', 'custom-fields-meta-box' ) );
 	}
 }
 

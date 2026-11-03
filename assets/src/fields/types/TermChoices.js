@@ -51,7 +51,7 @@ export default function TermChoices( { field, id, value, onChange, describedBy, 
 	}
 
 	if ( ! terms.length ) {
-		return <p className="cfmb-field__instructions">{ __( 'There are no terms to choose from yet.', 'cfmb' ) }</p>;
+		return <p className="cfmb-field__instructions">{ __( 'There are no terms to choose from yet.', 'custom-fields-meta-box' ) }</p>;
 	}
 
 	const toggle = ( term, checked ) => {
@@ -81,7 +81,7 @@ export default function TermChoices( { field, id, value, onChange, describedBy, 
 			{ ! multiple && selected.length > 0 && ! field.required && (
 				<li className="cfmb-choice-list__item">
 					<button type="button" className="button-link" onClick={ () => onChange( null ) }>
-						{ __( 'Clear choice', 'cfmb' ) }
+						{ __( 'Clear choice', 'custom-fields-meta-box' ) }
 					</button>
 				</li>
 			) }

@@ -157,7 +157,7 @@ class Acf_Mapper {
 
 		$group = array(
 			'key'      => self::key( (string) ( $acf['key'] ?? '' ), 'group_', Key_Generator::GROUP_PREFIX ),
-			'title'    => '' !== (string) ( $acf['title'] ?? '' ) ? (string) $acf['title'] : __( 'Imported field group', 'cfmb' ),
+			'title'    => '' !== (string) ( $acf['title'] ?? '' ) ? (string) $acf['title'] : __( 'Imported field group', 'custom-fields-meta-box' ),
 			'active'   => ! array_key_exists( 'active', $acf ) || ! empty( $acf['active'] ),
 			'order'    => (int) ( $acf['menu_order'] ?? 0 ),
 			'fields'   => $fields,
@@ -171,7 +171,7 @@ class Acf_Mapper {
 		);
 
 		if ( ! $location ) {
-			$this->notes[] = __( 'None of its location rules carry over, so it is imported inactive. Set where it shows in the builder.', 'cfmb' );
+			$this->notes[]   = __( 'None of its location rules carry over, so it is imported inactive. Set where it shows in the builder.', 'custom-fields-meta-box' );
 			$group['active'] = false;
 		}
 
@@ -366,7 +366,7 @@ class Acf_Mapper {
 
 		if ( '' === $type ) {
 			/* translators: 1: field label, 2: ACF field type */
-			$this->notes[] = sprintf( __( '"%1$s" is a %2$s field, which CFMB doesn\'t have. It was left out; its values stay in the database.', 'cfmb' ), '' !== $label ? $label : $name, $acf_type );
+			$this->notes[] = sprintf( __( '"%1$s" is a %2$s field, which CFMB doesn\'t have. It was left out; its values stay in the database.', 'custom-fields-meta-box' ), '' !== $label ? $label : $name, $acf_type );
 			return null;
 		}
 
@@ -388,7 +388,12 @@ class Acf_Mapper {
 		);
 
 		// ACF Multilingual keeps WPML's per-field choice: 0 ignore, 1 copy, 2 translate, 3 copy once.
-		$wpml = array( 0 => 'ignore', 1 => 'copy', 2 => 'translate', 3 => 'copy_once' );
+		$wpml = array(
+			0 => 'ignore',
+			1 => 'copy',
+			2 => 'translate',
+			3 => 'copy_once',
+		);
 		if ( isset( $acf['wpml_cf_preferences'] ) && is_numeric( $acf['wpml_cf_preferences'] ) && isset( $wpml[ (int) $acf['wpml_cf_preferences'] ] ) ) {
 			$field['integrations'] = array( 'translation' => $wpml[ (int) $acf['wpml_cf_preferences'] ] );
 		}
@@ -458,7 +463,7 @@ class Acf_Mapper {
 
 		if ( ! $targets ) {
 			/* translators: %s: field label */
-			$this->notes[] = sprintf( __( 'The clone field "%s" points at fields that were not found, so it was left out.', 'cfmb' ), (string) ( $acf['label'] ?? '' ) );
+			$this->notes[] = sprintf( __( 'The clone field "%s" points at fields that were not found, so it was left out.', 'custom-fields-meta-box' ), (string) ( $acf['label'] ?? '' ) );
 			return array();
 		}
 
@@ -467,7 +472,7 @@ class Acf_Mapper {
 		$targets = self::rekey( $targets, $seed );
 
 		/* translators: %s: field label */
-		$this->notes[] = sprintf( __( 'The clone field "%s" was turned into a copy of the fields it showed. Changes to the original fields no longer reach it.', 'cfmb' ), (string) ( $acf['label'] ?? '' ) );
+		$this->notes[] = sprintf( __( 'The clone field "%s" was turned into a copy of the fields it showed. Changes to the original fields no longer reach it.', 'custom-fields-meta-box' ), (string) ( $acf['label'] ?? '' ) );
 
 		$prefixed = ! empty( $acf['prefix_name'] ) || 'group' === ( $acf['display'] ?? 'seamless' );
 
@@ -639,7 +644,15 @@ class Acf_Mapper {
 			case 'checkbox':
 			case 'radio':
 			case 'button_group':
-				$settings            = $copy( array( 'return_format', 'allow_null', 'placeholder', 'toggle' => 'toggle_all', 'layout' ) );
+				$settings            = $copy(
+					array(
+						'return_format',
+						'allow_null',
+						'placeholder',
+						'toggle' => 'toggle_all',
+						'layout',
+					)
+				);
 				$settings['choices'] = self::choices( $acf['choices'] ?? array() );
 				$default             = $acf['default_value'] ?? '';
 
@@ -687,7 +700,7 @@ class Acf_Mapper {
 
 				if ( ! empty( $acf['save_terms'] ) || ! empty( $acf['load_terms'] ) ) {
 					/* translators: %s: field label */
-					$this->notes[] = sprintf( __( '"%s" saved and loaded post terms in ACF. Check its term settings in the builder.', 'cfmb' ), (string) ( $acf['label'] ?? '' ) );
+					$this->notes[] = sprintf( __( '"%s" saved and loaded post terms in ACF. Check its term settings in the builder.', 'custom-fields-meta-box' ), (string) ( $acf['label'] ?? '' ) );
 				}
 
 				return $settings;
@@ -831,7 +844,7 @@ class Acf_Mapper {
 
 			if ( $lost ) {
 				/* translators: %s: field label */
-				$this->notes[] = sprintf( __( 'Some conditions on "%s" point at fields in another group or row, or use an operator CFMB doesn\'t have. Check them in the builder.', 'cfmb' ), (string) $field['label'] );
+				$this->notes[] = sprintf( __( 'Some conditions on "%s" point at fields in another group or row, or use an operator CFMB doesn\'t have. Check them in the builder.', 'custom-fields-meta-box' ), (string) $field['label'] );
 			}
 
 			$mapped[ $index ]['conditions'] = $sets;
@@ -860,7 +873,7 @@ class Acf_Mapper {
 
 				if ( ! isset( self::RULES[ $param ] ) || ! in_array( (string) ( $rule['operator'] ?? '==' ), array( '==', '!=' ), true ) ) {
 					/* translators: %s: ACF location rule name */
-					$this->notes[] = sprintf( __( 'The location rule "%s" has no CFMB equivalent and was left out.', 'cfmb' ), $param );
+					$this->notes[] = sprintf( __( 'The location rule "%s" has no CFMB equivalent and was left out.', 'custom-fields-meta-box' ), $param );
 					$skip          = true;
 					continue;
 				}

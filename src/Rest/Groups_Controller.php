@@ -51,6 +51,7 @@ class Groups_Controller {
 	 *
 	 * @param Group_Repository $groups    Group storage.
 	 * @param Group_Sanitizer  $sanitizer Input sanitizer.
+	 * @param Sync_Manager     $sync      Schema Sync, optional.
 	 */
 	public function __construct( Group_Repository $groups, Group_Sanitizer $sanitizer, ?Sync_Manager $sync = null ) {
 		$this->groups    = $groups;
@@ -195,7 +196,7 @@ class Groups_Controller {
 		}
 
 		if ( $this->groups->find( $clean['key'] ) ) {
-			return new WP_Error( 'cfmb_group_exists', __( 'A field group with this key already exists.', 'cfmb' ), array( 'status' => 409 ) );
+			return new WP_Error( 'cfmb_group_exists', __( 'A field group with this key already exists.', 'custom-fields-meta-box' ), array( 'status' => 409 ) );
 		}
 
 		$group = $this->groups->save( $clean );
@@ -324,8 +325,8 @@ class Groups_Controller {
 	 * @return array<string, mixed>
 	 */
 	private function prepare( Group $group ): array {
-		$data           = $group->to_array();
-		$data['usedBy'] = array_map(
+		$data             = $group->to_array();
+		$data['usedBy']   = array_map(
 			static fn( Group $user ) => array(
 				'key'   => $user->key(),
 				'title' => $user->title(),
@@ -344,7 +345,7 @@ class Groups_Controller {
 	 * @return WP_Error
 	 */
 	private function read_only(): WP_Error {
-		return new WP_Error( 'cfmb_group_read_only', __( 'This field group is defined in code or a sync file. Import it under CFMB > Sync to edit it here.', 'cfmb' ), array( 'status' => 409 ) );
+		return new WP_Error( 'cfmb_group_read_only', __( 'This field group is defined in code or a sync file. Import it under CFMB > Sync to edit it here.', 'custom-fields-meta-box' ), array( 'status' => 409 ) );
 	}
 
 	/**
@@ -363,6 +364,6 @@ class Groups_Controller {
 	 * @return WP_Error
 	 */
 	private function not_found(): WP_Error {
-		return new WP_Error( 'cfmb_group_missing', __( 'That field group no longer exists. It may have been deleted in another tab.', 'cfmb' ), array( 'status' => 404 ) );
+		return new WP_Error( 'cfmb_group_missing', __( 'That field group no longer exists. It may have been deleted in another tab.', 'custom-fields-meta-box' ), array( 'status' => 404 ) );
 	}
 }

@@ -24,8 +24,8 @@ abstract class Abstract_Rule implements Rule {
 	 */
 	public function operators(): array {
 		return array(
-			'==' => __( 'is', 'cfmb' ),
-			'!=' => __( 'is not', 'cfmb' ),
+			'==' => __( 'is', 'custom-fields-meta-box' ),
+			'!=' => __( 'is not', 'custom-fields-meta-box' ),
 		);
 	}
 

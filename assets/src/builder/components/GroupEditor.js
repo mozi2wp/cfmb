@@ -98,7 +98,7 @@ export default function GroupEditor( { groupKey, navigate } ) {
 				setGroup( loaded );
 				setSaved( snapshot( loaded ) );
 			} )
-			.catch( ( failure ) => setLoadError( failure.message || __( 'This field group could not be loaded.', 'cfmb' ) ) );
+			.catch( ( failure ) => setLoadError( failure.message || __( 'This field group could not be loaded.', 'custom-fields-meta-box' ) ) );
 	}, [ groupKey, isNew ] );
 
 	const readOnly = !! group && !! group.source && group.source !== 'db';
@@ -139,9 +139,9 @@ export default function GroupEditor( { groupKey, navigate } ) {
 			const loaded = await getGroup( group.key );
 			setGroup( loaded );
 			setSaved( snapshot( loaded ) );
-			snackbar( __( 'Imported. You can edit this field group here now.', 'cfmb' ) );
+			snackbar( __( 'Imported. You can edit this field group here now.', 'custom-fields-meta-box' ) );
 		} catch ( failure ) {
-			setError( { message: failure.message || __( 'The field group could not be imported.', 'cfmb' ) } );
+			setError( { message: failure.message || __( 'The field group could not be imported.', 'custom-fields-meta-box' ) } );
 		} finally {
 			setSaving( false );
 		}
@@ -152,7 +152,7 @@ export default function GroupEditor( { groupKey, navigate } ) {
 			return;
 		}
 		if ( ! group.title.trim() ) {
-			setError( { message: __( 'Give the field group a title.', 'cfmb' ) } );
+			setError( { message: __( 'Give the field group a title.', 'custom-fields-meta-box' ) } );
 			titleRef.current?.focus();
 			return;
 		}
@@ -181,14 +181,14 @@ export default function GroupEditor( { groupKey, navigate } ) {
 			setGroup( ( current ) => ( current === sent ? result : { ...current, key: result.key, id: result.id } ) );
 			setSaved( snapshot( result ) );
 			setStored( true );
-			snackbar( __( 'Field group saved.', 'cfmb' ) );
+			snackbar( __( 'Field group saved.', 'custom-fields-meta-box' ) );
 			syncNoteSnackbar( result.syncNote );
 			if ( isNew ) {
 				navigate( result.key, { replace: true, keepState: true } );
 			}
 		} catch ( failure ) {
 			const fieldKey = failure?.data?.field;
-			setError( { message: failure.message || __( 'The field group could not be saved. Please try again.', 'cfmb' ), field: fieldKey } );
+			setError( { message: failure.message || __( 'The field group could not be saved. Please try again.', 'custom-fields-meta-box' ), field: fieldKey } );
 			if ( fieldKey ) {
 				setExpanded( ( current ) => new Set( [ ...current, ...ancestors( sent.fields, fieldKey ), fieldKey ] ) );
 				window.setTimeout( () => document.querySelector( `[data-field-key="${ fieldKey }"]` )?.scrollIntoView( { block: 'center' } ), 50 );
@@ -234,7 +234,7 @@ export default function GroupEditor( { groupKey, navigate } ) {
 					{ loadError }
 				</Notice>
 				<Button variant="link" onClick={ () => navigate( '' ) }>
-					{ __( 'Back to all field groups', 'cfmb' ) }
+					{ __( 'Back to all field groups', 'custom-fields-meta-box' ) }
 				</Button>
 			</div>
 		);
@@ -243,7 +243,7 @@ export default function GroupEditor( { groupKey, navigate } ) {
 	if ( ! group ) {
 		return (
 			<div className="cfmb-editor cfmb-editor--loading">
-				<Spinner /> { __( 'Loading field group…', 'cfmb' ) }
+				<Spinner /> { __( 'Loading field group…', 'custom-fields-meta-box' ) }
 			</div>
 		);
 	}
@@ -253,18 +253,18 @@ export default function GroupEditor( { groupKey, navigate } ) {
 		<div className="cfmb-editor">
 			<div className="cfmb-editor__bar">
 				<Button variant="tertiary" icon="arrow-left-alt2" onClick={ back }>
-					{ __( 'All field groups', 'cfmb' ) }
+					{ __( 'All field groups', 'custom-fields-meta-box' ) }
 				</Button>
 				<div className="cfmb-editor__status" aria-live="polite">
-					{ dirty && <span className="cfmb-editor__dirty">{ __( 'Unsaved changes', 'cfmb' ) }</span> }
+					{ dirty && <span className="cfmb-editor__dirty">{ __( 'Unsaved changes', 'custom-fields-meta-box' ) }</span> }
 				</div>
 				{ readOnly ? (
 					<Button variant="primary" isBusy={ saving } aria-disabled={ saving } onClick={ importToEdit }>
-						{ __( 'Import to edit', 'cfmb' ) }
+						{ __( 'Import to edit', 'custom-fields-meta-box' ) }
 					</Button>
 				) : (
 					<Button variant="primary" isBusy={ saving } aria-disabled={ saving } onClick={ () => save() }>
-						{ saving ? __( 'Saving…', 'cfmb' ) : __( 'Save field group', 'cfmb' ) }
+						{ saving ? __( 'Saving…', 'custom-fields-meta-box' ) : __( 'Save field group', 'custom-fields-meta-box' ) }
 					</Button>
 				) }
 			</div>
@@ -272,8 +272,8 @@ export default function GroupEditor( { groupKey, navigate } ) {
 			{ readOnly && (
 				<Notice status="info" isDismissible={ false } className="cfmb-editor__source">
 					{ group.source === 'code'
-						? __( 'This field group is registered in code, so changes here can\'t be saved. Import it to edit it here; then remove it from your code.', 'cfmb' )
-						: __( 'This field group comes from a sync file and is not in the database yet. Import it to edit it here.', 'cfmb' ) }
+						? __( 'This field group is registered in code, so changes here can\'t be saved. Import it to edit it here; then remove it from your code.', 'custom-fields-meta-box' )
+						: __( 'This field group comes from a sync file and is not in the database yet. Import it to edit it here.', 'custom-fields-meta-box' ) }
 				</Notice>
 			) }
 
@@ -290,15 +290,15 @@ export default function GroupEditor( { groupKey, navigate } ) {
 						__nextHasNoMarginBottom
 						__next40pxDefaultSize
 						className="cfmb-editor__title"
-						label={ __( 'Field group title', 'cfmb' ) }
-						placeholder={ __( 'For example: Product details', 'cfmb' ) }
+						label={ __( 'Field group title', 'custom-fields-meta-box' ) }
+						placeholder={ __( 'For example: Product details', 'custom-fields-meta-box' ) }
 						value={ group.title }
 						onChange={ ( title ) => patch( { title } ) }
 					/>
 
 					<Card className="cfmb-editor__card">
 						<CardHeader>
-							<h2 className="cfmb-editor__card-title">{ __( 'Fields', 'cfmb' ) }</h2>
+							<h2 className="cfmb-editor__card-title">{ __( 'Fields', 'custom-fields-meta-box' ) }</h2>
 						</CardHeader>
 						<CardBody>
 							<FieldList
@@ -313,13 +313,13 @@ export default function GroupEditor( { groupKey, navigate } ) {
 
 					<Card className="cfmb-editor__card">
 						<CardHeader>
-							<h2 className="cfmb-editor__card-title">{ __( 'Location', 'cfmb' ) }</h2>
+							<h2 className="cfmb-editor__card-title">{ __( 'Location', 'custom-fields-meta-box' ) }</h2>
 						</CardHeader>
 						<CardBody>
 							<LocationEditor location={ group.location } onChange={ setLocation } />
 							{ group.settings?.block?.enabled && (
 								<p className="cfmb-editor__hint">
-									{ __( 'As a Field Block, this group always shows in its block. Rules here add it to other places as well.', 'cfmb' ) }
+									{ __( 'As a Field Block, this group always shows in its block. Rules here add it to other places as well.', 'custom-fields-meta-box' ) }
 								</p>
 							) }
 						</CardBody>
@@ -327,7 +327,7 @@ export default function GroupEditor( { groupKey, navigate } ) {
 
 					<Card className="cfmb-editor__card">
 						<CardHeader>
-							<h2 className="cfmb-editor__card-title">{ __( 'Field Block', 'cfmb' ) }</h2>
+							<h2 className="cfmb-editor__card-title">{ __( 'Field Block', 'custom-fields-meta-box' ) }</h2>
 						</CardHeader>
 						<CardBody>
 							<FieldBlockSettings group={ group } onChange={ patch } savedName={ savedBlockName( saved ) } />
@@ -338,7 +338,7 @@ export default function GroupEditor( { groupKey, navigate } ) {
 				<div className="cfmb-editor__side">
 					<Card className="cfmb-editor__card">
 						<CardHeader>
-							<h2 className="cfmb-editor__card-title">{ __( 'Settings', 'cfmb' ) }</h2>
+							<h2 className="cfmb-editor__card-title">{ __( 'Settings', 'custom-fields-meta-box' ) }</h2>
 						</CardHeader>
 						<CardBody>
 							<GroupSettings group={ group } onChange={ patch } />
@@ -349,8 +349,8 @@ export default function GroupEditor( { groupKey, navigate } ) {
 
 			{ leaving && (
 				<ConfirmModal
-					title={ __( 'Leave without saving?', 'cfmb' ) }
-					confirmLabel={ __( 'Leave', 'cfmb' ) }
+					title={ __( 'Leave without saving?', 'custom-fields-meta-box' ) }
+					confirmLabel={ __( 'Leave', 'custom-fields-meta-box' ) }
 					isDestructive
 					onConfirm={ () => {
 						setLeaving( false );
@@ -358,35 +358,35 @@ export default function GroupEditor( { groupKey, navigate } ) {
 					} }
 					onCancel={ () => setLeaving( false ) }
 				>
-					<p>{ __( 'Your changes to this field group have not been saved.', 'cfmb' ) }</p>
+					<p>{ __( 'Your changes to this field group have not been saved.', 'custom-fields-meta-box' ) }</p>
 				</ConfirmModal>
 			) }
 
 			{ renames && (
 				<ConfirmModal
-					title={ __( 'Rename fields used as a preset?', 'cfmb' ) }
-					confirmLabel={ __( 'Save anyway', 'cfmb' ) }
+					title={ __( 'Rename fields used as a preset?', 'custom-fields-meta-box' ) }
+					confirmLabel={ __( 'Save anyway', 'custom-fields-meta-box' ) }
 					onConfirm={ () => {
 						setRenames( null );
 						save( true );
 					} }
 					onCancel={ () => setRenames( null ) }
 				>
-					<p>{ __( 'These field groups insert this one as a preset:', 'cfmb' ) }</p>
+					<p>{ __( 'These field groups insert this one as a preset:', 'custom-fields-meta-box' ) }</p>
 					<ul className="cfmb-renames">
 						{ group.usedBy.map( ( user ) => (
 							<li key={ user.key }>{ user.title }</li>
 						) ) }
 					</ul>
-					<p>{ __( 'These fields were renamed or removed:', 'cfmb' ) }</p>
+					<p>{ __( 'These fields were renamed or removed:', 'custom-fields-meta-box' ) }</p>
 					<ul className="cfmb-renames">
 						{ renames.map( ( change ) => (
 							<li key={ change.from }>
-								<code>{ change.from }</code> { change.to ? <>→ <code>{ change.to }</code></> : __( '(removed)', 'cfmb' ) }
+								<code>{ change.from }</code> { change.to ? <>→ <code>{ change.to }</code></> : __( '(removed)', 'custom-fields-meta-box' ) }
 							</li>
 						) ) }
 					</ul>
-					<p>{ __( 'Values saved under the old names stay in the database, but those groups will no longer show them. Change the names back to see them again.', 'cfmb' ) }</p>
+					<p>{ __( 'Values saved under the old names stay in the database, but those groups will no longer show them. Change the names back to see them again.', 'custom-fields-meta-box' ) }</p>
 				</ConfirmModal>
 			) }
 		</div>

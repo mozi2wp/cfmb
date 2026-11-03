@@ -189,12 +189,12 @@ abstract class Content_Schema {
 
 		if ( strlen( $name ) > $this->name_max_length() ) {
 			/* translators: %d: maximum number of characters */
-			return sprintf( __( 'Use %d characters or fewer for the name.', 'cfmb' ), $this->name_max_length() );
+			return sprintf( __( 'Use %d characters or fewer for the name.', 'custom-fields-meta-box' ), $this->name_max_length() );
 		}
 
 		if ( in_array( $name, $taken, true ) ) {
 			/* translators: %s: name */
-			return sprintf( __( 'Another CFMB definition already uses the name "%s".', 'cfmb' ), $name );
+			return sprintf( __( 'Another CFMB definition already uses the name "%s".', 'custom-fields-meta-box' ), $name );
 		}
 
 		return null;
@@ -293,8 +293,8 @@ abstract class Content_Schema {
 	protected static function tristate_options( string $follows ): array {
 		return array(
 			''  => $follows,
-			'1' => __( 'Yes', 'cfmb' ),
-			'0' => __( 'No', 'cfmb' ),
+			'1' => __( 'Yes', 'custom-fields-meta-box' ),
+			'0' => __( 'No', 'custom-fields-meta-box' ),
 		);
 	}
 }

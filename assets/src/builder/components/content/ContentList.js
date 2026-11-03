@@ -21,7 +21,7 @@ export default function ContentList( { kind, navigate } ) {
 		setLoadError( '' );
 		return listContent( kind.kind, view )
 			.then( setItems )
-			.catch( ( error ) => setLoadError( error.message || __( 'The list could not be loaded.', 'cfmb' ) ) );
+			.catch( ( error ) => setLoadError( error.message || __( 'The list could not be loaded.', 'custom-fields-meta-box' ) ) );
 	}, [ kind.kind, view ] );
 
 	useEffect( () => {
@@ -34,7 +34,7 @@ export default function ContentList( { kind, navigate } ) {
 		try {
 			await task();
 		} catch ( error ) {
-			errorSnackbar( error.message || __( 'That did not work. Please try again.', 'cfmb' ) );
+			errorSnackbar( error.message || __( 'That did not work. Please try again.', 'custom-fields-meta-box' ) );
 		} finally {
 			setBusy( '' );
 		}
@@ -48,8 +48,8 @@ export default function ContentList( { kind, navigate } ) {
 			replace( saved );
 			snackbar(
 				saved.active
-					? /* translators: %s: title */ sprintf( __( '"%s" is active.', 'cfmb' ), saved.title )
-					: /* translators: %s: title */ sprintf( __( '"%s" is inactive.', 'cfmb' ), saved.title )
+					? /* translators: %s: title */ sprintf( __( '"%s" is active.', 'custom-fields-meta-box' ), saved.title )
+					: /* translators: %s: title */ sprintf( __( '"%s" is inactive.', 'custom-fields-meta-box' ), saved.title )
 			);
 		} );
 
@@ -57,7 +57,7 @@ export default function ContentList( { kind, navigate } ) {
 		run( item.key, async () => {
 			await duplicateContent( kind.kind, item.key );
 			await load();
-			snackbar( __( 'Copy created. It stays inactive until you turn it on.', 'cfmb' ) );
+			snackbar( __( 'Copy created. It stays inactive until you turn it on.', 'custom-fields-meta-box' ) );
 		} );
 
 	const importItem = ( item ) =>
@@ -68,7 +68,7 @@ export default function ContentList( { kind, navigate } ) {
 			}
 			await load();
 			/* translators: %s: title */
-			snackbar( sprintf( __( '"%s" imported. You can edit it here now.', 'cfmb' ), item.title ) );
+			snackbar( sprintf( __( '"%s" imported. You can edit it here now.', 'custom-fields-meta-box' ), item.title ) );
 		} );
 
 	const trash = ( item ) =>
@@ -77,10 +77,10 @@ export default function ContentList( { kind, navigate } ) {
 			setItems( ( current ) => current.filter( ( entry ) => entry.key !== item.key ) );
 			snackbar(
 				/* translators: %s: title */
-				sprintf( __( '"%s" moved to the trash. Its content stays in the database.', 'cfmb' ), item.title ),
+				sprintf( __( '"%s" moved to the trash. Its content stays in the database.', 'custom-fields-meta-box' ), item.title ),
 				[
 					{
-						label: __( 'Undo', 'cfmb' ),
+						label: __( 'Undo', 'custom-fields-meta-box' ),
 						onClick: () => run( item.key, async () => {
 							await restoreContent( kind.kind, item.key );
 							await load();
@@ -95,7 +95,7 @@ export default function ContentList( { kind, navigate } ) {
 			await restoreContent( kind.kind, item.key );
 			setItems( ( current ) => current.filter( ( entry ) => entry.key !== item.key ) );
 			/* translators: %s: title */
-			snackbar( sprintf( __( '"%s" restored.', 'cfmb' ), item.title ) );
+			snackbar( sprintf( __( '"%s" restored.', 'custom-fields-meta-box' ), item.title ) );
 		} );
 
 	const deleteForever = ( item ) =>
@@ -104,7 +104,7 @@ export default function ContentList( { kind, navigate } ) {
 			await deleteContent( kind.kind, item.key );
 			setItems( ( current ) => current.filter( ( entry ) => entry.key !== item.key ) );
 			/* translators: %s: title */
-			snackbar( sprintf( __( '"%s" deleted.', 'cfmb' ), item.title ) );
+			snackbar( sprintf( __( '"%s" deleted.', 'custom-fields-meta-box' ), item.title ) );
 		} );
 
 	const local = ( item ) => item.source && item.source !== 'db';
@@ -121,33 +121,33 @@ export default function ContentList( { kind, navigate } ) {
 			<ul className="subsubsub cfmb-list__views">
 				<li>
 					<Button variant="link" className={ view === 'any' ? 'current' : '' } aria-current={ view === 'any' ? 'page' : undefined } onClick={ () => setView( 'any' ) }>
-						{ __( 'All', 'cfmb' ) }
+						{ __( 'All', 'custom-fields-meta-box' ) }
 					</Button>
 					{ ' | ' }
 				</li>
 				<li>
 					<Button variant="link" className={ view === 'trash' ? 'current' : '' } aria-current={ view === 'trash' ? 'page' : undefined } onClick={ () => setView( 'trash' ) }>
-						{ __( 'Trash', 'cfmb' ) }
+						{ __( 'Trash', 'custom-fields-meta-box' ) }
 					</Button>
 				</li>
 			</ul>
 
 			{ loadError && (
-				<Notice status="error" isDismissible={ false } actions={ [ { label: __( 'Try again', 'cfmb' ), onClick: load } ] }>
+				<Notice status="error" isDismissible={ false } actions={ [ { label: __( 'Try again', 'custom-fields-meta-box' ), onClick: load } ] }>
 					{ loadError }
 				</Notice>
 			) }
 
 			{ ! items && ! loadError && (
 				<div className="cfmb-list__loading">
-					<Spinner /> { __( 'Loading…', 'cfmb' ) }
+					<Spinner /> { __( 'Loading…', 'custom-fields-meta-box' ) }
 				</div>
 			) }
 
 			{ items && items.length === 0 && (
 				<div className="cfmb-empty">
 					{ view === 'trash' ? (
-						<p>{ __( 'The trash is empty.', 'cfmb' ) }</p>
+						<p>{ __( 'The trash is empty.', 'custom-fields-meta-box' ) }</p>
 					) : (
 						<>
 							<h2>{ names.empty_title }</h2>
@@ -166,7 +166,7 @@ export default function ContentList( { kind, navigate } ) {
 						<tr>
 							<th scope="col" className="column-primary">{ names.title_label }</th>
 							<th scope="col">{ names.name_label }</th>
-							{ view !== 'trash' && <th scope="col" className="cfmb-list__narrow">{ __( 'Active', 'cfmb' ) }</th> }
+							{ view !== 'trash' && <th scope="col" className="cfmb-list__narrow">{ __( 'Active', 'custom-fields-meta-box' ) }</th> }
 						</tr>
 					</thead>
 					<tbody>
@@ -194,28 +194,28 @@ export default function ContentList( { kind, navigate } ) {
 										{ view === 'trash' ? (
 											<>
 												<Button variant="link" onClick={ () => restore( item ) }>
-													{ __( 'Restore', 'cfmb' ) }
+													{ __( 'Restore', 'custom-fields-meta-box' ) }
 												</Button>
 												<Button variant="link" isDestructive onClick={ () => setConfirmDelete( item ) }>
-													{ __( 'Delete permanently', 'cfmb' ) }
+													{ __( 'Delete permanently', 'custom-fields-meta-box' ) }
 												</Button>
 											</>
 										) : (
 											<>
 												<Button variant="link" onClick={ () => navigate( item.key ) }>
-													{ local( item ) ? __( 'View', 'cfmb' ) : __( 'Edit', 'cfmb' ) }
+													{ local( item ) ? __( 'View', 'custom-fields-meta-box' ) : __( 'Edit', 'custom-fields-meta-box' ) }
 												</Button>
 												{ local( item ) && (
 													<Button variant="link" onClick={ () => importItem( item ) }>
-														{ __( 'Import to edit', 'cfmb' ) }
+														{ __( 'Import to edit', 'custom-fields-meta-box' ) }
 													</Button>
 												) }
 												<Button variant="link" onClick={ () => duplicate( item ) }>
-													{ __( 'Duplicate', 'cfmb' ) }
+													{ __( 'Duplicate', 'custom-fields-meta-box' ) }
 												</Button>
 												{ ! local( item ) && (
 													<Button variant="link" isDestructive onClick={ () => trash( item ) }>
-														{ __( 'Trash', 'cfmb' ) }
+														{ __( 'Trash', 'custom-fields-meta-box' ) }
 													</Button>
 												) }
 											</>
@@ -232,7 +232,7 @@ export default function ContentList( { kind, navigate } ) {
 											disabled={ busy === item.key || local( item ) }
 											aria-label={
 												/* translators: %s: title */
-												sprintf( __( 'Turn "%s" on', 'cfmb' ), item.title )
+												sprintf( __( 'Turn "%s" on', 'custom-fields-meta-box' ), item.title )
 											}
 											onChange={ () => toggleActive( item ) }
 										/>
@@ -246,8 +246,8 @@ export default function ContentList( { kind, navigate } ) {
 
 			{ confirmDelete && (
 				<ConfirmModal
-					title={ __( 'Delete permanently?', 'cfmb' ) }
-					confirmLabel={ __( 'Delete permanently', 'cfmb' ) }
+					title={ __( 'Delete permanently?', 'custom-fields-meta-box' ) }
+					confirmLabel={ __( 'Delete permanently', 'custom-fields-meta-box' ) }
 					isDestructive
 					onConfirm={ () => deleteForever( confirmDelete ) }
 					onCancel={ () => setConfirmDelete( null ) }
@@ -255,7 +255,7 @@ export default function ContentList( { kind, navigate } ) {
 					<p>
 						{ sprintf(
 							/* translators: %s: title */
-							__( '"%s" will be deleted for good, along with its sync file in uploads. Posts, terms and values made with it stay in the database.', 'cfmb' ),
+							__( '"%s" will be deleted for good, along with its sync file in uploads. Posts, terms and values made with it stay in the database.', 'custom-fields-meta-box' ),
 							confirmDelete.title
 						) }
 					</p>

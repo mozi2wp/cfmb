@@ -34,7 +34,7 @@ class Post_Field extends Abstract_Field {
 	 * @return string
 	 */
 	public function label(): string {
-		return __( 'Post', 'cfmb' );
+		return __( 'Post', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -54,7 +54,7 @@ class Post_Field extends Abstract_Field {
 	public function settings_schema(): array {
 		return array(
 			$this->post_type_setting(),
-			$this->setting( 'multiple', __( 'Allow several posts', 'cfmb' ), 'toggle', false ),
+			$this->setting( 'multiple', __( 'Allow several posts', 'custom-fields-meta-box' ), 'toggle', false ),
 			$this->return_format_setting(),
 		);
 	}
@@ -118,7 +118,7 @@ class Post_Field extends Abstract_Field {
 
 		foreach ( $this->as_list( $value ) as $id ) {
 			if ( ! in_array( get_post_type( (int) $id ), $allowed, true ) ) {
-				return __( 'One of the chosen posts is not of an allowed type.', 'cfmb' );
+				return __( 'One of the chosen posts is not of an allowed type.', 'custom-fields-meta-box' );
 			}
 		}
 
@@ -274,12 +274,12 @@ class Post_Field extends Abstract_Field {
 	protected function post_type_setting(): array {
 		return $this->setting(
 			'post_type',
-			__( 'Post types', 'cfmb' ),
+			__( 'Post types', 'custom-fields-meta-box' ),
 			'checkboxes',
 			array(),
 			array(
 				'options' => self::post_type_options(),
-				'help'    => __( 'Leave all unchecked to allow every type.', 'cfmb' ),
+				'help'    => __( 'Leave all unchecked to allow every type.', 'custom-fields-meta-box' ),
 			)
 		);
 	}
@@ -292,14 +292,14 @@ class Post_Field extends Abstract_Field {
 	protected function return_format_setting(): array {
 		return $this->setting(
 			'return_format',
-			__( 'Template value', 'cfmb' ),
+			__( 'Template value', 'custom-fields-meta-box' ),
 			'select',
 			'object',
 			array(
 				'advanced' => true,
 				'options'  => array(
-					'object' => __( 'Post object', 'cfmb' ),
-					'id'     => __( 'Post ID', 'cfmb' ),
+					'object' => __( 'Post object', 'custom-fields-meta-box' ),
+					'id'     => __( 'Post ID', 'custom-fields-meta-box' ),
 				),
 			)
 		);

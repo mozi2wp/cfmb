@@ -34,7 +34,7 @@ class Icon_Field extends Abstract_Field {
 	 * @return string
 	 */
 	public function label(): string {
-		return __( 'Icon', 'cfmb' );
+		return __( 'Icon', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -55,25 +55,25 @@ class Icon_Field extends Abstract_Field {
 		return array(
 			$this->setting(
 				'sources',
-				__( 'Icon sources', 'cfmb' ),
+				__( 'Icon sources', 'custom-fields-meta-box' ),
 				'checkboxes',
 				array(),
 				array(
 					'options' => $this->source_options(),
-					'help'    => __( 'Leave all unchecked to offer every source.', 'cfmb' ),
+					'help'    => __( 'Leave all unchecked to offer every source.', 'custom-fields-meta-box' ),
 				)
 			),
 			$this->setting(
 				'return_format',
-				__( 'Template value', 'cfmb' ),
+				__( 'Template value', 'custom-fields-meta-box' ),
 				'select',
 				'html',
 				array(
 					'advanced' => true,
 					'options'  => array(
-						'html'   => __( 'Icon HTML', 'cfmb' ),
-						'string' => __( 'Stored value, like dashicons:star-filled', 'cfmb' ),
-						'array'  => __( 'Source, name and HTML', 'cfmb' ),
+						'html'   => __( 'Icon HTML', 'custom-fields-meta-box' ),
+						'string' => __( 'Stored value, like dashicons:star-filled', 'custom-fields-meta-box' ),
+						'array'  => __( 'Source, name and HTML', 'custom-fields-meta-box' ),
 					),
 				)
 			),
@@ -135,16 +135,16 @@ class Icon_Field extends Abstract_Field {
 		$parsed = self::parse( (string) $value );
 
 		if ( ! $parsed ) {
-			return __( 'Choose an icon from the list.', 'cfmb' );
+			return __( 'Choose an icon from the list.', 'custom-fields-meta-box' );
 		}
 
 		$allowed = array_map( 'strval', (array) $field->setting( 'sources', array() ) );
 		if ( $allowed && ! in_array( $parsed[0], $allowed, true ) ) {
-			return __( 'Icons from this source are not allowed here.', 'cfmb' );
+			return __( 'Icons from this source are not allowed here.', 'custom-fields-meta-box' );
 		}
 
 		if ( 'media' === $parsed[0] ) {
-			return wp_attachment_is_image( (int) $parsed[1] ) ? null : __( 'Choose an image from the media library.', 'cfmb' );
+			return wp_attachment_is_image( (int) $parsed[1] ) ? null : __( 'Choose an image from the media library.', 'custom-fields-meta-box' );
 		}
 
 		if ( 'url' === $parsed[0] ) {
@@ -153,7 +153,7 @@ class Icon_Field extends Abstract_Field {
 
 		$library = $this->libraries()->get( $parsed[0] );
 
-		return $library && $library->has( $parsed[1] ) ? null : __( 'That icon is no longer available. Choose another one.', 'cfmb' );
+		return $library && $library->has( $parsed[1] ) ? null : __( 'That icon is no longer available. Choose another one.', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -329,8 +329,8 @@ class Icon_Field extends Abstract_Field {
 			$options[ $id ] = $library->label();
 		}
 
-		$options['media'] = __( 'Media library', 'cfmb' );
-		$options['url']   = __( 'Image URL', 'cfmb' );
+		$options['media'] = __( 'Media library', 'custom-fields-meta-box' );
+		$options['url']   = __( 'Image URL', 'custom-fields-meta-box' );
 
 		return $options;
 	}

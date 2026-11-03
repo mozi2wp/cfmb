@@ -22,9 +22,9 @@ function MoveModal( { field, listId, onClose } ) {
 		<ConfirmModal
 			title={
 				/* translators: %s: field label */
-				sprintf( __( 'Move "%s"', 'cfmb' ), field.label || __( '(no label)', 'cfmb' ) )
+				sprintf( __( 'Move "%s"', 'custom-fields-meta-box' ), field.label || __( '(no label)', 'custom-fields-meta-box' ) )
 			}
-			confirmLabel={ __( 'Move', 'cfmb' ) }
+			confirmLabel={ __( 'Move', 'custom-fields-meta-box' ) }
 			onConfirm={ () => {
 				if ( options.length ) {
 					builder.moveField( field.key, target, Number.MAX_SAFE_INTEGER );
@@ -38,17 +38,17 @@ function MoveModal( { field, listId, onClose } ) {
 					<SelectControl
 						__nextHasNoMarginBottom
 						__next40pxDefaultSize
-						label={ __( 'Move to', 'cfmb' ) }
+						label={ __( 'Move to', 'custom-fields-meta-box' ) }
 						value={ target }
 						options={ options.map( ( list ) => ( { value: list.id, label: list.label } ) ) }
 						onChange={ setTarget }
 					/>
 					<p className="description">
-						{ __( 'The field goes to the end of that list. Values already saved under its old place are not moved.', 'cfmb' ) }
+						{ __( 'The field goes to the end of that list. Values already saved under its old place are not moved.', 'custom-fields-meta-box' ) }
 					</p>
 				</>
 			) : (
-				<p>{ __( 'There is nowhere else to move this field. Add a Group, Repeater or Stacks field first.', 'cfmb' ) }</p>
+				<p>{ __( 'There is nowhere else to move this field. Add a Group, Repeater or Stacks field first.', 'custom-fields-meta-box' ) }</p>
 			) }
 		</ConfirmModal>
 	);
@@ -78,7 +78,7 @@ export default function FieldRow( {
 	const [ moving, setMoving ] = useState( false );
 	const type = typesByName[ field.type ];
 	const bodyId = `cfmb-field-body-${ field.key }`;
-	const label = field.label || __( '(no label)', 'cfmb' );
+	const label = field.label || __( '(no label)', 'custom-fields-meta-box' );
 	const childCount = holdsFields( field )
 		? ( field.fields || [] ).length
 		: ( field.layouts || [] ).reduce( ( total, layout ) => total + ( layout.fields || [] ).length, 0 );
@@ -100,7 +100,7 @@ export default function FieldRow( {
 				<span
 					className="cfmb-field-row__handle"
 					draggable
-					title={ __( 'Drag to reorder', 'cfmb' ) }
+					title={ __( 'Drag to reorder', 'custom-fields-meta-box' ) }
 					aria-hidden="true"
 					{ ...dragHandlers.handle }
 				>
@@ -111,7 +111,7 @@ export default function FieldRow( {
 					<span className="cfmb-field-row__label">
 						{ label }
 						{ field.required && (
-							<span className="cfmb-field-row__required" aria-label={ __( 'required', 'cfmb' ) }>
+							<span className="cfmb-field-row__required" aria-label={ __( 'required', 'custom-fields-meta-box' ) }>
 								{ ' *' }
 							</span>
 						) }
@@ -122,7 +122,7 @@ export default function FieldRow( {
 						<span className="cfmb-field-row__count">
 							{ sprintf(
 								/* translators: %d: number of sub-fields */
-								__( '%d inside', 'cfmb' ),
+								__( '%d inside', 'custom-fields-meta-box' ),
 								childCount
 							) }
 						</span>
@@ -134,14 +134,14 @@ export default function FieldRow( {
 					icon="ellipsis"
 					label={
 						/* translators: %s: field label */
-						sprintf( __( 'Actions for %s', 'cfmb' ), label )
+						sprintf( __( 'Actions for %s', 'custom-fields-meta-box' ), label )
 					}
 					controls={ [
-						{ title: __( 'Move up', 'cfmb' ), icon: 'arrow-up-alt', isDisabled: index === 0, onClick: () => onMove( -1 ) },
-						{ title: __( 'Move down', 'cfmb' ), icon: 'arrow-down-alt', isDisabled: index === count - 1, onClick: () => onMove( 1 ) },
-						{ title: __( 'Move to…', 'cfmb' ), icon: 'migrate', onClick: () => setMoving( true ) },
-						{ title: __( 'Duplicate', 'cfmb' ), icon: 'admin-page', onClick: onDuplicate },
-						{ title: __( 'Delete', 'cfmb' ), icon: 'trash', onClick: onRemove },
+						{ title: __( 'Move up', 'custom-fields-meta-box' ), icon: 'arrow-up-alt', isDisabled: index === 0, onClick: () => onMove( -1 ) },
+						{ title: __( 'Move down', 'custom-fields-meta-box' ), icon: 'arrow-down-alt', isDisabled: index === count - 1, onClick: () => onMove( 1 ) },
+						{ title: __( 'Move to…', 'custom-fields-meta-box' ), icon: 'migrate', onClick: () => setMoving( true ) },
+						{ title: __( 'Duplicate', 'custom-fields-meta-box' ), icon: 'admin-page', onClick: onDuplicate },
+						{ title: __( 'Delete', 'custom-fields-meta-box' ), icon: 'trash', onClick: onRemove },
 					] }
 				/>
 			</div>
@@ -151,7 +151,7 @@ export default function FieldRow( {
 					{ holdsFields( field ) && (
 						<div className="cfmb-field-row__children">
 							<h3 className="cfmb-field-row__children-title">
-								{ field.type === 'repeater' ? __( 'Fields in each row', 'cfmb' ) : __( 'Fields in this group', 'cfmb' ) }
+								{ field.type === 'repeater' ? __( 'Fields in each row', 'custom-fields-meta-box' ) : __( 'Fields in this group', 'custom-fields-meta-box' ) }
 							</h3>
 							<FieldList
 								fields={ field.fields || [] }
@@ -162,7 +162,7 @@ export default function FieldRow( {
 								listId={ field.key }
 								depth={ depth + 1 }
 								prefixLength={ childPrefix( prefixLength, field ) }
-								emptyText={ __( 'No sub-fields yet. Add one, or drag a field here.', 'cfmb' ) }
+								emptyText={ __( 'No sub-fields yet. Add one, or drag a field here.', 'custom-fields-meta-box' ) }
 							/>
 						</div>
 					) }
@@ -179,7 +179,7 @@ export default function FieldRow( {
 					) }
 					<div className="cfmb-field-row__footer">
 						<Button variant="secondary" size="compact" onClick={ onToggle }>
-							{ __( 'Close field', 'cfmb' ) }
+							{ __( 'Close field', 'custom-fields-meta-box' ) }
 						</Button>
 					</div>
 				</div>

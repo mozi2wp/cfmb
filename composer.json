@@ -1,5 +1,5 @@
 {
-	"name": "mozi2wp/cfmb",
+	"name": "mozi2wp/custom-fields-meta-box",
 	"description": "Custom fields, meta boxes and content modeling for WordPress.",
 	"type": "wordpress-plugin",
 	"license": "GPL-2.0-or-later",
@@ -28,10 +28,7 @@
 	"autoload": {
 		"psr-4": {
 			"CFMB\\": "src/"
-		},
-		"files": [
-			"src/functions.php"
-		]
+		}
 	},
 	"autoload-dev": {
 		"psr-4": {

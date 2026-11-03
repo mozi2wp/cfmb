@@ -31,16 +31,16 @@ final class Diff {
 		$entries = array();
 		$top     = 'group' === $kind
 			? array(
-				'title'    => __( 'Title', 'cfmb' ),
-				'active'   => __( 'Active', 'cfmb' ),
-				'order'    => __( 'Order', 'cfmb' ),
-				'location' => __( 'Location rules', 'cfmb' ),
-				'settings' => __( 'Group settings', 'cfmb' ),
+				'title'    => __( 'Title', 'custom-fields-meta-box' ),
+				'active'   => __( 'Active', 'custom-fields-meta-box' ),
+				'order'    => __( 'Order', 'custom-fields-meta-box' ),
+				'location' => __( 'Location rules', 'custom-fields-meta-box' ),
+				'settings' => __( 'Group settings', 'custom-fields-meta-box' ),
 			)
 			: array(
-				'title'  => __( 'Title', 'cfmb' ),
-				'name'   => __( 'Name', 'cfmb' ),
-				'active' => __( 'Active', 'cfmb' ),
+				'title'  => __( 'Title', 'custom-fields-meta-box' ),
+				'name'   => __( 'Name', 'custom-fields-meta-box' ),
+				'active' => __( 'Active', 'custom-fields-meta-box' ),
 			);
 
 		foreach ( $top as $key => $label ) {
@@ -74,7 +74,7 @@ final class Diff {
 
 			foreach ( $names as $name ) {
 				/* translators: %s: setting name */
-				self::compare( $entries, 'settings.' . $name, sprintf( __( 'Setting: %s', 'cfmb' ), $name ), $db['settings'][ $name ] ?? null, $file['settings'][ $name ] ?? null );
+				self::compare( $entries, 'settings.' . $name, sprintf( __( 'Setting: %s', 'custom-fields-meta-box' ), $name ), $db['settings'][ $name ] ?? null, $file['settings'][ $name ] ?? null );
 			}
 
 			return $entries;
@@ -86,14 +86,14 @@ final class Diff {
 		$file_common = array_values( array_intersect( array_keys( $file_fields ), array_keys( $db_fields ) ) );
 
 		if ( $common !== $file_common ) {
-			self::compare( $entries, 'fields.order', __( 'Field order', 'cfmb' ), $common, $file_common );
+			self::compare( $entries, 'fields.order', __( 'Field order', 'custom-fields-meta-box' ), $common, $file_common );
 		}
 
 		foreach ( array_unique( array_merge( array_keys( $db_fields ), array_keys( $file_fields ) ) ) as $key ) {
 			$field = $db_fields[ $key ] ?? $file_fields[ $key ];
 			$label = sprintf(
 				/* translators: 1: field label, 2: field name */
-				__( 'Field: %1$s (%2$s)', 'cfmb' ),
+				__( 'Field: %1$s (%2$s)', 'custom-fields-meta-box' ),
 				(string) ( $field['label'] ?? '' ),
 				'' !== (string) ( $field['name'] ?? '' ) ? (string) $field['name'] : (string) ( $field['type'] ?? '' )
 			);

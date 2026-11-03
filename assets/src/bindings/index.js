@@ -29,13 +29,13 @@ function labelFor( name, context ) {
 	const list = fieldList( config, context?.postType );
 	const found = list.find( ( item ) => item.args.field === name );
 	/* translators: %s: field name */
-	return found ? found.label : sprintf( __( 'Field: %s', 'cfmb' ), name );
+	return found ? found.label : sprintf( __( 'Field: %s', 'custom-fields-meta-box' ), name );
 }
 
 if ( typeof registerBlockBindingsSource === 'function' ) {
 	registerBlockBindingsSource( {
 		name: 'cfmb/field',
-		label: __( 'CFMB fields', 'cfmb' ),
+		label: __( 'CFMB fields', 'custom-fields-meta-box' ),
 		usesContext: [ 'postId', 'postType' ],
 
 		getValues( args ) {

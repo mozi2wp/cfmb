@@ -33,7 +33,7 @@ class Color_Field extends Abstract_Field {
 	 * @return string
 	 */
 	public function label(): string {
-		return __( 'Color', 'cfmb' );
+		return __( 'Color', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -52,8 +52,8 @@ class Color_Field extends Abstract_Field {
 	 */
 	public function settings_schema(): array {
 		return array(
-			$this->setting( 'default_value', __( 'Default color', 'cfmb' ), 'text', '', array( 'help' => __( 'A hex code such as #1e90ff.', 'cfmb' ) ) ),
-			$this->setting( 'alpha', __( 'Allow transparency', 'cfmb' ), 'toggle', false ),
+			$this->setting( 'default_value', __( 'Default color', 'custom-fields-meta-box' ), 'text', '', array( 'help' => __( 'A hex code such as #1e90ff.', 'custom-fields-meta-box' ) ) ),
+			$this->setting( 'alpha', __( 'Allow transparency', 'custom-fields-meta-box' ), 'toggle', false ),
 		);
 	}
 
@@ -86,7 +86,7 @@ class Color_Field extends Abstract_Field {
 			return null;
 		}
 
-		return __( 'Enter a color as a hex code, like #1e90ff.', 'cfmb' );
+		return __( 'Enter a color as a hex code, like #1e90ff.', 'custom-fields-meta-box' );
 	}
 
 	/**

@@ -75,7 +75,7 @@ class Icon_Library_Registry {
 
 		$this->ready = true;
 		$this->add( new Dashicons() );
-		$this->add( new Wordpress_Icons() );
+		$this->add( new WordPress_Icons() );
 
 		// Font Awesome ships as a generated data file; without it there is no library to offer.
 		if ( is_readable( Font_Awesome_Icons::file() ) ) {

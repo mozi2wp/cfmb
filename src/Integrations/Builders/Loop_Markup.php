@@ -55,7 +55,7 @@ final class Loop_Markup {
 			return '<p class="cfmb-field-loop__empty">' . esc_html( $text ) . '</p>';
 		}
 
-		return $editing ? self::notice( __( 'No items for this field on the post being previewed.', 'cfmb' ) ) : '';
+		return $editing ? self::notice( __( 'No items for this field on the post being previewed.', 'custom-fields-meta-box' ) ) : '';
 	}
 
 	/**

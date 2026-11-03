@@ -33,7 +33,7 @@ class Number_Tag extends Tag {
 	 * @return string
 	 */
 	public function get_title() {
-		return __( 'CFMB Number', 'cfmb' );
+		return __( 'CFMB Number', 'custom-fields-meta-box' );
 	}
 
 	/**

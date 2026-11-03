@@ -266,7 +266,7 @@ class Field_Values {
 			return null;
 		}
 
-		return $errors[''] ?? __( 'Some fields inside need attention.', 'cfmb' );
+		return $errors[''] ?? __( 'Some fields inside need attention.', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -293,7 +293,7 @@ class Field_Values {
 
 		if ( $type->is_empty( $value ) ) {
 			if ( $check_required && $field->required() ) {
-				$error = __( 'This field is required.', 'cfmb' );
+				$error = __( 'This field is required.', 'custom-fields-meta-box' );
 			}
 		} else {
 			$error = $type->validate_value( $value, $field );

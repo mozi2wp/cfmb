@@ -34,7 +34,7 @@ class Product_Type_Rule extends Abstract_Rule {
 	 * @return string
 	 */
 	public function label(): string {
-		return __( 'Product type', 'cfmb' );
+		return __( 'Product type', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -43,7 +43,7 @@ class Product_Type_Rule extends Abstract_Rule {
 	 * @return string
 	 */
 	public function category(): string {
-		return __( 'WooCommerce', 'cfmb' );
+		return __( 'WooCommerce', 'custom-fields-meta-box' );
 	}
 
 	/**

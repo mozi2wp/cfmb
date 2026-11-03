@@ -65,21 +65,21 @@ abstract class Structure_Base extends Abstract_Field implements Structure_Field 
 	 */
 	protected function row_settings(): array {
 		return array(
-			$this->setting( 'min', __( 'Minimum rows', 'cfmb' ), 'number', '', array( 'help' => __( 'Checked when the post is published.', 'cfmb' ) ) ),
-			$this->setting( 'max', __( 'Maximum rows', 'cfmb' ), 'number', '' ),
-			$this->setting( 'button_label', __( 'Add button text', 'cfmb' ), 'text', '', array( 'help' => __( 'Leave empty for "Add row".', 'cfmb' ) ) ),
-			$this->setting( 'collapsed', __( 'Start with rows collapsed', 'cfmb' ), 'toggle', false, array( 'help' => __( 'Collapsed rows load their fields only when opened, which keeps long lists fast.', 'cfmb' ) ) ),
+			$this->setting( 'min', __( 'Minimum rows', 'custom-fields-meta-box' ), 'number', '', array( 'help' => __( 'Checked when the post is published.', 'custom-fields-meta-box' ) ) ),
+			$this->setting( 'max', __( 'Maximum rows', 'custom-fields-meta-box' ), 'number', '' ),
+			$this->setting( 'button_label', __( 'Add button text', 'custom-fields-meta-box' ), 'text', '', array( 'help' => __( 'Leave empty for "Add row".', 'custom-fields-meta-box' ) ) ),
+			$this->setting( 'collapsed', __( 'Start with rows collapsed', 'custom-fields-meta-box' ), 'toggle', false, array( 'help' => __( 'Collapsed rows load their fields only when opened, which keeps long lists fast.', 'custom-fields-meta-box' ) ) ),
 			$this->setting(
 				'pagination',
-				__( 'Show rows in pages', 'cfmb' ),
+				__( 'Show rows in pages', 'custom-fields-meta-box' ),
 				'toggle',
 				false,
 				array(
 					'advanced' => true,
-					'help'     => __( 'For very long lists. Only the pages you open are loaded and saved. Works on top-level fields; inside other rows all rows show at once.', 'cfmb' ),
+					'help'     => __( 'For very long lists. Only the pages you open are loaded and saved. Works on top-level fields; inside other rows all rows show at once.', 'custom-fields-meta-box' ),
 				)
 			),
-			$this->setting( 'per_page', __( 'Rows per page', 'cfmb' ), 'number', 20, array( 'advanced' => true ) ),
+			$this->setting( 'per_page', __( 'Rows per page', 'custom-fields-meta-box' ), 'number', 20, array( 'advanced' => true ) ),
 		);
 	}
 

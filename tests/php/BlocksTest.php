@@ -35,7 +35,8 @@ class BlocksTest extends WP_UnitTestCase {
 		cfmb()->get( Group_Repository::class )->flush();
 		cfmb()->get( Block_Registry::class )->flush();
 
-		$this->folder = get_stylesheet_directory() . '/' . Template_Locator::FOLDER;
+		// wp_mkdir_p() refuses paths with "..", which the test theme root has.
+		$this->folder = (string) realpath( get_stylesheet_directory() ) . '/' . Template_Locator::FOLDER;
 		wp_mkdir_p( $this->folder );
 	}
 

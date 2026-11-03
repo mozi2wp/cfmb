@@ -57,7 +57,7 @@ function usePresetGroups() {
 	useEffect( () => {
 		presetSources()
 			.then( ( groups ) => setState( { groups, error: '' } ) )
-			.catch( ( error ) => setState( { groups: [], error: error.message || __( 'Field groups could not be loaded.', 'cfmb' ) } ) );
+			.catch( ( error ) => setState( { groups: [], error: error.message || __( 'Field groups could not be loaded.', 'custom-fields-meta-box' ) } ) );
 	}, [] );
 	return state;
 }
@@ -83,11 +83,11 @@ function PresetSourceControl( { setting, value, onChange } ) {
 				{ ...common }
 				__next40pxDefaultSize
 				label={ setting.label }
-				help={ __( 'Its fields are inserted here and stay in sync with it. Tip: turn on "Use only as a preset" in that group\'s settings so it doesn\'t also show on its own.', 'cfmb' ) }
+				help={ __( 'Its fields are inserted here and stay in sync with it. Tip: turn on "Use only as a preset" in that group\'s settings so it doesn\'t also show on its own.', 'custom-fields-meta-box' ) }
 				value={ value || '' }
 				options={ [
-					{ value: '', label: __( '— Choose a field group —', 'cfmb' ) },
-					...options.map( ( group ) => ( { value: group.key, label: group.settings?.preset_only ? `${ group.title } (${ __( 'preset', 'cfmb' ) })` : group.title } ) ),
+					{ value: '', label: __( '— Choose a field group —', 'custom-fields-meta-box' ) },
+					...options.map( ( group ) => ( { value: group.key, label: group.settings?.preset_only ? `${ group.title } (${ __( 'preset', 'custom-fields-meta-box' ) })` : group.title } ) ),
 				] }
 				onChange={ onChange }
 			/>
@@ -110,7 +110,7 @@ function PresetFieldsControl( { setting, value, onChange, field } ) {
 	if ( ! group ) {
 		return (
 			<Notice status="warning" isDismissible={ false }>
-				{ __( 'That field group no longer exists. Choose another one.', 'cfmb' ) }
+				{ __( 'That field group no longer exists. Choose another one.', 'custom-fields-meta-box' ) }
 			</Notice>
 		);
 	}
@@ -156,7 +156,7 @@ export default function SettingControl( { setting, value, onChange, field } ) {
 					{ ...props }
 					__next40pxDefaultSize
 					value={ value || '' }
-					options={ [ { value: '', label: __( 'First filled-in text field', 'cfmb' ) }, ...subs.map( ( item ) => ( { value: item.key, label: item.label || item.name } ) ) ] }
+					options={ [ { value: '', label: __( 'First filled-in text field', 'custom-fields-meta-box' ) }, ...subs.map( ( item ) => ( { value: item.key, label: item.label || item.name } ) ) ] }
 					onChange={ onChange }
 				/>
 			);

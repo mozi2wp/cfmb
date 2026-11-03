@@ -31,7 +31,7 @@ class Textarea_Field extends Text_Field {
 	 * @return string
 	 */
 	public function label(): string {
-		return __( 'Text area', 'cfmb' );
+		return __( 'Text area', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -41,21 +41,21 @@ class Textarea_Field extends Text_Field {
 	 */
 	public function settings_schema(): array {
 		return array(
-			$this->setting( 'default_value', __( 'Default value', 'cfmb' ), 'textarea' ),
-			$this->setting( 'placeholder', __( 'Placeholder', 'cfmb' ), 'text' ),
-			$this->setting( 'rows', __( 'Rows', 'cfmb' ), 'number', 4, array( 'advanced' => true ) ),
-			$this->setting( 'maxlength', __( 'Character limit', 'cfmb' ), 'number', '', array( 'advanced' => true ) ),
+			$this->setting( 'default_value', __( 'Default value', 'custom-fields-meta-box' ), 'textarea' ),
+			$this->setting( 'placeholder', __( 'Placeholder', 'custom-fields-meta-box' ), 'text' ),
+			$this->setting( 'rows', __( 'Rows', 'custom-fields-meta-box' ), 'number', 4, array( 'advanced' => true ) ),
+			$this->setting( 'maxlength', __( 'Character limit', 'custom-fields-meta-box' ), 'number', '', array( 'advanced' => true ) ),
 			$this->setting(
 				'new_lines',
-				__( 'Line breaks in output', 'cfmb' ),
+				__( 'Line breaks in output', 'custom-fields-meta-box' ),
 				'select',
 				'wpautop',
 				array(
 					'advanced' => true,
 					'options'  => array(
-						'wpautop' => __( 'Wrap paragraphs', 'cfmb' ),
-						'br'      => __( 'Add line breaks', 'cfmb' ),
-						'none'    => __( 'Plain text', 'cfmb' ),
+						'wpautop' => __( 'Wrap paragraphs', 'custom-fields-meta-box' ),
+						'br'      => __( 'Add line breaks', 'custom-fields-meta-box' ),
+						'none'    => __( 'Plain text', 'custom-fields-meta-box' ),
 					),
 				)
 			),

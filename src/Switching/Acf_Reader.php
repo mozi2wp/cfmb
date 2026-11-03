@@ -161,7 +161,7 @@ class Acf_Reader {
 		$by_key = array();
 
 		foreach ( $groups as $id => $group ) {
-			$group['fields']          = $this->nest( $id, $fields, $children, 0 );
+			$group['fields']         = $this->nest( $id, $fields, $children, 0 );
 			$by_key[ $group['key'] ] = $group;
 		}
 
@@ -171,10 +171,10 @@ class Acf_Reader {
 	/**
 	 * Fields under a parent, with sub_fields and flexible content layouts nested.
 	 *
-	 * @param int                                $parent   Parent post ID.
-	 * @param array<int, array<string, mixed>>   $fields   Fields by ID.
-	 * @param array<int, int[]>                  $children Child IDs by parent ID.
-	 * @param int                                $depth    Depth, to stop loops.
+	 * @param int                              $parent   Parent post ID.
+	 * @param array<int, array<string, mixed>> $fields   Fields by ID.
+	 * @param array<int, int[]>                $children Child IDs by parent ID.
+	 * @param int                              $depth    Depth, to stop loops.
 	 * @return array<int, array<string, mixed>>
 	 */
 	private function nest( int $parent, array $fields, array $children, int $depth ): array {
@@ -226,8 +226,8 @@ class Acf_Reader {
 				continue;
 			}
 
-			$group['fields']                 = $this->local_fields( (string) $group['key'] );
-			$group['source']                 = 'php';
+			$group['fields']                  = $this->local_fields( (string) $group['key'] );
+			$group['source']                  = 'php';
 			$groups[ (string) $group['key'] ] = $group;
 		}
 
@@ -315,7 +315,7 @@ class Acf_Reader {
 					continue;
 				}
 
-				$data['source']                  = 'json';
+				$data['source']                 = 'json';
 				$items[ (string) $data['key'] ] = $data;
 			}
 		}
@@ -354,8 +354,8 @@ class Acf_Reader {
 			return array();
 		}
 
-		// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_unserialize -- ACF's own storage format; objects are refused.
-		$value = @unserialize( $data, array( 'allowed_classes' => false ) ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged -- A broken row is skipped, not reported.
+		// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_unserialize, WordPress.PHP.NoSilencedErrors.Discouraged -- ACF's own storage format; objects are refused, and a broken row is skipped.
+		$value = @unserialize( $data, array( 'allowed_classes' => false ) );
 
 		return is_array( $value ) ? $value : array();
 	}

@@ -138,11 +138,11 @@ class Options_Screen {
 
 		// Set by Form_Saver after a nonce-checked save.
 		if ( isset( $_GET['cfmb-updated'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			printf( '<div class="notice notice-success is-dismissible"><p>%s</p></div>', esc_html__( 'Changes saved.', 'cfmb' ) );
+			printf( '<div class="notice notice-success is-dismissible"><p>%s</p></div>', esc_html__( 'Changes saved.', 'custom-fields-meta-box' ) );
 		}
 
 		if ( isset( $_GET['cfmb-errors'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			printf( '<div class="notice notice-error"><p>%s</p></div>', esc_html__( 'Some fields were not saved. Check the messages below each field.', 'cfmb' ) );
+			printf( '<div class="notice notice-error"><p>%s</p></div>', esc_html__( 'Some fields were not saved. Check the messages below each field.', 'custom-fields-meta-box' ) );
 		}
 
 		if ( ! $this->groups ) {
@@ -163,7 +163,7 @@ class Options_Screen {
 			echo '</div></div>';
 		}
 
-		submit_button( '' !== (string) ( $page['button'] ?? '' ) ? (string) $page['button'] : __( 'Save changes', 'cfmb' ) );
+		submit_button( '' !== (string) ( $page['button'] ?? '' ) ? (string) $page['button'] : __( 'Save changes', 'custom-fields-meta-box' ) );
 		echo '</form></div>';
 	}
 
@@ -175,7 +175,7 @@ class Options_Screen {
 	 */
 	private function render_empty_state( string $id ): void {
 		echo '<div class="cfmb-empty-state">';
-		printf( '<p>%s</p>', esc_html__( 'No fields are on this page yet.', 'cfmb' ) );
+		printf( '<p>%s</p>', esc_html__( 'No fields are on this page yet.', 'custom-fields-meta-box' ) );
 
 		if ( current_user_can( cfmb_admin_capability() ) ) {
 			printf(
@@ -183,12 +183,12 @@ class Options_Screen {
 				esc_html(
 					sprintf(
 						/* translators: %s: options page ID */
-						__( 'Create a field group and set its location to "Options page is %s".', 'cfmb' ),
+						__( 'Create a field group and set its location to "Options page is %s".', 'custom-fields-meta-box' ),
 						$id
 					)
 				),
 				esc_url( admin_url( 'admin.php?page=cfmb&group=new&location=options_page:' . rawurlencode( $id ) ) ),
-				esc_html__( 'Add a field group', 'cfmb' )
+				esc_html__( 'Add a field group', 'custom-fields-meta-box' )
 			);
 		}
 

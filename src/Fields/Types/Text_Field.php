@@ -32,7 +32,7 @@ class Text_Field extends Abstract_Field {
 	 * @return string
 	 */
 	public function label(): string {
-		return __( 'Text', 'cfmb' );
+		return __( 'Text', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -42,18 +42,18 @@ class Text_Field extends Abstract_Field {
 	 */
 	public function settings_schema(): array {
 		return array(
-			$this->setting( 'default_value', __( 'Default value', 'cfmb' ), 'text' ),
-			$this->setting( 'placeholder', __( 'Placeholder', 'cfmb' ), 'text' ),
-			$this->setting( 'prepend', __( 'Text before the input', 'cfmb' ), 'text', '', array( 'advanced' => true ) ),
-			$this->setting( 'append', __( 'Text after the input', 'cfmb' ), 'text', '', array( 'advanced' => true ) ),
+			$this->setting( 'default_value', __( 'Default value', 'custom-fields-meta-box' ), 'text' ),
+			$this->setting( 'placeholder', __( 'Placeholder', 'custom-fields-meta-box' ), 'text' ),
+			$this->setting( 'prepend', __( 'Text before the input', 'custom-fields-meta-box' ), 'text', '', array( 'advanced' => true ) ),
+			$this->setting( 'append', __( 'Text after the input', 'custom-fields-meta-box' ), 'text', '', array( 'advanced' => true ) ),
 			$this->setting(
 				'maxlength',
-				__( 'Character limit', 'cfmb' ),
+				__( 'Character limit', 'custom-fields-meta-box' ),
 				'number',
 				'',
 				array(
 					'advanced' => true,
-					'help'     => __( 'Leave empty for no limit.', 'cfmb' ),
+					'help'     => __( 'Leave empty for no limit.', 'custom-fields-meta-box' ),
 				)
 			),
 		);
@@ -72,7 +72,7 @@ class Text_Field extends Abstract_Field {
 		if ( $limit > 0 && is_string( $value ) && mb_strlen( $value ) > $limit ) {
 			return sprintf(
 				/* translators: %d: maximum number of characters */
-				_n( 'Use %d character or fewer.', 'Use %d characters or fewer.', $limit, 'cfmb' ),
+				_n( 'Use %d character or fewer.', 'Use %d characters or fewer.', $limit, 'custom-fields-meta-box' ),
 				$limit
 			);
 		}

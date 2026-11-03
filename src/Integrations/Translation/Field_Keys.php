@@ -164,8 +164,8 @@ class Field_Keys {
 			 * @param string $mode  Mode in effect.
 			 * @param Field  $field Field.
 			 */
-			$mode = (string) apply_filters( 'cfmb/translation/mode', Field_Integrations::translation( $field, $inherited ), $field ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
-			$mode = in_array( $mode, Field_Integrations::TRANSLATION_MODES, true ) ? $mode : Field_Integrations::COPY;
+			$mode  = (string) apply_filters( 'cfmb/translation/mode', Field_Integrations::translation( $field, $inherited ), $field ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
+			$mode  = in_array( $mode, Field_Integrations::TRANSLATION_MODES, true ) ? $mode : Field_Integrations::COPY;
 			$own   = Field_Integrations::own_translation( $field );
 			$name  = preg_quote( $field->name(), '/' );
 			$label = $exact ? $root . $field->name() : $root;
@@ -180,7 +180,7 @@ class Field_Keys {
 
 				$this->add( '/^' . $prefix . $name . '$/', $label, $exact, $mode, $field );
 
-				$children = $prefix . $name . '_\d+_';
+				$children   = $prefix . $name . '_\d+_';
 				$child_root = $exact ? $root . $field->name() . '_' : $root;
 				$lists      = Structure_Field::STACKS === $type->structure()
 					? array_map( static fn( $layout ) => $layout['fields'], $field->layouts() )

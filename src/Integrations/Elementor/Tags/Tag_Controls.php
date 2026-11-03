@@ -62,14 +62,14 @@ trait Tag_Controls {
 		$groups = array(
 			array(
 				'label'   => '',
-				'options' => array( '' => __( '— Choose a field —', 'cfmb' ) ),
+				'options' => array( '' => __( '— Choose a field —', 'custom-fields-meta-box' ) ),
 			),
 		);
 
 		$this->add_control(
 			'field',
 			array(
-				'label'   => __( 'Field', 'cfmb' ),
+				'label'   => __( 'Field', 'custom-fields-meta-box' ),
 				'type'    => Controls_Manager::SELECT,
 				'groups'  => array_merge( $groups, cfmb()->get( Field_Catalog::class )->grouped( $this->field_kind() ) ),
 				'default' => '',
@@ -79,7 +79,7 @@ trait Tag_Controls {
 		$this->add_control(
 			'source',
 			array(
-				'label'   => __( 'Read from', 'cfmb' ),
+				'label'   => __( 'Read from', 'custom-fields-meta-box' ),
 				'type'    => Controls_Manager::SELECT,
 				'options' => Field_Catalog::sources(),
 				'default' => '',
@@ -89,9 +89,9 @@ trait Tag_Controls {
 		$this->add_control(
 			'object',
 			array(
-				'label'       => __( 'Object', 'cfmb' ),
+				'label'       => __( 'Object', 'custom-fields-meta-box' ),
 				'type'        => Controls_Manager::TEXT,
-				'description' => __( 'With "Options page": the page ID, empty for the default page. With "Other": post_12, term_5, user_3 or option:{page}.', 'cfmb' ),
+				'description' => __( 'With "Options page": the page ID, empty for the default page. With "Other": post_12, term_5, user_3 or option:{page}.', 'custom-fields-meta-box' ),
 				'condition'   => array( 'source' => array( 'option', 'custom' ) ),
 			)
 		);

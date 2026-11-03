@@ -33,7 +33,7 @@ class User_Form_Rule extends Abstract_Rule {
 	 * @return string
 	 */
 	public function label(): string {
-		return __( 'User form', 'cfmb' );
+		return __( 'User form', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -42,7 +42,7 @@ class User_Form_Rule extends Abstract_Rule {
 	 * @return string
 	 */
 	public function category(): string {
-		return __( 'User', 'cfmb' );
+		return __( 'User', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -52,9 +52,9 @@ class User_Form_Rule extends Abstract_Rule {
 	 */
 	public function choices(): array {
 		return array(
-			self::ALL => __( 'Add and edit', 'cfmb' ),
-			'add'     => __( 'Add new user', 'cfmb' ),
-			'edit'    => __( 'Profile and edit user', 'cfmb' ),
+			self::ALL => __( 'Add and edit', 'custom-fields-meta-box' ),
+			'add'     => __( 'Add new user', 'custom-fields-meta-box' ),
+			'edit'    => __( 'Profile and edit user', 'custom-fields-meta-box' ),
 		);
 	}
 

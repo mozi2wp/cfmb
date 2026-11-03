@@ -32,7 +32,7 @@ class Gallery_Field extends Image_Field {
 	 * @return string
 	 */
 	public function label(): string {
-		return __( 'Gallery', 'cfmb' );
+		return __( 'Gallery', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -44,8 +44,8 @@ class Gallery_Field extends Image_Field {
 		return array_merge(
 			parent::settings_schema(),
 			array(
-				$this->setting( 'min', __( 'Minimum images', 'cfmb' ), 'number', '', array( 'advanced' => true ) ),
-				$this->setting( 'max', __( 'Maximum images', 'cfmb' ), 'number', '', array( 'advanced' => true ) ),
+				$this->setting( 'min', __( 'Minimum images', 'custom-fields-meta-box' ), 'number', '', array( 'advanced' => true ) ),
+				$this->setting( 'max', __( 'Maximum images', 'custom-fields-meta-box' ), 'number', '', array( 'advanced' => true ) ),
 			)
 		);
 	}
@@ -105,12 +105,12 @@ class Gallery_Field extends Image_Field {
 
 		if ( $min > 0 && count( $ids ) < $min ) {
 			/* translators: %d: minimum number of images */
-			return sprintf( _n( 'Add at least %d image.', 'Add at least %d images.', $min, 'cfmb' ), $min );
+			return sprintf( _n( 'Add at least %d image.', 'Add at least %d images.', $min, 'custom-fields-meta-box' ), $min );
 		}
 
 		if ( $max > 0 && count( $ids ) > $max ) {
 			/* translators: %d: maximum number of images */
-			return sprintf( _n( 'Use %d image or fewer.', 'Use %d images or fewer.', $max, 'cfmb' ), $max );
+			return sprintf( _n( 'Use %d image or fewer.', 'Use %d images or fewer.', $max, 'custom-fields-meta-box' ), $max );
 		}
 
 		foreach ( $ids as $id ) {

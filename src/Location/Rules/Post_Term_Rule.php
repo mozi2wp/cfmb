@@ -38,7 +38,7 @@ class Post_Term_Rule extends Abstract_Rule {
 	 * @return string
 	 */
 	public function label(): string {
-		return __( 'Post term', 'cfmb' );
+		return __( 'Post term', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -47,7 +47,7 @@ class Post_Term_Rule extends Abstract_Rule {
 	 * @return string
 	 */
 	public function category(): string {
-		return __( 'Post', 'cfmb' );
+		return __( 'Post', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -74,7 +74,7 @@ class Post_Term_Rule extends Abstract_Rule {
 			foreach ( $terms as $term ) {
 				$choices[ $taxonomy->name . ':' . $term->slug ] = sprintf(
 					/* translators: 1: taxonomy name, 2: term name */
-					__( '%1$s: %2$s', 'cfmb' ),
+					__( '%1$s: %2$s', 'custom-fields-meta-box' ),
 					$taxonomy->labels->singular_name,
 					$term->name
 				);

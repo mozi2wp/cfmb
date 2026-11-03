@@ -60,7 +60,7 @@ function typeError( field, value, enforceRequired ) {
 			if ( limit > 0 && String( value ).length > limit ) {
 				return sprintf(
 					/* translators: %d: maximum number of characters */
-					_n( 'Use %d character or fewer.', 'Use %d characters or fewer.', limit, 'cfmb' ),
+					_n( 'Use %d character or fewer.', 'Use %d characters or fewer.', limit, 'custom-fields-meta-box' ),
 					limit
 				);
 			}
@@ -69,7 +69,7 @@ function typeError( field, value, enforceRequired ) {
 		case 'email':
 			return EMAIL.test( String( value ).trim() )
 				? null
-				: __( 'Enter an email address, like name@example.com.', 'cfmb' );
+				: __( 'Enter an email address, like name@example.com.', 'custom-fields-meta-box' );
 		case 'url':
 		case 'oembed':
 			try {
@@ -77,21 +77,21 @@ function typeError( field, value, enforceRequired ) {
 				new URL( String( value ).trim() );
 				return null;
 			} catch ( e ) {
-				return __( 'Enter a full web address, like https://example.com.', 'cfmb' );
+				return __( 'Enter a full web address, like https://example.com.', 'custom-fields-meta-box' );
 			}
 		case 'number':
 		case 'range': {
 			const number = Number( value );
 			if ( String( value ).trim() === '' || ! Number.isFinite( number ) ) {
-				return __( 'Enter a number.', 'cfmb' );
+				return __( 'Enter a number.', 'custom-fields-meta-box' );
 			}
 			if ( settings.min !== '' && settings.min !== undefined && number < Number( settings.min ) ) {
 				/* translators: %s: minimum allowed number */
-				return sprintf( __( 'Enter a number of %s or more.', 'cfmb' ), settings.min );
+				return sprintf( __( 'Enter a number of %s or more.', 'custom-fields-meta-box' ), settings.min );
 			}
 			if ( settings.max !== '' && settings.max !== undefined && number > Number( settings.max ) ) {
 				/* translators: %s: maximum allowed number */
-				return sprintf( __( 'Enter a number of %s or less.', 'cfmb' ), settings.max );
+				return sprintf( __( 'Enter a number of %s or less.', 'custom-fields-meta-box' ), settings.max );
 			}
 			return null;
 		}
@@ -99,7 +99,7 @@ function typeError( field, value, enforceRequired ) {
 			const text = String( value ).trim();
 			return HEX.test( text ) || ( settings.alpha && RGBA.test( text ) )
 				? null
-				: __( 'Enter a color as a hex code, like #1e90ff.', 'cfmb' );
+				: __( 'Enter a color as a hex code, like #1e90ff.', 'custom-fields-meta-box' );
 		}
 		case 'date':
 		case 'datetime': {
@@ -107,24 +107,24 @@ function typeError( field, value, enforceRequired ) {
 			const format = getSettings()?.formats?.date || 'F j, Y';
 			if ( min && String( value ) < min ) {
 				/* translators: %s: earliest allowed date */
-				return sprintf( __( 'Choose a date on or after %s.', 'cfmb' ), dateI18n( format, min ) );
+				return sprintf( __( 'Choose a date on or after %s.', 'custom-fields-meta-box' ), dateI18n( format, min ) );
 			}
 			if ( max && String( value ) > max ) {
 				/* translators: %s: latest allowed date */
-				return sprintf( __( 'Choose a date on or before %s.', 'cfmb' ), dateI18n( format, max ) );
+				return sprintf( __( 'Choose a date on or before %s.', 'custom-fields-meta-box' ), dateI18n( format, max ) );
 			}
 			return null;
 		}
 		case 'link':
-			return ! value.url && value.title ? __( 'Add the address the link points to.', 'cfmb' ) : null;
+			return ! value.url && value.title ? __( 'Add the address the link points to.', 'custom-fields-meta-box' ) : null;
 		case 'map': {
 			const hasLat = value.lat !== '' && value.lat !== undefined;
 			const hasLng = value.lng !== '' && value.lng !== undefined;
 			if ( hasLat !== hasLng ) {
-				return __( 'Enter both latitude and longitude, or pick the place on the map.', 'cfmb' );
+				return __( 'Enter both latitude and longitude, or pick the place on the map.', 'custom-fields-meta-box' );
 			}
 			if ( hasLat && ( Math.abs( Number( value.lat ) ) > 90 || Math.abs( Number( value.lng ) ) > 180 || ! Number.isFinite( Number( value.lat ) ) || ! Number.isFinite( Number( value.lng ) ) ) ) {
-				return __( 'Latitude must be between -90 and 90, longitude between -180 and 180.', 'cfmb' );
+				return __( 'Latitude must be between -90 and 90, longitude between -180 and 180.', 'custom-fields-meta-box' );
 			}
 			return null;
 		}
@@ -133,18 +133,18 @@ function typeError( field, value, enforceRequired ) {
 				value.length,
 				settings,
 				/* translators: %d: minimum number of images */
-				_n( 'Add at least %d image.', 'Add at least %d images.', count( settings.min ), 'cfmb' ),
+				_n( 'Add at least %d image.', 'Add at least %d images.', count( settings.min ), 'custom-fields-meta-box' ),
 				/* translators: %d: maximum number of images */
-				_n( 'Use %d image or fewer.', 'Use %d images or fewer.', count( settings.max ), 'cfmb' )
+				_n( 'Use %d image or fewer.', 'Use %d images or fewer.', count( settings.max ), 'custom-fields-meta-box' )
 			);
 		case 'relationship':
 			return rangeError(
 				value.length,
 				settings,
 				/* translators: %d: minimum number of posts */
-				_n( 'Choose at least %d post.', 'Choose at least %d posts.', count( settings.min ), 'cfmb' ),
+				_n( 'Choose at least %d post.', 'Choose at least %d posts.', count( settings.min ), 'custom-fields-meta-box' ),
 				/* translators: %d: maximum number of posts */
-				_n( 'Choose %d post or fewer.', 'Choose %d posts or fewer.', count( settings.max ), 'cfmb' )
+				_n( 'Choose %d post or fewer.', 'Choose %d posts or fewer.', count( settings.max ), 'custom-fields-meta-box' )
 			);
 		case 'repeater':
 		case 'stacks':
@@ -162,11 +162,11 @@ function rowsError( field, value, enforceRequired ) {
 
 	if ( min > 0 && rows.length < min && ( rows.length > 0 || enforceRequired ) ) {
 		/* translators: %d: minimum number of rows */
-		return sprintf( _n( 'Add at least %d row.', 'Add at least %d rows.', min, 'cfmb' ), min );
+		return sprintf( _n( 'Add at least %d row.', 'Add at least %d rows.', min, 'custom-fields-meta-box' ), min );
 	}
 	if ( max > 0 && rows.length > max ) {
 		/* translators: %d: maximum number of rows */
-		return sprintf( _n( 'Use %d row or fewer.', 'Use %d rows or fewer.', max, 'cfmb' ), max );
+		return sprintf( _n( 'Use %d row or fewer.', 'Use %d rows or fewer.', max, 'custom-fields-meta-box' ), max );
 	}
 
 	if ( field.type !== 'stacks' ) {
@@ -178,7 +178,7 @@ function rowsError( field, value, enforceRequired ) {
 		if ( count( layout.min ) > 0 && used < count( layout.min ) && enforceRequired ) {
 			return sprintf(
 				/* translators: 1: number of rows, 2: layout label */
-				_n( 'Add at least %1$d "%2$s" row.', 'Add at least %1$d "%2$s" rows.', count( layout.min ), 'cfmb' ),
+				_n( 'Add at least %1$d "%2$s" row.', 'Add at least %1$d "%2$s" rows.', count( layout.min ), 'custom-fields-meta-box' ),
 				count( layout.min ),
 				layout.label
 			);
@@ -186,7 +186,7 @@ function rowsError( field, value, enforceRequired ) {
 		if ( count( layout.max ) > 0 && used > count( layout.max ) ) {
 			return sprintf(
 				/* translators: 1: number of rows, 2: layout label */
-				_n( 'Use %1$d "%2$s" row or fewer.', 'Use %1$d "%2$s" rows or fewer.', count( layout.max ), 'cfmb' ),
+				_n( 'Use %1$d "%2$s" row or fewer.', 'Use %1$d "%2$s" rows or fewer.', count( layout.max ), 'custom-fields-meta-box' ),
 				count( layout.max ),
 				layout.label
 			);
@@ -207,7 +207,7 @@ function rowsError( field, value, enforceRequired ) {
 export function validateField( field, value, enforceRequired ) {
 	if ( isEmpty( field, value ) ) {
 		if ( enforceRequired && field.required ) {
-			return __( 'This field is required.', 'cfmb' );
+			return __( 'This field is required.', 'custom-fields-meta-box' );
 		}
 		// Empty rows can still be below a minimum.
 		return structureOf( field ) && structureOf( field ) !== 'group' ? rowsError( field, value, enforceRequired ) : null;

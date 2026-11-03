@@ -35,8 +35,8 @@ export default function Gallery( { field, id, value, onChange, describedBy, obje
 			library.uploadedTo = objectId;
 		}
 		frameRef.current = media( {
-			title: __( 'Add images', 'cfmb' ),
-			button: { text: __( 'Add to gallery', 'cfmb' ) },
+			title: __( 'Add images', 'custom-fields-meta-box' ),
+			button: { text: __( 'Add to gallery', 'custom-fields-meta-box' ) },
 			library,
 			multiple: 'add',
 		} );
@@ -65,7 +65,7 @@ export default function Gallery( { field, id, value, onChange, describedBy, obje
 		next.splice( to, 0, item );
 		onChange( next );
 		/* translators: %d: new position */
-		speak( sprintf( __( 'Image moved to position %d.', 'cfmb' ), to + 1 ) );
+		speak( sprintf( __( 'Image moved to position %d.', 'custom-fields-meta-box' ), to + 1 ) );
 	};
 
 	return (
@@ -94,19 +94,19 @@ export default function Gallery( { field, id, value, onChange, describedBy, obje
 						>
 							<img src={ item.preview || item.url } alt={ item.alt } />
 							<div className="cfmb-gallery__item-actions">
-								<Button size="small" icon="arrow-left-alt2" label={ __( 'Move earlier', 'cfmb' ) } disabled={ index === 0 } onClick={ () => move( index, index - 1 ) } />
-								<Button size="small" icon="arrow-right-alt2" label={ __( 'Move later', 'cfmb' ) } disabled={ index === items.length - 1 } onClick={ () => move( index, index + 1 ) } />
+								<Button size="small" icon="arrow-left-alt2" label={ __( 'Move earlier', 'custom-fields-meta-box' ) } disabled={ index === 0 } onClick={ () => move( index, index - 1 ) } />
+								<Button size="small" icon="arrow-right-alt2" label={ __( 'Move later', 'custom-fields-meta-box' ) } disabled={ index === items.length - 1 } onClick={ () => move( index, index + 1 ) } />
 								<Button
 									size="small"
 									icon="no-alt"
 									isDestructive
 									label={
 										/* translators: %s: image title */
-										sprintf( __( 'Remove %s', 'cfmb' ), item.title || __( 'image', 'cfmb' ) )
+										sprintf( __( 'Remove %s', 'custom-fields-meta-box' ), item.title || __( 'image', 'custom-fields-meta-box' ) )
 									}
 									onClick={ () => {
 										onChange( items.filter( ( other ) => other.id !== item.id ) );
-										speak( __( 'Image removed.', 'cfmb' ) );
+										speak( __( 'Image removed.', 'custom-fields-meta-box' ) );
 									} }
 								/>
 							</div>
@@ -116,11 +116,11 @@ export default function Gallery( { field, id, value, onChange, describedBy, obje
 			) }
 			<div className="cfmb-gallery__actions">
 				<Button id={ id } variant="secondary" icon="format-gallery" disabled={ max > 0 && items.length >= max } onClick={ open }>
-					{ items.length ? __( 'Add more images', 'cfmb' ) : __( 'Add images', 'cfmb' ) }
+					{ items.length ? __( 'Add more images', 'custom-fields-meta-box' ) : __( 'Add images', 'custom-fields-meta-box' ) }
 				</Button>
 				{ items.length > 0 && (
 					<Button variant="tertiary" isDestructive onClick={ () => onChange( [] ) }>
-						{ __( 'Remove all', 'cfmb' ) }
+						{ __( 'Remove all', 'custom-fields-meta-box' ) }
 					</Button>
 				) }
 			</div>

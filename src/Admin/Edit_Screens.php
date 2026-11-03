@@ -275,12 +275,12 @@ class Edit_Screens {
 		}
 
 		$form_fields['cfmb_more_fields'] = array(
-			'label'        => __( 'More fields', 'cfmb' ),
+			'label'        => __( 'More fields', 'custom-fields-meta-box' ),
 			'input'        => 'html',
 			'html'         => sprintf(
 				'<a href="%1$s" target="_blank">%2$s</a>',
 				esc_url( (string) get_edit_post_link( $post->ID ) ),
-				esc_html__( 'Edit them on the attachment page (opens in a new tab)', 'cfmb' )
+				esc_html__( 'Edit them on the attachment page (opens in a new tab)', 'custom-fields-meta-box' )
 			),
 			'show_in_edit' => false,
 		);
@@ -421,14 +421,14 @@ class Edit_Screens {
 		// The Customizer previews widget changes before publishing them, but CFMB values
 		// are saved straight away, so editing them there would skip the preview.
 		if ( is_customize_preview() ) {
-			$this->customizer_note( admin_url( 'widgets.php' ), __( 'This widget has more fields. Edit them on the Widgets screen.', 'cfmb' ) );
+			$this->customizer_note( admin_url( 'widgets.php' ), __( 'This widget has more fields. Edit them on the Widgets screen.', 'custom-fields-meta-box' ) );
 			return;
 		}
 
 		echo '<div class="cfmb-widget-fields">';
 
 		if ( ! Form_Saver::is_saved_widget( $widget ) ) {
-			printf( '<p class="cfmb-widget-fields__note description">%s</p>', esc_html__( 'Save the widget first, then its extra fields appear here.', 'cfmb' ) );
+			printf( '<p class="cfmb-widget-fields__note description">%s</p>', esc_html__( 'Save the widget first, then its extra fields appear here.', 'custom-fields-meta-box' ) );
 			echo '</div>';
 			return;
 		}
@@ -455,7 +455,7 @@ class Edit_Screens {
 			'<p class="cfmb-customizer-note description">%1$s <a href="%2$s" target="_top">%3$s</a></p>',
 			esc_html( $message ),
 			esc_url( $url ),
-			esc_html__( 'Open', 'cfmb' )
+			esc_html__( 'Open', 'custom-fields-meta-box' )
 		);
 	}
 
@@ -470,7 +470,7 @@ class Edit_Screens {
 			return;
 		}
 
-		$this->customizer_note( admin_url( 'nav-menus.php' ), __( 'Menu items have more fields. Edit them on the Menus screen.', 'cfmb' ) );
+		$this->customizer_note( admin_url( 'nav-menus.php' ), __( 'Menu items have more fields. Edit them on the Menus screen.', 'custom-fields-meta-box' ) );
 	}
 
 	/**

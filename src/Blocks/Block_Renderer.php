@@ -237,8 +237,8 @@ class Block_Renderer {
 	 * Whether the attribute holds anything for a field, so fields never
 	 * saved keep falling back to their defaults.
 	 *
-	 * @param Field $field Field.
-	 * @param Object_Ref         $ref   Block instance.
+	 * @param Field      $field Field.
+	 * @param Object_Ref $ref   Block instance.
 	 * @return bool
 	 */
 	private function has_value( Field $field, Object_Ref $ref ): bool {

@@ -30,12 +30,12 @@ final class Hooks {
 	 * @return mixed
 	 */
 	public static function filter_field( string $hook, $value, Field $field, ...$extra ) {
-		$value = apply_filters( $hook, $value, $field, ...$extra ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores -- Slash-separated hook names are part of the public API.
-		$value = apply_filters( "{$hook}/type={$field->type()}", $value, $field, ...$extra ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
+		$value = apply_filters( $hook, $value, $field, ...$extra ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores, WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound -- $hook is always a cfmb/ hook; slash-separated names are part of the public API.
+		$value = apply_filters( "{$hook}/type={$field->type()}", $value, $field, ...$extra ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores, WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound -- $hook is always a cfmb/ hook.
 
 		// Sub-fields match by the name set in the builder (title), not the flattened key (items_0_title).
 		if ( '' !== $field->base_name() ) {
-			$value = apply_filters( "{$hook}/name={$field->base_name()}", $value, $field, ...$extra ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
+			$value = apply_filters( "{$hook}/name={$field->base_name()}", $value, $field, ...$extra ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores, WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound -- $hook is always a cfmb/ hook.
 		}
 
 		return $value;

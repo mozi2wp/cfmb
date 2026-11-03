@@ -32,7 +32,7 @@ class User_Field extends Post_Field {
 	 * @return string
 	 */
 	public function label(): string {
-		return __( 'User', 'cfmb' );
+		return __( 'User', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -44,26 +44,26 @@ class User_Field extends Post_Field {
 		return array(
 			$this->setting(
 				'role',
-				__( 'Roles', 'cfmb' ),
+				__( 'Roles', 'custom-fields-meta-box' ),
 				'checkboxes',
 				array(),
 				array(
 					'options' => self::role_options(),
-					'help'    => __( 'Leave all unchecked to allow every user.', 'cfmb' ),
+					'help'    => __( 'Leave all unchecked to allow every user.', 'custom-fields-meta-box' ),
 				)
 			),
-			$this->setting( 'multiple', __( 'Allow several users', 'cfmb' ), 'toggle', false ),
+			$this->setting( 'multiple', __( 'Allow several users', 'custom-fields-meta-box' ), 'toggle', false ),
 			$this->setting(
 				'return_format',
-				__( 'Template value', 'cfmb' ),
+				__( 'Template value', 'custom-fields-meta-box' ),
 				'select',
 				'array',
 				array(
 					'advanced' => true,
 					'options'  => array(
-						'array'  => __( 'User details array', 'cfmb' ),
-						'object' => __( 'User object', 'cfmb' ),
-						'id'     => __( 'User ID', 'cfmb' ),
+						'array'  => __( 'User details array', 'custom-fields-meta-box' ),
+						'object' => __( 'User object', 'custom-fields-meta-box' ),
+						'id'     => __( 'User ID', 'custom-fields-meta-box' ),
 					),
 				)
 			),
@@ -88,7 +88,7 @@ class User_Field extends Post_Field {
 			$user = get_userdata( (int) $id );
 
 			if ( ! $user instanceof WP_User || ! array_intersect( $roles, (array) $user->roles ) ) {
-				return __( 'One of the chosen users does not have an allowed role.', 'cfmb' );
+				return __( 'One of the chosen users does not have an allowed role.', 'custom-fields-meta-box' );
 			}
 		}
 

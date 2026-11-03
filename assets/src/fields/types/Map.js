@@ -18,15 +18,15 @@ export default function Map( props ) {
 			{ MapView && <MapView { ...props } place={ place } onPlace={ set } /> }
 			<div className="cfmb-map__inputs">
 				<div className="cfmb-map__address">
-					<label htmlFor={ id }>{ __( 'Address', 'cfmb' ) }</label>
+					<label htmlFor={ id }>{ __( 'Address', 'custom-fields-meta-box' ) }</label>
 					<input id={ id } className="cfmb-input" type="text" value={ place.address || '' } onChange={ ( event ) => set( { address: event.target.value } ) } />
 				</div>
 				<div className="cfmb-map__coordinate">
-					<label htmlFor={ `${ id }-lat` }>{ __( 'Latitude', 'cfmb' ) }</label>
+					<label htmlFor={ `${ id }-lat` }>{ __( 'Latitude', 'custom-fields-meta-box' ) }</label>
 					<input id={ `${ id }-lat` } className="cfmb-input" type="text" inputMode="decimal" value={ place.lat ?? '' } onChange={ ( event ) => set( { lat: event.target.value } ) } />
 				</div>
 				<div className="cfmb-map__coordinate">
-					<label htmlFor={ `${ id }-lng` }>{ __( 'Longitude', 'cfmb' ) }</label>
+					<label htmlFor={ `${ id }-lng` }>{ __( 'Longitude', 'custom-fields-meta-box' ) }</label>
 					<input id={ `${ id }-lng` } className="cfmb-input" type="text" inputMode="decimal" value={ place.lng ?? '' } onChange={ ( event ) => set( { lng: event.target.value } ) } />
 				</div>
 			</div>

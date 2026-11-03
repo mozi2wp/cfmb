@@ -35,7 +35,7 @@ class Product_Variation_Rule extends Abstract_Rule {
 	 * @return string
 	 */
 	public function label(): string {
-		return __( 'Product variation', 'cfmb' );
+		return __( 'Product variation', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -44,7 +44,7 @@ class Product_Variation_Rule extends Abstract_Rule {
 	 * @return string
 	 */
 	public function category(): string {
-		return __( 'WooCommerce', 'cfmb' );
+		return __( 'WooCommerce', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -53,7 +53,7 @@ class Product_Variation_Rule extends Abstract_Rule {
 	 * @return array<string, string>
 	 */
 	public function choices(): array {
-		$choices = array( self::ALL => __( 'Any variation', 'cfmb' ) );
+		$choices = array( self::ALL => __( 'Any variation', 'custom-fields-meta-box' ) );
 		$terms   = get_terms(
 			array(
 				'taxonomy'   => 'product_cat',
@@ -64,7 +64,7 @@ class Product_Variation_Rule extends Abstract_Rule {
 
 		foreach ( is_array( $terms ) ? $terms : array() as $term ) {
 			/* translators: %s: product category name */
-			$choices[ 'product_cat:' . $term->slug ] = sprintf( __( 'Variations in "%s"', 'cfmb' ), $term->name );
+			$choices[ 'product_cat:' . $term->slug ] = sprintf( __( 'Variations in "%s"', 'custom-fields-meta-box' ), $term->name );
 		}
 
 		return $choices;

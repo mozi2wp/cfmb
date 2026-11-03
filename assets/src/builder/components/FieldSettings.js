@@ -20,7 +20,7 @@ function TypeSelect( { value, onChange, id } ) {
 		.filter( ( group ) => group.types.length );
 
 	return (
-		<SelectControl { ...common } __next40pxDefaultSize id={ id } label={ __( 'Type', 'cfmb' ) } value={ value } onChange={ onChange }>
+		<SelectControl { ...common } __next40pxDefaultSize id={ id } label={ __( 'Type', 'custom-fields-meta-box' ) } value={ value } onChange={ onChange }>
 			{ groups.map( ( group ) => (
 				<optgroup key={ group.label } label={ group.label }>
 					{ group.types.map( ( type ) => (
@@ -60,26 +60,26 @@ function ListScreenSettings( { field, updateField } ) {
 	const single = isSingleValue( field );
 	const hasChoices = ( config.choiceTypes || [] ).includes( field.type );
 	const filterOptions = [
-		{ value: '', label: __( 'No filter', 'cfmb' ) },
-		...( hasChoices ? [ { value: 'choices', label: __( 'Dropdown of choices', 'cfmb' ) } ] : [] ),
-		...( COMPOUND_TYPES.includes( field.type ) ? [] : [ { value: 'search', label: __( 'Search box', 'cfmb' ) } ] ),
+		{ value: '', label: __( 'No filter', 'custom-fields-meta-box' ) },
+		...( hasChoices ? [ { value: 'choices', label: __( 'Dropdown of choices', 'custom-fields-meta-box' ) } ] : [] ),
+		...( COMPOUND_TYPES.includes( field.type ) ? [] : [ { value: 'search', label: __( 'Search box', 'custom-fields-meta-box' ) } ] ),
 	];
 
 	return (
 		<fieldset className="cfmb-field-settings__list-screens">
-			<legend>{ __( 'List screens', 'cfmb' ) }</legend>
+			<legend>{ __( 'List screens', 'custom-fields-meta-box' ) }</legend>
 			<ToggleControl
 				{ ...common }
-				label={ __( 'Show as a column', 'cfmb' ) }
-				help={ __( 'On the list of posts, terms or users this group shows on.', 'cfmb' ) }
+				label={ __( 'Show as a column', 'custom-fields-meta-box' ) }
+				help={ __( 'On the list of posts, terms or users this group shows on.', 'custom-fields-meta-box' ) }
 				checked={ admin.column }
 				onChange={ ( column ) => set( { column, ...( column ? {} : { sortable: false } ) } ) }
 			/>
 			{ admin.column && (
 				<ToggleControl
 					{ ...common }
-					label={ __( 'Sortable', 'cfmb' ) }
-					help={ single ? __( 'Click the column heading to sort by this field.', 'cfmb' ) : __( 'Only fields that hold one value can be sorted.', 'cfmb' ) }
+					label={ __( 'Sortable', 'custom-fields-meta-box' ) }
+					help={ single ? __( 'Click the column heading to sort by this field.', 'custom-fields-meta-box' ) : __( 'Only fields that hold one value can be sorted.', 'custom-fields-meta-box' ) }
 					checked={ single && admin.sortable }
 					disabled={ ! single }
 					onChange={ ( sortable ) => set( { sortable } ) }
@@ -89,8 +89,8 @@ function ListScreenSettings( { field, updateField } ) {
 				<SelectControl
 					{ ...common }
 					__next40pxDefaultSize
-					label={ __( 'Filter', 'cfmb' ) }
-					help={ __( 'Adds a filter above post and user lists. Term lists have no filter area.', 'cfmb' ) }
+					label={ __( 'Filter', 'custom-fields-meta-box' ) }
+					help={ __( 'Adds a filter above post and user lists. Term lists have no filter area.', 'custom-fields-meta-box' ) }
 					value={ filterOptions.some( ( option ) => option.value === admin.filter ) ? admin.filter : '' }
 					options={ filterOptions }
 					onChange={ ( filter ) => set( { filter } ) }
@@ -123,34 +123,34 @@ function IntegrationSettings( { field, updateField } ) {
 	const options = readIntegrations( field );
 	const set = ( change ) => updateField( ( current ) => ( { integrations: nextIntegrations( current, change ) } ) );
 	const labels = {
-		translate: __( 'Translate', 'cfmb' ),
-		copy: __( 'Copy', 'cfmb' ),
-		copy_once: __( 'Copy once', 'cfmb' ),
-		ignore: __( 'Ignore', 'cfmb' ),
+		translate: __( 'Translate', 'custom-fields-meta-box' ),
+		copy: __( 'Copy', 'custom-fields-meta-box' ),
+		copy_once: __( 'Copy once', 'custom-fields-meta-box' ),
+		ignore: __( 'Ignore', 'custom-fields-meta-box' ),
 	};
 
 	return (
 		<fieldset className="cfmb-field-settings__integrations">
-			<legend>{ __( 'Other plugins', 'cfmb' ) }</legend>
+			<legend>{ __( 'Other plugins', 'custom-fields-meta-box' ) }</legend>
 			{ showTranslation && (
 				<SelectControl
 					{ ...common }
 					__next40pxDefaultSize
-					label={ __( 'Translation (WPML, Polylang)', 'cfmb' ) }
+					label={ __( 'Translation (WPML, Polylang)', 'custom-fields-meta-box' ) }
 					help={
 						structure
-							? __( 'Sub-fields follow this unless they set their own. Translate lets each language have its own rows.', 'cfmb' )
-							: __( 'Translate: each language has its own value. Copy: kept the same everywhere. Copy once: copied to new translations, then edited separately.', 'cfmb' )
+							? __( 'Sub-fields follow this unless they set their own. Translate lets each language have its own rows.', 'custom-fields-meta-box' )
+							: __( 'Translate: each language has its own value. Copy: kept the same everywhere. Copy once: copied to new translations, then edited separately.', 'custom-fields-meta-box' )
 					}
 					value={ options.translation }
 					options={ [
 						{
 							value: '',
 							label: structure
-								? __( 'Default (follow sub-fields)', 'cfmb' )
+								? __( 'Default (follow sub-fields)', 'custom-fields-meta-box' )
 								: sprintf(
 										/* translators: %s: translation mode such as Translate or Copy */
-										__( 'Default (%s)', 'cfmb' ),
+										__( 'Default (%s)', 'custom-fields-meta-box' ),
 										labels[ defaultTranslation( field.type ) ]
 								  ),
 						},
@@ -165,8 +165,8 @@ function IntegrationSettings( { field, updateField } ) {
 			{ showSeo && (
 				<ToggleControl
 					{ ...common }
-					label={ __( 'Include in SEO analysis', 'cfmb' ) }
-					help={ __( 'Yoast SEO and Rank Math count this value as part of the content.', 'cfmb' ) }
+					label={ __( 'Include in SEO analysis', 'custom-fields-meta-box' ) }
+					help={ __( 'Yoast SEO and Rank Math count this value as part of the content.', 'custom-fields-meta-box' ) }
 					checked={ options.seo }
 					onChange={ ( seo ) => set( { seo } ) }
 				/>
@@ -174,8 +174,8 @@ function IntegrationSettings( { field, updateField } ) {
 			{ showGraphql && (
 				<ToggleControl
 					{ ...common }
-					label={ __( 'Show in GraphQL', 'cfmb' ) }
-					help={ __( 'Applies when the group has "Show in GraphQL" turned on.', 'cfmb' ) }
+					label={ __( 'Show in GraphQL', 'custom-fields-meta-box' ) }
+					help={ __( 'Applies when the group has "Show in GraphQL" turned on.', 'custom-fields-meta-box' ) }
 					checked={ options.graphql }
 					onChange={ ( graphql ) => set( { graphql } ) }
 				/>
@@ -236,7 +236,7 @@ export default function FieldSettings( { field, siblings, updateField, keyLength
 					{ ...common }
 					__next40pxDefaultSize
 					id={ `cfmb-field-label-${ field.key }` }
-					label={ __( 'Label', 'cfmb' ) }
+					label={ __( 'Label', 'custom-fields-meta-box' ) }
 					value={ field.label }
 					onChange={ onLabelChange }
 				/>
@@ -244,8 +244,8 @@ export default function FieldSettings( { field, siblings, updateField, keyLength
 					<TextControl
 						{ ...common }
 						__next40pxDefaultSize
-						label={ __( 'Name', 'cfmb' ) }
-						help={ __( 'The key the value is saved under. Lowercase letters, numbers and underscores.', 'cfmb' ) }
+						label={ __( 'Name', 'custom-fields-meta-box' ) }
+						help={ __( 'The key the value is saved under. Lowercase letters, numbers and underscores.', 'custom-fields-meta-box' ) }
 						value={ field.name }
 						onChange={ ( name ) => updateField( { name: toFieldName( name ) } ) }
 					/>
@@ -257,7 +257,7 @@ export default function FieldSettings( { field, siblings, updateField, keyLength
 				<Notice status="warning" isDismissible={ false } className="cfmb-field-settings__key-length">
 					{ sprintf(
 						/* translators: 1: key length, 2: maximum length */
-						__( 'Saved keys for this field can reach %1$d characters; the limit is %2$d. Use a shorter name here or on the fields around it.', 'cfmb' ),
+						__( 'Saved keys for this field can reach %1$d characters; the limit is %2$d. Use a shorter name here or on the fields around it.', 'custom-fields-meta-box' ),
 						keyLength,
 						config.keyMaxLength
 					) }
@@ -266,8 +266,8 @@ export default function FieldSettings( { field, siblings, updateField, keyLength
 
 			<TextareaControl
 				{ ...common }
-				label={ __( 'Instructions', 'cfmb' ) }
-				help={ __( 'Shown under the field to help editors fill it in.', 'cfmb' ) }
+				label={ __( 'Instructions', 'custom-fields-meta-box' ) }
+				help={ __( 'Shown under the field to help editors fill it in.', 'custom-fields-meta-box' ) }
 				rows={ 2 }
 				value={ field.instructions }
 				onChange={ ( instructions ) => updateField( { instructions } ) }
@@ -276,8 +276,8 @@ export default function FieldSettings( { field, siblings, updateField, keyLength
 			{ keepsValue && (
 				<ToggleControl
 					{ ...common }
-					label={ __( 'Required', 'cfmb' ) }
-					help={ __( 'Drafts can still be saved without it. Publishing needs a value.', 'cfmb' ) }
+					label={ __( 'Required', 'custom-fields-meta-box' ) }
+					help={ __( 'Drafts can still be saved without it. Publishing needs a value.', 'custom-fields-meta-box' ) }
 					checked={ !! field.required }
 					onChange={ ( required ) => updateField( { required } ) }
 				/>
@@ -295,7 +295,7 @@ export default function FieldSettings( { field, siblings, updateField, keyLength
 
 			<ToggleControl
 				{ ...common }
-				label={ __( 'Show only when other fields match', 'cfmb' ) }
+				label={ __( 'Show only when other fields match', 'custom-fields-meta-box' ) }
 				checked={ hasConditions }
 				onChange={ ( on ) =>
 					updateField( () => {
@@ -315,7 +315,7 @@ export default function FieldSettings( { field, siblings, updateField, keyLength
 				/>
 			) }
 
-			<PanelBody title={ __( 'More settings', 'cfmb' ) } initialOpen={ false } className="cfmb-field-settings__more">
+			<PanelBody title={ __( 'More settings', 'custom-fields-meta-box' ) } initialOpen={ false } className="cfmb-field-settings__more">
 				{ advanced.map( ( setting ) => (
 					<SettingControl
 						key={ `${ field.type }-${ setting.name }` }
@@ -332,15 +332,15 @@ export default function FieldSettings( { field, siblings, updateField, keyLength
 						type="number"
 						min={ 0 }
 						max={ 100 }
-						label={ __( 'Width (%)', 'cfmb' ) }
-						help={ __( 'Place fields side by side, for example two at 50.', 'cfmb' ) }
+						label={ __( 'Width (%)', 'custom-fields-meta-box' ) }
+						help={ __( 'Place fields side by side, for example two at 50.', 'custom-fields-meta-box' ) }
 						value={ field.wrapper?.width || '' }
 						onChange={ ( width ) => updateField( ( current ) => ( { wrapper: { ...current.wrapper, width: Number( width ) || 0 } } ) ) }
 					/>
 					<TextControl
 						{ ...common }
 						__next40pxDefaultSize
-						label={ __( 'CSS class', 'cfmb' ) }
+						label={ __( 'CSS class', 'custom-fields-meta-box' ) }
 						value={ field.wrapper?.class || '' }
 						onChange={ ( className ) => updateField( ( current ) => ( { wrapper: { ...current.wrapper, class: className } } ) ) }
 					/>
@@ -349,15 +349,15 @@ export default function FieldSettings( { field, siblings, updateField, keyLength
 				{ keepsValue && field.type !== 'preset' && (
 					<ToggleControl
 						{ ...common }
-						label={ __( 'Include in the REST API', 'cfmb' ) }
-						help={ __( 'Applies when the group has "Show in REST API" turned on.', 'cfmb' ) }
+						label={ __( 'Include in the REST API', 'custom-fields-meta-box' ) }
+						help={ __( 'Applies when the group has "Show in REST API" turned on.', 'custom-fields-meta-box' ) }
 						checked={ field.rest !== false }
 						onChange={ ( rest ) => updateField( { rest } ) }
 					/>
 				) }
 				{ keepsValue && <IntegrationSettings field={ field } updateField={ updateField } /> }
 				<p className="cfmb-field-settings__key">
-					{ __( 'Field key:', 'cfmb' ) } <code>{ field.key }</code>
+					{ __( 'Field key:', 'custom-fields-meta-box' ) } <code>{ field.key }</code>
 				</p>
 			</PanelBody>
 		</div>

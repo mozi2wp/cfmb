@@ -35,7 +35,7 @@ class Url_Tag extends Data_Tag {
 	 * @return string
 	 */
 	public function get_title() {
-		return __( 'CFMB URL', 'cfmb' );
+		return __( 'CFMB URL', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -67,7 +67,7 @@ class Url_Tag extends Data_Tag {
 		$this->add_control(
 			'fallback',
 			array(
-				'label' => __( 'Fallback URL', 'cfmb' ),
+				'label' => __( 'Fallback URL', 'custom-fields-meta-box' ),
 				'type'  => Controls_Manager::TEXT,
 			)
 		);

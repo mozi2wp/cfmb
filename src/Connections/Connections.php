@@ -244,7 +244,7 @@ class Connections {
 			array(
 				'get_callback' => array( $this, 'rest_value' ),
 				'schema'       => array(
-					'description' => __( 'IDs of connected items, by connection ID.', 'cfmb' ),
+					'description' => __( 'IDs of connected items, by connection ID.', 'custom-fields-meta-box' ),
 					'type'        => 'object',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,

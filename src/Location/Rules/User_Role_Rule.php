@@ -34,7 +34,7 @@ class User_Role_Rule extends Abstract_Rule {
 	 * @return string
 	 */
 	public function label(): string {
-		return __( 'User role', 'cfmb' );
+		return __( 'User role', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -43,7 +43,7 @@ class User_Role_Rule extends Abstract_Rule {
 	 * @return string
 	 */
 	public function category(): string {
-		return __( 'User', 'cfmb' );
+		return __( 'User', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -52,7 +52,7 @@ class User_Role_Rule extends Abstract_Rule {
 	 * @return array<string, string>
 	 */
 	public function choices(): array {
-		$choices = array( self::ALL => __( 'All roles', 'cfmb' ) );
+		$choices = array( self::ALL => __( 'All roles', 'custom-fields-meta-box' ) );
 
 		foreach ( wp_roles()->get_names() as $role => $name ) {
 			$choices[ $role ] = translate_user_role( $name );

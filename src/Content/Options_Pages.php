@@ -36,13 +36,13 @@ class Options_Pages {
 		$title = sanitize_text_field( (string) ( $args['page_title'] ?? '' ) );
 
 		if ( '' === $id || '' === $title ) {
-			_doing_it_wrong( 'cfmb_add_options_page', esc_html__( 'An options page needs an id and a page_title.', 'cfmb' ), '0.1.0' );
+			_doing_it_wrong( 'cfmb_add_options_page', esc_html__( 'An options page needs an id and a page_title.', 'custom-fields-meta-box' ), '0.1.0' );
 			return false;
 		}
 
 		if ( isset( $this->pages[ $id ] ) ) {
 			/* translators: %s: options page ID */
-			_doing_it_wrong( 'cfmb_add_options_page', esc_html( sprintf( __( 'An options page with the id "%s" is already registered.', 'cfmb' ), $id ) ), '0.1.0' );
+			_doing_it_wrong( 'cfmb_add_options_page', esc_html( sprintf( __( 'An options page with the id "%s" is already registered.', 'custom-fields-meta-box' ), $id ) ), '0.1.0' );
 			return false;
 		}
 

@@ -120,7 +120,7 @@ export default function GroupForm( { config, input, registry, components } ) {
 	);
 
 	if ( ! fields.length ) {
-		return <p className="cfmb-group__empty">{ __( 'This field group has no fields yet.', 'cfmb' ) }</p>;
+		return <p className="cfmb-group__empty">{ __( 'This field group has no fields yet.', 'custom-fields-meta-box' ) }</p>;
 	}
 
 	return (

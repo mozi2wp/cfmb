@@ -36,7 +36,7 @@ class Date_Field extends Abstract_Field {
 	 * @return string
 	 */
 	public function label(): string {
-		return __( 'Date', 'cfmb' );
+		return __( 'Date', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -75,23 +75,23 @@ class Date_Field extends Abstract_Field {
 		$settings = array(
 			$this->setting(
 				'display_format',
-				__( 'Display format', 'cfmb' ),
+				__( 'Display format', 'custom-fields-meta-box' ),
 				'text',
 				'',
 				array(
 					/* translators: %s: example PHP date format */
-					'help' => sprintf( __( 'How cfmb_the_field() prints it, as a PHP date format such as %s. Leave empty to use the site setting.', 'cfmb' ), $this->site_format() ),
+					'help' => sprintf( __( 'How cfmb_the_field() prints it, as a PHP date format such as %s. Leave empty to use the site setting.', 'custom-fields-meta-box' ), $this->site_format() ),
 				)
 			),
 			$this->setting(
 				'return_format',
-				__( 'Template format', 'cfmb' ),
+				__( 'Template format', 'custom-fields-meta-box' ),
 				'text',
 				'',
 				array(
 					'advanced' => true,
 					/* translators: %s: storage format */
-					'help'     => sprintf( __( 'What cfmb_get_field() returns. Leave empty for the stored value, like %s.', 'cfmb' ), $this->storage_format() ),
+					'help'     => sprintf( __( 'What cfmb_get_field() returns. Leave empty for the stored value, like %s.', 'custom-fields-meta-box' ), $this->storage_format() ),
 				)
 			),
 		);
@@ -100,29 +100,29 @@ class Date_Field extends Abstract_Field {
 			return $settings;
 		}
 
-		$bound_help = __( 'A date like 2026-01-31, or relative to the day the field is filled in: today, +7 days, -1 month, +1 year.', 'cfmb' );
+		$bound_help = __( 'A date like 2026-01-31, or relative to the day the field is filled in: today, +7 days, -1 month, +1 year.', 'custom-fields-meta-box' );
 
 		return array_merge(
 			$settings,
 			array(
-				$this->setting( 'min_date', __( 'Earliest date', 'cfmb' ), 'text', '', array( 'help' => $bound_help ) ),
-				$this->setting( 'max_date', __( 'Latest date', 'cfmb' ), 'text', '', array( 'help' => $bound_help ) ),
+				$this->setting( 'min_date', __( 'Earliest date', 'custom-fields-meta-box' ), 'text', '', array( 'help' => $bound_help ) ),
+				$this->setting( 'max_date', __( 'Latest date', 'custom-fields-meta-box' ), 'text', '', array( 'help' => $bound_help ) ),
 				$this->setting(
 					'first_day',
-					__( 'Week starts on', 'cfmb' ),
+					__( 'Week starts on', 'custom-fields-meta-box' ),
 					'select',
 					'',
 					array(
 						'advanced' => true,
 						'options'  => array(
-							''  => __( 'As in Settings > General', 'cfmb' ),
-							'0' => __( 'Sunday', 'cfmb' ),
-							'1' => __( 'Monday', 'cfmb' ),
-							'2' => __( 'Tuesday', 'cfmb' ),
-							'3' => __( 'Wednesday', 'cfmb' ),
-							'4' => __( 'Thursday', 'cfmb' ),
-							'5' => __( 'Friday', 'cfmb' ),
-							'6' => __( 'Saturday', 'cfmb' ),
+							''  => __( 'As in Settings > General', 'custom-fields-meta-box' ),
+							'0' => __( 'Sunday', 'custom-fields-meta-box' ),
+							'1' => __( 'Monday', 'custom-fields-meta-box' ),
+							'2' => __( 'Tuesday', 'custom-fields-meta-box' ),
+							'3' => __( 'Wednesday', 'custom-fields-meta-box' ),
+							'4' => __( 'Thursday', 'custom-fields-meta-box' ),
+							'5' => __( 'Friday', 'custom-fields-meta-box' ),
+							'6' => __( 'Saturday', 'custom-fields-meta-box' ),
 						),
 					)
 				),
@@ -280,12 +280,12 @@ class Date_Field extends Abstract_Field {
 
 		if ( '' !== $bounds['min'] && $value < $bounds['min'] ) {
 			/* translators: %s: earliest allowed date */
-			return sprintf( __( 'Choose a date on or after %s.', 'cfmb' ), $this->localize( $bounds['min'], $this->site_format() ) );
+			return sprintf( __( 'Choose a date on or after %s.', 'custom-fields-meta-box' ), $this->localize( $bounds['min'], $this->site_format() ) );
 		}
 
 		if ( '' !== $bounds['max'] && $value > $bounds['max'] ) {
 			/* translators: %s: latest allowed date */
-			return sprintf( __( 'Choose a date on or before %s.', 'cfmb' ), $this->localize( $bounds['max'], $this->site_format() ) );
+			return sprintf( __( 'Choose a date on or before %s.', 'custom-fields-meta-box' ), $this->localize( $bounds['max'], $this->site_format() ) );
 		}
 
 		return null;
@@ -372,6 +372,6 @@ class Date_Field extends Abstract_Field {
 	 * @return string
 	 */
 	protected function invalid_message(): string {
-		return __( 'Enter a valid date.', 'cfmb' );
+		return __( 'Enter a valid date.', 'custom-fields-meta-box' );
 	}
 }

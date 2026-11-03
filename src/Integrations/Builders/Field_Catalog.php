@@ -89,9 +89,9 @@ class Field_Catalog {
 	/**
 	 * Constructor.
 	 *
-	 * @param Group_Repository $groups    Group storage.
-	 * @param Field_Values     $values    Value service.
-	 * @param Formatter        $formatter Supported field check.
+	 * @param Group_Repository         $groups    Group storage.
+	 * @param Field_Values             $values    Value service.
+	 * @param Formatter                $formatter Supported field check.
 	 * @param Loop_Items               $loops       Loopable field check.
 	 * @param Connection_Registry|null $connections Connections, listed as loops.
 	 */
@@ -148,7 +148,7 @@ class Field_Catalog {
 
 			if ( $options ) {
 				$list[] = array(
-					'label'   => __( 'Connections', 'cfmb' ),
+					'label'   => __( 'Connections', 'custom-fields-meta-box' ),
 					'options' => $options,
 					'object'  => '',
 				);
@@ -159,7 +159,7 @@ class Field_Catalog {
 
 		if ( $item ) {
 			$list[] = array(
-				'label'   => __( 'Loop item', 'cfmb' ),
+				'label'   => __( 'Loop item', 'custom-fields-meta-box' ),
 				'options' => $item,
 				'object'  => '',
 				'item'    => true,
@@ -190,7 +190,7 @@ class Field_Catalog {
 		foreach ( $this->grouped( $kind ) as $group ) {
 			foreach ( $group['options'] as $path => $label ) {
 				/* translators: 1: Field Group title, 2: field label. */
-				$flat[ $path ] = sprintf( __( '%1$s: %2$s', 'cfmb' ), $group['label'], $label );
+				$flat[ $path ] = sprintf( __( '%1$s: %2$s', 'custom-fields-meta-box' ), $group['label'], $label );
 			}
 		}
 
@@ -243,12 +243,12 @@ class Field_Catalog {
 	 */
 	public static function sources(): array {
 		return array(
-			''       => __( 'Current post', 'cfmb' ),
-			'term'   => __( 'Current term (archives)', 'cfmb' ),
-			'author' => __( 'Author of the current post', 'cfmb' ),
-			'user'   => __( 'Logged-in user', 'cfmb' ),
-			'option' => __( 'Options page', 'cfmb' ),
-			'custom' => __( 'Other (enter below)', 'cfmb' ),
+			''       => __( 'Current post', 'custom-fields-meta-box' ),
+			'term'   => __( 'Current term (archives)', 'custom-fields-meta-box' ),
+			'author' => __( 'Author of the current post', 'custom-fields-meta-box' ),
+			'user'   => __( 'Logged-in user', 'custom-fields-meta-box' ),
+			'option' => __( 'Options page', 'custom-fields-meta-box' ),
+			'custom' => __( 'Other (enter below)', 'custom-fields-meta-box' ),
 		);
 	}
 
@@ -301,7 +301,7 @@ class Field_Catalog {
 
 		foreach ( $this->sub_fields( $field ) as $sub ) {
 			/* translators: 1: parent field label, 2: sub-field label. */
-			$sub_label = sprintf( __( '%1$s › %2$s', 'cfmb' ), $label, '' !== $sub->label() ? $sub->label() : $sub->name() );
+			$sub_label = sprintf( __( '%1$s › %2$s', 'custom-fields-meta-box' ), $label, '' !== $sub->label() ? $sub->label() : $sub->name() );
 			$this->collect( $sub, $path . '.' . $sub->name(), $sub_label, $kind, $options, $depth + 1 );
 		}
 	}
@@ -358,31 +358,31 @@ class Field_Catalog {
 		switch ( $kind ) {
 			case 'text':
 				return array(
-					'@index'         => __( 'Item number', 'cfmb' ),
-					'@count'         => __( 'Item count', 'cfmb' ),
-					'@title'         => __( 'Title of the linked post, term or user', 'cfmb' ),
-					'@layout'        => __( 'Stacks layout name', 'cfmb' ),
-					'@image_title'   => __( 'Image title', 'cfmb' ),
-					'@image_alt'     => __( 'Image alt text', 'cfmb' ),
-					'@image_caption' => __( 'Image caption', 'cfmb' ),
+					'@index'         => __( 'Item number', 'custom-fields-meta-box' ),
+					'@count'         => __( 'Item count', 'custom-fields-meta-box' ),
+					'@title'         => __( 'Title of the linked post, term or user', 'custom-fields-meta-box' ),
+					'@layout'        => __( 'Stacks layout name', 'custom-fields-meta-box' ),
+					'@image_title'   => __( 'Image title', 'custom-fields-meta-box' ),
+					'@image_alt'     => __( 'Image alt text', 'custom-fields-meta-box' ),
+					'@image_caption' => __( 'Image caption', 'custom-fields-meta-box' ),
 				);
 
 			case 'number':
 				return array(
-					'@index' => __( 'Item number', 'cfmb' ),
-					'@count' => __( 'Item count', 'cfmb' ),
+					'@index' => __( 'Item number', 'custom-fields-meta-box' ),
+					'@count' => __( 'Item count', 'custom-fields-meta-box' ),
 				);
 
 			case 'url':
 				return array(
-					'@image_url' => __( 'Image URL', 'cfmb' ),
-					'@post_url'  => __( 'Post URL', 'cfmb' ),
-					'@url'       => __( 'Link of the linked post, term or user', 'cfmb' ),
+					'@image_url' => __( 'Image URL', 'custom-fields-meta-box' ),
+					'@post_url'  => __( 'Post URL', 'custom-fields-meta-box' ),
+					'@url'       => __( 'Link of the linked post, term or user', 'custom-fields-meta-box' ),
 				);
 
 			case 'image':
 			case 'gallery':
-				return array( '@image' => __( 'Image', 'cfmb' ) );
+				return array( '@image' => __( 'Image', 'custom-fields-meta-box' ) );
 		}
 
 		return array();

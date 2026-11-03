@@ -40,7 +40,7 @@ class Field_Loop_Element extends OxyEl {
 	 * @return string
 	 */
 	public function name() {
-		return __( 'Field Loop', 'cfmb' );
+		return __( 'Field Loop', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -75,7 +75,7 @@ class Field_Loop_Element extends OxyEl {
 		$this->addOptionControl(
 			array(
 				'type' => 'dropdown',
-				'name' => __( 'Loop over', 'cfmb' ),
+				'name' => __( 'Loop over', 'custom-fields-meta-box' ),
 				'slug' => 'cfmb_field',
 			)
 		)->setValue( cfmb()->get( Field_Catalog::class )->flat( 'loop' ) );
@@ -83,20 +83,20 @@ class Field_Loop_Element extends OxyEl {
 		$this->addOptionControl(
 			array(
 				'type'    => 'dropdown',
-				'name'    => __( 'Read from', 'cfmb' ),
+				'name'    => __( 'Read from', 'custom-fields-meta-box' ),
 				'slug'    => 'cfmb_source',
 				'default' => 'current',
 			)
 		)->setValue( $sources );
 
 		foreach ( array(
-			'cfmb_object'  => __( 'Object (options page ID, post_12, term_5, user_3)', 'cfmb' ),
-			'cfmb_layouts' => __( 'Only these Stacks layouts (comma separated)', 'cfmb' ),
-			'cfmb_limit'   => __( 'Number of items (0 for all)', 'cfmb' ),
-			'cfmb_offset'  => __( 'Skip first', 'cfmb' ),
-			'cfmb_empty'   => __( 'Text when there are no items', 'cfmb' ),
-			'cfmb_columns' => __( 'Columns (1-6)', 'cfmb' ),
-			'cfmb_gap'     => __( 'Gap (CSS length)', 'cfmb' ),
+			'cfmb_object'  => __( 'Object (options page ID, post_12, term_5, user_3)', 'custom-fields-meta-box' ),
+			'cfmb_layouts' => __( 'Only these Stacks layouts (comma separated)', 'custom-fields-meta-box' ),
+			'cfmb_limit'   => __( 'Number of items (0 for all)', 'custom-fields-meta-box' ),
+			'cfmb_offset'  => __( 'Skip first', 'custom-fields-meta-box' ),
+			'cfmb_empty'   => __( 'Text when there are no items', 'custom-fields-meta-box' ),
+			'cfmb_columns' => __( 'Columns (1-6)', 'custom-fields-meta-box' ),
+			'cfmb_gap'     => __( 'Gap (CSS length)', 'custom-fields-meta-box' ),
 		) as $slug => $label ) {
 			$this->addOptionControl(
 				array(

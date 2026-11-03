@@ -87,9 +87,9 @@ class Builder_Screen {
 		echo '<div class="wrap cfmb-admin">';
 		printf( '<h1 class="screen-reader-text">%s</h1>', esc_html( get_admin_page_title() ) );
 		echo '<div id="cfmb-builder" class="cfmb-builder">';
-		printf( '<p class="cfmb-builder__loading">%s</p>', esc_html__( 'Loading…', 'cfmb' ) );
+		printf( '<p class="cfmb-builder__loading">%s</p>', esc_html__( 'Loading…', 'custom-fields-meta-box' ) );
 		echo '</div>';
-		printf( '<noscript><p>%s</p></noscript>', esc_html__( 'The field group editor needs JavaScript. Turn it on in your browser to edit field groups.', 'cfmb' ) );
+		printf( '<noscript><p>%s</p></noscript>', esc_html__( 'The field group editor needs JavaScript. Turn it on in your browser to edit field groups.', 'custom-fields-meta-box' ) );
 		echo '</div>';
 	}
 
@@ -121,13 +121,13 @@ class Builder_Screen {
 			'adminUrl'           => admin_url( 'admin.php?page=' . Menu::SLUG ),
 			'fieldTypes'         => array_values( array_map( static fn( Field_Type $type ) => $type->client_config(), $this->types->all() ) ),
 			'categories'         => array(
-				'basic'      => __( 'Basic', 'cfmb' ),
-				'content'    => __( 'Content', 'cfmb' ),
-				'choice'     => __( 'Choice', 'cfmb' ),
-				'relational' => __( 'Relational', 'cfmb' ),
-				'picker'     => __( 'Pickers', 'cfmb' ),
-				'layout'     => __( 'Layout', 'cfmb' ),
-				'structure'  => __( 'Structure', 'cfmb' ),
+				'basic'      => __( 'Basic', 'custom-fields-meta-box' ),
+				'content'    => __( 'Content', 'custom-fields-meta-box' ),
+				'choice'     => __( 'Choice', 'custom-fields-meta-box' ),
+				'relational' => __( 'Relational', 'custom-fields-meta-box' ),
+				'picker'     => __( 'Pickers', 'custom-fields-meta-box' ),
+				'layout'     => __( 'Layout', 'custom-fields-meta-box' ),
+				'structure'  => __( 'Structure', 'custom-fields-meta-box' ),
 			),
 			'keyMaxLength'       => Group_Sanitizer::KEY_MAX_LENGTH,
 			// Settings for these plugins only show while they are active.
@@ -187,20 +187,20 @@ class Builder_Screen {
 	 */
 	private function condition_operators(): array {
 		$labels = array(
-			'=='        => __( 'is equal to', 'cfmb' ),
-			'!='        => __( 'is not equal to', 'cfmb' ),
-			'empty'     => __( 'is empty', 'cfmb' ),
-			'not_empty' => __( 'has any value', 'cfmb' ),
-			'contains'  => __( 'contains', 'cfmb' ),
-			'>'         => __( 'is greater than', 'cfmb' ),
-			'<'         => __( 'is less than', 'cfmb' ),
+			'=='        => __( 'is equal to', 'custom-fields-meta-box' ),
+			'!='        => __( 'is not equal to', 'custom-fields-meta-box' ),
+			'empty'     => __( 'is empty', 'custom-fields-meta-box' ),
+			'not_empty' => __( 'has any value', 'custom-fields-meta-box' ),
+			'contains'  => __( 'contains', 'custom-fields-meta-box' ),
+			'>'         => __( 'is greater than', 'custom-fields-meta-box' ),
+			'<'         => __( 'is less than', 'custom-fields-meta-box' ),
 		);
 
 		$operators = array();
 		foreach ( Conditions::operators() as $operator ) {
 			$operators[] = array(
-				'value'     => $operator,
-				'label'     => $labels[ $operator ] ?? $operator,
+				'value'      => $operator,
+				'label'      => $labels[ $operator ] ?? $operator,
 				'takesValue' => ! in_array( $operator, array( 'empty', 'not_empty' ), true ),
 			);
 		}

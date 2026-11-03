@@ -69,7 +69,7 @@ class Template_Locator {
 				return array(
 					'path'  => '',
 					/* translators: %s: file path */
-					'error' => sprintf( __( 'The template %s is outside the folders CFMB may load templates from (your theme, the plugins folder, or a folder added with the cfmb/blocks/template_paths filter).', 'cfmb' ), $this->display_path( $candidate ) ),
+					'error' => sprintf( __( 'The template %s is outside the folders CFMB may load templates from (your theme, the plugins folder, or a folder added with the cfmb/blocks/template_paths filter).', 'custom-fields-meta-box' ), $this->display_path( $candidate ) ),
 				);
 			}
 
@@ -83,14 +83,14 @@ class Template_Locator {
 			return array(
 				'path'  => '',
 				/* translators: %s: file path */
-				'error' => sprintf( __( 'The template file %s was not found.', 'cfmb' ), $configured ),
+				'error' => sprintf( __( 'The template file %s was not found.', 'custom-fields-meta-box' ), $configured ),
 			);
 		}
 
 		return array(
 			'path'  => '',
 			/* translators: 1: file name, 2: folder name */
-			'error' => sprintf( __( 'Add a template for this block: %1$s in the %2$s folder of your theme.', 'cfmb' ), $slug . '.php', self::FOLDER ),
+			'error' => sprintf( __( 'Add a template for this block: %1$s in the %2$s folder of your theme.', 'custom-fields-meta-box' ), $slug . '.php', self::FOLDER ),
 		);
 	}
 
@@ -146,10 +146,10 @@ class Template_Locator {
 		$file = wp_normalize_path( $file );
 		$maps = array(
 			wp_normalize_path( get_stylesheet_directory() ) => get_stylesheet_directory_uri(),
-			wp_normalize_path( get_template_directory() )   => get_template_directory_uri(),
-			wp_normalize_path( WP_PLUGIN_DIR )              => plugins_url(),
-			wp_normalize_path( WP_CONTENT_DIR )             => content_url(),
-			wp_normalize_path( ABSPATH )                    => site_url(),
+			wp_normalize_path( get_template_directory() ) => get_template_directory_uri(),
+			wp_normalize_path( WP_PLUGIN_DIR )            => plugins_url(),
+			wp_normalize_path( WP_CONTENT_DIR )           => content_url(),
+			wp_normalize_path( ABSPATH )                  => site_url(),
 		);
 
 		foreach ( $maps as $dir => $url ) {

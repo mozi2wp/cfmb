@@ -158,7 +158,7 @@ class Backup {
 		$table = self::table();
 
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Own table.
-		return (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$table} WHERE run = %s", $run ) ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name from $wpdb->prefix.
+		return (int) $wpdb->get_var( $wpdb->prepare( 'SELECT COUNT(*) FROM %i WHERE run = %s', $table, $run ) );
 	}
 
 	/**
@@ -174,7 +174,7 @@ class Backup {
 		$table = self::table();
 
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Own table.
-		$rows = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$table} WHERE run = %s ORDER BY id DESC LIMIT %d", $run, $limit ), ARRAY_A ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name from $wpdb->prefix.
+		$rows = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM %i WHERE run = %s ORDER BY id DESC LIMIT %d', $table, $run, $limit ), ARRAY_A );
 
 		foreach ( (array) $rows as $row ) {
 			if ( 'option' === $row['store'] ) {
@@ -227,7 +227,7 @@ class Backup {
 			$meta_table,
 			array(
 				$column    => $object_id,
-				'meta_key' => $key, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_query_meta_key -- Indexed column.
+				'meta_key' => $key, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- Indexed column.
 			),
 			array( '%d', '%s' )
 		);
@@ -247,8 +247,8 @@ class Backup {
 				$meta_table,
 				array(
 					$column      => $object_id,
-					'meta_key'   => $key, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_query_meta_key -- Indexed column.
-					'meta_value' => $value, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_query_meta_value -- Insert, not a query.
+					'meta_key'   => $key, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- Indexed column.
+					'meta_value' => $value, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value -- Insert, not a query.
 				),
 				array( '%d', '%s', '%s' )
 			);
@@ -310,8 +310,8 @@ class Backup {
 				'run'        => $run,
 				'store'      => $store,
 				'object_id'  => $object_id,
-				'meta_key'   => $key, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_query_meta_key -- Own table.
-				'meta_value' => $raw, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_query_meta_value -- Own table.
+				'meta_key'   => $key, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- Own table.
+				'meta_value' => $raw, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value -- Own table.
 				'autoload'   => $autoload,
 				'action'     => $action,
 			),

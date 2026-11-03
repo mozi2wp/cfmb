@@ -118,9 +118,9 @@ class Value_Converter {
 		$id    = 'user' === $store ? 'umeta_id' : 'meta_id';
 		$where = self::name_filter( self::roots( $rules ), 'meta_key', '' );
 
-		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Table and column names are fixed above; values go through prepare().
+		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter -- Identifiers go through %i; $where['sql'] holds name_filter() placeholders only.
 		$rows = $wpdb->get_results(
-			$wpdb->prepare( "SELECT {$id} AS row_id, {$column} AS object_id, meta_key, meta_value FROM {$table} WHERE {$id} > %d AND ( {$where['sql']} ) ORDER BY {$id} ASC LIMIT %d", array_merge( array( $after ), $where['args'], array( self::BATCH ) ) ),
+			$wpdb->prepare( "SELECT %i AS row_id, %i AS object_id, meta_key, meta_value FROM %i WHERE %i > %d AND ( {$where['sql']} ) ORDER BY %i ASC LIMIT %d", array_merge( array( $id, $column, $table, $id, $after ), $where['args'], array( $id, self::BATCH ) ) ),
 			ARRAY_A
 		);
 		// phpcs:enable
@@ -170,11 +170,11 @@ class Value_Converter {
 		$key_marks    = implode( ',', array_fill( 0, count( $keys ), '%s' ) );
 		$object_marks = implode( ',', array_fill( 0, count( $objects ), '%d' ) );
 
-		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Placeholders built from counts; table and column fixed.
+		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare, WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Placeholders built from counts; identifiers go through %i.
 		$found = $wpdb->get_results(
 			$wpdb->prepare(
-				"SELECT {$column} AS object_id, meta_key FROM {$table} WHERE meta_key IN ({$key_marks}) AND {$column} IN ({$object_marks}) AND meta_value LIKE %s",
-				array_merge( array_keys( $keys ), array_keys( $objects ), array( 'field\_%' ) )
+				"SELECT %i AS object_id, meta_key FROM %i WHERE meta_key IN ({$key_marks}) AND %i IN ({$object_marks}) AND meta_value LIKE %s",
+				array_merge( array( $column, $table ), array_keys( $keys ), array( $column ), array_keys( $objects ), array( 'field\_%' ) )
 			),
 			ARRAY_A
 		);
@@ -213,8 +213,8 @@ class Value_Converter {
 			}
 
 			$this->backup->keep_meta( $run, $store, $object_id, $key, $raw );
-			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- One row by ID; cache cleared below.
-			$wpdb->update( $table, array( 'meta_value' => $parts[1] . '-' . $parts[2] . '-' . $parts[3] ), array( $id => (int) $row['row_id'] ), array( '%s' ), array( '%d' ) ); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_query_meta_value -- Update by ID.
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.SlowDBQuery.slow_db_query_meta_value -- One row by ID; cache cleared below.
+			$wpdb->update( $table, array( 'meta_value' => $parts[1] . '-' . $parts[2] . '-' . $parts[3] ), array( $id => (int) $row['row_id'] ), array( '%s' ), array( '%d' ) );
 			wp_cache_delete( $object_id, $store . '_meta' );
 
 			return true;
@@ -239,8 +239,8 @@ class Value_Converter {
 				$table,
 				array(
 					$column      => $object_id,
-					'meta_key'   => $key, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_query_meta_key -- Insert.
-					'meta_value' => (string) $item, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_query_meta_value -- Insert.
+					'meta_key'   => $key, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- Insert.
+					'meta_value' => (string) $item, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value -- Insert.
 				),
 				array( '%d', '%s', '%s' )
 			);
@@ -291,7 +291,7 @@ class Value_Converter {
 
 		$where = implode( ' OR ', $sql );
 
-		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Values go through prepare().
+		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter -- $where is built from name_filter() placeholders only; every value goes through prepare().
 		$rows = $wpdb->get_results(
 			$wpdb->prepare( "SELECT option_id, option_name, option_value, autoload FROM {$wpdb->options} WHERE option_id > %d AND ( {$where} ) ORDER BY option_id ASC LIMIT %d", array_merge( array( $after ), $args, array( self::BATCH ) ) ),
 			ARRAY_A
@@ -321,7 +321,8 @@ class Value_Converter {
 					continue;
 				}
 
-				$moved = $this->move_option( (string) $run['id'], $row, 'cfmb_' . (string) $page['page'] . '_' . $key, 'date' === self::kind_for( self::rules_of( $rules, array( 'date' ) ), $key ) );
+				$is_date = 'date' === self::kind_for( self::rules_of( $rules, array( 'date' ) ), $key );
+				$moved   = $this->move_option( (string) $run['id'], $row, 'cfmb_' . (string) $page['page'] . '_' . $key, $is_date );
 
 				++$result[ $moved ? 'moved' : 'kept' ];
 				break;

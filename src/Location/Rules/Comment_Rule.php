@@ -32,7 +32,7 @@ class Comment_Rule extends Abstract_Rule {
 	 * @return string
 	 */
 	public function label(): string {
-		return __( 'Comment on', 'cfmb' );
+		return __( 'Comment on', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -41,7 +41,7 @@ class Comment_Rule extends Abstract_Rule {
 	 * @return string
 	 */
 	public function category(): string {
-		return __( 'Forms', 'cfmb' );
+		return __( 'Forms', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -50,7 +50,7 @@ class Comment_Rule extends Abstract_Rule {
 	 * @return array<string, string>
 	 */
 	public function choices(): array {
-		$choices = array( self::ALL => __( 'Any content', 'cfmb' ) );
+		$choices = array( self::ALL => __( 'Any content', 'custom-fields-meta-box' ) );
 
 		foreach ( get_post_types( array( 'show_ui' => true ), 'objects' ) as $name => $type ) {
 			if ( post_type_supports( $name, 'comments' ) ) {

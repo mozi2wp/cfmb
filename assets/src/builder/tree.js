@@ -146,21 +146,21 @@ export function moveField( fields, key, listId, index ) {
  * @return {Array<{id: string, label: string}>} Lists.
  */
 export function allLists( fields, prefix = '' ) {
-	const lists = prefix ? [] : [ { id: '', label: __( 'Top level of this group', 'cfmb' ) } ];
+	const lists = prefix ? [] : [ { id: '', label: __( 'Top level of this group', 'custom-fields-meta-box' ) } ];
 
 	fields.forEach( ( field ) => {
-		const name = field.label || field.name || __( '(no label)', 'cfmb' );
+		const name = field.label || field.name || __( '(no label)', 'custom-fields-meta-box' );
 		if ( holdsFields( field ) ) {
 			const label = prefix ? `${ prefix } › ${ name }` : name;
 			/* translators: %s: Group or Repeater field label */
-			lists.push( { id: field.key, label: sprintf( __( 'Inside %s', 'cfmb' ), label ) } );
+			lists.push( { id: field.key, label: sprintf( __( 'Inside %s', 'custom-fields-meta-box' ), label ) } );
 			lists.push( ...allLists( field.fields || [], label ) );
 		}
 		if ( field.type === 'stacks' ) {
 			( field.layouts || [] ).forEach( ( layout ) => {
 				const label = `${ prefix ? `${ prefix } › ` : '' }${ name } › ${ layout.label || layout.name }`;
 				/* translators: %s: Stacks field and layout label */
-				lists.push( { id: `${ field.key }:${ layout.key }`, label: sprintf( __( 'Inside %s', 'cfmb' ), label ) } );
+				lists.push( { id: `${ field.key }:${ layout.key }`, label: sprintf( __( 'Inside %s', 'custom-fields-meta-box' ), label ) } );
 				lists.push( ...allLists( layout.fields || [], label ) );
 			} );
 		}

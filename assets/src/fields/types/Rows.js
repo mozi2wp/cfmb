@@ -137,7 +137,7 @@ export default function Rows( { field, value, onChange, path, id } ) {
 					setExpanded( ( current ) => new Set( [ ...current, ...shown.map( ( { row } ) => row._uid ) ] ) );
 				}
 			} )
-			.catch( ( error ) => setLoadError( error.message || __( 'These rows could not be loaded. Reload the page and try again.', 'cfmb' ) ) )
+			.catch( ( error ) => setLoadError( error.message || __( 'These rows could not be loaded. Reload the page and try again.', 'custom-fields-meta-box' ) ) )
 			.finally( () => setLoading( false ) );
 		// Runs when the set of missing rows changes.
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -193,14 +193,14 @@ export default function Rows( { field, value, onChange, path, id } ) {
 		expand( row._uid );
 		goToRow( rows.length );
 		focusRef.current = row._uid;
-		speak( __( 'Row added.', 'cfmb' ) );
+		speak( __( 'Row added.', 'custom-fields-meta-box' ) );
 	};
 
 	const remove = ( uid ) => {
 		const index = rows.findIndex( ( row ) => row._uid === uid );
 		setRemoved( { row: rows[ index ], index } );
 		update( ( list ) => list.filter( ( row ) => row._uid !== uid ) );
-		speak( __( 'Row removed. Use Undo to bring it back.', 'cfmb' ) );
+		speak( __( 'Row removed. Use Undo to bring it back.', 'custom-fields-meta-box' ) );
 	};
 
 	const undo = () => {
@@ -214,7 +214,7 @@ export default function Rows( { field, value, onChange, path, id } ) {
 		} );
 		goToRow( removed.index );
 		setRemoved( null );
-		speak( __( 'Row restored.', 'cfmb' ) );
+		speak( __( 'Row restored.', 'custom-fields-meta-box' ) );
 	};
 
 	const move = ( uid, target ) => {
@@ -231,7 +231,7 @@ export default function Rows( { field, value, onChange, path, id } ) {
 		} );
 		goToRow( to );
 		/* translators: %d: new row position */
-		speak( sprintf( __( 'Row moved to position %d.', 'cfmb' ), to + 1 ) );
+		speak( sprintf( __( 'Row moved to position %d.', 'custom-fields-meta-box' ), to + 1 ) );
 	};
 
 	const duplicate = ( uid ) => {
@@ -244,7 +244,7 @@ export default function Rows( { field, value, onChange, path, id } ) {
 		} );
 		expand( copy._uid );
 		goToRow( index + 1 );
-		speak( __( 'Row duplicated.', 'cfmb' ) );
+		speak( __( 'Row duplicated.', 'custom-fields-meta-box' ) );
 	};
 
 	const copy = ( list ) => {
@@ -255,10 +255,10 @@ export default function Rows( { field, value, onChange, path, id } ) {
 			saved
 				? sprintf(
 						/* translators: %d: number of rows */
-						_n( '%d row copied. Paste it into this field, or one with the same sub-fields, on any post.', '%d rows copied. Paste them into this field, or one with the same sub-fields, on any post.', loaded.length, 'cfmb' ),
+						_n( '%d row copied. Paste it into this field, or one with the same sub-fields, on any post.', '%d rows copied. Paste them into this field, or one with the same sub-fields, on any post.', loaded.length, 'custom-fields-meta-box' ),
 						loaded.length
 				  )
-				: __( 'Rows could not be copied. Your browser blocks local storage.', 'cfmb' )
+				: __( 'Rows could not be copied. Your browser blocks local storage.', 'custom-fields-meta-box' )
 		);
 	};
 
@@ -278,7 +278,7 @@ export default function Rows( { field, value, onChange, path, id } ) {
 		speak(
 			sprintf(
 				/* translators: %d: number of rows */
-				_n( '%d row pasted.', '%d rows pasted.', pasted.length, 'cfmb' ),
+				_n( '%d row pasted.', '%d rows pasted.', pasted.length, 'custom-fields-meta-box' ),
 				pasted.length
 			)
 		);
@@ -286,7 +286,7 @@ export default function Rows( { field, value, onChange, path, id } ) {
 
 	const layoutFull = ( layout ) => Number( layout.max ) > 0 && rows.filter( ( row ) => row._layout === layout.name ).length >= Number( layout.max );
 	const full = max > 0 && rows.length >= max;
-	const addLabel = settings.button_label || __( 'Add row', 'cfmb' );
+	const addLabel = settings.button_label || __( 'Add row', 'custom-fields-meta-box' );
 	const canPaste = fits && clipboard.rows.length > 0 && ! full;
 
 	const rowHasErrors = ( row, index ) => {
@@ -320,7 +320,7 @@ export default function Rows( { field, value, onChange, path, id } ) {
 		const broken = rowHasErrors( row, index );
 		const label = sprintf(
 			/* translators: %d: row number */
-			__( 'Row %d', 'cfmb' ),
+			__( 'Row %d', 'custom-fields-meta-box' ),
 			index + 1
 		);
 
@@ -337,7 +337,7 @@ export default function Rows( { field, value, onChange, path, id } ) {
 						className="cfmb-row__handle"
 						draggable
 						aria-hidden="true"
-						title={ __( 'Drag to reorder', 'cfmb' ) }
+						title={ __( 'Drag to reorder', 'custom-fields-meta-box' ) }
 						onDragStart={ ( event ) => {
 							event.dataTransfer.effectAllowed = 'move';
 							event.dataTransfer.setData( 'text/plain', row._uid );
@@ -355,23 +355,23 @@ export default function Rows( { field, value, onChange, path, id } ) {
 						<span className="cfmb-row__number">{ index + 1 }</span>
 						{ layout && <span className="cfmb-row__layout">{ layout.label }</span> }
 						<span className="cfmb-row__title">{ title || ( layout ? '' : label ) }</span>
-						{ broken && <span className="cfmb-row__flag">{ __( 'Needs attention', 'cfmb' ) }</span> }
+						{ broken && <span className="cfmb-row__flag">{ __( 'Needs attention', 'custom-fields-meta-box' ) }</span> }
 						<Dashicon icon={ open ? 'arrow-up-alt2' : 'arrow-down-alt2' } className="cfmb-row__chevron" />
 					</button>
 					<DropdownMenu
 						icon="ellipsis"
 						label={
 							/* translators: %s: row label, like "Row 2" */
-							sprintf( __( 'Actions for %s', 'cfmb' ), label )
+							sprintf( __( 'Actions for %s', 'custom-fields-meta-box' ), label )
 						}
 						toggleProps={ { size: 'compact' } }
 						controls={ [
-							{ title: __( 'Move up', 'cfmb' ), icon: 'arrow-up-alt', isDisabled: index === 0, onClick: () => move( row._uid, index - 1 ) },
-							{ title: __( 'Move down', 'cfmb' ), icon: 'arrow-down-alt', isDisabled: index === rows.length - 1, onClick: () => move( row._uid, index + 1 ) },
-							{ title: __( 'Move to position…', 'cfmb' ), icon: 'sort', isDisabled: rows.length < 2, onClick: () => setMoving( { uid: row._uid, to: String( index + 1 ) } ) },
-							{ title: __( 'Duplicate', 'cfmb' ), icon: 'admin-page', isDisabled: full || row._unloaded || ( layout && layoutFull( layout ) ), onClick: () => duplicate( row._uid ) },
-							{ title: __( 'Copy', 'cfmb' ), icon: 'clipboard', isDisabled: row._unloaded, onClick: () => copy( [ row ] ) },
-							{ title: __( 'Remove', 'cfmb' ), icon: 'trash', onClick: () => remove( row._uid ) },
+							{ title: __( 'Move up', 'custom-fields-meta-box' ), icon: 'arrow-up-alt', isDisabled: index === 0, onClick: () => move( row._uid, index - 1 ) },
+							{ title: __( 'Move down', 'custom-fields-meta-box' ), icon: 'arrow-down-alt', isDisabled: index === rows.length - 1, onClick: () => move( row._uid, index + 1 ) },
+							{ title: __( 'Move to position…', 'custom-fields-meta-box' ), icon: 'sort', isDisabled: rows.length < 2, onClick: () => setMoving( { uid: row._uid, to: String( index + 1 ) } ) },
+							{ title: __( 'Duplicate', 'custom-fields-meta-box' ), icon: 'admin-page', isDisabled: full || row._unloaded || ( layout && layoutFull( layout ) ), onClick: () => duplicate( row._uid ) },
+							{ title: __( 'Copy', 'custom-fields-meta-box' ), icon: 'clipboard', isDisabled: row._unloaded, onClick: () => copy( [ row ] ) },
+							{ title: __( 'Remove', 'custom-fields-meta-box' ), icon: 'trash', onClick: () => remove( row._uid ) },
 						] }
 					/>
 				</div>
@@ -384,7 +384,7 @@ export default function Rows( { field, value, onChange, path, id } ) {
 							setMoving( null );
 						} }
 					>
-						<label htmlFor={ `${ bodyId }-move` }>{ __( 'Move to position', 'cfmb' ) }</label>
+						<label htmlFor={ `${ bodyId }-move` }>{ __( 'Move to position', 'custom-fields-meta-box' ) }</label>
 						<input
 							id={ `${ bodyId }-move` }
 							className="cfmb-input cfmb-input--small"
@@ -397,10 +397,10 @@ export default function Rows( { field, value, onChange, path, id } ) {
 							onChange={ ( event ) => setMoving( { ...moving, to: event.target.value } ) }
 						/>
 						<Button variant="secondary" size="compact" type="submit">
-							{ __( 'Move', 'cfmb' ) }
+							{ __( 'Move', 'custom-fields-meta-box' ) }
 						</Button>
 						<Button variant="tertiary" size="compact" onClick={ () => setMoving( null ) }>
-							{ __( 'Cancel', 'cfmb' ) }
+							{ __( 'Cancel', 'custom-fields-meta-box' ) }
 						</Button>
 					</form>
 				) }
@@ -408,7 +408,7 @@ export default function Rows( { field, value, onChange, path, id } ) {
 					<div className="cfmb-row__body" id={ bodyId }>
 						{ row._unloaded ? (
 							<p className="cfmb-rows__loading">
-								<Spinner /> { __( 'Loading row…', 'cfmb' ) }
+								<Spinner /> { __( 'Loading row…', 'custom-fields-meta-box' ) }
 							</p>
 						) : (
 							<Fields
@@ -431,25 +431,25 @@ export default function Rows( { field, value, onChange, path, id } ) {
 					<span className="cfmb-rows__count">
 						{ sprintf(
 							/* translators: %d: number of rows */
-							_n( '%d row', '%d rows', rows.length, 'cfmb' ),
+							_n( '%d row', '%d rows', rows.length, 'custom-fields-meta-box' ),
 							rows.length
 						) }
 					</span>
 					<Button variant="link" size="compact" onClick={ () => setExpanded( new Set( rows.map( ( row ) => row._uid ) ) ) }>
-						{ __( 'Expand all', 'cfmb' ) }
+						{ __( 'Expand all', 'custom-fields-meta-box' ) }
 					</Button>
 					<Button variant="link" size="compact" onClick={ () => setExpanded( new Set() ) }>
-						{ __( 'Collapse all', 'cfmb' ) }
+						{ __( 'Collapse all', 'custom-fields-meta-box' ) }
 					</Button>
 					<Button variant="link" size="compact" onClick={ () => copy( rows ) }>
-						{ __( 'Copy all', 'cfmb' ) }
+						{ __( 'Copy all', 'custom-fields-meta-box' ) }
 					</Button>
 				</div>
 			) }
 
 			{ rows.length === 0 ? (
 				<p className="cfmb-rows__empty">
-					{ isStacks ? __( 'No rows yet. Add one of the layouts below.', 'cfmb' ) : __( 'No rows yet.', 'cfmb' ) }
+					{ isStacks ? __( 'No rows yet. Add one of the layouts below.', 'custom-fields-meta-box' ) : __( 'No rows yet.', 'custom-fields-meta-box' ) }
 				</p>
 			) : (
 				<ol className="cfmb-rows__list">{ shown.map( renderRow ) }</ol>
@@ -457,7 +457,7 @@ export default function Rows( { field, value, onChange, path, id } ) {
 
 			{ loading && (
 				<p className="cfmb-rows__loading" role="status">
-					<Spinner /> { __( 'Loading rows…', 'cfmb' ) }
+					<Spinner /> { __( 'Loading rows…', 'custom-fields-meta-box' ) }
 				</p>
 			) }
 			{ loadError && (
@@ -468,25 +468,25 @@ export default function Rows( { field, value, onChange, path, id } ) {
 
 			{ removed && (
 				<div className="cfmb-rows__undo" role="status">
-					<span>{ __( 'Row removed.', 'cfmb' ) }</span>
+					<span>{ __( 'Row removed.', 'custom-fields-meta-box' ) }</span>
 					<Button variant="link" onClick={ undo }>
-						{ __( 'Undo', 'cfmb' ) }
+						{ __( 'Undo', 'custom-fields-meta-box' ) }
 					</Button>
-					<Button variant="link" className="cfmb-rows__undo-dismiss" label={ __( 'Dismiss', 'cfmb' ) } icon="no-alt" size="small" onClick={ () => setRemoved( null ) } />
+					<Button variant="link" className="cfmb-rows__undo-dismiss" label={ __( 'Dismiss', 'custom-fields-meta-box' ) } icon="no-alt" size="small" onClick={ () => setRemoved( null ) } />
 				</div>
 			) }
 
 			{ paginate && pageCount > 1 && (
-				<nav className="cfmb-rows__pages" aria-label={ __( 'Row pages', 'cfmb' ) }>
-					<Button variant="tertiary" size="compact" icon="arrow-left-alt2" label={ __( 'Previous page', 'cfmb' ) } disabled={ page === 0 } onClick={ () => setPage( page - 1 ) } />
+				<nav className="cfmb-rows__pages" aria-label={ __( 'Row pages', 'custom-fields-meta-box' ) }>
+					<Button variant="tertiary" size="compact" icon="arrow-left-alt2" label={ __( 'Previous page', 'custom-fields-meta-box' ) } disabled={ page === 0 } onClick={ () => setPage( page - 1 ) } />
 					<label>
-						<span className="screen-reader-text">{ __( 'Page', 'cfmb' ) }</span>
+						<span className="screen-reader-text">{ __( 'Page', 'custom-fields-meta-box' ) }</span>
 						<select className="cfmb-input cfmb-input--small" value={ Math.min( page, pageCount - 1 ) } onChange={ ( event ) => setPage( Number( event.target.value ) ) }>
 							{ Array.from( { length: pageCount }, ( _, index ) => (
 								<option key={ index } value={ index }>
 									{ sprintf(
 										/* translators: 1: page number, 2: number of pages */
-										__( 'Page %1$d of %2$d', 'cfmb' ),
+										__( 'Page %1$d of %2$d', 'custom-fields-meta-box' ),
 										index + 1,
 										pageCount
 									) }
@@ -494,7 +494,7 @@ export default function Rows( { field, value, onChange, path, id } ) {
 							) ) }
 						</select>
 					</label>
-					<Button variant="tertiary" size="compact" icon="arrow-right-alt2" label={ __( 'Next page', 'cfmb' ) } disabled={ page >= pageCount - 1 } onClick={ () => setPage( page + 1 ) } />
+					<Button variant="tertiary" size="compact" icon="arrow-right-alt2" label={ __( 'Next page', 'custom-fields-meta-box' ) } disabled={ page >= pageCount - 1 } onClick={ () => setPage( page + 1 ) } />
 				</nav>
 			) }
 
@@ -502,8 +502,8 @@ export default function Rows( { field, value, onChange, path, id } ) {
 				{ isStacks ? (
 					<DropdownMenu
 						icon="plus-alt2"
-						text={ settings.button_label || __( 'Add row', 'cfmb' ) }
-						label={ __( 'Choose a layout for the new row', 'cfmb' ) }
+						text={ settings.button_label || __( 'Add row', 'custom-fields-meta-box' ) }
+						label={ __( 'Choose a layout for the new row', 'custom-fields-meta-box' ) }
 						toggleProps={ { variant: 'secondary', disabled: full || layouts.length === 0 } }
 						controls={ layouts.map( ( layout ) => ( {
 							title: layout.label,
@@ -520,12 +520,12 @@ export default function Rows( { field, value, onChange, path, id } ) {
 					<Button variant="tertiary" icon="clipboard" onClick={ paste }>
 						{ sprintf(
 							/* translators: %d: number of rows */
-							_n( 'Paste %d row', 'Paste %d rows', clipboard.rows.length, 'cfmb' ),
+							_n( 'Paste %d row', 'Paste %d rows', clipboard.rows.length, 'custom-fields-meta-box' ),
 							clipboard.rows.length
 						) }
 					</Button>
 				) }
-				{ full && <span className="cfmb-rows__limit">{ __( 'Row limit reached.', 'cfmb' ) }</span> }
+				{ full && <span className="cfmb-rows__limit">{ __( 'Row limit reached.', 'custom-fields-meta-box' ) }</span> }
 			</div>
 		</div>
 	);

@@ -129,10 +129,10 @@ abstract class Choice_Field extends Abstract_Field {
 	protected function choices_setting(): array {
 		return $this->setting(
 			'choices',
-			__( 'Choices', 'cfmb' ),
+			__( 'Choices', 'custom-fields-meta-box' ),
 			'choices',
 			array(),
-			array( 'help' => __( 'One choice per line. Use "value : Label" to store a different value than the label people see.', 'cfmb' ) )
+			array( 'help' => __( 'One choice per line. Use "value : Label" to store a different value than the label people see.', 'custom-fields-meta-box' ) )
 		);
 	}
 
@@ -144,8 +144,8 @@ abstract class Choice_Field extends Abstract_Field {
 	 */
 	protected function default_setting( bool $multiple ): array {
 		return $multiple
-			? $this->setting( 'default_value', __( 'Default values', 'cfmb' ), 'textarea', '', array( 'help' => __( 'One value per line.', 'cfmb' ) ) )
-			: $this->setting( 'default_value', __( 'Default value', 'cfmb' ), 'text' );
+			? $this->setting( 'default_value', __( 'Default values', 'custom-fields-meta-box' ), 'textarea', '', array( 'help' => __( 'One value per line.', 'custom-fields-meta-box' ) ) )
+			: $this->setting( 'default_value', __( 'Default value', 'custom-fields-meta-box' ), 'text' );
 	}
 
 	/**
@@ -156,15 +156,15 @@ abstract class Choice_Field extends Abstract_Field {
 	protected function return_format_setting(): array {
 		return $this->setting(
 			'return_format',
-			__( 'Template value', 'cfmb' ),
+			__( 'Template value', 'custom-fields-meta-box' ),
 			'select',
 			'value',
 			array(
 				'advanced' => true,
 				'options'  => array(
-					'value' => __( 'Value', 'cfmb' ),
-					'label' => __( 'Label', 'cfmb' ),
-					'array' => __( 'Value and label', 'cfmb' ),
+					'value' => __( 'Value', 'custom-fields-meta-box' ),
+					'label' => __( 'Label', 'custom-fields-meta-box' ),
+					'array' => __( 'Value and label', 'custom-fields-meta-box' ),
 				),
 			)
 		);
@@ -178,13 +178,13 @@ abstract class Choice_Field extends Abstract_Field {
 	protected function layout_setting(): array {
 		return $this->setting(
 			'layout',
-			__( 'Layout', 'cfmb' ),
+			__( 'Layout', 'custom-fields-meta-box' ),
 			'select',
 			'vertical',
 			array(
 				'options' => array(
-					'vertical'   => __( 'Stacked', 'cfmb' ),
-					'horizontal' => __( 'In a row', 'cfmb' ),
+					'vertical'   => __( 'Stacked', 'custom-fields-meta-box' ),
+					'horizontal' => __( 'In a row', 'custom-fields-meta-box' ),
 				),
 			)
 		);

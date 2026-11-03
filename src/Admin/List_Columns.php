@@ -327,7 +327,7 @@ class List_Columns {
 			return;
 		}
 
-		submit_button( __( 'Filter', 'cfmb' ), '', 'cfmb_filter_action', false );
+		submit_button( __( 'Filter', 'custom-fields-meta-box' ), '', 'cfmb_filter_action', false );
 	}
 
 	/**
@@ -357,7 +357,7 @@ class List_Columns {
 			if ( 'choices' === $filter ) {
 				printf( '<select id="%1$s" name="%2$s[%3$s]">', esc_attr( $id ), esc_attr( self::FILTER_VAR ), esc_attr( $name ) );
 				/* translators: %s: field label */
-				printf( '<option value="">%s</option>', esc_html( sprintf( __( 'Any %s', 'cfmb' ), $label ) ) );
+				printf( '<option value="">%s</option>', esc_html( sprintf( __( 'Any %s', 'custom-fields-meta-box' ), $label ) ) );
 
 				foreach ( $this->choices( $field ) as $choice_value => $choice_label ) {
 					printf( '<option value="%1$s" %2$s>%3$s</option>', esc_attr( (string) $choice_value ), selected( $value, (string) $choice_value, false ), esc_html( $choice_label ) );
@@ -389,8 +389,8 @@ class List_Columns {
 	private function choices( Field $field ): array {
 		if ( 'toggle' === $field->type() ) {
 			return array(
-				'1' => __( 'Yes', 'cfmb' ),
-				'0' => __( 'No', 'cfmb' ),
+				'1' => __( 'Yes', 'custom-fields-meta-box' ),
+				'0' => __( 'No', 'custom-fields-meta-box' ),
 			);
 		}
 

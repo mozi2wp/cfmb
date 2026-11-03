@@ -81,8 +81,8 @@ class Group_Repository {
 			self::POST_TYPE,
 			array(
 				'labels'          => array(
-					'name'          => __( 'Field Groups', 'cfmb' ),
-					'singular_name' => __( 'Field Group', 'cfmb' ),
+					'name'          => __( 'Field Groups', 'custom-fields-meta-box' ),
+					'singular_name' => __( 'Field Group', 'custom-fields-meta-box' ),
 				),
 				'public'          => false,
 				'show_ui'         => false,
@@ -122,7 +122,7 @@ class Group_Repository {
 
 		$this->local_revision = $revision;
 		$this->loaded         = array();
-		$stored       = $this->load_arrays();
+		$stored               = $this->load_arrays();
 
 		foreach ( $stored['groups'] as $group ) {
 			$this->loaded[ $group['key'] ] = new Group( $group );
@@ -260,7 +260,7 @@ class Group_Repository {
 		$saved = get_post( $post_id );
 
 		if ( ! $saved instanceof WP_Post ) {
-			return new WP_Error( 'cfmb_group_not_saved', __( 'The field group could not be saved. Please try again.', 'cfmb' ) );
+			return new WP_Error( 'cfmb_group_not_saved', __( 'The field group could not be saved. Please try again.', 'custom-fields-meta-box' ) );
 		}
 
 		$stored = new Group( $this->hydrate( $saved ) );
@@ -356,7 +356,7 @@ class Group_Repository {
 		$source = $this->find( $key );
 
 		if ( ! $source ) {
-			return new WP_Error( 'cfmb_group_missing', __( 'That field group no longer exists.', 'cfmb' ) );
+			return new WP_Error( 'cfmb_group_missing', __( 'That field group no longer exists.', 'custom-fields-meta-box' ) );
 		}
 
 		$copy        = $source->to_array();
@@ -365,7 +365,7 @@ class Group_Repository {
 
 		$copy['title'] = sprintf(
 			/* translators: %s: original field group title */
-			__( '%s (copy)', 'cfmb' ),
+			__( '%s (copy)', 'custom-fields-meta-box' ),
 			$source->title()
 		);
 		$copy['active'] = false;
@@ -385,9 +385,9 @@ class Group_Repository {
 		$key_map = array();
 
 		foreach ( $fields as $index => $field ) {
-			$new_key                       = Key_Generator::field();
+			$new_key                        = Key_Generator::field();
 			$key_map[ $field['key'] ?? '' ] = $new_key;
-			$fields[ $index ]['key']       = $new_key;
+			$fields[ $index ]['key']        = $new_key;
 
 			if ( ! empty( $field['fields'] ) && is_array( $field['fields'] ) ) {
 				$fields[ $index ]['fields'] = self::rekey_fields( $field['fields'] );

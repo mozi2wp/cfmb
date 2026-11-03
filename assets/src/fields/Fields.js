@@ -143,8 +143,8 @@ export default function Fields( { fields, values, onChange, path = '' } ) {
 				<div key={ field.key } className="cfmb-field cfmb-field--unknown">
 					<p className="cfmb-field__error">
 						{ field.type === 'preset'
-							? __( 'This preset\'s field group no longer exists. Edit the field group to choose another one.', 'cfmb' )
-							: __( 'This field type is not available. The plugin that adds it may be inactive.', 'cfmb' ) }
+							? __( 'This preset\'s field group no longer exists. Edit the field group to choose another one.', 'custom-fields-meta-box' )
+							: __( 'This field type is not available. The plugin that adds it may be inactive.', 'custom-fields-meta-box' ) }
 					</p>
 				</div>
 			);

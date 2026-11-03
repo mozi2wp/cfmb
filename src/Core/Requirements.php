@@ -48,7 +48,7 @@ class Requirements {
 
 		$message = sprintf(
 			/* translators: 1: required PHP version, 2: required WordPress version, 3: current PHP version, 4: current WordPress version */
-			__( 'CFMB needs PHP %1$s and WordPress %2$s or newer. This site runs PHP %3$s and WordPress %4$s. CFMB is not active until both are updated.', 'cfmb' ),
+			__( 'CFMB needs PHP %1$s and WordPress %2$s or newer. This site runs PHP %3$s and WordPress %4$s. CFMB is not active until both are updated.', 'custom-fields-meta-box' ),
 			CFMB_MIN_PHP,
 			CFMB_MIN_WP,
 			PHP_VERSION,

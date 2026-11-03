@@ -71,7 +71,7 @@ class Assets {
 			$dependencies = array_merge( $asset['dependencies'], self::EXTRA_DEPENDENCIES[ $bundle ] ?? array() );
 
 			wp_register_script( $handle, CFMB_URL . "build/{$bundle}.js", $dependencies, $asset['version'], true );
-			wp_set_script_translations( $handle, 'cfmb' );
+			wp_set_script_translations( $handle, 'custom-fields-meta-box' );
 
 			if ( file_exists( CFMB_DIR . "build/{$bundle}.css" ) ) {
 				wp_register_style( $handle, CFMB_URL . "build/{$bundle}.css", array( 'wp-components' ), $asset['version'] );

@@ -31,7 +31,7 @@ class Url_Field extends Text_Field {
 	 * @return string
 	 */
 	public function label(): string {
-		return __( 'URL', 'cfmb' );
+		return __( 'URL', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -41,8 +41,8 @@ class Url_Field extends Text_Field {
 	 */
 	public function settings_schema(): array {
 		return array(
-			$this->setting( 'default_value', __( 'Default value', 'cfmb' ), 'text' ),
-			$this->setting( 'placeholder', __( 'Placeholder', 'cfmb' ), 'text', 'https://' ),
+			$this->setting( 'default_value', __( 'Default value', 'custom-fields-meta-box' ), 'text' ),
+			$this->setting( 'placeholder', __( 'Placeholder', 'custom-fields-meta-box' ), 'text', 'https://' ),
 		);
 	}
 
@@ -77,7 +77,7 @@ class Url_Field extends Text_Field {
 			return null;
 		}
 
-		return __( 'Enter a full web address, like https://example.com.', 'cfmb' );
+		return __( 'Enter a full web address, like https://example.com.', 'custom-fields-meta-box' );
 	}
 
 	/**

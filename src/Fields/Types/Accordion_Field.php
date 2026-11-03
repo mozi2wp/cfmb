@@ -33,7 +33,7 @@ class Accordion_Field extends Abstract_Field {
 	 * @return string
 	 */
 	public function label(): string {
-		return __( 'Accordion', 'cfmb' );
+		return __( 'Accordion', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -52,13 +52,13 @@ class Accordion_Field extends Abstract_Field {
 	 */
 	public function settings_schema(): array {
 		return array(
-			$this->setting( 'open', __( 'Open at first', 'cfmb' ), 'toggle', false ),
+			$this->setting( 'open', __( 'Open at first', 'custom-fields-meta-box' ), 'toggle', false ),
 			$this->setting(
 				'endpoint',
-				__( 'End point', 'cfmb' ),
+				__( 'End point', 'custom-fields-meta-box' ),
 				'toggle',
 				false,
-				array( 'help' => __( 'Closes the accordion above without starting a new one. Fields after it show normally.', 'cfmb' ) )
+				array( 'help' => __( 'Closes the accordion above without starting a new one. Fields after it show normally.', 'custom-fields-meta-box' ) )
 			),
 		);
 	}

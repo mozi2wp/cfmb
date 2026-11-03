@@ -32,7 +32,7 @@ class Toggle_Field extends Abstract_Field {
 	 * @return string
 	 */
 	public function label(): string {
-		return __( 'Toggle', 'cfmb' );
+		return __( 'Toggle', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -51,8 +51,8 @@ class Toggle_Field extends Abstract_Field {
 	 */
 	public function settings_schema(): array {
 		return array(
-			$this->setting( 'message', __( 'Text next to the switch', 'cfmb' ), 'text' ),
-			$this->setting( 'default_value', __( 'On by default', 'cfmb' ), 'toggle', false ),
+			$this->setting( 'message', __( 'Text next to the switch', 'custom-fields-meta-box' ), 'text' ),
+			$this->setting( 'default_value', __( 'On by default', 'custom-fields-meta-box' ), 'toggle', false ),
 		);
 	}
 

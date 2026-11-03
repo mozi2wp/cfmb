@@ -34,7 +34,7 @@ class Field_Tag extends Tag {
 	 * @return string
 	 */
 	public function get_title() {
-		return __( 'CFMB Field', 'cfmb' );
+		return __( 'CFMB Field', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -66,16 +66,16 @@ class Field_Tag extends Tag {
 		$this->add_control(
 			'separator',
 			array(
-				'label'       => __( 'Separator between items', 'cfmb' ),
+				'label'       => __( 'Separator between items', 'custom-fields-meta-box' ),
 				'type'        => Controls_Manager::TEXT,
-				'description' => __( 'For fields with several values. Leave empty for the default.', 'cfmb' ),
+				'description' => __( 'For fields with several values. Leave empty for the default.', 'custom-fields-meta-box' ),
 			)
 		);
 
 		$this->add_control(
 			'size',
 			array(
-				'label'   => __( 'Image size', 'cfmb' ),
+				'label'   => __( 'Image size', 'custom-fields-meta-box' ),
 				'type'    => Controls_Manager::TEXT,
 				'default' => '',
 			)

@@ -32,7 +32,7 @@ class Menu_Item_Rule extends Abstract_Rule {
 	 * @return string
 	 */
 	public function label(): string {
-		return __( 'Menu item', 'cfmb' );
+		return __( 'Menu item', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -41,7 +41,7 @@ class Menu_Item_Rule extends Abstract_Rule {
 	 * @return string
 	 */
 	public function category(): string {
-		return __( 'Forms', 'cfmb' );
+		return __( 'Forms', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -52,7 +52,7 @@ class Menu_Item_Rule extends Abstract_Rule {
 	public function choices(): array {
 		$choices = ( new Menu_Rule() )->choices();
 
-		$choices[ self::ALL ] = __( 'Items of any menu', 'cfmb' );
+		$choices[ self::ALL ] = __( 'Items of any menu', 'custom-fields-meta-box' );
 
 		return $choices;
 	}

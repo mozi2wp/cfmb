@@ -9,7 +9,7 @@ import { rulesByParam } from '../config';
  */
 export default function locationSummary( location ) {
 	if ( ! Array.isArray( location ) || ! location.length ) {
-		return __( 'Not shown anywhere', 'cfmb' );
+		return __( 'Not shown anywhere', 'custom-fields-meta-box' );
 	}
 
 	const sets = location.map( ( rules ) =>
@@ -19,14 +19,14 @@ export default function locationSummary( location ) {
 				const operator = type?.operators.find( ( item ) => item.value === rule.operator );
 				return sprintf(
 					/* translators: 1: rule name, 2: operator, 3: value */
-					__( '%1$s %2$s %3$s', 'cfmb' ),
+					__( '%1$s %2$s %3$s', 'custom-fields-meta-box' ),
 					type?.label || rule.param,
 					operator?.label || rule.operator,
 					rule.value
 				);
 			} )
-			.join( __( ' and ', 'cfmb' ) )
+			.join( __( ' and ', 'custom-fields-meta-box' ) )
 	);
 
-	return sets.join( __( ' or ', 'cfmb' ) );
+	return sets.join( __( ' or ', 'custom-fields-meta-box' ) );
 }

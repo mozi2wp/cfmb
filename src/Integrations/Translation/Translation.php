@@ -178,9 +178,9 @@ class Translation {
 	/**
 	 * Append entries to one section of WPML's configuration.
 	 *
-	 * @param array<string, mixed> $root    The wpml-config array.
-	 * @param string               $section Section, e.g. custom-fields.
-	 * @param string               $item    Item tag, e.g. custom-field.
+	 * @param array<string, mixed>  $root    The wpml-config array.
+	 * @param string                $section Section, e.g. custom-fields.
+	 * @param string                $item    Item tag, e.g. custom-field.
 	 * @param array<string, string> $keys   Mode by key.
 	 * @return array<string, mixed>
 	 */

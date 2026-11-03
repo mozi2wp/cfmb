@@ -105,13 +105,13 @@ class Connections_Controller {
 		$side       = (string) $request['side'];
 
 		if ( ! $connection || ! is_user_logged_in() ) {
-			return new WP_Error( 'cfmb_connection_missing', __( 'That connection no longer exists. Reload the page.', 'cfmb' ), array( 'status' => 404 ) );
+			return new WP_Error( 'cfmb_connection_missing', __( 'That connection no longer exists. Reload the page.', 'custom-fields-meta-box' ), array( 'status' => 404 ) );
 		}
 
 		$ref = $connection->ref( $side, (int) $request['object'] );
 
 		if ( ! $connection->accepts( $side, $ref ) ) {
-			return new WP_Error( 'cfmb_connection_object', __( 'This item can\'t use that connection.', 'cfmb' ), array( 'status' => 400 ) );
+			return new WP_Error( 'cfmb_connection_object', __( 'This item can\'t use that connection.', 'custom-fields-meta-box' ), array( 'status' => 400 ) );
 		}
 
 		switch ( $ref->kind() ) {
@@ -139,7 +139,12 @@ class Connections_Controller {
 		$page       = max( 1, (int) $request['page'] );
 
 		if ( ! $connection ) {
-			return rest_ensure_response( array( 'items' => array(), 'more' => false ) );
+			return rest_ensure_response(
+				array(
+					'items' => array(),
+					'more'  => false,
+				)
+			);
 		}
 
 		switch ( $connection->kind( $other ) ) {
@@ -214,7 +219,10 @@ class Connections_Controller {
 		$types = array_values( array_filter( $types ? $types : get_taxonomies( array( 'show_ui' => true ) ), 'taxonomy_exists' ) );
 
 		if ( ! $types ) {
-			return array( 'ids' => array(), 'more' => false );
+			return array(
+				'ids'  => array(),
+				'more' => false,
+			);
 		}
 
 		$terms = get_terms(

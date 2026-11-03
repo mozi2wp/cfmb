@@ -10,21 +10,21 @@ import { errorSnackbar, snackbar } from '../../notices';
 import DiffModal from './DiffModal';
 
 const KIND_LABELS = {
-	group: __( 'Field group', 'cfmb' ),
-	post_type: __( 'Post type', 'cfmb' ),
-	taxonomy: __( 'Taxonomy', 'cfmb' ),
-	options_page: __( 'Options page', 'cfmb' ),
-	connection: __( 'Connection', 'cfmb' ),
+	group: __( 'Field group', 'custom-fields-meta-box' ),
+	post_type: __( 'Post type', 'custom-fields-meta-box' ),
+	taxonomy: __( 'Taxonomy', 'custom-fields-meta-box' ),
+	options_page: __( 'Options page', 'custom-fields-meta-box' ),
+	connection: __( 'Connection', 'custom-fields-meta-box' ),
 };
 
 const STATUS = {
-	conflict: { label: __( 'Both changed', 'cfmb' ), help: __( 'The database and the file changed since the last sync. Review to merge them.', 'cfmb' ), tone: 'error' },
-	file_changed: { label: __( 'File is newer', 'cfmb' ), help: __( 'The file changed, for example after a deploy. Pull it to update the database.', 'cfmb' ), tone: 'warning' },
-	file_only: { label: __( 'Only in a file', 'cfmb' ), help: __( 'Active from the file. Import it to edit it in the builder.', 'cfmb' ), tone: 'warning' },
-	db_changed: { label: __( 'Database is newer', 'cfmb' ), help: __( 'Saved since the file was written. Push to update the file.', 'cfmb' ), tone: 'warning' },
-	no_file: { label: __( 'No file yet', 'cfmb' ), help: __( 'Push to write its file.', 'cfmb' ), tone: 'info' },
-	synced: { label: __( 'In sync', 'cfmb' ), help: '', tone: 'success' },
-	code: { label: __( 'Registered in code', 'cfmb' ), help: __( 'Defined with a cfmb_register_*() call. Import it to edit it in the builder.', 'cfmb' ), tone: 'info' },
+	conflict: { label: __( 'Both changed', 'custom-fields-meta-box' ), help: __( 'The database and the file changed since the last sync. Review to merge them.', 'custom-fields-meta-box' ), tone: 'error' },
+	file_changed: { label: __( 'File is newer', 'custom-fields-meta-box' ), help: __( 'The file changed, for example after a deploy. Pull it to update the database.', 'custom-fields-meta-box' ), tone: 'warning' },
+	file_only: { label: __( 'Only in a file', 'custom-fields-meta-box' ), help: __( 'Active from the file. Import it to edit it in the builder.', 'custom-fields-meta-box' ), tone: 'warning' },
+	db_changed: { label: __( 'Database is newer', 'custom-fields-meta-box' ), help: __( 'Saved since the file was written. Push to update the file.', 'custom-fields-meta-box' ), tone: 'warning' },
+	no_file: { label: __( 'No file yet', 'custom-fields-meta-box' ), help: __( 'Push to write its file.', 'custom-fields-meta-box' ), tone: 'info' },
+	synced: { label: __( 'In sync', 'custom-fields-meta-box' ), help: '', tone: 'success' },
+	code: { label: __( 'Registered in code', 'custom-fields-meta-box' ), help: __( 'Defined with a cfmb_register_*() call. Import it to edit it in the builder.', 'custom-fields-meta-box' ), tone: 'info' },
 };
 
 const ORDER = [ 'conflict', 'file_changed', 'file_only', 'db_changed', 'no_file', 'code', 'synced' ];
@@ -54,7 +54,7 @@ export default function SyncScreen() {
 		setLoadError( '' );
 		return syncStatus()
 			.then( setState )
-			.catch( ( error ) => setLoadError( error.message || __( 'The sync state could not be loaded.', 'cfmb' ) ) );
+			.catch( ( error ) => setLoadError( error.message || __( 'The sync state could not be loaded.', 'custom-fields-meta-box' ) ) );
 	}, [] );
 
 	useEffect( () => {
@@ -69,7 +69,7 @@ export default function SyncScreen() {
 		try {
 			await task();
 		} catch ( error ) {
-			errorSnackbar( error.message || __( 'That did not work. Please try again.', 'cfmb' ) );
+			errorSnackbar( error.message || __( 'That did not work. Please try again.', 'custom-fields-meta-box' ) );
 		} finally {
 			setBusy( false );
 		}
@@ -87,7 +87,7 @@ export default function SyncScreen() {
 				snackbar(
 					sprintf(
 						/* translators: %d: number of items */
-						_n( '%d item updated.', '%d items updated.', result.rows.length, 'cfmb' ),
+						_n( '%d item updated.', '%d items updated.', result.rows.length, 'custom-fields-meta-box' ),
 						result.rows.length
 					)
 				);
@@ -127,22 +127,22 @@ export default function SyncScreen() {
 		const item = [ { kind: row.kind, key: row.key } ];
 		switch ( row.status ) {
 			case 'conflict':
-				return [ { label: __( 'Review', 'cfmb' ), onClick: () => setReviewing( row ), primary: true } ];
+				return [ { label: __( 'Review', 'custom-fields-meta-box' ), onClick: () => setReviewing( row ), primary: true } ];
 			case 'file_changed':
 				return [
-					{ label: __( 'Pull from file', 'cfmb' ), onClick: () => apply( 'pull', item ), primary: true },
-					{ label: __( 'Review', 'cfmb' ), onClick: () => setReviewing( row ) },
+					{ label: __( 'Pull from file', 'custom-fields-meta-box' ), onClick: () => apply( 'pull', item ), primary: true },
+					{ label: __( 'Review', 'custom-fields-meta-box' ), onClick: () => setReviewing( row ) },
 				];
 			case 'db_changed':
 				return [
-					{ label: __( 'Write file', 'cfmb' ), onClick: () => apply( 'push', item ), primary: true },
-					{ label: __( 'Review', 'cfmb' ), onClick: () => setReviewing( row ) },
+					{ label: __( 'Write file', 'custom-fields-meta-box' ), onClick: () => apply( 'push', item ), primary: true },
+					{ label: __( 'Review', 'custom-fields-meta-box' ), onClick: () => setReviewing( row ) },
 				];
 			case 'no_file':
-				return [ { label: __( 'Write file', 'cfmb' ), onClick: () => apply( 'push', item ), primary: true } ];
+				return [ { label: __( 'Write file', 'custom-fields-meta-box' ), onClick: () => apply( 'push', item ), primary: true } ];
 			case 'file_only':
 			case 'code':
-				return [ { label: __( 'Import', 'cfmb' ), onClick: () => apply( 'pull', item ), primary: row.status === 'file_only' } ];
+				return [ { label: __( 'Import', 'custom-fields-meta-box' ), onClick: () => apply( 'pull', item ), primary: row.status === 'file_only' } ];
 			default:
 				return [];
 		}
@@ -150,7 +150,7 @@ export default function SyncScreen() {
 
 	if ( loadError ) {
 		return (
-			<Notice status="error" isDismissible={ false } actions={ [ { label: __( 'Try again', 'cfmb' ), onClick: load } ] }>
+			<Notice status="error" isDismissible={ false } actions={ [ { label: __( 'Try again', 'custom-fields-meta-box' ), onClick: load } ] }>
 				{ loadError }
 			</Notice>
 		);
@@ -159,7 +159,7 @@ export default function SyncScreen() {
 	if ( ! state ) {
 		return (
 			<div className="cfmb-list__loading">
-				<Spinner /> { __( 'Checking files…', 'cfmb' ) }
+				<Spinner /> { __( 'Checking files…', 'custom-fields-meta-box' ) }
 			</div>
 		);
 	}
@@ -170,19 +170,19 @@ export default function SyncScreen() {
 	return (
 		<div className="cfmb-list cfmb-sync">
 			<div className="cfmb-list__header">
-				<h1 className="wp-heading-inline">{ __( 'Sync', 'cfmb' ) }</h1>
+				<h1 className="wp-heading-inline">{ __( 'Sync', 'custom-fields-meta-box' ) }</h1>
 			</div>
 
 			<div className="cfmb-sync__intro">
 				<p>
-					{ __( 'Field groups, post types, taxonomies and options pages are saved as JSON files too, so they can go into version control and move between sites.', 'cfmb' ) }
+					{ __( 'Field groups, post types, taxonomies and options pages are saved as JSON files too, so they can go into version control and move between sites.', 'custom-fields-meta-box' ) }
 				</p>
 				<p>
-					{ __( 'Saved to:', 'cfmb' ) } <code>{ state.saveDir }</code>
+					{ __( 'Saved to:', 'custom-fields-meta-box' ) } <code>{ state.saveDir }</code>
 					{ state.loadDirs.length > 1 && (
 						<>
 							<br />
-							{ __( 'Also read from:', 'cfmb' ) }{ ' ' }
+							{ __( 'Also read from:', 'custom-fields-meta-box' ) }{ ' ' }
 							{ state.loadDirs
 								.filter( ( dir ) => dir.path !== state.saveDir )
 								.map( ( dir ) => (
@@ -193,30 +193,30 @@ export default function SyncScreen() {
 				</p>
 				{ ! state.autoWrite && (
 					<Notice status="info" isDismissible={ false }>
-						{ __( 'Files are not written when you save. Push changes here, or turn on "Write the file each time something is saved" in Settings.', 'cfmb' ) }{ ' ' }
-						<a href={ config.settingsUrl }>{ __( 'Settings', 'cfmb' ) }</a>
+						{ __( 'Files are not written when you save. Push changes here, or turn on "Write the file each time something is saved" in Settings.', 'custom-fields-meta-box' ) }{ ' ' }
+						<a href={ config.settingsUrl }>{ __( 'Settings', 'custom-fields-meta-box' ) }</a>
 					</Notice>
 				) }
 			</div>
 
 			{ pending.length === 0 && (
 				<Notice status="success" isDismissible={ false }>
-					{ __( 'Everything is in sync.', 'cfmb' ) }
+					{ __( 'Everything is in sync.', 'custom-fields-meta-box' ) }
 				</Notice>
 			) }
 
 			<div className="cfmb-sync__bulk">
 				<Button variant="secondary" disabled={ busy || ! pullable.length } onClick={ () => apply( 'pull', pullable ) }>
-					{ __( 'Pull selected from files', 'cfmb' ) }
+					{ __( 'Pull selected from files', 'custom-fields-meta-box' ) }
 				</Button>
 				<Button variant="secondary" disabled={ busy || ! pushable.length } onClick={ () => apply( 'push', pushable ) }>
-					{ __( 'Write selected files', 'cfmb' ) }
+					{ __( 'Write selected files', 'custom-fields-meta-box' ) }
 				</Button>
 				<Button variant="tertiary" disabled={ busy || ! selected.size } onClick={ () => exportSelected( 'json' ) }>
-					{ __( 'Download JSON', 'cfmb' ) }
+					{ __( 'Download JSON', 'custom-fields-meta-box' ) }
 				</Button>
 				<Button variant="tertiary" disabled={ busy || ! selected.size } onClick={ () => exportSelected( 'php' ) }>
-					{ __( 'Get PHP code', 'cfmb' ) }
+					{ __( 'Get PHP code', 'custom-fields-meta-box' ) }
 				</Button>
 				{ busy && <Spinner /> }
 			</div>
@@ -227,15 +227,15 @@ export default function SyncScreen() {
 						<td className="check-column">
 							<CheckboxControl
 								__nextHasNoMarginBottom
-								label={ <span className="screen-reader-text">{ __( 'Select all', 'cfmb' ) }</span> }
+								label={ <span className="screen-reader-text">{ __( 'Select all', 'custom-fields-meta-box' ) }</span> }
 								checked={ rows.length > 0 && selected.size === rows.length }
 								onChange={ ( on ) => setSelected( on ? new Set( rows.map( id ) ) : new Set() ) }
 							/>
 						</td>
-						<th scope="col" className="column-primary">{ __( 'Title', 'cfmb' ) }</th>
-						<th scope="col">{ __( 'State', 'cfmb' ) }</th>
-						<th scope="col">{ __( 'File', 'cfmb' ) }</th>
-						<th scope="col">{ __( 'Actions', 'cfmb' ) }</th>
+						<th scope="col" className="column-primary">{ __( 'Title', 'custom-fields-meta-box' ) }</th>
+						<th scope="col">{ __( 'State', 'custom-fields-meta-box' ) }</th>
+						<th scope="col">{ __( 'File', 'custom-fields-meta-box' ) }</th>
+						<th scope="col">{ __( 'Actions', 'custom-fields-meta-box' ) }</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -282,28 +282,28 @@ export default function SyncScreen() {
 					onMerged={ () => {
 						setReviewing( null );
 						load();
-						snackbar( __( 'Merged and saved to the database and the file.', 'cfmb' ) );
+						snackbar( __( 'Merged and saved to the database and the file.', 'custom-fields-meta-box' ) );
 					} }
 				/>
 			) }
 
 			{ phpCode && (
-				<Modal title={ __( 'PHP code', 'cfmb' ) } onRequestClose={ () => setPhpCode( '' ) } size="large" className="cfmb-php-export">
+				<Modal title={ __( 'PHP code', 'custom-fields-meta-box' ) } onRequestClose={ () => setPhpCode( '' ) } size="large" className="cfmb-php-export">
 					<p>
-						{ __( 'Put this in your theme\'s functions.php or a plugin. Items registered in code show here as read-only. Remove them from the database (or keep them inactive) to avoid two copies.', 'cfmb' ) }
+						{ __( 'Put this in your theme\'s functions.php or a plugin. Items registered in code show here as read-only. Remove them from the database (or keep them inactive) to avoid two copies.', 'custom-fields-meta-box' ) }
 					</p>
 					<textarea className="cfmb-php-export__code code" readOnly rows={ 18 } value={ phpCode } onFocus={ ( event ) => event.target.select() } />
 					<div className="cfmb-confirm__actions">
 						<Button variant="secondary" onClick={ () => download( 'cfmb-definitions.php', phpCode, 'text/x-php' ) }>
-							{ __( 'Download', 'cfmb' ) }
+							{ __( 'Download', 'custom-fields-meta-box' ) }
 						</Button>
 						<Button
 							variant="primary"
 							onClick={ () =>
-								window.navigator.clipboard?.writeText( phpCode ).then( () => snackbar( __( 'Copied.', 'cfmb' ) ) )
+								window.navigator.clipboard?.writeText( phpCode ).then( () => snackbar( __( 'Copied.', 'custom-fields-meta-box' ) ) )
 							}
 						>
-							{ __( 'Copy', 'cfmb' ) }
+							{ __( 'Copy', 'custom-fields-meta-box' ) }
 						</Button>
 					</div>
 				</Modal>

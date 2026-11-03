@@ -35,7 +35,7 @@ class Options_Page_Rule extends Abstract_Rule {
 	 * @return string
 	 */
 	public function label(): string {
-		return __( 'Options page', 'cfmb' );
+		return __( 'Options page', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -44,7 +44,7 @@ class Options_Page_Rule extends Abstract_Rule {
 	 * @return string
 	 */
 	public function category(): string {
-		return __( 'Forms', 'cfmb' );
+		return __( 'Forms', 'custom-fields-meta-box' );
 	}
 
 	/**

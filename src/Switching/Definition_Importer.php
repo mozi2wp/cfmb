@@ -145,7 +145,7 @@ class Definition_Importer {
 
 		if ( $this->has_group( (string) ( $raw['key'] ?? '' ) ) ) {
 			/* translators: %s: field group title */
-			$run['notes'][] = sprintf( __( '%s was imported before, so it was left as it is.', 'cfmb' ), $title );
+			$run['notes'][] = sprintf( __( '%s was imported before, so it was left as it is.', 'custom-fields-meta-box' ), $title );
 			return '';
 		}
 
@@ -165,7 +165,7 @@ class Definition_Importer {
 
 		if ( is_wp_error( $saved ) ) {
 			/* translators: 1: field group title, 2: error message */
-			$run['notes'][] = sprintf( __( '%1$s could not be imported: %2$s', 'cfmb' ), $title, $saved->get_error_message() );
+			$run['notes'][] = sprintf( __( '%1$s could not be imported: %2$s', 'custom-fields-meta-box' ), $title, $saved->get_error_message() );
 			return '';
 		}
 
@@ -204,7 +204,7 @@ class Definition_Importer {
 
 		if ( $this->has( $kind, (string) ( $raw['key'] ?? '' ), $name ) ) {
 			/* translators: %s: definition label */
-			$run['notes'][] = sprintf( __( '%s was imported before, so it was left as it is.', 'cfmb' ), $label );
+			$run['notes'][] = sprintf( __( '%s was imported before, so it was left as it is.', 'custom-fields-meta-box' ), $label );
 			return '';
 		}
 
@@ -212,7 +212,7 @@ class Definition_Importer {
 
 		if ( $source_active && $registered ) {
 			/* translators: %s: post type or taxonomy label */
-			$run['notes'][] = sprintf( __( '%s is still registered by the other plugin. Deactivate it and run the import again to bring it over.', 'cfmb' ), $label );
+			$run['notes'][] = sprintf( __( '%s is still registered by the other plugin. Deactivate it and run the import again to bring it over.', 'custom-fields-meta-box' ), $label );
 			return '';
 		}
 
@@ -225,7 +225,7 @@ class Definition_Importer {
 
 		if ( is_wp_error( $saved ) ) {
 			/* translators: 1: definition label, 2: error message */
-			$run['notes'][] = sprintf( __( '%1$s could not be imported: %2$s', 'cfmb' ), $label, $saved->get_error_message() );
+			$run['notes'][] = sprintf( __( '%1$s could not be imported: %2$s', 'custom-fields-meta-box' ), $label, $saved->get_error_message() );
 			return '';
 		}
 

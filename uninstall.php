@@ -40,7 +40,6 @@ delete_option( 'cfmb_db_version' );
 delete_option( 'cfmb_flush_rewrite_rules' );
 delete_option( 'cfmb_switch_runs' );
 delete_option( 'cfmb_switch_option_ids' );
-delete_option( 'cfmb_compat_switched_off' );
 
 global $wpdb;
 $wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}cfmb_switch_backup" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange -- Removes the plugin's own backup table on opt-in uninstall.

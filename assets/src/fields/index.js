@@ -68,7 +68,7 @@ function announce( invalid ) {
 	speak(
 		sprintf(
 			/* translators: %s: field label */
-			__( 'Some fields need attention, starting with "%s".', 'cfmb' ),
+			__( 'Some fields need attention, starting with "%s".', 'custom-fields-meta-box' ),
 			invalid[ 0 ].field.label || invalid[ 0 ].group
 		),
 		'assertive'
@@ -145,13 +145,13 @@ function watchBlockEditor() {
 			locked = true;
 			data.dispatch( 'core/editor' ).lockPostSaving( 'cfmb' );
 			data.dispatch( 'core/notices' ).createWarningNotice(
-				__( 'Some fields need attention before this can be published.', 'cfmb' ),
+				__( 'Some fields need attention before this can be published.', 'custom-fields-meta-box' ),
 				{
 					id: NOTICE_ID,
 					isDismissible: false,
 					actions: [
 						{
-							label: __( 'Show fields', 'cfmb' ),
+							label: __( 'Show fields', 'custom-fields-meta-box' ),
 							onClick: () => {
 								const current = registry.invalid( true );
 								registry.reveal( true );

@@ -28,7 +28,7 @@ export default function FieldShell( { field, inputId, path, error, labelAsLegend
 			{ field.required && (
 				<span className="screen-reader-text">
 					{ ' ' }
-					{ __( '(required)', 'cfmb' ) }
+					{ __( '(required)', 'custom-fields-meta-box' ) }
 				</span>
 			) }
 		</>

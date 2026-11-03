@@ -83,7 +83,7 @@ class Group_Sanitizer {
 		$title = sanitize_text_field( (string) ( $input['title'] ?? '' ) );
 
 		if ( '' === $title ) {
-			return new WP_Error( 'cfmb_group_title', __( 'Give the field group a title.', 'cfmb' ), array( 'status' => 400 ) );
+			return new WP_Error( 'cfmb_group_title', __( 'Give the field group a title.', 'custom-fields-meta-box' ), array( 'status' => 400 ) );
 		}
 
 		$keys   = array();
@@ -102,7 +102,7 @@ class Group_Sanitizer {
 			$settings['block']['name'] = '' !== $slug ? $slug : 'block-' . strtolower( substr( $key, 4 ) );
 		}
 
-		$taken    = $this->block_name_error( $settings['block'], $key );
+		$taken = $this->block_name_error( $settings['block'], $key );
 
 		if ( $taken ) {
 			return $taken;
@@ -136,7 +136,7 @@ class Group_Sanitizer {
 				return new WP_Error(
 					'cfmb_block_name',
 					/* translators: 1: block name, 2: field group title */
-					sprintf( __( 'The block name "%1$s" is already used by the field group "%2$s". Pick another name.', 'cfmb' ), $block['name'], $other->title() ),
+					sprintf( __( 'The block name "%1$s" is already used by the field group "%2$s". Pick another name.', 'custom-fields-meta-box' ), $block['name'], $other->title() ),
 					array( 'status' => 400 )
 				);
 			}
@@ -172,7 +172,7 @@ class Group_Sanitizer {
 			if ( ! $type ) {
 				return $this->field_error(
 					/* translators: 1: field position, 2: field type key */
-					sprintf( __( 'Field %1$d uses the type "%2$s", which is not available. Is the plugin that adds it active?', 'cfmb' ), $position + 1, (string) ( $raw['type'] ?? '' ) ),
+					sprintf( __( 'Field %1$d uses the type "%2$s", which is not available. Is the plugin that adds it active?', 'custom-fields-meta-box' ), $position + 1, (string) ( $raw['type'] ?? '' ) ),
 					$raw
 				);
 			}
@@ -303,7 +303,7 @@ class Group_Sanitizer {
 				return $this->field_error(
 					sprintf(
 						/* translators: 1: Stacks field label, 2: layout position */
-						__( 'Layout %2$d in "%1$s" needs a unique name.', 'cfmb' ),
+						__( 'Layout %2$d in "%1$s" needs a unique name.', 'custom-fields-meta-box' ),
 						sanitize_text_field( (string) ( $raw['label'] ?? '' ) ),
 						(int) $position + 1
 					),
@@ -360,7 +360,12 @@ class Group_Sanitizer {
 			return $clean;
 		}
 
-		$probe  = new Field( array( 'type' => $type->name(), 'settings' => $settings ) );
+		$probe  = new Field(
+			array(
+				'type'     => $type->name(),
+				'settings' => $settings,
+			)
+		);
 		$single = ! $type->is_multiple( $probe ) && ! $type instanceof Compound_Field;
 		$filter = (string) ( $raw['filter'] ?? '' );
 
@@ -419,13 +424,13 @@ class Group_Sanitizer {
 
 		$which = '' !== $label ? $label : sprintf(
 			/* translators: %d: field position */
-			__( 'Field %d', 'cfmb' ),
+			__( 'Field %d', 'custom-fields-meta-box' ),
 			$position + 1
 		);
 
 		return sprintf(
 			/* translators: 1: field label, 2: key length, 3: maximum length */
-			__( '"%1$s" is nested too deeply for its name. Its saved keys can reach %2$d characters; the limit is %3$d. Use shorter names for it or the fields around it.', 'cfmb' ),
+			__( '"%1$s" is nested too deeply for its name. Its saved keys can reach %2$d characters; the limit is %3$d. Use shorter names for it or the fields around it.', 'custom-fields-meta-box' ),
 			$which,
 			$length,
 			self::KEY_MAX_LENGTH
@@ -445,7 +450,7 @@ class Group_Sanitizer {
 			if ( isset( $names[ $name ] ) ) {
 				return sprintf(
 					/* translators: 1: preset field label, 2: field name */
-					__( 'The preset "%1$s" adds a field named "%2$s", which this list already uses. Remove one of them, or switch the preset to prefixed names.', 'cfmb' ),
+					__( 'The preset "%1$s" adds a field named "%2$s", which this list already uses. Remove one of them, or switch the preset to prefixed names.', 'custom-fields-meta-box' ),
 					$label,
 					$name
 				);
@@ -510,9 +515,9 @@ class Group_Sanitizer {
 	/**
 	 * Explain what is wrong with a field name, or null if it is fine.
 	 *
-	 * @param string             $name     Sanitized name.
-	 * @param string             $label    Field label, for the message.
-	 * @param int                $position Zero-based field position.
+	 * @param string              $name     Sanitized name.
+	 * @param string              $label    Field label, for the message.
+	 * @param int                 $position Zero-based field position.
 	 * @param array<string, bool> $taken   Names already used in the same list.
 	 * @param bool                $nested   Whether the field sits inside a Group, Repeater or Stacks layout.
 	 * @return string|null
@@ -520,35 +525,35 @@ class Group_Sanitizer {
 	private function name_error( string $name, string $label, int $position, array $taken, bool $nested = false ): ?string {
 		$which = '' !== $label ? $label : sprintf(
 			/* translators: %d: field position */
-			__( 'Field %d', 'cfmb' ),
+			__( 'Field %d', 'custom-fields-meta-box' ),
 			$position + 1
 		);
 
 		if ( '' === $name ) {
 			/* translators: %s: field label */
-			return sprintf( __( '"%s" needs a name. The name is the key the value is saved under.', 'cfmb' ), $which );
+			return sprintf( __( '"%s" needs a name. The name is the key the value is saved under.', 'custom-fields-meta-box' ), $which );
 		}
 
 		if ( strlen( $name ) > self::NAME_MAX_LENGTH ) {
 			/* translators: 1: field label, 2: maximum length */
-			return sprintf( __( 'The name of "%1$s" is too long. Use %2$d characters or fewer.', 'cfmb' ), $which, self::NAME_MAX_LENGTH );
+			return sprintf( __( 'The name of "%1$s" is too long. Use %2$d characters or fewer.', 'custom-fields-meta-box' ), $which, self::NAME_MAX_LENGTH );
 		}
 
 		// These belong to WordPress itself; saving over them would break core features.
 		if ( 0 === strpos( $name, '_wp_' ) || 0 === strpos( $name, '_edit_' ) ) {
 			/* translators: %s: field label */
-			return sprintf( __( 'The name of "%s" is reserved by WordPress. Choose another name.', 'cfmb' ), $which );
+			return sprintf( __( 'The name of "%s" is reserved by WordPress. Choose another name.', 'custom-fields-meta-box' ), $which );
 		}
 
 		// Rows carry these alongside sub-field values.
 		if ( $nested && in_array( $name, array( '_layout', '_from', '_uid' ), true ) ) {
 			/* translators: %s: field label */
-			return sprintf( __( 'The name of "%s" is reserved inside rows. Choose another name.', 'cfmb' ), $which );
+			return sprintf( __( 'The name of "%s" is reserved inside rows. Choose another name.', 'custom-fields-meta-box' ), $which );
 		}
 
 		if ( isset( $taken[ $name ] ) ) {
 			/* translators: 1: field label, 2: field name */
-			return sprintf( __( '"%1$s" uses the name "%2$s", which another field in this group already uses. Each name must be unique.', 'cfmb' ), $which, $name );
+			return sprintf( __( '"%1$s" uses the name "%2$s", which another field in this group already uses. Each name must be unique.', 'custom-fields-meta-box' ), $which, $name );
 		}
 
 		return null;

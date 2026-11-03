@@ -54,7 +54,7 @@ class Elementor {
 	 * @return void
 	 */
 	public function register_tags( $manager ): void {
-		$manager->register_group( self::GROUP, array( 'title' => __( 'CFMB', 'cfmb' ) ) );
+		$manager->register_group( self::GROUP, array( 'title' => __( 'CFMB', 'custom-fields-meta-box' ) ) );
 
 		foreach ( self::TAGS as $class ) {
 			$manager->register( new $class() );
@@ -71,7 +71,7 @@ class Elementor {
 		$manager->add_category(
 			self::GROUP,
 			array(
-				'title' => __( 'CFMB', 'cfmb' ),
+				'title' => __( 'CFMB', 'custom-fields-meta-box' ),
 				'icon'  => 'eicon-database',
 			)
 		);

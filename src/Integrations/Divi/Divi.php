@@ -91,10 +91,10 @@ class Divi {
 		}
 
 		$labels = array(
-			'cfmb_text'  => __( 'CFMB Field', 'cfmb' ),
-			'cfmb_date'  => __( 'CFMB Date', 'cfmb' ),
-			'cfmb_url'   => __( 'CFMB URL', 'cfmb' ),
-			'cfmb_image' => __( 'CFMB Image', 'cfmb' ),
+			'cfmb_text'  => __( 'CFMB Field', 'custom-fields-meta-box' ),
+			'cfmb_date'  => __( 'CFMB Date', 'custom-fields-meta-box' ),
+			'cfmb_url'   => __( 'CFMB URL', 'custom-fields-meta-box' ),
+			'cfmb_image' => __( 'CFMB Image', 'custom-fields-meta-box' ),
 		);
 
 		foreach ( self::ENTRIES as $name => $entry ) {
@@ -109,7 +109,7 @@ class Divi {
 				'label'  => $labels[ $name ],
 				'type'   => $entry[0],
 				'custom' => false,
-				'group'  => __( 'CFMB', 'cfmb' ),
+				'group'  => __( 'CFMB', 'custom-fields-meta-box' ),
 				'fields' => $this->settings_for( $entry, $choices ),
 			);
 		}
@@ -204,7 +204,7 @@ class Divi {
 	 * Settings shown for an entry.
 	 *
 	 * @param array{0: string, 1: string} $entry   Divi type and kind.
-	 * @param array<string, string>        $choices Field choices.
+	 * @param array<string, string>       $choices Field choices.
 	 * @return array<string, array<string, mixed>>
 	 */
 	private function settings_for( array $entry, array $choices ): array {
@@ -217,38 +217,38 @@ class Divi {
 
 		if ( 'text' === $entry[0] ) {
 			$settings['before'] = array(
-				'label'   => __( 'Before', 'cfmb' ),
+				'label'   => __( 'Before', 'custom-fields-meta-box' ),
 				'type'    => 'text',
 				'default' => '',
 			);
 			$settings['after']  = array(
-				'label'   => __( 'After', 'cfmb' ),
+				'label'   => __( 'After', 'custom-fields-meta-box' ),
 				'type'    => 'text',
 				'default' => '',
 			);
 		}
 
 		$settings['cfmb_field']  = array(
-			'label'   => __( 'Field', 'cfmb' ),
+			'label'   => __( 'Field', 'custom-fields-meta-box' ),
 			'type'    => 'select',
 			'options' => $choices,
 			'default' => (string) array_key_first( $choices ),
 		);
 		$settings['cfmb_source'] = array(
-			'label'   => __( 'Read from', 'cfmb' ),
+			'label'   => __( 'Read from', 'custom-fields-meta-box' ),
 			'type'    => 'select',
 			'options' => $sources,
 			'default' => self::CURRENT,
 		);
 		$settings['cfmb_object'] = array(
-			'label'   => __( 'Object (options page ID, post_12, term_5, user_3)', 'cfmb' ),
+			'label'   => __( 'Object (options page ID, post_12, term_5, user_3)', 'custom-fields-meta-box' ),
 			'type'    => 'text',
 			'default' => '',
 		);
 
 		if ( 'date' === $entry[1] ) {
 			$settings['cfmb_format'] = array(
-				'label'   => __( 'Date format (PHP, empty for the field\'s own)', 'cfmb' ),
+				'label'   => __( 'Date format (PHP, empty for the field\'s own)', 'custom-fields-meta-box' ),
 				'type'    => 'text',
 				'default' => '',
 			);
@@ -256,7 +256,7 @@ class Divi {
 
 		if ( 'image' === $entry[0] ) {
 			$settings['cfmb_size'] = array(
-				'label'   => __( 'Image size', 'cfmb' ),
+				'label'   => __( 'Image size', 'custom-fields-meta-box' ),
 				'type'    => 'text',
 				'default' => 'full',
 			);

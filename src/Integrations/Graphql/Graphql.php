@@ -170,7 +170,7 @@ class Graphql {
 				$type,
 				array(
 					/* translators: %s: field group title */
-					'description' => sprintf( __( 'Fields of the CFMB field group "%s".', 'cfmb' ), $group->title() ),
+					'description' => sprintf( __( 'Fields of the CFMB field group "%s".', 'custom-fields-meta-box' ), $group->title() ),
 					'fields'      => $this->object_fields( $group, $type ),
 				)
 			);
@@ -182,7 +182,7 @@ class Graphql {
 					array(
 						'type'        => $type,
 						/* translators: %s: field group title */
-						'description' => sprintf( __( 'Values of the "%s" field group.', 'cfmb' ), $group->title() ),
+						'description' => sprintf( __( 'Values of the "%s" field group.', 'custom-fields-meta-box' ), $group->title() ),
 						'resolve'     => fn( $source ) => $this->resolve_group( $group, $this->ref_for( $source ) ),
 					)
 				);
@@ -194,7 +194,7 @@ class Graphql {
 				$options[ $names[ $group->key() ]['field'] ] = array(
 					'type'        => $type,
 					/* translators: %s: field group title */
-					'description' => sprintf( __( 'Values of the "%s" field group.', 'cfmb' ), $group->title() ),
+					'description' => sprintf( __( 'Values of the "%s" field group.', 'custom-fields-meta-box' ), $group->title() ),
 					'resolve'     => fn() => $this->resolve_group( $group, new Object_Ref( Object_Ref::OPTION, 0, $page ) ),
 				);
 			}
@@ -204,7 +204,7 @@ class Graphql {
 			register_graphql_object_type(
 				self::OPTIONS_TYPE,
 				array(
-					'description' => __( 'CFMB options page values.', 'cfmb' ),
+					'description' => __( 'CFMB options page values.', 'custom-fields-meta-box' ),
 					'fields'      => $options,
 				)
 			);
@@ -214,7 +214,7 @@ class Graphql {
 				self::OPTIONS_FIELD,
 				array(
 					'type'        => self::OPTIONS_TYPE,
-					'description' => __( 'Values of CFMB field groups on options pages.', 'cfmb' ),
+					'description' => __( 'Values of CFMB field groups on options pages.', 'custom-fields-meta-box' ),
 					'resolve'     => static fn() => array(),
 				)
 			);
@@ -390,7 +390,7 @@ class Graphql {
 			// GraphQL types need at least one field.
 			$fields['empty'] = array(
 				'type'        => 'Boolean',
-				'description' => __( 'The group has no fields shown in GraphQL.', 'cfmb' ),
+				'description' => __( 'The group has no fields shown in GraphQL.', 'custom-fields-meta-box' ),
 				'resolve'     => static fn() => null,
 			);
 		}
@@ -455,12 +455,12 @@ class Graphql {
 
 		if ( $type instanceof Structure_Field || $type instanceof Compound_Field ) {
 			/* translators: %s: field label */
-			return sprintf( __( '%s, as a JSON string.', 'cfmb' ), $field->label() );
+			return sprintf( __( '%s, as a JSON string.', 'custom-fields-meta-box' ), $field->label() );
 		}
 
 		if ( in_array( $field->type(), array_merge( self::ID_TYPES, self::ID_LIST_TYPES ), true ) ) {
 			/* translators: %s: field label */
-			return sprintf( __( '%s, as database IDs.', 'cfmb' ), $field->label() );
+			return sprintf( __( '%s, as database IDs.', 'custom-fields-meta-box' ), $field->label() );
 		}
 
 		return $field->label();

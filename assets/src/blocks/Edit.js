@@ -95,11 +95,11 @@ function FormHost( { name, groups, clientId, latest, hostRef, onEdit, inline } )
 	}, [ groups, id, onEdit ] );
 
 	if ( ! GroupForm ) {
-		return <p>{ __( 'The field editor could not load. Reload the page.', 'cfmb' ) }</p>;
+		return <p>{ __( 'The field editor could not load. Reload the page.', 'custom-fields-meta-box' ) }</p>;
 	}
 
 	if ( ! groups.length ) {
-		return <p className="cfmb-block-form__empty">{ __( 'This block has no fields yet. Add fields to its field group under CFMB.', 'cfmb' ) }</p>;
+		return <p className="cfmb-block-form__empty">{ __( 'This block has no fields yet. Add fields to its field group under CFMB.', 'custom-fields-meta-box' ) }</p>;
 	}
 
 	const components = { ...( window.cfmb.fieldTypes || {} ), ...( window.cfmb.fieldComponents || {} ) };
@@ -233,7 +233,7 @@ export default function createEdit( name, definition ) {
 					setReady( true );
 					setHostVersion( ( version ) => version + 1 );
 				} )
-				.catch( ( error ) => setFailure( error?.message || __( 'The block could not be loaded.', 'cfmb' ) ) )
+				.catch( ( error ) => setFailure( error?.message || __( 'The block could not be loaded.', 'custom-fields-meta-box' ) ) )
 				.finally( () => setBusy( -1 ) );
 		}, [ requestContext, setBusy ] );
 
@@ -274,7 +274,7 @@ export default function createEdit( name, definition ) {
 							setHtml( result.html || '' );
 						}
 					} )
-					.catch( ( error ) => setFailure( error?.message || __( 'The preview could not be loaded.', 'cfmb' ) ) );
+					.catch( ( error ) => setFailure( error?.message || __( 'The preview could not be loaded.', 'custom-fields-meta-box' ) ) );
 			}, html === null ? 0 : PREVIEW_DELAY );
 			return () => window.clearTimeout( handle );
 			// The preview follows presentation and mode; data changes bring their own preview.
@@ -319,7 +319,7 @@ export default function createEdit( name, definition ) {
 						setHostVersion( ( version ) => version + 1 );
 					}
 				} )
-				.catch( ( error ) => setFailure( error?.message || __( 'The changes could not be applied. Try again.', 'cfmb' ) ) )
+				.catch( ( error ) => setFailure( error?.message || __( 'The changes could not be applied. Try again.', 'custom-fields-meta-box' ) ) )
 				.finally( () => setBusy( -1 ) );
 		}, [ requestContext, setAttributes, setBusy ] );
 
@@ -366,7 +366,7 @@ export default function createEdit( name, definition ) {
 				) }
 				{ messages.length > 0 && (
 					<Notice status="warning" isDismissible={ false }>
-						<p>{ __( 'These values were not saved:', 'cfmb' ) }</p>
+						<p>{ __( 'These values were not saved:', 'custom-fields-meta-box' ) }</p>
 						<ul>
 							{ messages.map( ( message ) => (
 								<li key={ message }>{ message }</li>
@@ -395,7 +395,7 @@ export default function createEdit( name, definition ) {
 		let canvas;
 		if ( definition.templateError && mode === 'preview' ) {
 			canvas = (
-				<Placeholder icon="warning" label={ __( 'Template missing', 'cfmb' ) } instructions={ definition.templateError } />
+				<Placeholder icon="warning" label={ __( 'Template missing', 'custom-fields-meta-box' ) } instructions={ definition.templateError } />
 			);
 		} else if ( mode === 'edit' ) {
 			canvas = (
@@ -419,8 +419,8 @@ export default function createEdit( name, definition ) {
 			canvas = (
 				<Placeholder
 					icon="edit"
-					label={ __( 'Nothing to show yet', 'cfmb' ) }
-					instructions={ __( 'Fill in the block\'s fields in the sidebar, or switch to editing the fields here.', 'cfmb' ) }
+					label={ __( 'Nothing to show yet', 'custom-fields-meta-box' ) }
+					instructions={ __( 'Fill in the block\'s fields in the sidebar, or switch to editing the fields here.', 'custom-fields-meta-box' ) }
 				/>
 			);
 		} else {
@@ -433,7 +433,7 @@ export default function createEdit( name, definition ) {
 					<ToolbarGroup>
 						<ToolbarButton
 							icon={ mode === 'edit' ? 'visibility' : 'edit' }
-							label={ mode === 'edit' ? __( 'Show preview', 'cfmb' ) : __( 'Edit fields in the block', 'cfmb' ) }
+							label={ mode === 'edit' ? __( 'Show preview', 'custom-fields-meta-box' ) : __( 'Edit fields in the block', 'custom-fields-meta-box' ) }
 							onClick={ switchMode }
 							isPressed={ mode === 'edit' }
 						/>
@@ -452,7 +452,7 @@ export default function createEdit( name, definition ) {
 							</>
 						) : (
 							<PanelBody>
-								<p>{ __( 'The fields are shown in the block. Use the preview button in the toolbar to see the result.', 'cfmb' ) }</p>
+								<p>{ __( 'The fields are shown in the block. Use the preview button in the toolbar to see the result.', 'custom-fields-meta-box' ) }</p>
 							</PanelBody>
 						) }
 					</InspectorControls>

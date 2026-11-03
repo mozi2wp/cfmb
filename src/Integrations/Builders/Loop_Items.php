@@ -91,8 +91,8 @@ class Loop_Items {
 	/**
 	 * Constructor.
 	 *
-	 * @param Field_Source $source    Field lookup.
-	 * @param Field_Values $values    Value service.
+	 * @param Field_Source     $source    Field lookup.
+	 * @param Field_Values     $values    Value service.
 	 * @param Formatter        $formatter   Value formatting.
 	 * @param Connections|null $connections Connections.
 	 */

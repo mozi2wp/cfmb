@@ -6,6 +6,7 @@
 	<exclude-pattern>/build/*</exclude-pattern>
 	<exclude-pattern>/node_modules/*</exclude-pattern>
 	<exclude-pattern>/vendor/*</exclude-pattern>
+	<exclude-pattern>/vendor-prefixed/*</exclude-pattern>
 	<exclude-pattern>/tests/*</exclude-pattern>
 
 	<arg name="extensions" value="php"/>
@@ -19,12 +20,25 @@
 	<rule ref="WordPress">
 		<!-- PSR-4 file names (Field_Type.php) instead of class-field-type.php. -->
 		<exclude name="WordPress.Files.FileName"/>
+		<!-- Public API parameter names stay as they are, so PHP 8 named arguments keep working. -->
+		<exclude name="Universal.NamingConventions.NoReservedKeywordParameterNames"/>
+		<!-- Used only as the false fallback of preg_split() and array_search(). -->
+		<exclude name="Universal.Operators.DisallowShortTernary"/>
+		<!-- Many summaries start with a route, command or hook name, such as "cfmb/v1/groups" or "wp cfmb doctor". -->
+		<exclude name="Generic.Commenting.DocComment.ShortNotCapital"/>
+		<exclude name="Generic.Commenting.DocComment.LongNotCapital"/>
+		<!-- Hook callbacks receive arguments they do not all use. -->
+		<exclude name="Generic.CodeAnalysis.UnusedFunctionParameter"/>
+		<!-- Hooks are named cfmb/{area}/{action} by design. -->
+		<exclude name="WordPress.NamingConventions.ValidHookName.UseUnderscores"/>
+		<!-- Hash-style @param docs ("{") are WordPress core style. -->
+		<exclude name="Squiz.Commenting.FunctionComment.ParamCommentFullStop"/>
 	</rule>
 
 	<rule ref="WordPress.WP.I18n">
 		<properties>
 			<property name="text_domain" type="array">
-				<element value="cfmb"/>
+				<element value="custom-fields-meta-box"/>
 			</property>
 		</properties>
 	</rule>

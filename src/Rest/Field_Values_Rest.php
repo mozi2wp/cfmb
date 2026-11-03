@@ -94,7 +94,7 @@ class Field_Values_Rest {
 		);
 
 		$schema = array(
-			'description' => __( 'Values of CFMB fields in groups shown in REST.', 'cfmb' ),
+			'description' => __( 'Values of CFMB fields in groups shown in REST.', 'custom-fields-meta-box' ),
 			'type'        => 'object',
 			'context'     => array( 'view', 'edit' ),
 			'readonly'    => true,

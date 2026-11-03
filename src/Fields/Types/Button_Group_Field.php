@@ -31,7 +31,7 @@ class Button_Group_Field extends Choice_Field {
 	 * @return string
 	 */
 	public function label(): string {
-		return __( 'Button group', 'cfmb' );
+		return __( 'Button group', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -42,7 +42,7 @@ class Button_Group_Field extends Choice_Field {
 	public function settings_schema(): array {
 		return array(
 			$this->choices_setting(),
-			$this->setting( 'allow_null', __( 'Allow no choice', 'cfmb' ), 'toggle', false ),
+			$this->setting( 'allow_null', __( 'Allow no choice', 'custom-fields-meta-box' ), 'toggle', false ),
 			$this->default_setting( false ),
 			$this->return_format_setting(),
 		);

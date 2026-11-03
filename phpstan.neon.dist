@@ -1,14 +1,17 @@
 includes:
 	- vendor/szepeviktor/phpstan-wordpress/extension.neon
+	# Mostly calls into page builder, WooCommerce and ACF APIs that PHPStan can't see. New errors still fail.
+	- phpstan-baseline.neon
 
 parameters:
 	level: 6
 	paths:
-		- cfmb.php
+		- custom-fields-meta-box.php
 		- uninstall.php
 		- src
 	bootstrapFiles:
 		- tests/phpstan-bootstrap.php
 	scanFiles:
+		- tests/phpstan-stubs/builders.php
 		- vendor/php-stubs/wp-cli-stubs/wp-cli-stubs.php
 	treatPhpDocTypesAsCertain: false

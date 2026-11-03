@@ -179,7 +179,7 @@ class Sync_Files {
 				'cfmb_sync_not_writable',
 				sprintf(
 					/* translators: %s: folder path */
-					__( 'CFMB could not write to %s. Check that the folder exists and the web server can write to it.', 'cfmb' ),
+					__( 'CFMB could not write to %s. Check that the folder exists and the web server can write to it.', 'custom-fields-meta-box' ),
 					$dir
 				)
 			);
@@ -201,7 +201,7 @@ class Sync_Files {
 		$json = wp_json_encode( $data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE );
 
 		if ( ! is_string( $json ) || ! self::filesystem()->put_contents( $dir . '/' . $item['key'] . '.json', $json . "\n", self::file_mode() ) ) {
-			return new \WP_Error( 'cfmb_sync_write_failed', __( 'The sync file could not be written.', 'cfmb' ) );
+			return new \WP_Error( 'cfmb_sync_write_failed', __( 'The sync file could not be written.', 'custom-fields-meta-box' ) );
 		}
 
 		$this->files = null;
@@ -244,15 +244,15 @@ class Sync_Files {
 		$dir = dirname( $path );
 
 		if ( $dir === $this->save_dir() ) {
-			return __( 'Uploads', 'cfmb' );
+			return __( 'Uploads', 'custom-fields-meta-box' );
 		}
 
 		if ( trailingslashit( get_stylesheet_directory() ) . self::FOLDER === $dir ) {
-			return get_stylesheet() !== get_template() ? __( 'Child theme', 'cfmb' ) : __( 'Theme', 'cfmb' );
+			return get_stylesheet() !== get_template() ? __( 'Child theme', 'custom-fields-meta-box' ) : __( 'Theme', 'custom-fields-meta-box' );
 		}
 
 		if ( trailingslashit( get_template_directory() ) . self::FOLDER === $dir ) {
-			return __( 'Theme', 'cfmb' );
+			return __( 'Theme', 'custom-fields-meta-box' );
 		}
 
 		return $dir;

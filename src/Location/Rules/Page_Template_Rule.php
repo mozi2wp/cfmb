@@ -34,7 +34,7 @@ class Page_Template_Rule extends Abstract_Rule {
 	 * @return string
 	 */
 	public function label(): string {
-		return __( 'Template', 'cfmb' );
+		return __( 'Template', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -43,7 +43,7 @@ class Page_Template_Rule extends Abstract_Rule {
 	 * @return string
 	 */
 	public function category(): string {
-		return __( 'Post', 'cfmb' );
+		return __( 'Post', 'custom-fields-meta-box' );
 	}
 
 	/**
@@ -52,7 +52,7 @@ class Page_Template_Rule extends Abstract_Rule {
 	 * @return array<string, string>
 	 */
 	public function choices(): array {
-		$choices = array( 'default' => __( 'Default template', 'cfmb' ) );
+		$choices = array( 'default' => __( 'Default template', 'custom-fields-meta-box' ) );
 		$theme   = wp_get_theme();
 
 		foreach ( array_keys( Post_Type_Rule::editable_post_types() ) as $post_type ) {
@@ -76,8 +76,8 @@ class Page_Template_Rule extends Abstract_Rule {
 			return null;
 		}
 
-		$post_id  = (int) $context->get( 'post_id', 0 );
-		$picked   = $context->get( 'template' );
+		$post_id = (int) $context->get( 'post_id', 0 );
+		$picked  = $context->get( 'template' );
 		// The edit screen sends the template picked in the form before it is saved.
 		$template = is_string( $picked ) ? $picked : ( $post_id ? (string) get_page_template_slug( $post_id ) : '' );
 
