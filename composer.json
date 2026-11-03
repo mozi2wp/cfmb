@@ -50,13 +50,7 @@
 		"lint:fix": "phpcbf",
 		"analyse": "phpstan analyse --memory-limit=1G",
 		"test": "phpunit",
-		"prefix-namespaces": "strauss",
-		"post-install-cmd": [
-			"@prefix-namespaces"
-		],
-		"post-update-cmd": [
-			"@prefix-namespaces"
-		]
+		"prefix-namespaces": "strauss"
 	},
 	"extra": {
 		"strauss": {
