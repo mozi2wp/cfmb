@@ -11,5 +11,5 @@
 		'wp-i18n',
 		'wp-notices'
 	),
-	'version' => '365649deba36eaedf995'
+	'version' => '79c60cddd33472729ccc'
 );
