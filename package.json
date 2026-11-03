@@ -1,0 +1,44 @@
+{
+	"name": "cfmb",
+	"version": "0.12.0",
+	"private": true,
+	"description": "Custom fields, meta boxes and content modeling for WordPress.",
+	"license": "GPL-2.0-or-later",
+	"author": "Mozi2WP",
+	"scripts": {
+		"prebuild": "node bin/build-icons.js",
+		"build:icons": "node bin/build-icons.js",
+		"build": "wp-scripts build",
+		"start": "wp-scripts start",
+		"lint:js": "wp-scripts lint-js assets/src",
+		"lint:css": "wp-scripts lint-style \"assets/src/**/*.scss\"",
+		"format": "wp-scripts format assets/src",
+		"test:unit": "wp-scripts test-unit-js --testPathPattern=tests/js",
+		"test:e2e": "wp-scripts test-playwright --config tests/e2e/playwright.config.js",
+		"env": "wp-env",
+		"plugin-zip": "wp-scripts plugin-zip"
+	},
+	"devDependencies": {
+		"@fortawesome/fontawesome-free": "^6.7.2",
+		"@playwright/test": "^1.47.0",
+		"@wordpress/date": "^5.57.0",
+		"@wordpress/e2e-test-utils-playwright": "^1.8.0",
+		"@wordpress/env": "^10.8.0",
+		"@wordpress/i18n": "^6.30.0",
+		"@wordpress/scripts": "^30.0.0"
+	},
+	"files": [
+		"build",
+		"assets",
+		"src",
+		"vendor/autoload.php",
+		"vendor/composer",
+		"cfmb.php",
+		"uninstall.php",
+		"readme.txt",
+		"vendor-prefixed"
+	],
+	"dependencies": {
+		"leaflet": "^1.9.4"
+	}
+}

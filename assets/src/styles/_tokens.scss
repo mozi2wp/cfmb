@@ -1,0 +1,39 @@
+/*
+ * Design tokens. Plain custom properties so themes of the admin and add-ons
+ * can read them. This file only uses CSS that Sass and browsers both accept.
+ */
+:root {
+	--cfmb-accent: var(--wp-admin-theme-color, #2271b1);
+	--cfmb-accent-darker: var(--wp-admin-theme-color-darker-10, #135e96);
+	--cfmb-text: #1e1e1e;
+	--cfmb-muted: #646970;
+	--cfmb-border: #c3c4c7;
+	--cfmb-border-light: #dcdcde;
+	--cfmb-surface: #fff;
+	--cfmb-surface-alt: #f6f7f7;
+	--cfmb-error: #d63638;
+	--cfmb-error-bg: #fcf0f1;
+	--cfmb-warning: #dba617;
+	--cfmb-radius: 4px;
+	--cfmb-gap: 16px;
+	--cfmb-gap-small: 8px;
+	--cfmb-ease-out: cubic-bezier(0.215, 0.61, 0.355, 1);
+	--cfmb-duration: 200ms;
+}
+
+@keyframes cfmb-appear {
+	from {
+		opacity: 0;
+		transform: translateY(-4px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	:root {
+		--cfmb-duration: 0ms;
+	}
+}

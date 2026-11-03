@@ -1,0 +1,10 @@
+/node_modules/
+/vendor/*
+!/vendor/autoload.php
+!/vendor/composer/
+/vendor/composer/installed.json
+/.phpunit.result.cache
+/test-results/
+/playwright-report/
+*.zip
+.DS_Store
