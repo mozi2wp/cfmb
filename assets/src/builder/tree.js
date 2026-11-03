@@ -193,7 +193,10 @@ export function allLists( fields, prefix = '' ) {
 			lists.push( {
 				id: field.key,
 				label: sprintf(
-					/* translators: %s: label */ __( 'Inside %s', 'custom-fields-meta-box' ),
+					/* translators: %s: label */ __(
+						'Inside %s',
+						'custom-fields-meta-box'
+					),
 					label
 				),
 			} );
@@ -208,7 +211,10 @@ export function allLists( fields, prefix = '' ) {
 				lists.push( {
 					id: `${ field.key }:${ layout.key }`,
 					label: sprintf(
-						/* translators: %s: label */ __( 'Inside %s', 'custom-fields-meta-box' ),
+						/* translators: %s: label */ __(
+							'Inside %s',
+							'custom-fields-meta-box'
+						),
 						label
 					),
 				} );

@@ -355,7 +355,10 @@ export default function Rows( { field, value, onChange, path, id } ) {
 		/* translators: %d: new row position */
 		speak(
 			sprintf(
-				/* translators: %d: new position number */ __( 'Row moved to position %d.', 'custom-fields-meta-box' ),
+				/* translators: %d: new position number */ __(
+					'Row moved to position %d.',
+					'custom-fields-meta-box'
+				),
 				to + 1
 			)
 		);

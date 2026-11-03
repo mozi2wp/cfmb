@@ -81,7 +81,10 @@ export default function Gallery( {
 		/* translators: %d: new position */
 		speak(
 			sprintf(
-				/* translators: %d: new position number */ __( 'Image moved to position %d.', 'custom-fields-meta-box' ),
+				/* translators: %d: new position number */ __(
+					'Image moved to position %d.',
+					'custom-fields-meta-box'
+				),
 				to + 1
 			)
 		);

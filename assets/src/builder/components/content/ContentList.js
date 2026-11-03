@@ -165,7 +165,10 @@ export default function ContentList( { kind, navigate } ) {
 			/* translators: %s: title */
 			snackbar(
 				sprintf(
-					/* translators: %s: item title */ __( '"%s" restored.', 'custom-fields-meta-box' ),
+					/* translators: %s: item title */ __(
+						'"%s" restored.',
+						'custom-fields-meta-box'
+					),
 					item.title
 				)
 			);
@@ -181,7 +184,10 @@ export default function ContentList( { kind, navigate } ) {
 			/* translators: %s: title */
 			snackbar(
 				sprintf(
-					/* translators: %s: item title */ __( '"%s" deleted.', 'custom-fields-meta-box' ),
+					/* translators: %s: item title */ __(
+						'"%s" deleted.',
+						'custom-fields-meta-box'
+					),
 					item.title
 				)
 			);

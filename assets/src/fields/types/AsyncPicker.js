@@ -178,7 +178,13 @@ export default function AsyncPicker( {
 		setActive( -1 );
 		/* translators: %s: chosen item title */
 		speak(
-			sprintf( /* translators: %s: item title */ __( '%s chosen.', 'custom-fields-meta-box' ), item.title )
+			sprintf(
+				/* translators: %s: item title */ __(
+					'%s chosen.',
+					'custom-fields-meta-box'
+				),
+				item.title
+			)
 		);
 	};
 
@@ -190,7 +196,13 @@ export default function AsyncPicker( {
 		);
 		/* translators: %s: removed item title */
 		speak(
-			sprintf( /* translators: %s: item title */ __( '%s removed.', 'custom-fields-meta-box' ), item.title )
+			sprintf(
+				/* translators: %s: item title */ __(
+					'%s removed.',
+					'custom-fields-meta-box'
+				),
+				item.title
+			)
 		);
 	};
 

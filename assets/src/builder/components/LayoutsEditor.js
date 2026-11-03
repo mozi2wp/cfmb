@@ -82,7 +82,10 @@ export default function LayoutsEditor( {
 		/* translators: %d: new position */
 		speak(
 			sprintf(
-				/* translators: %d: new position number */ __( 'Layout moved to position %d.', 'custom-fields-meta-box' ),
+				/* translators: %d: new position number */ __(
+					'Layout moved to position %d.',
+					'custom-fields-meta-box'
+				),
 				target + 1
 			)
 		);
@@ -96,7 +99,10 @@ export default function LayoutsEditor( {
 			/* translators: %s: layout label */
 			label: source.label
 				? sprintf(
-						/* translators: %s: source label */ __( '%s (copy)', 'custom-fields-meta-box' ),
+						/* translators: %s: source label */ __(
+							'%s (copy)',
+							'custom-fields-meta-box'
+						),
 						source.label
 				  )
 				: '',

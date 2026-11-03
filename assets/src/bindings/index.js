@@ -37,7 +37,13 @@ function labelFor( name, context ) {
 	/* translators: %s: field name */
 	return found
 		? found.label
-		: sprintf( /* translators: %s: name */ __( 'Field: %s', 'custom-fields-meta-box' ), name );
+		: sprintf(
+				/* translators: %s: name */ __(
+					'Field: %s',
+					'custom-fields-meta-box'
+				),
+				name
+		  );
 }
 
 if ( typeof registerBlockBindingsSource === 'function' ) {

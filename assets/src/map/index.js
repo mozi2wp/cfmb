@@ -57,13 +57,11 @@ function geocode( provider, query ) {
 				( results, status ) => {
 					if ( status === 'OK' ) {
 						resolve(
-							results
-								.slice( 0, 5 )
-								.map( ( result ) => ( {
-									label: result.formatted_address,
-									lat: result.geometry.location.lat(),
-									lng: result.geometry.location.lng(),
-								} ) )
+							results.slice( 0, 5 ).map( ( result ) => ( {
+								label: result.formatted_address,
+								lat: result.geometry.location.lat(),
+								lng: result.geometry.location.lng(),
+							} ) )
 						);
 					} else if ( status === 'ZERO_RESULTS' ) {
 						resolve( [] );
@@ -391,7 +389,10 @@ function MapView( { field, id, place, onPlace } ) {
 				/* translators: %s: address */
 				speak(
 					sprintf(
-						/* translators: %s: address */ __( 'Address set to %s.', 'custom-fields-meta-box' ),
+						/* translators: %s: address */ __(
+							'Address set to %s.',
+							'custom-fields-meta-box'
+						),
 						address
 					)
 				);

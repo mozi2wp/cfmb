@@ -28,7 +28,10 @@ function MoveModal( { field, listId, onClose } ) {
 			title={
 				/* translators: %s: field label */
 				sprintf(
-					/* translators: %s: field label */ __( 'Move "%s"', 'custom-fields-meta-box' ),
+					/* translators: %s: field label */ __(
+						'Move "%s"',
+						'custom-fields-meta-box'
+					),
 					field.label || __( '(no label)', 'custom-fields-meta-box' )
 				)
 			}
@@ -204,7 +207,10 @@ export default function FieldRow( {
 					label={
 						/* translators: %s: field label */
 						sprintf(
-							/* translators: %s: label */ __( 'Actions for %s', 'custom-fields-meta-box' ),
+							/* translators: %s: label */ __(
+								'Actions for %s',
+								'custom-fields-meta-box'
+							),
 							label
 						)
 					}
