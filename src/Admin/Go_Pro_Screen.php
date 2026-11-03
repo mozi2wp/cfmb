@@ -104,6 +104,7 @@ class Go_Pro_Screen {
 		printf( '<span class="cfmb-screen__mark">%s</span>', Ui_Icons::svg( 'more-fields' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Ui_Icons::svg() runs wp_kses().
 		printf( '<h1>%s</h1>', esc_html__( 'CFMB Pro', 'custom-fields-meta-box' ) );
 		echo '</div>';
+		echo '<hr class="wp-header-end">';
 		printf(
 			'<p class="cfmb-screen__intro">%s</p>',
 			esc_html__( 'Everything in CFMB stays free and complete. CFMB Pro is a separate add-on for sites that need more from their data.', 'custom-fields-meta-box' )

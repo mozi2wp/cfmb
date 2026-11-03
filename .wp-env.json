@@ -1,7 +1,10 @@
 {
 	"core": null,
 	"phpVersion": "7.4",
-	"plugins": [ "." ],
+	"plugins": [],
+	"mappings": {
+		"wp-content/plugins/custom-fields-meta-box": "."
+	},
 	"config": {
 		"WP_DEBUG": true,
 		"SCRIPT_DEBUG": true

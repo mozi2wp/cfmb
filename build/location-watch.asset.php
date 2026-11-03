@@ -5,5 +5,5 @@
 		'wp-dom-ready',
 		'wp-i18n'
 	),
-	'version' => '32be624d0be0c0bbf9ce'
+	'version' => '530faa3408abb2d7e8f9'
 );

@@ -390,6 +390,7 @@ class Settings_Screen {
 		printf( '<span class="cfmb-screen__mark">%s</span>', Ui_Icons::svg( 'settings' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Ui_Icons::svg() runs wp_kses().
 		printf( '<h1>%s</h1>', esc_html__( 'CFMB Settings', 'custom-fields-meta-box' ) );
 		echo '</div>';
+		echo '<hr class="wp-header-end">';
 		echo '<form method="post" action="options.php">';
 		settings_fields( self::SLUG );
 		$this->render_sections();

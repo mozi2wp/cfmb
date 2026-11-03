@@ -5,7 +5,7 @@ const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
 
 test.describe( 'Repeater', () => {
 	test.beforeAll( async ( { requestUtils } ) => {
-		await requestUtils.activatePlugin( 'cfmb' );
+		await requestUtils.activatePlugin( 'custom-fields-meta-box' );
 	} );
 
 	test( 'rows save in order', async ( { admin, editor, page } ) => {

@@ -6,7 +6,7 @@ const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
 
 test.describe( 'Field Block', () => {
 	test.beforeAll( async ( { requestUtils } ) => {
-		await requestUtils.activatePlugin( 'cfmb' );
+		await requestUtils.activatePlugin( 'custom-fields-meta-box' );
 	} );
 
 	test( 'block appears in the inserter and keeps its value', async ( { admin, editor, page } ) => {

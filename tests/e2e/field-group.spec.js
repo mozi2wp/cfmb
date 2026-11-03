@@ -5,7 +5,7 @@ const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
 
 test.describe( 'Field groups', () => {
 	test.beforeAll( async ( { requestUtils } ) => {
-		await requestUtils.activatePlugin( 'cfmb' );
+		await requestUtils.activatePlugin( 'custom-fields-meta-box' );
 	} );
 
 	test( 'a text field saves on a post', async ( { admin, editor, page } ) => {

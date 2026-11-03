@@ -20,3 +20,4 @@
 /bin
 /CHANGELOG.md
 /phpstan-baseline.neon
+/.wordpress-org

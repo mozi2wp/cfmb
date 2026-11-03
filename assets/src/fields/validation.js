@@ -2,7 +2,7 @@
  * Client-side checks. The server repeats every check on save; these only
  * give faster feedback and stop the block editor from publishing too early.
  */
-import { dateI18n, getSettings } from '@wordpress/date';
+import { format as formatDate, getSettings } from '@wordpress/date';
 import { __, _n, sprintf } from '@wordpress/i18n';
 import { isVisible } from '../shared/conditions';
 import { rowFields, storesValue, structureOf } from './values';
@@ -107,11 +107,11 @@ function typeError( field, value, enforceRequired ) {
 			const format = getSettings()?.formats?.date || 'F j, Y';
 			if ( min && String( value ) < min ) {
 				/* translators: %s: earliest allowed date */
-				return sprintf( __( 'Choose a date on or after %s.', 'custom-fields-meta-box' ), dateI18n( format, min ) );
+				return sprintf( __( 'Choose a date on or after %s.', 'custom-fields-meta-box' ), formatDate( format, min ) );
 			}
 			if ( max && String( value ) > max ) {
 				/* translators: %s: latest allowed date */
-				return sprintf( __( 'Choose a date on or before %s.', 'custom-fields-meta-box' ), dateI18n( format, max ) );
+				return sprintf( __( 'Choose a date on or before %s.', 'custom-fields-meta-box' ), formatDate( format, max ) );
 			}
 			return null;
 		}

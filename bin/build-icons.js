@@ -10,7 +10,10 @@ const path = require( 'path' );
 
 const root = path.resolve( __dirname, '..' );
 const pkg = path.join( root, 'node_modules/@fortawesome/fontawesome-free' );
-const source = path.join( pkg, 'metadata/icons.json' );
+// Font Awesome 6.6+ ships icon-families.json; older releases ship icons.json.
+const families = path.join( pkg, 'metadata/icon-families.json' );
+const legacy = path.join( pkg, 'metadata/icons.json' );
+const source = fs.existsSync( families ) ? families : legacy;
 const target = path.join( root, 'assets/icons/fontawesome.json' );
 const license = path.join( root, 'assets/icons/fontawesome-LICENSE.txt' );
 
@@ -21,13 +24,34 @@ if ( ! fs.existsSync( source ) ) {
 }
 
 const icons = JSON.parse( fs.readFileSync( source, 'utf8' ) );
+
+/**
+ * The free styles of an icon, keyed by style (solid, regular, brands).
+ *
+ * @param {Object} icon Metadata entry.
+ * @return {Object} Style => { viewBox, path }.
+ */
+function freeSvgs( icon ) {
+	if ( icon.svg ) {
+		return icon.svg;
+	}
+
+	const out = {};
+	( icon.familyStylesByLicense?.free || [] ).forEach( ( { family, style } ) => {
+		const svg = icon.svgs?.[ family ]?.[ style ];
+		if ( family === 'classic' && svg ) {
+			out[ style ] = svg;
+		}
+	} );
+	return out;
+}
 const out = {};
 
 Object.keys( icons )
 	.sort()
 	.forEach( ( name ) => {
 		const icon = icons[ name ];
-		const svgs = icon.svg || {};
+		const svgs = freeSvgs( icon );
 		Object.keys( svgs )
 			.sort()
 			.forEach( ( style ) => {

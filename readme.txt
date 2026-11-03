@@ -256,13 +256,13 @@ Administrators, through the `manage_options` capability. Change it with the `cfm
 
 == Screenshots ==
 
-1. Field groups at a glance, with their locations and field counts.
+1. Field groups at a glance, with where each one shows and how many fields it has.
 2. The field group editor: drag fields into order and open one to change its settings.
-3. Location rules with "and" and "or" groups.
-4. Fields on the post edit screen, with a Repeater and tabs.
-5. A Field Block filled in right in the block editor.
-6. Schema Sync shows what changed between the database and your JSON files.
-7. The Switch Assistant brings field groups and values over from ACF.
+3. Location rules, combined with "and" and "or".
+4. Fields on the post edit screen, with tabs.
+5. Settings, each section on its own card.
+6. Schema Sync shows whether the database and your JSON files match.
+7. Post types made in the admin, with every WordPress setting.
 
 == Changelog ==
 
@@ -270,7 +270,9 @@ Administrators, through the `manage_options` capability. Change it with the `cfm
 * First release on WordPress.org.
 * New name: "CFMB - Custom Fields Meta Box", slug `custom-fields-meta-box`. The `cfmb_` functions, `cfmb/` hooks, options and tables are unchanged.
 * Compatibility Mode moved into its own plugin, CFMB Compatibility Mode.
-* Admin screens: icons from the WordPress icon set, clearer empty states, and small spacing and focus fixes.
+* Admin screens: icons from the WordPress icon set, a type icon on each field row, colours that follow the admin colour scheme, and settings on cards.
+* Date fields show the saved date in every time zone, instead of the day before for editors east of the site's time zone.
+* Font Awesome Free 6.6 and later work in the Icon field.
 * Database queries name tables and columns through `%i` placeholders.
 * Release builds ship only the production autoloader.
 

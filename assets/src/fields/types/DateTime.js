@@ -6,7 +6,7 @@
  * earliest/latest dates; times use the browser's own time input.
  */
 import { Button, DatePicker, DateTimePicker, Dropdown } from '@wordpress/components';
-import { dateI18n, getSettings } from '@wordpress/date';
+import { format as formatDate, getSettings } from '@wordpress/date';
 import { __ } from '@wordpress/i18n';
 import { uiIcon } from '../../shared/ui-icons';
 
@@ -68,7 +68,7 @@ export default function DateTime( props ) {
 	const withTime = field.type === 'datetime';
 	const formats = getSettings()?.formats || {};
 	const siteFormat = withTime ? `${ formats.date || 'F j, Y' } ${ formats.time || 'g:i a' }` : formats.date || 'F j, Y';
-	const shown = value ? dateI18n( settings.display_format || siteFormat, value ) : '';
+	const shown = value ? formatDate( settings.display_format || siteFormat, value ) : '';
 
 	const pick = ( picked ) => {
 		if ( ! picked ) {
