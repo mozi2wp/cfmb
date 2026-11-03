@@ -8,7 +8,10 @@ import { __ } from '@wordpress/i18n';
 import config from './config';
 
 export function snackbar( message, actions = [] ) {
-	dispatch( noticesStore ).createSuccessNotice( message, { type: 'snackbar', actions } );
+	dispatch( noticesStore ).createSuccessNotice( message, {
+		type: 'snackbar',
+		actions,
+	} );
 	speak( message );
 }
 
@@ -28,16 +31,38 @@ export function syncNoteSnackbar( note ) {
 	}
 	if ( note === 'conflict' ) {
 		dispatch( noticesStore ).createWarningNotice(
-			__( 'Saved. Its sync file was changed outside CFMB, so it was not overwritten. Review it under Sync.', 'custom-fields-meta-box' ),
+			__(
+				'Saved. Its sync file was changed outside CFMB, so it was not overwritten. Review it under Sync.',
+				'custom-fields-meta-box'
+			),
 			{
 				type: 'snackbar',
 				explicitDismiss: true,
-				actions: config.pages?.sync ? [ { label: __( 'Open Sync', 'custom-fields-meta-box' ), url: config.pages.sync } ] : [],
+				actions: config.pages?.sync
+					? [
+							{
+								label: __(
+									'Open Sync',
+									'custom-fields-meta-box'
+								),
+								url: config.pages.sync,
+							},
+					  ]
+					: [],
 			}
 		);
-		speak( __( 'Saved, but its sync file was not overwritten.', 'custom-fields-meta-box' ), 'assertive' );
+		speak(
+			__(
+				'Saved, but its sync file was not overwritten.',
+				'custom-fields-meta-box'
+			),
+			'assertive'
+		);
 		return;
 	}
-	dispatch( noticesStore ).createWarningNotice( note, { type: 'snackbar', explicitDismiss: true } );
+	dispatch( noticesStore ).createWarningNotice( note, {
+		type: 'snackbar',
+		explicitDismiss: true,
+	} );
 	speak( note, 'assertive' );
 }

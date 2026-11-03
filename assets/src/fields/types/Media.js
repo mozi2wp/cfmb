@@ -8,7 +8,8 @@ import { speak } from '@wordpress/a11y';
 
 function toEditorValue( attachment, previewSize ) {
 	const sizes = attachment.sizes || {};
-	const preview = sizes[ previewSize ] || sizes.medium || sizes.thumbnail || sizes.full;
+	const preview =
+		sizes[ previewSize ] || sizes.medium || sizes.thumbnail || sizes.full;
 
 	return {
 		id: attachment.id,
@@ -22,7 +23,14 @@ function toEditorValue( attachment, previewSize ) {
 	};
 }
 
-export default function Media( { field, id, value, onChange, describedBy, objectId } ) {
+export default function Media( {
+	field,
+	id,
+	value,
+	onChange,
+	describedBy,
+	objectId,
+} ) {
 	const isImage = field.type === 'image';
 	const settings = field.settings || {};
 	const frameRef = useRef();
@@ -44,15 +52,30 @@ export default function Media( { field, id, value, onChange, describedBy, object
 			}
 
 			frameRef.current = media( {
-				title: isImage ? __( 'Choose an image', 'custom-fields-meta-box' ) : __( 'Choose a file', 'custom-fields-meta-box' ),
-				button: { text: isImage ? __( 'Use this image', 'custom-fields-meta-box' ) : __( 'Use this file', 'custom-fields-meta-box' ) },
+				title: isImage
+					? __( 'Choose an image', 'custom-fields-meta-box' )
+					: __( 'Choose a file', 'custom-fields-meta-box' ),
+				button: {
+					text: isImage
+						? __( 'Use this image', 'custom-fields-meta-box' )
+						: __( 'Use this file', 'custom-fields-meta-box' ),
+				},
 				library,
 				multiple: false,
 			} );
 
 			frameRef.current.on( 'select', () => {
-				const attachment = frameRef.current.state().get( 'selection' ).first().toJSON();
-				onChange( toEditorValue( attachment, settings.preview_size || 'medium' ) );
+				const attachment = frameRef.current
+					.state()
+					.get( 'selection' )
+					.first()
+					.toJSON();
+				onChange(
+					toEditorValue(
+						attachment,
+						settings.preview_size || 'medium'
+					)
+				);
 			} );
 
 			frameRef.current.on( 'close', () => buttonRef.current?.focus() );
@@ -63,33 +86,69 @@ export default function Media( { field, id, value, onChange, describedBy, object
 
 	if ( ! value ) {
 		return (
-			<div className="cfmb-media cfmb-media--empty" aria-describedby={ describedBy }>
-				<Button id={ id } ref={ buttonRef } variant="secondary" onClick={ openModal }>
-					{ isImage ? __( 'Add image', 'custom-fields-meta-box' ) : __( 'Add file', 'custom-fields-meta-box' ) }
+			<div
+				className="cfmb-media cfmb-media--empty"
+				aria-describedby={ describedBy }
+			>
+				<Button
+					id={ id }
+					ref={ buttonRef }
+					variant="secondary"
+					onClick={ openModal }
+				>
+					{ isImage
+						? __( 'Add image', 'custom-fields-meta-box' )
+						: __( 'Add file', 'custom-fields-meta-box' ) }
 				</Button>
 			</div>
 		);
 	}
 
 	return (
-		<div className={ `cfmb-media cfmb-media--${ field.type }` } aria-describedby={ describedBy }>
+		<div
+			className={ `cfmb-media cfmb-media--${ field.type }` }
+			aria-describedby={ describedBy }
+		>
 			{ isImage ? (
-				<img className="cfmb-media__preview" src={ value.preview || value.url } alt={ value.alt || '' } />
+				<img
+					className="cfmb-media__preview"
+					src={ value.preview || value.url }
+					alt={ value.alt || '' }
+				/>
 			) : (
 				<div className="cfmb-media__file">
-					{ value.icon && <img className="cfmb-media__icon" src={ value.icon } alt="" /> }
+					{ value.icon && (
+						<img
+							className="cfmb-media__icon"
+							src={ value.icon }
+							alt=""
+						/>
+					) }
 					<div className="cfmb-media__details">
-						<a href={ value.url } target="_blank" rel="noreferrer" className="cfmb-media__name">
+						<a
+							href={ value.url }
+							target="_blank"
+							rel="noreferrer"
+							className="cfmb-media__name"
+						>
 							{ value.title || value.filename }
 						</a>
 						<span className="cfmb-media__meta">
-							{ [ value.filename, value.filesize ].filter( Boolean ).join( ' · ' ) }
+							{ [ value.filename, value.filesize ]
+								.filter( Boolean )
+								.join( ' · ' ) }
 						</span>
 					</div>
 				</div>
 			) }
 			<div className="cfmb-media__actions">
-				<Button id={ id } ref={ buttonRef } variant="secondary" size="compact" onClick={ openModal }>
+				<Button
+					id={ id }
+					ref={ buttonRef }
+					variant="secondary"
+					size="compact"
+					onClick={ openModal }
+				>
 					{ __( 'Replace', 'custom-fields-meta-box' ) }
 				</Button>
 				<Button
@@ -100,7 +159,10 @@ export default function Media( { field, id, value, onChange, describedBy, object
 						onChange( null );
 						speak(
 							/* translators: %s: field label */
-							sprintf( __( '%s removed.', 'custom-fields-meta-box' ), field.label )
+							sprintf(
+								__( '%s removed.', 'custom-fields-meta-box' ),
+								field.label
+							)
 						);
 					} }
 				>

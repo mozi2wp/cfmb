@@ -5,7 +5,9 @@
 const randomHex = ( bytes ) => {
 	const buffer = new Uint8Array( bytes );
 	window.crypto.getRandomValues( buffer );
-	return Array.from( buffer, ( byte ) => byte.toString( 16 ).padStart( 2, '0' ) ).join( '' );
+	return Array.from( buffer, ( byte ) =>
+		byte.toString( 16 ).padStart( 2, '0' )
+	).join( '' );
 };
 
 export const newFieldKey = () => `fld_${ randomHex( 5 ) }`;

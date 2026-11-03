@@ -209,7 +209,9 @@
 	margin: 0;
 	background: var(--cfmb-surface);
 	border-bottom: 1px solid var(--cfmb-border-light);
-	transition: opacity var(--cfmb-duration) var(--cfmb-ease-out), box-shadow var(--cfmb-duration) var(--cfmb-ease-out);
+	transition:
+		opacity var(--cfmb-duration) var(--cfmb-ease-out),
+		box-shadow var(--cfmb-duration) var(--cfmb-ease-out);
 	animation: cfmb-appear var(--cfmb-duration) var(--cfmb-ease-out);
 
 	&:last-child {
@@ -305,7 +307,9 @@
 		color: var(--cfmb-muted);
 		height: 28px;
 		width: 28px;
-		transition: background-color var(--cfmb-duration) var(--cfmb-ease-out), color var(--cfmb-duration) var(--cfmb-ease-out);
+		transition:
+			background-color var(--cfmb-duration) var(--cfmb-ease-out),
+			color var(--cfmb-duration) var(--cfmb-ease-out);
 	}
 
 	&.is-open > .cfmb-field-row__header &__type-icon,
@@ -702,7 +706,10 @@
 		font-weight: 600;
 	}
 
-	&__advanced .components-panel__body .components-base-control + .components-base-control,
+	&__advanced
+		.components-panel__body
+		.components-base-control
+		+ .components-base-control,
 	&__advanced .components-panel__body .cfmb-setting + .cfmb-setting {
 		margin-top: var(--cfmb-gap);
 	}
@@ -937,8 +944,12 @@
 			font-weight: 600;
 		}
 
-		.components-panel__body .components-base-control + .components-base-control,
-		.components-panel__body .components-base-control + .cfmb-block-settings__list,
+		.components-panel__body
+			.components-base-control
+			+ .components-base-control,
+		.components-panel__body
+			.components-base-control
+			+ .cfmb-block-settings__list,
 		.cfmb-block-settings__list + .cfmb-block-settings__list {
 			margin-top: var(--cfmb-gap);
 		}

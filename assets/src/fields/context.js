@@ -24,7 +24,12 @@ export const useForm = () => useContext( FormContext );
  * @param {...string} parts Parts.
  * @return {string} Path.
  */
-export const joinPath = ( ...parts ) => parts.filter( ( part ) => part !== '' && part !== undefined && part !== null ).join( '.' );
+export const joinPath = ( ...parts ) =>
+	parts
+		.filter(
+			( part ) => part !== '' && part !== undefined && part !== null
+		)
+		.join( '.' );
 
 /**
  * DOM-safe id from a path.
@@ -33,4 +38,5 @@ export const joinPath = ( ...parts ) => parts.filter( ( part ) => part !== '' &&
  * @param {string} path     Field path.
  * @return {string} Id.
  */
-export const domId = ( groupKey, path ) => `cfmb-${ groupKey }-${ String( path ).replace( /\./g, '-' ) }`;
+export const domId = ( groupKey, path ) =>
+	`cfmb-${ groupKey }-${ String( path ).replace( /\./g, '-' ) }`;

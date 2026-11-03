@@ -16,7 +16,9 @@ export default function locationSummary( location ) {
 		rules
 			.map( ( rule ) => {
 				const type = rulesByParam[ rule.param ];
-				const operator = type?.operators.find( ( item ) => item.value === rule.operator );
+				const operator = type?.operators.find(
+					( item ) => item.value === rule.operator
+				);
 				return sprintf(
 					/* translators: 1: rule name, 2: operator, 3: value */
 					__( '%1$s %2$s %3$s', 'custom-fields-meta-box' ),

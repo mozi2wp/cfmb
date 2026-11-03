@@ -9,7 +9,9 @@ export default function Toggle( { field, id, value, onChange, describedBy } ) {
 				id={ id }
 				checked={ value === '1' }
 				aria-describedby={ describedBy }
-				onChange={ ( event ) => onChange( event.target.checked ? '1' : '0' ) }
+				onChange={ ( event ) =>
+					onChange( event.target.checked ? '1' : '0' )
+				}
 			/>
 			{ message && (
 				<label className="cfmb-toggle__message" htmlFor={ id }>

@@ -30,7 +30,10 @@ function attachment( id ) {
 	model
 		.fetch()
 		.then( () => {
-			attachments.set( id, { url: model.get( 'url' ) || '', alt: model.get( 'alt' ) || '' } );
+			attachments.set( id, {
+				url: model.get( 'url' ) || '',
+				alt: model.get( 'alt' ) || '',
+			} );
 			scheduleRefresh();
 		} )
 		.catch( () => {} );
@@ -39,7 +42,11 @@ function attachment( id ) {
 
 function collect() {
 	const forms = window.cfmb?.forms?.list?.() || [];
-	return forms.map( ( form ) => contentFor( form.fields, form.values, wanted, attachment ) ).join( '' );
+	return forms
+		.map( ( form ) =>
+			contentFor( form.fields, form.values, wanted, attachment )
+		)
+		.join( '' );
 }
 
 let timer = 0;
@@ -47,11 +54,18 @@ const refreshers = [];
 
 function scheduleRefresh() {
 	window.clearTimeout( timer );
-	timer = window.setTimeout( () => refreshers.forEach( ( refresh ) => refresh() ), DELAY );
+	timer = window.setTimeout(
+		() => refreshers.forEach( ( refresh ) => refresh() ),
+		DELAY
+	);
 }
 
 function setupRankMath() {
-	addFilter( 'rank_math_content', PLUGIN, ( content ) => `${ content || '' }${ collect() }` );
+	addFilter(
+		'rank_math_content',
+		PLUGIN,
+		( content ) => `${ content || '' }${ collect() }`
+	);
 	refreshers.push( () => window.rankMathEditor?.refresh?.( 'content' ) );
 }
 
@@ -64,7 +78,12 @@ function setupYoast() {
 		}
 		ready = true;
 		app.registerPlugin( PLUGIN, { status: 'ready' } );
-		app.registerModification( 'content', ( content ) => `${ content || '' }${ collect() }`, PLUGIN, 5 );
+		app.registerModification(
+			'content',
+			( content ) => `${ content || '' }${ collect() }`,
+			PLUGIN,
+			5
+		);
 	};
 
 	register();

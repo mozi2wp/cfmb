@@ -22,12 +22,17 @@ const PLACEHOLDERS = {
 
 function search( config, text, page ) {
 	return apiFetch( {
-		path: addQueryArgs( `${ settings.searchPath || '/cfmb/v1/connections' }/${ config.connection }/search`, {
-			side: config.side,
-			object: config.object,
-			search: text,
-			page,
-		} ),
+		path: addQueryArgs(
+			`${ settings.searchPath || '/cfmb/v1/connections' }/${
+				config.connection
+			}/search`,
+			{
+				side: config.side,
+				object: config.object,
+				search: text,
+				page,
+			}
+		),
 	} );
 }
 
@@ -43,22 +48,34 @@ function search( config, text, page ) {
  * @return {?Element} Element or null.
  */
 function ItemExtra( { item, config, index } ) {
-	const extra = applyFilters( 'cfmb.connections.itemExtra', null, item, config, index );
+	const extra = applyFilters(
+		'cfmb.connections.itemExtra',
+		null,
+		item,
+		config,
+		index
+	);
 
-	return extra ? <div className="cfmb-connection__extra">{ extra }</div> : null;
+	return extra ? (
+		<div className="cfmb-connection__extra">{ extra }</div>
+	) : null;
 }
 
 function ItemText( { item } ) {
 	return (
 		<span className="cfmb-connection__text">
 			<span className="cfmb-connection__title">{ item.title }</span>
-			{ item.meta && <span className="cfmb-connection__meta">{ item.meta }</span> }
+			{ item.meta && (
+				<span className="cfmb-connection__meta">{ item.meta }</span>
+			) }
 		</span>
 	);
 }
 
 export default function ConnectionBox( { config } ) {
-	const [ selected, setSelected ] = useState( Array.isArray( config.items ) ? config.items : [] );
+	const [ selected, setSelected ] = useState(
+		Array.isArray( config.items ) ? config.items : []
+	);
 	const [ text, setText ] = useState( '' );
 	const [ results, setResults ] = useState( [] );
 	const [ page, setPage ] = useState( 1 );
@@ -78,14 +95,24 @@ export default function ConnectionBox( { config } ) {
 				if ( ticket !== request.current ) {
 					return;
 				}
-				const items = Array.isArray( response?.items ) ? response.items : [];
-				setResults( ( current ) => ( nextPage > 1 ? [ ...current, ...items ] : items ) );
+				const items = Array.isArray( response?.items )
+					? response.items
+					: [];
+				setResults( ( current ) =>
+					nextPage > 1 ? [ ...current, ...items ] : items
+				);
 				setMore( !! response?.more );
 				setPage( nextPage );
 			} )
 			.catch( ( failure ) => {
 				if ( ticket === request.current ) {
-					setError( failure?.message || __( 'Search failed. Try again.', 'custom-fields-meta-box' ) );
+					setError(
+						failure?.message ||
+							__(
+								'Search failed. Try again.',
+								'custom-fields-meta-box'
+							)
+					);
 				}
 			} )
 			.finally( () => {
@@ -110,29 +137,51 @@ export default function ConnectionBox( { config } ) {
 		}
 		setSelected( next );
 		/* translators: %s: item title */
-		speak( sprintf( __( '%s linked.', 'custom-fields-meta-box' ), item.title ) );
+		speak(
+			sprintf( __( '%s linked.', 'custom-fields-meta-box' ), item.title )
+		);
 	};
 
 	const remove = ( item ) => {
 		setSelected( selected.filter( ( other ) => other.id !== item.id ) );
 		/* translators: %s: item title */
-		speak( sprintf( __( '%s unlinked.', 'custom-fields-meta-box' ), item.title ) );
+		speak(
+			sprintf(
+				__( '%s unlinked.', 'custom-fields-meta-box' ),
+				item.title
+			)
+		);
 	};
 
-	const move = ( index, step ) => setSelected( moveItem( selected, index, step ) );
+	const move = ( index, step ) =>
+		setSelected( moveItem( selected, index, step ) );
 
 	return (
 		<div className="cfmb-connection__box">
 			{ selected.map( ( item ) => (
-				<input key={ item.id } type="hidden" name={ config.input } value={ item.id } />
+				<input
+					key={ item.id }
+					type="hidden"
+					name={ config.input }
+					value={ item.id }
+				/>
 			) ) }
 
 			{ selected.length > 0 ? (
-				<ol className="cfmb-connection__selected" aria-label={ __( 'Linked items', 'custom-fields-meta-box' ) }>
+				<ol
+					className="cfmb-connection__selected"
+					aria-label={ __(
+						'Linked items',
+						'custom-fields-meta-box'
+					) }
+				>
 					{ selected.map( ( item, index ) => (
 						<li key={ item.id } className="cfmb-connection__item">
 							{ item.url ? (
-								<a href={ item.url } className="cfmb-connection__link">
+								<a
+									href={ item.url }
+									className="cfmb-connection__link"
+								>
 									<ItemText item={ item } />
 								</a>
 							) : (
@@ -144,7 +193,10 @@ export default function ConnectionBox( { config } ) {
 										<Button
 											size="small"
 											icon={ uiIcon( 'arrow-up-alt2' ) }
-											label={ __( 'Move up', 'custom-fields-meta-box' ) }
+											label={ __(
+												'Move up',
+												'custom-fields-meta-box'
+											) }
 											disabled={ index === 0 }
 											accessibleWhenDisabled
 											onClick={ () => move( index, -1 ) }
@@ -152,8 +204,13 @@ export default function ConnectionBox( { config } ) {
 										<Button
 											size="small"
 											icon={ uiIcon( 'arrow-down-alt2' ) }
-											label={ __( 'Move down', 'custom-fields-meta-box' ) }
-											disabled={ index === selected.length - 1 }
+											label={ __(
+												'Move down',
+												'custom-fields-meta-box'
+											) }
+											disabled={
+												index === selected.length - 1
+											}
 											accessibleWhenDisabled
 											onClick={ () => move( index, 1 ) }
 										/>
@@ -165,26 +222,42 @@ export default function ConnectionBox( { config } ) {
 									isDestructive
 									label={ sprintf(
 										/* translators: %s: item title */
-										__( 'Unlink %s', 'custom-fields-meta-box' ),
+										__(
+											'Unlink %s',
+											'custom-fields-meta-box'
+										),
 										item.title
 									) }
 									onClick={ () => remove( item ) }
 								/>
 							</span>
-							<ItemExtra item={ item } config={ config } index={ index } />
+							<ItemExtra
+								item={ item }
+								config={ config }
+								index={ index }
+							/>
 						</li>
 					) ) }
 				</ol>
 			) : (
-				<p className="cfmb-connection__empty description">{ __( 'Nothing linked yet. Search below to add items.', 'custom-fields-meta-box' ) }</p>
+				<p className="cfmb-connection__empty description">
+					{ __(
+						'Nothing linked yet. Search below to add items.',
+						'custom-fields-meta-box'
+					) }
+				</p>
 			) }
 
 			<div className="cfmb-connection__search">
 				<input
 					type="search"
 					className="cfmb-connection__input"
-					placeholder={ PLACEHOLDERS[ config.kind ] || PLACEHOLDERS.post }
-					aria-label={ PLACEHOLDERS[ config.kind ] || PLACEHOLDERS.post }
+					placeholder={
+						PLACEHOLDERS[ config.kind ] || PLACEHOLDERS.post
+					}
+					aria-label={
+						PLACEHOLDERS[ config.kind ] || PLACEHOLDERS.post
+					}
 					value={ text }
 					onChange={ ( event ) => {
 						setText( event.target.value );
@@ -201,7 +274,12 @@ export default function ConnectionBox( { config } ) {
 			) }
 
 			{ max === 1 && selected.length === 1 && (
-				<p className="cfmb-connection__hint description">{ __( 'Only one item can be linked. Picking another replaces it.', 'custom-fields-meta-box' ) }</p>
+				<p className="cfmb-connection__hint description">
+					{ __(
+						'Only one item can be linked. Picking another replaces it.',
+						'custom-fields-meta-box'
+					) }
+				</p>
 			) }
 
 			<ul className="cfmb-connection__results">
@@ -213,19 +291,40 @@ export default function ConnectionBox( { config } ) {
 								type="button"
 								className="cfmb-connection__result"
 								aria-pressed={ isChosen }
-								onClick={ () => ( isChosen ? remove( item ) : add( item ) ) }
+								onClick={ () =>
+									isChosen ? remove( item ) : add( item )
+								}
 							>
 								<ItemText item={ item } />
-								<span className="cfmb-connection__state">{ isChosen ? __( 'Linked', 'custom-fields-meta-box' ) : __( 'Link', 'custom-fields-meta-box' ) }</span>
+								<span className="cfmb-connection__state">
+									{ isChosen
+										? __(
+												'Linked',
+												'custom-fields-meta-box'
+										  )
+										: __(
+												'Link',
+												'custom-fields-meta-box'
+										  ) }
+								</span>
 							</button>
 						</li>
 					);
 				} ) }
-				{ ! loading && ! error && results.length === 0 && <li className="cfmb-connection__none">{ __( 'No matches.', 'custom-fields-meta-box' ) }</li> }
+				{ ! loading && ! error && results.length === 0 && (
+					<li className="cfmb-connection__none">
+						{ __( 'No matches.', 'custom-fields-meta-box' ) }
+					</li>
+				) }
 			</ul>
 
 			{ more && (
-				<Button variant="link" disabled={ loading } accessibleWhenDisabled onClick={ () => run( text, page + 1 ) }>
+				<Button
+					variant="link"
+					disabled={ loading }
+					accessibleWhenDisabled
+					onClick={ () => run( text, page + 1 ) }
+				>
 					{ __( 'Show more', 'custom-fields-meta-box' ) }
 				</Button>
 			) }

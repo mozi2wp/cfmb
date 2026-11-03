@@ -4,7 +4,10 @@
 import { __ } from '@wordpress/i18n';
 
 export default function Link( { id, value, onChange, describedBy, field } ) {
-	const link = value && typeof value === 'object' ? value : { url: '', title: '', target: '' };
+	const link =
+		value && typeof value === 'object'
+			? value
+			: { url: '', title: '', target: '' };
 	const set = ( patch ) => onChange( { ...link, ...patch } );
 
 	return (
@@ -27,10 +30,24 @@ export default function Link( { id, value, onChange, describedBy, field } ) {
 				<label className="cfmb-link__label" htmlFor={ `${ id }-text` }>
 					{ __( 'Link text', 'custom-fields-meta-box' ) }
 				</label>
-				<input id={ `${ id }-text` } className="cfmb-input" type="text" value={ link.title || '' } onChange={ ( event ) => set( { title: event.target.value } ) } />
+				<input
+					id={ `${ id }-text` }
+					className="cfmb-input"
+					type="text"
+					value={ link.title || '' }
+					onChange={ ( event ) =>
+						set( { title: event.target.value } )
+					}
+				/>
 			</div>
 			<label className="cfmb-link__target">
-				<input type="checkbox" checked={ link.target === '_blank' } onChange={ ( event ) => set( { target: event.target.checked ? '_blank' : '' } ) } />
+				<input
+					type="checkbox"
+					checked={ link.target === '_blank' }
+					onChange={ ( event ) =>
+						set( { target: event.target.checked ? '_blank' : '' } )
+					}
+				/>
 				{ __( 'Open in a new tab', 'custom-fields-meta-box' ) }
 			</label>
 		</div>

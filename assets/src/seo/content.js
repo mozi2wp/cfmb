@@ -3,7 +3,11 @@
  */
 
 const escape = ( text ) =>
-	String( text ).replace( /&/g, '&amp;' ).replace( /</g, '&lt;' ).replace( />/g, '&gt;' ).replace( /"/g, '&quot;' );
+	String( text )
+		.replace( /&/g, '&amp;' )
+		.replace( /</g, '&lt;' )
+		.replace( />/g, '&gt;' )
+		.replace( /"/g, '&quot;' );
 
 const STRUCTURES = [ 'group', 'repeater', 'stacks' ];
 
@@ -12,7 +16,9 @@ function imageHtml( id, lookup ) {
 	if ( ! details || ( ! details.url && ! details.alt ) ) {
 		return '';
 	}
-	return `<img src="${ escape( details.url ) }" alt="${ escape( details.alt ) }" />`;
+	return `<img src="${ escape( details.url ) }" alt="${ escape(
+		details.alt
+	) }" />`;
 }
 
 /**
@@ -37,7 +43,9 @@ export function valueHtml( field, value, lookup ) {
 		case 'image':
 			return imageHtml( value, lookup );
 		case 'gallery':
-			return ( Array.isArray( value ) ? value : [] ).map( ( id ) => imageHtml( id, lookup ) ).join( '' );
+			return ( Array.isArray( value ) ? value : [] )
+				.map( ( id ) => imageHtml( id, lookup ) )
+				.join( '' );
 		default:
 			if ( typeof value === 'string' || typeof value === 'number' ) {
 				return `<p>${ escape( value ) }</p>\n`;
@@ -48,7 +56,11 @@ export function valueHtml( field, value, lookup ) {
 
 function subFields( field, row ) {
 	if ( field.type === 'stacks' ) {
-		return ( field.layouts || [] ).find( ( layout ) => layout.name === row?._layout )?.fields || [];
+		return (
+			( field.layouts || [] ).find(
+				( layout ) => layout.name === row?._layout
+			)?.fields || []
+		);
 	}
 	return field.fields || [];
 }

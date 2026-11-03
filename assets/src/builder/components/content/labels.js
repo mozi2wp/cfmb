@@ -7,10 +7,18 @@
  * @return {string} Label.
  */
 export function fillLabel( template, singular, plural ) {
-	const values = [ singular, plural, singular.toLowerCase(), plural.toLowerCase() ];
+	const values = [
+		singular,
+		plural,
+		singular.toLowerCase(),
+		plural.toLowerCase(),
+	];
 
 	return String( template || '' )
-		.replace( /%(\d)\$s/g, ( match, index ) => values[ Number( index ) - 1 ] ?? '' )
+		.replace(
+			/%(\d)\$s/g,
+			( match, index ) => values[ Number( index ) - 1 ] ?? ''
+		)
 		.replace( /&larr;/g, '←' );
 }
 

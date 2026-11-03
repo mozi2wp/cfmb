@@ -15,7 +15,14 @@ import FieldRow from './FieldRow';
 import { uiIcon } from '../../shared/ui-icons';
 
 export function blankLayout() {
-	return { key: newLayoutKey(), name: '', label: '', min: 0, max: 0, fields: [] };
+	return {
+		key: newLayoutKey(),
+		name: '',
+		label: '',
+		min: 0,
+		max: 0,
+		fields: [],
+	};
 }
 
 export function blankField( type = 'text' ) {
@@ -46,7 +53,10 @@ export function blankField( type = 'text' ) {
  * @return {Object} Copy.
  */
 export function copyField( field ) {
-	const copy = { ...JSON.parse( JSON.stringify( field ) ), key: newFieldKey() };
+	const copy = {
+		...JSON.parse( JSON.stringify( field ) ),
+		key: newFieldKey(),
+	};
 	const map = {};
 	const rekeyList = ( list ) => {
 		const fresh = ( list || [] ).map( ( item ) => {
@@ -56,14 +66,23 @@ export function copyField( field ) {
 		} );
 		return fresh.map( ( item ) => ( {
 			...item,
-			conditions: ( item.conditions || [] ).map( ( set ) => set.map( ( rule ) => ( { ...rule, field: map[ rule.field ] || rule.field } ) ) ),
+			conditions: ( item.conditions || [] ).map( ( set ) =>
+				set.map( ( rule ) => ( {
+					...rule,
+					field: map[ rule.field ] || rule.field,
+				} ) )
+			),
 		} ) );
 	};
 	if ( copy.fields ) {
 		copy.fields = rekeyList( copy.fields );
 	}
 	if ( copy.layouts ) {
-		copy.layouts = copy.layouts.map( ( layout ) => ( { ...layout, key: newLayoutKey(), fields: rekeyList( layout.fields ) } ) );
+		copy.layouts = copy.layouts.map( ( layout ) => ( {
+			...layout,
+			key: newLayoutKey(),
+			fields: rekeyList( layout.fields ),
+		} ) );
 	}
 	return copy;
 }
@@ -75,14 +94,26 @@ const move = ( list, from, to ) => {
 	return next;
 };
 
-export default function FieldList( { fields, setFields, expanded, setExpanded, errorKey, listId = '', depth = 0, prefixLength = 0, emptyText } ) {
+export default function FieldList( {
+	fields,
+	setFields,
+	expanded,
+	setExpanded,
+	errorKey,
+	listId = '',
+	depth = 0,
+	prefixLength = 0,
+	emptyText,
+} ) {
 	const builder = useBuilder();
 	const [ focusKey, setFocusKey ] = useState( '' );
 	const [ over, setOver ] = useState( null );
 
 	useEffect( () => {
 		if ( focusKey ) {
-			document.getElementById( `cfmb-field-label-${ focusKey }` )?.focus();
+			document
+				.getElementById( `cfmb-field-label-${ focusKey }` )
+				?.focus();
 			setFocusKey( '' );
 		}
 	}, [ focusKey ] );
@@ -107,7 +138,16 @@ export default function FieldList( { fields, setFields, expanded, setExpanded, e
 
 	const updateField = ( key ) => ( patch ) =>
 		setFields( ( current ) =>
-			current.map( ( field ) => ( field.key === key ? { ...field, ...( typeof patch === 'function' ? patch( field ) : patch ) } : field ) )
+			current.map( ( field ) =>
+				field.key === key
+					? {
+							...field,
+							...( typeof patch === 'function'
+								? patch( field )
+								: patch ),
+					  }
+					: field
+			)
 		);
 
 	const moveField = ( index, step ) => {
@@ -120,7 +160,8 @@ export default function FieldList( { fields, setFields, expanded, setExpanded, e
 			sprintf(
 				/* translators: 1: field label, 2: new position */
 				__( '%1$s moved to position %2$d.', 'custom-fields-meta-box' ),
-				fields[ index ].label || __( '(no label)', 'custom-fields-meta-box' ),
+				fields[ index ].label ||
+					__( '(no label)', 'custom-fields-meta-box' ),
 				target + 1
 			)
 		);
@@ -131,11 +172,18 @@ export default function FieldList( { fields, setFields, expanded, setExpanded, e
 		const copy = {
 			...copyField( source ),
 			/* translators: %s: field label */
-			label: source.label ? sprintf( __( '%s (copy)', 'custom-fields-meta-box' ), source.label ) : '',
+			label: source.label
+				? sprintf(
+						__( '%s (copy)', 'custom-fields-meta-box' ),
+						source.label
+				  )
+				: '',
 			name: source.name ? `${ source.name }_copy` : '',
 		};
 		setFields( ( current ) => {
-			const at = current.findIndex( ( field ) => field.key === source.key );
+			const at = current.findIndex(
+				( field ) => field.key === source.key
+			);
 			const next = [ ...current ];
 			next.splice( at + 1, 0, copy );
 			return next;
@@ -146,20 +194,36 @@ export default function FieldList( { fields, setFields, expanded, setExpanded, e
 
 	const remove = ( index ) => {
 		const removed = fields[ index ];
-		setFields( ( current ) => current.filter( ( field ) => field.key !== removed.key ) );
+		setFields( ( current ) =>
+			current.filter( ( field ) => field.key !== removed.key )
+		);
 		snackbar(
 			/* translators: %s: field label */
-			sprintf( __( '"%s" removed. Save to make it final.', 'custom-fields-meta-box' ), removed.label || __( '(no label)', 'custom-fields-meta-box' ) ),
+			sprintf(
+				__(
+					'"%s" removed. Save to make it final.',
+					'custom-fields-meta-box'
+				),
+				removed.label || __( '(no label)', 'custom-fields-meta-box' )
+			),
 			[
 				{
 					label: __( 'Undo', 'custom-fields-meta-box' ),
 					onClick: () =>
 						setFields( ( current ) => {
-							if ( current.some( ( field ) => field.key === removed.key ) ) {
+							if (
+								current.some(
+									( field ) => field.key === removed.key
+								)
+							) {
 								return current;
 							}
 							const next = [ ...current ];
-							next.splice( Math.min( index, next.length ), 0, removed );
+							next.splice(
+								Math.min( index, next.length ),
+								0,
+								removed
+							);
 							return next;
 						} ),
 				},
@@ -198,7 +262,11 @@ export default function FieldList( { fields, setFields, expanded, setExpanded, e
 				if ( row ) {
 					event.dataTransfer.setDragImage( row, 20, 20 );
 				}
-				builder.dragRef.current = { key: fields[ index ].key, listId, index };
+				builder.dragRef.current = {
+					key: fields[ index ].key,
+					listId,
+					index,
+				};
 				setOver( { index, after: false } );
 			},
 			onDragEnd: () => {
@@ -209,7 +277,11 @@ export default function FieldList( { fields, setFields, expanded, setExpanded, e
 		row: {
 			onDragOver: ( event ) => {
 				// Rows of inner lists handle their own drops.
-				if ( ! builder.dragRef.current || event.target.closest( '.cfmb-field-list' ) !== event.currentTarget.closest( '.cfmb-field-list' ) ) {
+				if (
+					! builder.dragRef.current ||
+					event.target.closest( '.cfmb-field-list' ) !==
+						event.currentTarget.closest( '.cfmb-field-list' )
+				) {
 					return;
 				}
 				event.preventDefault();
@@ -222,24 +294,36 @@ export default function FieldList( { fields, setFields, expanded, setExpanded, e
 			},
 			onDragLeave: ( event ) => {
 				if ( ! event.currentTarget.contains( event.relatedTarget ) ) {
-					setOver( ( current ) => ( current?.index === index ? null : current ) );
+					setOver( ( current ) =>
+						current?.index === index ? null : current
+					);
 				}
 			},
 			onDrop: ( event ) => {
-				if ( ! builder.dragRef.current || event.target.closest( '.cfmb-field-list' ) !== event.currentTarget.closest( '.cfmb-field-list' ) ) {
+				if (
+					! builder.dragRef.current ||
+					event.target.closest( '.cfmb-field-list' ) !==
+						event.currentTarget.closest( '.cfmb-field-list' )
+				) {
 					return;
 				}
 				event.preventDefault();
 				event.stopPropagation();
 				const box = event.currentTarget.getBoundingClientRect();
-				dropAt( event.clientY > box.top + box.height / 2 ? index + 1 : index );
+				dropAt(
+					event.clientY > box.top + box.height / 2 ? index + 1 : index
+				);
 			},
 		},
 	} );
 
 	const dragStateFor = ( index ) => {
 		const dragging = builder.dragRef.current;
-		if ( dragging && dragging.listId === listId && dragging.index === index ) {
+		if (
+			dragging &&
+			dragging.listId === listId &&
+			dragging.index === index
+		) {
 			return 'dragging';
 		}
 		if ( over?.index === index ) {
@@ -249,10 +333,16 @@ export default function FieldList( { fields, setFields, expanded, setExpanded, e
 	};
 
 	return (
-		<div className={ `cfmb-field-list${ depth > 0 ? ' cfmb-field-list--nested' : '' }` }>
+		<div
+			className={ `cfmb-field-list${
+				depth > 0 ? ' cfmb-field-list--nested' : ''
+			}` }
+		>
 			{ fields.length === 0 ? (
 				<div
-					className={ `cfmb-field-list__empty${ over ? ' is-drop-target' : '' }` }
+					className={ `cfmb-field-list__empty${
+						over ? ' is-drop-target' : ''
+					}` }
 					onDragOver={ ( event ) => {
 						if ( builder.dragRef.current ) {
 							event.preventDefault();
@@ -267,7 +357,13 @@ export default function FieldList( { fields, setFields, expanded, setExpanded, e
 						dropAt( 0 );
 					} }
 				>
-					<p>{ emptyText || __( 'No fields yet. Add the first one, like "Subtitle" or "Price".', 'custom-fields-meta-box' ) }</p>
+					<p>
+						{ emptyText ||
+							__(
+								'No fields yet. Add the first one, like "Subtitle" or "Price".',
+								'custom-fields-meta-box'
+							) }
+					</p>
 				</div>
 			) : (
 				<ol className="cfmb-field-list__items">
@@ -298,8 +394,14 @@ export default function FieldList( { fields, setFields, expanded, setExpanded, e
 				</ol>
 			) }
 			<div className="cfmb-field-list__add">
-				<Button variant={ depth > 0 ? 'tertiary' : 'secondary' } icon={ uiIcon( 'plus-alt2' ) } onClick={ add }>
-					{ depth > 0 ? __( 'Add sub-field', 'custom-fields-meta-box' ) : __( 'Add field', 'custom-fields-meta-box' ) }
+				<Button
+					variant={ depth > 0 ? 'tertiary' : 'secondary' }
+					icon={ uiIcon( 'plus-alt2' ) }
+					onClick={ add }
+				>
+					{ depth > 0
+						? __( 'Add sub-field', 'custom-fields-meta-box' )
+						: __( 'Add field', 'custom-fields-meta-box' ) }
 				</Button>
 			</div>
 		</div>

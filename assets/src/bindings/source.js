@@ -8,7 +8,8 @@
  * @param {string} object Object argument.
  * @return {boolean} Current post.
  */
-export const isCurrentObject = ( object ) => ! object || object === 'post' || object === 'current';
+export const isCurrentObject = ( object ) =>
+	! object || object === 'post' || object === 'current';
 
 /**
  * The part of a field value an attribute takes, matching the server's Source::pick().
@@ -47,11 +48,13 @@ export function pick( parts, attribute ) {
  * @return {Array<{label: string, type: string, args: Object}>} Fields.
  */
 export function fieldList( config, postType ) {
-	const list = ( ( config.postTypes || {} )[ postType ] || [] ).map( ( field ) => ( {
-		label: field.label,
-		type: 'string',
-		args: { field: field.name },
-	} ) );
+	const list = ( ( config.postTypes || {} )[ postType ] || [] ).map(
+		( field ) => ( {
+			label: field.label,
+			type: 'string',
+			args: { field: field.name },
+		} )
+	);
 
 	( config.options || [] ).forEach( ( page ) => {
 		( page.fields || [] ).forEach( ( field ) => {

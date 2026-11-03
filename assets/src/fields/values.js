@@ -10,12 +10,17 @@
  * from, and _unloaded marks rows of a paged field that were never fetched.
  */
 
-export const STRUCTURES = { group: 'group', repeater: 'rows', stacks: 'stacks' };
+export const STRUCTURES = {
+	group: 'group',
+	repeater: 'rows',
+	stacks: 'stacks',
+};
 
 const LAYOUT_ONLY = new Set( [ 'tab', 'message', 'accordion', 'preset' ] );
 
 let uidCounter = 0;
-export const newUid = () => `r${ Date.now().toString( 36 ) }${ ( uidCounter++ ).toString( 36 ) }`;
+export const newUid = () =>
+	`r${ Date.now().toString( 36 ) }${ ( uidCounter++ ).toString( 36 ) }`;
 
 export const storesValue = ( field ) => ! LAYOUT_ONLY.has( field.type );
 
@@ -30,7 +35,10 @@ export const structureOf = ( field ) => STRUCTURES[ field.type ] || '';
  */
 export function rowFields( field, layout = '' ) {
 	if ( field.type === 'stacks' ) {
-		return ( field.layouts || [] ).find( ( item ) => item.name === layout )?.fields || [];
+		return (
+			( field.layouts || [] ).find( ( item ) => item.name === layout )
+				?.fields || []
+		);
 	}
 	return field.fields || [];
 }
@@ -67,7 +75,11 @@ export function prepare( field, value ) {
 	}
 
 	if ( structure === 'group' ) {
-		const set = { ...( value && typeof value === 'object' && ! Array.isArray( value ) ? value : {} ) };
+		const set = {
+			...( value && typeof value === 'object' && ! Array.isArray( value )
+				? value
+				: {} ),
+		};
 		( field.fields || [] ).forEach( ( sub ) => {
 			if ( structureOf( sub ) ) {
 				set[ sub.key ] = prepare( sub, set[ sub.key ] );
@@ -77,13 +89,20 @@ export function prepare( field, value ) {
 	}
 
 	if ( value && value.paged ) {
-		const loaded = new Map( ( value.rows || [] ).map( ( row ) => [ row._from, row ] ) );
+		const loaded = new Map(
+			( value.rows || [] ).map( ( row ) => [ row._from, row ] )
+		);
 		const rows = [];
 		for ( let index = 0; index < ( value.total || 0 ); index++ ) {
 			rows.push(
 				loaded.has( index )
 					? prepareRow( field, loaded.get( index ) )
-					: { _uid: newUid(), _from: index, _layout: value.layouts?.[ index ], _unloaded: true }
+					: {
+							_uid: newUid(),
+							_from: index,
+							_layout: value.layouts?.[ index ],
+							_unloaded: true,
+					  }
 			);
 		}
 		return { paged: true, perPage: value.perPage || 20, rows };
@@ -93,7 +112,13 @@ export function prepare( field, value ) {
 		return value;
 	}
 
-	return { paged: false, perPage: 0, rows: ( Array.isArray( value ) ? value : [] ).map( ( row ) => prepareRow( field, row ) ) };
+	return {
+		paged: false,
+		perPage: 0,
+		rows: ( Array.isArray( value ) ? value : [] ).map( ( row ) =>
+			prepareRow( field, row )
+		),
+	};
 }
 
 /**
@@ -179,7 +204,11 @@ export function emptyValue( field ) {
 		case 'user':
 			return settings.multiple ? [] : null;
 		case 'taxonomy':
-			return [ 'checkbox', 'multi_select' ].includes( settings.appearance || 'checkbox' ) ? [] : null;
+			return [ 'checkbox', 'multi_select' ].includes(
+				settings.appearance || 'checkbox'
+			)
+				? []
+				: null;
 		case 'link':
 			return { url: '', title: '', target: '' };
 		case 'map':
@@ -224,7 +253,13 @@ function cloneValue( field, value ) {
 		} );
 		return set;
 	}
-	return { paged: false, perPage: 0, rows: ( value?.rows || [] ).filter( ( row ) => ! row._unloaded ).map( ( row ) => cloneRow( field, row ) ) };
+	return {
+		paged: false,
+		perPage: 0,
+		rows: ( value?.rows || [] )
+			.filter( ( row ) => ! row._unloaded )
+			.map( ( row ) => cloneRow( field, row ) ),
+	};
 }
 
 const idOf = ( item ) => ( item && typeof item === 'object' ? item.id : item );
@@ -288,7 +323,9 @@ export function serialize( field, value ) {
 			}
 			return value ? idOf( value ) : '';
 		case 'icon':
-			return value && typeof value === 'object' ? value.value : value ?? '';
+			return value && typeof value === 'object'
+				? value.value
+				: value ?? '';
 		default:
 			return value;
 	}
@@ -326,11 +363,24 @@ export function fieldSignature( field ) {
 				item.push( shape( sub.fields ) );
 			}
 			if ( sub.layouts ) {
-				item.push( ( sub.layouts || [] ).map( ( layout ) => [ layout.name, shape( layout.fields ) ] ) );
+				item.push(
+					( sub.layouts || [] ).map( ( layout ) => [
+						layout.name,
+						shape( layout.fields ),
+					] )
+				);
 			}
 			return item;
 		} );
-	return JSON.stringify( [ field.type, field.type === 'stacks' ? ( field.layouts || [] ).map( ( layout ) => [ layout.name, shape( layout.fields ) ] ) : shape( field.fields ) ] );
+	return JSON.stringify( [
+		field.type,
+		field.type === 'stacks'
+			? ( field.layouts || [] ).map( ( layout ) => [
+					layout.name,
+					shape( layout.fields ),
+			  ] )
+			: shape( field.fields ),
+	] );
 }
 
 function remapValue( from, to, value ) {
@@ -339,7 +389,13 @@ function remapValue( from, to, value ) {
 		return remapSet( from.fields || [], to.fields || [], value || {} );
 	}
 	if ( structure ) {
-		return { paged: false, perPage: 0, rows: ( value?.rows || [] ).map( ( row ) => remapRow( from, to, row ) ) };
+		return {
+			paged: false,
+			perPage: 0,
+			rows: ( value?.rows || [] ).map( ( row ) =>
+				remapRow( from, to, row )
+			),
+		};
 	}
 	return value;
 }
@@ -348,7 +404,9 @@ function remapSet( fromFields, toFields, values ) {
 	const out = {};
 	toFields.filter( storesValue ).forEach( ( sub ) => {
 		const source = fromFields.find( ( item ) => item.name === sub.name );
-		out[ sub.key ] = source ? remapValue( source, sub, values[ source.key ] ) : emptyValue( sub );
+		out[ sub.key ] = source
+			? remapValue( source, sub, values[ source.key ] )
+			: emptyValue( sub );
 	} );
 	return out;
 }
@@ -362,7 +420,14 @@ function remapSet( fromFields, toFields, values ) {
  * @return {Object} Row for the target field, with a fresh local id.
  */
 export function remapRow( from, to, row ) {
-	const next = { _uid: newUid(), ...remapSet( rowFields( from, row._layout ), rowFields( to, row._layout ), row ) };
+	const next = {
+		_uid: newUid(),
+		...remapSet(
+			rowFields( from, row._layout ),
+			rowFields( to, row._layout ),
+			row
+		),
+	};
 	if ( to.type === 'stacks' ) {
 		next._layout = row._layout;
 	}

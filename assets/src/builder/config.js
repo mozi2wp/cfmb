@@ -17,8 +17,12 @@ const config = {
 
 export default config;
 
-export const typesByName = Object.fromEntries( config.fieldTypes.map( ( type ) => [ type.name, type ] ) );
-export const rulesByParam = Object.fromEntries( config.locationRules.map( ( rule ) => [ rule.param, rule ] ) );
+export const typesByName = Object.fromEntries(
+	config.fieldTypes.map( ( type ) => [ type.name, type ] )
+);
+export const rulesByParam = Object.fromEntries(
+	config.locationRules.map( ( rule ) => [ rule.param, rule ] )
+);
 
 /**
  * Default settings for a type, from its settings schema.
@@ -47,5 +51,8 @@ export function storesValue( typeName ) {
  * @return {boolean} Has a name.
  */
 export function hasName( field ) {
-	return storesValue( field.type ) || ( field.type === 'preset' && field.settings?.naming === 'prefixed' );
+	return (
+		storesValue( field.type ) ||
+		( field.type === 'preset' && field.settings?.naming === 'prefixed' )
+	);
 }

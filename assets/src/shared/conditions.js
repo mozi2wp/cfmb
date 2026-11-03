@@ -5,7 +5,15 @@
  * field hidden in the browser is also treated as hidden on save.
  */
 
-export const OPERATORS = [ '==', '!=', 'empty', 'not_empty', 'contains', '>', '<' ];
+export const OPERATORS = [
+	'==',
+	'!=',
+	'empty',
+	'not_empty',
+	'contains',
+	'>',
+	'<',
+];
 
 const isEmptyValue = ( value ) =>
 	value === null ||
@@ -25,7 +33,9 @@ const asText = ( value ) => {
 
 const isNumeric = ( value ) =>
 	( typeof value === 'number' && Number.isFinite( value ) ) ||
-	( typeof value === 'string' && value.trim() !== '' && Number.isFinite( Number( value ) ) );
+	( typeof value === 'string' &&
+		value.trim() !== '' &&
+		Number.isFinite( Number( value ) ) );
 
 const equals = ( actual, expected ) => {
 	if ( Array.isArray( actual ) ) {
@@ -93,7 +103,11 @@ export function isVisible( field, values ) {
 		( rules ) =>
 			Array.isArray( rules ) &&
 			rules.every( ( rule ) =>
-				compare( comparable( values[ rule.field ] ), rule.operator, rule.value )
+				compare(
+					comparable( values[ rule.field ] ),
+					rule.operator,
+					rule.value
+				)
 			)
 	);
 }
@@ -118,7 +132,11 @@ function comparable( value ) {
 		}
 	}
 	if ( Array.isArray( value ) ) {
-		return value.map( ( item ) => ( item && typeof item === 'object' && 'id' in item ? String( item.id ) : item ) );
+		return value.map( ( item ) =>
+			item && typeof item === 'object' && 'id' in item
+				? String( item.id )
+				: item
+		);
 	}
 	return value;
 }

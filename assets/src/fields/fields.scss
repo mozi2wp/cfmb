@@ -215,7 +215,9 @@
 		margin-inline-start: -1px;
 		min-height: 32px;
 		padding: 4px 12px;
-		transition: background-color var(--cfmb-duration) var(--cfmb-ease-out), color var(--cfmb-duration) var(--cfmb-ease-out);
+		transition:
+			background-color var(--cfmb-duration) var(--cfmb-ease-out),
+			color var(--cfmb-duration) var(--cfmb-ease-out);
 
 		&:first-child {
 			margin-inline-start: 0;
@@ -344,7 +346,9 @@
 		font-weight: 500;
 		margin-bottom: -1px;
 		padding: 10px 14px;
-		transition: color var(--cfmb-duration) var(--cfmb-ease-out), border-color var(--cfmb-duration) var(--cfmb-ease-out);
+		transition:
+			color var(--cfmb-duration) var(--cfmb-ease-out),
+			border-color var(--cfmb-duration) var(--cfmb-ease-out);
 
 		&:hover {
 			color: var(--cfmb-text);
@@ -799,8 +803,14 @@ tr.cfmb-term-group > td {
 		border: 1px solid var(--cfmb-border);
 		border-radius: 50%;
 		background-color: var(--cfmb-swatch);
-		background-image: linear-gradient(var(--cfmb-swatch), var(--cfmb-swatch)), repeating-conic-gradient(#ddd 0 25%, #fff 0 50%);
-		background-size: auto, 10px 10px;
+		background-image: linear-gradient(
+				var(--cfmb-swatch),
+				var(--cfmb-swatch)
+			),
+			repeating-conic-gradient(#ddd 0 25%, #fff 0 50%);
+		background-size:
+			auto,
+			10px 10px;
 		cursor: pointer;
 
 		&:focus-visible {

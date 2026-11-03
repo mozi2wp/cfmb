@@ -44,7 +44,9 @@ const registry = {
 	},
 	invalid( enforceRequired ) {
 		return Array.from( groups.values() ).flatMap( ( group ) =>
-			group.invalid( enforceRequired ).map( ( item ) => ( { ...item, group: group.title } ) )
+			group
+				.invalid( enforceRequired )
+				.map( ( item ) => ( { ...item, group: group.title } ) )
 		);
 	},
 	reveal( enforceRequired ) {
@@ -55,12 +57,22 @@ const registry = {
 function focusFirstInvalid( invalid ) {
 	// Let the reveal render first so the error, its tab and its row are visible.
 	window.setTimeout( () => {
-		const node = document.querySelector( `[data-cfmb-path="${ invalid[ 0 ].path }"]` );
+		const node = document.querySelector(
+			`[data-cfmb-path="${ invalid[ 0 ].path }"]`
+		);
 		if ( ! node ) {
 			return;
 		}
-		node.scrollIntoView( { block: 'center', behavior: window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches ? 'auto' : 'smooth' } );
-		node.querySelector( 'input, select, textarea, button' )?.focus( { preventScroll: true } );
+		node.scrollIntoView( {
+			block: 'center',
+			behavior: window.matchMedia( '(prefers-reduced-motion: reduce)' )
+				.matches
+				? 'auto'
+				: 'smooth',
+		} );
+		node.querySelector( 'input, select, textarea, button' )?.focus( {
+			preventScroll: true,
+		} );
 	}, 120 );
 }
 
@@ -68,7 +80,10 @@ function announce( invalid ) {
 	speak(
 		sprintf(
 			/* translators: %s: field label */
-			__( 'Some fields need attention, starting with "%s".', 'custom-fields-meta-box' ),
+			__(
+				'Some fields need attention, starting with "%s".',
+				'custom-fields-meta-box'
+			),
 			invalid[ 0 ].field.label || invalid[ 0 ].group
 		),
 		'assertive'
@@ -85,7 +100,10 @@ function announce( invalid ) {
  */
 function enforceForForm( form, submitter ) {
 	// The comment edit form is also #post, but has no post status.
-	if ( form.id !== 'post' || ! form.querySelector( '#original_post_status' ) ) {
+	if (
+		form.id !== 'post' ||
+		! form.querySelector( '#original_post_status' )
+	) {
 		return true;
 	}
 	const original = form.querySelector( '#original_post_status' )?.value;
@@ -93,8 +111,14 @@ function enforceForForm( form, submitter ) {
 }
 
 function resetClassicButtons() {
-	document.querySelectorAll( '#submitpost .disabled, #submitpost .button.disabled' ).forEach( ( node ) => node.classList.remove( 'disabled' ) );
-	document.querySelectorAll( '#submitpost .spinner.is-active' ).forEach( ( node ) => node.classList.remove( 'is-active' ) );
+	document
+		.querySelectorAll(
+			'#submitpost .disabled, #submitpost .button.disabled'
+		)
+		.forEach( ( node ) => node.classList.remove( 'disabled' ) );
+	document
+		.querySelectorAll( '#submitpost .spinner.is-active' )
+		.forEach( ( node ) => node.classList.remove( 'is-active' ) );
 }
 
 function guardForm( form ) {
@@ -117,17 +141,28 @@ function guardForm( form ) {
 		window.setTimeout( resetClassicButtons, 0 );
 	};
 
-	form.addEventListener( 'submit', ( event ) => check( event, event.submitter ), true );
+	form.addEventListener(
+		'submit',
+		( event ) => check( event, event.submitter ),
+		true
+	);
 
 	// The add-term form saves over AJAX from a click handler and never submits.
 	if ( form.id === 'addtag' ) {
-		form.querySelector( '#submit' )?.addEventListener( 'click', ( event ) => check( event, event.currentTarget ), true );
+		form.querySelector( '#submit' )?.addEventListener(
+			'click',
+			( event ) => check( event, event.currentTarget ),
+			true
+		);
 	}
 }
 
 function watchBlockEditor() {
 	const { data } = window.wp || {};
-	if ( ! document.body.classList.contains( 'block-editor-page' ) || ! data?.select( 'core/editor' ) ) {
+	if (
+		! document.body.classList.contains( 'block-editor-page' ) ||
+		! data?.select( 'core/editor' )
+	) {
 		return false;
 	}
 
@@ -137,7 +172,8 @@ function watchBlockEditor() {
 		const editor = data.select( 'core/editor' );
 		const status = editor.getEditedPostAttribute( 'status' );
 		const publishPanel =
-			editor.isPublishSidebarOpened?.() || data.select( 'core/edit-post' )?.isPublishSidebarOpened?.();
+			editor.isPublishSidebarOpened?.() ||
+			data.select( 'core/edit-post' )?.isPublishSidebarOpened?.();
 		const goingLive = LIVE_STATUSES.includes( status ) || publishPanel;
 		const invalid = goingLive ? registry.invalid( true ) : [];
 
@@ -145,13 +181,19 @@ function watchBlockEditor() {
 			locked = true;
 			data.dispatch( 'core/editor' ).lockPostSaving( 'cfmb' );
 			data.dispatch( 'core/notices' ).createWarningNotice(
-				__( 'Some fields need attention before this can be published.', 'custom-fields-meta-box' ),
+				__(
+					'Some fields need attention before this can be published.',
+					'custom-fields-meta-box'
+				),
 				{
 					id: NOTICE_ID,
 					isDismissible: false,
 					actions: [
 						{
-							label: __( 'Show fields', 'custom-fields-meta-box' ),
+							label: __(
+								'Show fields',
+								'custom-fields-meta-box'
+							),
 							onClick: () => {
 								const current = registry.invalid( true );
 								registry.reveal( true );
@@ -210,14 +252,22 @@ function syncBindings( data ) {
 	}
 
 	const objectRef = `post_${ postId }`;
-	const edited = core.getEditedEntityRecord( 'postType', postType, postId )?.cfmb_bindings || bindable;
-	const canvasEdits = core.getEntityRecordEdits?.( 'postType', postType, postId )?.cfmb_bindings;
+	const edited =
+		core.getEditedEntityRecord( 'postType', postType, postId )
+			?.cfmb_bindings || bindable;
+	const canvasEdits = core.getEntityRecordEdits?.(
+		'postType',
+		postType,
+		postId
+	)?.cfmb_bindings;
 
 	if ( canvasEdits && canvasEdits !== lastBindingEdits ) {
 		lastBindingEdits = canvasEdits;
 		groups.forEach( ( group ) => {
 			if ( group.objectRef === objectRef ) {
-				Object.entries( canvasEdits ).forEach( ( [ name, value ] ) => group.setByName?.( name, value ) );
+				Object.entries( canvasEdits ).forEach( ( [ name, value ] ) =>
+					group.setByName?.( name, value )
+				);
 			}
 		} );
 		return;
@@ -230,7 +280,10 @@ function syncBindings( data ) {
 		}
 		Object.keys( bindable ).forEach( ( name ) => {
 			const current = group.valueByName( name );
-			if ( current.found && String( current.value ?? '' ) !== String( edited[ name ] ?? '' ) ) {
+			if (
+				current.found &&
+				String( current.value ?? '' ) !== String( edited[ name ] ?? '' )
+			) {
 				changes[ name ] = current.value ?? '';
 			}
 		} );
@@ -238,7 +291,12 @@ function syncBindings( data ) {
 
 	if ( Object.keys( changes ).length ) {
 		lastBindingEdits = { ...edited, ...changes };
-		data.dispatch( 'core' ).editEntityRecord( 'postType', postType, postId, { cfmb_bindings: lastBindingEdits } );
+		data.dispatch( 'core' ).editEntityRecord(
+			'postType',
+			postType,
+			postId,
+			{ cfmb_bindings: lastBindingEdits }
+		);
 	}
 }
 
@@ -288,12 +346,16 @@ function mountWhenPlaced( containers ) {
 		tries++;
 		containers.forEach( ( container ) => {
 			// Meta boxes start in a hidden #metaboxes holder and are moved out of it.
-			const placed = container.closest( '.edit-post-meta-boxes-area' ) || ! container.closest( '#metaboxes' );
+			const placed =
+				container.closest( '.edit-post-meta-boxes-area' ) ||
+				! container.closest( '#metaboxes' );
 			if ( placed || tries > 100 ) {
 				mount( container );
 			}
 		} );
-		if ( containers.every( ( container ) => container.dataset.cfmbMounted ) ) {
+		if (
+			containers.every( ( container ) => container.dataset.cfmbMounted )
+		) {
 			window.clearInterval( timer );
 		}
 	}, 100 );
@@ -315,7 +377,11 @@ function watchForNewGroups() {
 		queued = true;
 		window.requestAnimationFrame( () => {
 			queued = false;
-			document.querySelectorAll( '.cfmb-group[data-cfmb-group]:not([data-cfmb-mounted])' ).forEach( mount );
+			document
+				.querySelectorAll(
+					'.cfmb-group[data-cfmb-group]:not([data-cfmb-mounted])'
+				)
+				.forEach( mount );
 		} );
 	} );
 
@@ -328,17 +394,27 @@ function watchForNewGroups() {
  * subscribe() returns a function that stops listening.
  */
 window.cfmb.forms = {
-	list: () => Array.from( groups.values() ).map( ( group ) => group.snapshot?.() ).filter( Boolean ),
+	list: () =>
+		Array.from( groups.values() )
+			.map( ( group ) => group.snapshot?.() )
+			.filter( Boolean ),
 	subscribe( listener ) {
 		listeners.add( listener );
 		return () => listeners.delete( listener );
 	},
 };
 
-window.cfmb.mountGroups = ( root = document ) => root.querySelectorAll( '.cfmb-group[data-cfmb-group]:not([data-cfmb-mounted])' ).forEach( mount );
+window.cfmb.mountGroups = ( root = document ) =>
+	root
+		.querySelectorAll(
+			'.cfmb-group[data-cfmb-group]:not([data-cfmb-mounted])'
+		)
+		.forEach( mount );
 
 domReady( () => {
-	const containers = Array.from( document.querySelectorAll( '.cfmb-group[data-cfmb-group]' ) );
+	const containers = Array.from(
+		document.querySelectorAll( '.cfmb-group[data-cfmb-group]' )
+	);
 
 	if ( watchBlockEditor() ) {
 		if ( containers.length ) {

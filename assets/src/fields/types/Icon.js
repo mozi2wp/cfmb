@@ -15,9 +15,20 @@ export function IconPreview( { preview } ) {
 	}
 	if ( preview.kind === 'svg' ) {
 		// SVG markup comes from CFMB's bundled icon file, served by our own REST route.
-		return <span className="cfmb-icon-preview" aria-hidden="true" dangerouslySetInnerHTML={ { __html: preview.src } } />;
+		return (
+			<span
+				className="cfmb-icon-preview"
+				aria-hidden="true"
+				dangerouslySetInnerHTML={ { __html: preview.src } }
+			/>
+		);
 	}
-	return <span className={ `cfmb-icon-preview ${ preview.src }` } aria-hidden="true" />;
+	return (
+		<span
+			className={ `cfmb-icon-preview ${ preview.src }` }
+			aria-hidden="true"
+		/>
+	);
 }
 
 // Large libraries such as Font Awesome have thousands of icons; draw them a page at a time.
@@ -32,12 +43,25 @@ function LibraryGrid( { library, current, onPick } ) {
 	useEffect( () => {
 		loadIcons( library )
 			.then( setIcons )
-			.catch( ( failure ) => setError( failure.message || __( 'Icons could not be loaded.', 'custom-fields-meta-box' ) ) );
+			.catch( ( failure ) =>
+				setError(
+					failure.message ||
+						__(
+							'Icons could not be loaded.',
+							'custom-fields-meta-box'
+						)
+				)
+			);
 	}, [ library ] );
 
 	const shown = useMemo( () => {
 		const text = query.trim().toLowerCase();
-		return ( icons || [] ).filter( ( icon ) => ! text || icon.name.includes( text ) || ( icon.label || '' ).toLowerCase().includes( text ) );
+		return ( icons || [] ).filter(
+			( icon ) =>
+				! text ||
+				icon.name.includes( text ) ||
+				( icon.label || '' ).toLowerCase().includes( text )
+		);
 	}, [ icons, query ] );
 
 	if ( error ) {
@@ -72,24 +96,34 @@ function LibraryGrid( { library, current, onPick } ) {
 			<div className="cfmb-icon-picker__grid">
 				{ shown.slice( 0, limit ).map( ( icon ) => {
 					const value = `${ library }:${ icon.name }`;
-					const preview = icon.svg ? { kind: 'svg', src: icon.svg } : { kind: 'class', src: icon.class };
+					const preview = icon.svg
+						? { kind: 'svg', src: icon.svg }
+						: { kind: 'class', src: icon.class };
 					return (
 						<button
 							key={ icon.name }
 							type="button"
-							className={ `cfmb-icon-picker__icon${ current === value ? ' is-selected' : '' }` }
+							className={ `cfmb-icon-picker__icon${
+								current === value ? ' is-selected' : ''
+							}` }
 							aria-pressed={ current === value }
 							title={ icon.label }
 							onClick={ () => onPick( { value, preview } ) }
 						>
 							<IconPreview preview={ preview } />
-							<span className="screen-reader-text">{ icon.label }</span>
+							<span className="screen-reader-text">
+								{ icon.label }
+							</span>
 						</button>
 					);
 				} ) }
 			</div>
 			{ shown.length > limit && (
-				<Button variant="secondary" className="cfmb-icon-picker__more" onClick={ () => setLimit( limit + PAGE ) }>
+				<Button
+					variant="secondary"
+					className="cfmb-icon-picker__more"
+					onClick={ () => setLimit( limit + PAGE ) }
+				>
 					{ __( 'Show more icons', 'custom-fields-meta-box' ) }
 				</Button>
 			) }
@@ -105,13 +139,29 @@ function UrlTab( { onPick } ) {
 			onSubmit={ ( event ) => {
 				event.preventDefault();
 				if ( /^https?:\/\//.test( url.trim() ) ) {
-					onPick( { value: `url:${ url.trim() }`, preview: { kind: 'img', src: url.trim() } } );
+					onPick( {
+						value: `url:${ url.trim() }`,
+						preview: { kind: 'img', src: url.trim() },
+					} );
 				}
 			} }
 		>
-			<label htmlFor="cfmb-icon-url">{ __( 'Image address', 'custom-fields-meta-box' ) }</label>
-			<input id="cfmb-icon-url" className="cfmb-input" type="url" placeholder="https://" value={ url } onChange={ ( event ) => setUrl( event.target.value ) } />
-			<Button variant="primary" type="submit" disabled={ ! /^https?:\/\//.test( url.trim() ) }>
+			<label htmlFor="cfmb-icon-url">
+				{ __( 'Image address', 'custom-fields-meta-box' ) }
+			</label>
+			<input
+				id="cfmb-icon-url"
+				className="cfmb-input"
+				type="url"
+				placeholder="https://"
+				value={ url }
+				onChange={ ( event ) => setUrl( event.target.value ) }
+			/>
+			<Button
+				variant="primary"
+				type="submit"
+				disabled={ ! /^https?:\/\//.test( url.trim() ) }
+			>
 				{ __( 'Use this image', 'custom-fields-meta-box' ) }
 			</Button>
 		</form>
@@ -122,7 +172,11 @@ export default function Icon( { field, id, value, onChange, describedBy } ) {
 	const [ open, setOpen ] = useState( false );
 	const buttonRef = useRef();
 	const libraries = window.cfmbFields?.iconLibraries || {};
-	const allowed = Array.isArray( field.settings?.sources ) && field.settings.sources.length ? field.settings.sources : [ ...Object.keys( libraries ), 'media', 'url' ];
+	const allowed =
+		Array.isArray( field.settings?.sources ) &&
+		field.settings.sources.length
+			? field.settings.sources
+			: [ ...Object.keys( libraries ), 'media', 'url' ];
 	const current = value?.value || '';
 
 	const pick = ( next ) => {
@@ -137,20 +191,38 @@ export default function Icon( { field, id, value, onChange, describedBy } ) {
 			return;
 		}
 		setOpen( false );
-		const frame = media( { title: __( 'Choose an icon image', 'custom-fields-meta-box' ), library: { type: 'image' }, multiple: false } );
+		const frame = media( {
+			title: __( 'Choose an icon image', 'custom-fields-meta-box' ),
+			library: { type: 'image' },
+			multiple: false,
+		} );
 		frame.on( 'select', () => {
-			const attachment = frame.state().get( 'selection' ).first().toJSON();
+			const attachment = frame
+				.state()
+				.get( 'selection' )
+				.first()
+				.toJSON();
 			const src = attachment.sizes?.thumbnail?.url || attachment.url;
-			pick( { value: `media:${ attachment.id }`, preview: { kind: 'img', src } } );
+			pick( {
+				value: `media:${ attachment.id }`,
+				preview: { kind: 'img', src },
+			} );
 		} );
 		frame.open();
 	};
 
 	const tabs = allowed
-		.filter( ( source ) => libraries[ source ] || source === 'media' || source === 'url' )
+		.filter(
+			( source ) =>
+				libraries[ source ] || source === 'media' || source === 'url'
+		)
 		.map( ( source ) => ( {
 			name: source,
-			title: libraries[ source ] || ( source === 'media' ? __( 'Media library', 'custom-fields-meta-box' ) : __( 'Image URL', 'custom-fields-meta-box' ) ),
+			title:
+				libraries[ source ] ||
+				( source === 'media'
+					? __( 'Media library', 'custom-fields-meta-box' )
+					: __( 'Image URL', 'custom-fields-meta-box' ) ),
 		} ) );
 
 	return (
@@ -160,23 +232,56 @@ export default function Icon( { field, id, value, onChange, describedBy } ) {
 					<IconPreview preview={ value.preview } />
 				</span>
 			) }
-			<Button id={ id } ref={ buttonRef } variant="secondary" onClick={ () => setOpen( true ) }>
-				{ value ? __( 'Change icon', 'custom-fields-meta-box' ) : __( 'Choose icon', 'custom-fields-meta-box' ) }
+			<Button
+				id={ id }
+				ref={ buttonRef }
+				variant="secondary"
+				onClick={ () => setOpen( true ) }
+			>
+				{ value
+					? __( 'Change icon', 'custom-fields-meta-box' )
+					: __( 'Choose icon', 'custom-fields-meta-box' ) }
 			</Button>
 			{ value && (
-				<Button variant="tertiary" isDestructive onClick={ () => onChange( null ) }>
+				<Button
+					variant="tertiary"
+					isDestructive
+					onClick={ () => onChange( null ) }
+				>
 					{ __( 'Remove', 'custom-fields-meta-box' ) }
 				</Button>
 			) }
 			{ open && (
-				<Modal title={ __( 'Choose an icon', 'custom-fields-meta-box' ) } onRequestClose={ () => setOpen( false ) } className="cfmb-icon-picker" size="large">
-					<TabPanel tabs={ tabs } initialTabName={ current.split( ':' )[ 0 ] && tabs.some( ( tab ) => tab.name === current.split( ':' )[ 0 ] ) ? current.split( ':' )[ 0 ] : undefined }>
+				<Modal
+					title={ __( 'Choose an icon', 'custom-fields-meta-box' ) }
+					onRequestClose={ () => setOpen( false ) }
+					className="cfmb-icon-picker"
+					size="large"
+				>
+					<TabPanel
+						tabs={ tabs }
+						initialTabName={
+							current.split( ':' )[ 0 ] &&
+							tabs.some(
+								( tab ) =>
+									tab.name === current.split( ':' )[ 0 ]
+							)
+								? current.split( ':' )[ 0 ]
+								: undefined
+						}
+					>
 						{ ( tab ) => {
 							if ( tab.name === 'media' ) {
 								return (
 									<div className="cfmb-icon-picker__media">
-										<Button variant="secondary" onClick={ openMedia }>
-											{ __( 'Open the media library', 'custom-fields-meta-box' ) }
+										<Button
+											variant="secondary"
+											onClick={ openMedia }
+										>
+											{ __(
+												'Open the media library',
+												'custom-fields-meta-box'
+											) }
 										</Button>
 									</div>
 								);
@@ -184,7 +289,13 @@ export default function Icon( { field, id, value, onChange, describedBy } ) {
 							if ( tab.name === 'url' ) {
 								return <UrlTab onPick={ pick } />;
 							}
-							return <LibraryGrid library={ tab.name } current={ current } onPick={ pick } />;
+							return (
+								<LibraryGrid
+									library={ tab.name }
+									current={ current }
+									onPick={ pick }
+								/>
+							);
 						} }
 					</TabPanel>
 				</Modal>

@@ -3,9 +3,12 @@
  */
 import { useEffect, useRef } from '@wordpress/element';
 
-const BASIC_TOOLBAR = 'bold,italic,underline,blockquote,strikethrough,bullist,numlist,alignleft,aligncenter,alignright,undo,redo,link';
-const FULL_TOOLBAR_1 = 'formatselect,bold,italic,bullist,numlist,blockquote,alignleft,aligncenter,alignright,link,wp_more,spellchecker,fullscreen,wp_adv';
-const FULL_TOOLBAR_2 = 'strikethrough,hr,forecolor,pastetext,removeformat,charmap,outdent,indent,undo,redo,wp_help';
+const BASIC_TOOLBAR =
+	'bold,italic,underline,blockquote,strikethrough,bullist,numlist,alignleft,aligncenter,alignright,undo,redo,link';
+const FULL_TOOLBAR_1 =
+	'formatselect,bold,italic,bullist,numlist,blockquote,alignleft,aligncenter,alignright,link,wp_more,spellchecker,fullscreen,wp_adv';
+const FULL_TOOLBAR_2 =
+	'strikethrough,hr,forecolor,pastetext,removeformat,charmap,outdent,indent,undo,redo,wp_help';
 
 export default function Wysiwyg( { field, id, value, onChange, describedBy } ) {
 	const settings = field.settings || {};
@@ -29,13 +32,20 @@ export default function Wysiwyg( { field, id, value, onChange, describedBy } ) {
 				? false
 				: {
 						wpautop: true,
-						toolbar1: settings.toolbar === 'basic' ? BASIC_TOOLBAR : FULL_TOOLBAR_1,
-						toolbar2: settings.toolbar === 'basic' ? '' : FULL_TOOLBAR_2,
+						toolbar1:
+							settings.toolbar === 'basic'
+								? BASIC_TOOLBAR
+								: FULL_TOOLBAR_1,
+						toolbar2:
+							settings.toolbar === 'basic' ? '' : FULL_TOOLBAR_2,
 						setup( editor ) {
-							editor.on( 'change keyup input NodeChange SetContent', () => {
-								editor.save();
-								emit();
-							} );
+							editor.on(
+								'change keyup input NodeChange SetContent',
+								() => {
+									editor.save();
+									emit();
+								}
+							);
 						},
 				  };
 

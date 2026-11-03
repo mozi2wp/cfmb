@@ -4,12 +4,20 @@
  * defaults are kept on the field.
  */
 
-const TRANSLATED_TYPES = [ 'text', 'textarea', 'wysiwyg', 'url', 'oembed', 'link' ];
+const TRANSLATED_TYPES = [
+	'text',
+	'textarea',
+	'wysiwyg',
+	'url',
+	'oembed',
+	'link',
+];
 const SEO_TYPES = [ 'text', 'textarea', 'wysiwyg', 'image', 'gallery' ];
 
 export const TRANSLATION_MODES = [ 'translate', 'copy', 'copy_once', 'ignore' ];
 
-export const defaultTranslation = ( type ) => ( TRANSLATED_TYPES.includes( type ) ? 'translate' : 'copy' );
+export const defaultTranslation = ( type ) =>
+	TRANSLATED_TYPES.includes( type ) ? 'translate' : 'copy';
 
 export const defaultSeo = ( type ) => SEO_TYPES.includes( type );
 
@@ -22,8 +30,13 @@ export const defaultSeo = ( type ) => SEO_TYPES.includes( type );
 export function readIntegrations( field ) {
 	const options = field.integrations || {};
 	return {
-		translation: TRANSLATION_MODES.includes( options.translation ) ? options.translation : '',
-		seo: typeof options.seo === 'boolean' ? options.seo : defaultSeo( field.type ),
+		translation: TRANSLATION_MODES.includes( options.translation )
+			? options.translation
+			: '',
+		seo:
+			typeof options.seo === 'boolean'
+				? options.seo
+				: defaultSeo( field.type ),
 		graphql: options.graphql !== false,
 	};
 }

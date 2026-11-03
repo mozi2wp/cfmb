@@ -13,16 +13,26 @@ import SwitchScreen from './switch/SwitchScreen';
 // Field Groups keep their ?group= links from earlier versions; other views use ?item=.
 const PARAM = config.view === 'groups' ? 'group' : 'item';
 
-const readParam = () => new URL( window.location.href ).searchParams.get( PARAM ) || '';
+const readParam = () =>
+	new URL( window.location.href ).searchParams.get( PARAM ) || '';
 
 function Snackbars() {
 	const notices = useSelect(
-		( select ) => select( noticesStore ).getNotices().filter( ( notice ) => notice.type === 'snackbar' ),
+		( select ) =>
+			select( noticesStore )
+				.getNotices()
+				.filter( ( notice ) => notice.type === 'snackbar' ),
 		[]
 	);
 	const { removeNotice } = useDispatch( noticesStore );
 
-	return <SnackbarList className="cfmb-snackbars" notices={ notices } onRemove={ removeNotice } />;
+	return (
+		<SnackbarList
+			className="cfmb-snackbars"
+			notices={ notices }
+			onRemove={ removeNotice }
+		/>
+	);
 }
 
 function View( { item, session, navigate } ) {
@@ -37,7 +47,12 @@ function View( { item, session, navigate } ) {
 	if ( config.contentKinds[ config.view ] ) {
 		const kind = config.contentKinds[ config.view ];
 		return item ? (
-			<ContentEditor key={ session } kind={ kind } itemKey={ item } navigate={ navigate } />
+			<ContentEditor
+				key={ session }
+				kind={ kind }
+				itemKey={ item }
+				navigate={ navigate }
+			/>
 		) : (
 			<ContentList key={ session } kind={ kind } navigate={ navigate } />
 		);

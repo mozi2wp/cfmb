@@ -27,7 +27,8 @@
 		"@wordpress/e2e-test-utils-playwright": "^1.8.0",
 		"@wordpress/env": "^10.8.0",
 		"@wordpress/i18n": "^6.30.0",
-		"@wordpress/scripts": "^30.0.0"
+		"@wordpress/scripts": "^30.0.0",
+		"typescript": "~5.9.0"
 	},
 	"files": [
 		"build",

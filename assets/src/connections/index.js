@@ -27,5 +27,7 @@ function mount( element ) {
 }
 
 domReady( () => {
-	document.querySelectorAll( '.cfmb-connection[data-cfmb-connection]' ).forEach( mount );
+	document
+		.querySelectorAll( '.cfmb-connection[data-cfmb-connection]' )
+		.forEach( mount );
 } );

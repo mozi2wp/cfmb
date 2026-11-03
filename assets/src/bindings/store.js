@@ -7,7 +7,8 @@ import { addQueryArgs } from '@wordpress/url';
 
 export const STORE = 'cfmb/bindings';
 
-export const keyOf = ( object, post, field ) => `${ object || '' }|${ post || 0 }|${ field }`;
+export const keyOf = ( object, post, field ) =>
+	`${ object || '' }|${ post || 0 }|${ field }`;
 
 const store = createReduxStore( STORE, {
 	reducer( state = {}, action ) {
@@ -20,7 +21,8 @@ const store = createReduxStore( STORE, {
 		receive: ( key, value ) => ( { type: 'RECEIVE', key, value } ),
 	},
 	selectors: {
-		getValue: ( state, object, post, field ) => state[ keyOf( object, post, field ) ],
+		getValue: ( state, object, post, field ) =>
+			state[ keyOf( object, post, field ) ],
 	},
 	resolvers: {
 		getValue:
@@ -29,7 +31,11 @@ const store = createReduxStore( STORE, {
 				const key = keyOf( object, post, field );
 				try {
 					const result = await apiFetch( {
-						path: addQueryArgs( '/cfmb/v1/bindings', { object: object || '', post: post || 0, fields: [ field ] } ),
+						path: addQueryArgs( '/cfmb/v1/bindings', {
+							object: object || '',
+							post: post || 0,
+							fields: [ field ],
+						} ),
 					} );
 					dispatch.receive( key, result?.[ field ] ?? null );
 				} catch ( error ) {

@@ -1,4 +1,10 @@
-export default function Textarea( { field, id, value, onChange, describedBy } ) {
+export default function Textarea( {
+	field,
+	id,
+	value,
+	onChange,
+	describedBy,
+} ) {
 	const settings = field.settings || {};
 
 	return (
@@ -8,7 +14,11 @@ export default function Textarea( { field, id, value, onChange, describedBy } ) 
 			rows={ Number( settings.rows ) || 4 }
 			value={ value ?? '' }
 			placeholder={ settings.placeholder || undefined }
-			maxLength={ Number( settings.maxlength ) > 0 ? Number( settings.maxlength ) : undefined }
+			maxLength={
+				Number( settings.maxlength ) > 0
+					? Number( settings.maxlength )
+					: undefined
+			}
 			aria-describedby={ describedBy }
 			aria-required={ field.required || undefined }
 			onChange={ ( event ) => onChange( event.target.value ) }

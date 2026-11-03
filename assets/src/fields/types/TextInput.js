@@ -9,7 +9,13 @@ const INPUT_TYPES = {
 	number: 'number',
 };
 
-export default function TextInput( { field, id, value, onChange, describedBy } ) {
+export default function TextInput( {
+	field,
+	id,
+	value,
+	onChange,
+	describedBy,
+} ) {
 	const settings = field.settings || {};
 	const prepend = settings.prepend;
 	const append = settings.append;
@@ -21,11 +27,27 @@ export default function TextInput( { field, id, value, onChange, describedBy } )
 			type={ INPUT_TYPES[ field.type ] || 'text' }
 			value={ value ?? '' }
 			placeholder={ settings.placeholder || undefined }
-			maxLength={ Number( settings.maxlength ) > 0 ? Number( settings.maxlength ) : undefined }
-			min={ field.type === 'number' && settings.min !== '' ? settings.min : undefined }
-			max={ field.type === 'number' && settings.max !== '' ? settings.max : undefined }
-			step={ field.type === 'number' ? settings.step || 'any' : undefined }
-			autoComplete={ field.type === 'password' ? 'new-password' : undefined }
+			maxLength={
+				Number( settings.maxlength ) > 0
+					? Number( settings.maxlength )
+					: undefined
+			}
+			min={
+				field.type === 'number' && settings.min !== ''
+					? settings.min
+					: undefined
+			}
+			max={
+				field.type === 'number' && settings.max !== ''
+					? settings.max
+					: undefined
+			}
+			step={
+				field.type === 'number' ? settings.step || 'any' : undefined
+			}
+			autoComplete={
+				field.type === 'password' ? 'new-password' : undefined
+			}
 			aria-describedby={ describedBy }
 			aria-required={ field.required || undefined }
 			onChange={ ( event ) => onChange( event.target.value ) }
@@ -38,9 +60,13 @@ export default function TextInput( { field, id, value, onChange, describedBy } )
 
 	return (
 		<div className="cfmb-input-group">
-			{ prepend && <span className="cfmb-input-group__addon">{ prepend }</span> }
+			{ prepend && (
+				<span className="cfmb-input-group__addon">{ prepend }</span>
+			) }
 			{ input }
-			{ append && <span className="cfmb-input-group__addon">{ append }</span> }
+			{ append && (
+				<span className="cfmb-input-group__addon">{ append }</span>
+			) }
 		</div>
 	);
 }

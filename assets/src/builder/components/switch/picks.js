@@ -13,7 +13,9 @@ export function initialPicks( scan, sections ) {
 	const picks = {};
 
 	sections.forEach( ( section ) => {
-		picks[ section.pick ] = ( scan[ section.list ] || [] ).filter( ( item ) => ! item.imported ).map( ( item ) => item.key );
+		picks[ section.pick ] = ( scan[ section.list ] || [] )
+			.filter( ( item ) => ! item.imported )
+			.map( ( item ) => item.key );
 	} );
 
 	return picks;
@@ -30,7 +32,9 @@ export function initialPicks( scan, sections ) {
  */
 export function togglePick( picks, pick, key, checked ) {
 	const current = picks[ pick ] || [];
-	const next = checked ? [ ...new Set( [ ...current, key ] ) ] : current.filter( ( item ) => item !== key );
+	const next = checked
+		? [ ...new Set( [ ...current, key ] ) ]
+		: current.filter( ( item ) => item !== key );
 
 	return { ...picks, [ pick ]: next };
 }

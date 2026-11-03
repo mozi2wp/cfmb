@@ -12,7 +12,8 @@ const BASE = '/cfmb/v1';
  * @param {Object} args { group, field, search, page, post_type, all }.
  * @return {Promise<{items: Array, more: boolean}>} Results.
  */
-export const search = ( args ) => apiFetch( { path: addQueryArgs( `${ BASE }/search`, args ) } );
+export const search = ( args ) =>
+	apiFetch( { path: addQueryArgs( `${ BASE }/search`, args ) } );
 
 /**
  * Stored rows of a paged Repeater or Stacks field.
@@ -20,7 +21,8 @@ export const search = ( args ) => apiFetch( { path: addQueryArgs( `${ BASE }/sea
  * @param {Object} args { object, group, field, indexes }.
  * @return {Promise<Array>} Rows in editor form.
  */
-export const loadRows = ( args ) => apiFetch( { path: addQueryArgs( `${ BASE }/rows`, args ) } );
+export const loadRows = ( args ) =>
+	apiFetch( { path: addQueryArgs( `${ BASE }/rows`, args ) } );
 
 const iconCache = new Map();
 
@@ -32,7 +34,9 @@ const iconCache = new Map();
  */
 export function loadIcons( library ) {
 	if ( ! iconCache.has( library ) ) {
-		const request = apiFetch( { path: addQueryArgs( `${ BASE }/icons`, { library } ) } ).catch( ( error ) => {
+		const request = apiFetch( {
+			path: addQueryArgs( `${ BASE }/icons`, { library } ),
+		} ).catch( ( error ) => {
 			iconCache.delete( library );
 			throw error;
 		} );
@@ -47,4 +51,5 @@ export function loadIcons( library ) {
  * @param {string} url URL.
  * @return {Promise<Object>} oEmbed response.
  */
-export const embedPreview = ( url ) => apiFetch( { path: addQueryArgs( '/oembed/1.0/proxy', { url } ) } );
+export const embedPreview = ( url ) =>
+	apiFetch( { path: addQueryArgs( '/oembed/1.0/proxy', { url } ) } );

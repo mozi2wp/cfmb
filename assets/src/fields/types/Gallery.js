@@ -9,7 +9,8 @@ import { uiIcon } from '../../shared/ui-icons';
 
 function toItem( attachment, previewSize ) {
 	const sizes = attachment.sizes || {};
-	const preview = sizes[ previewSize ] || sizes.medium || sizes.thumbnail || sizes.full;
+	const preview =
+		sizes[ previewSize ] || sizes.medium || sizes.thumbnail || sizes.full;
 	return {
 		id: attachment.id,
 		url: attachment.url,
@@ -19,7 +20,14 @@ function toItem( attachment, previewSize ) {
 	};
 }
 
-export default function Gallery( { field, id, value, onChange, describedBy, objectId } ) {
+export default function Gallery( {
+	field,
+	id,
+	value,
+	onChange,
+	describedBy,
+	objectId,
+} ) {
 	const settings = field.settings || {};
 	const items = Array.isArray( value ) ? value : [];
 	const frameRef = useRef();
@@ -46,11 +54,16 @@ export default function Gallery( { field, id, value, onChange, describedBy, obje
 				.state()
 				.get( 'selection' )
 				.toJSON()
-				.map( ( attachment ) => toItem( attachment, settings.preview_size || 'medium' ) );
+				.map( ( attachment ) =>
+					toItem( attachment, settings.preview_size || 'medium' )
+				);
 			onChange( ( current ) => {
 				const list = Array.isArray( current ) ? current : [];
 				const known = new Set( list.map( ( item ) => item.id ) );
-				const next = [ ...list, ...chosen.filter( ( item ) => ! known.has( item.id ) ) ];
+				const next = [
+					...list,
+					...chosen.filter( ( item ) => ! known.has( item.id ) ),
+				];
 				return max > 0 ? next.slice( 0, max ) : next;
 			} );
 		} );
@@ -66,7 +79,12 @@ export default function Gallery( { field, id, value, onChange, describedBy, obje
 		next.splice( to, 0, item );
 		onChange( next );
 		/* translators: %d: new position */
-		speak( sprintf( __( 'Image moved to position %d.', 'custom-fields-meta-box' ), to + 1 ) );
+		speak(
+			sprintf(
+				__( 'Image moved to position %d.', 'custom-fields-meta-box' ),
+				to + 1
+			)
+		);
 	};
 
 	return (
@@ -76,15 +94,22 @@ export default function Gallery( { field, id, value, onChange, describedBy, obje
 					{ items.map( ( item, index ) => (
 						<li
 							key={ item.id }
-							className={ `cfmb-gallery__item${ drag === index ? ' is-dragging' : '' }` }
+							className={ `cfmb-gallery__item${
+								drag === index ? ' is-dragging' : ''
+							}` }
 							draggable
 							onDragStart={ ( event ) => {
 								event.dataTransfer.effectAllowed = 'move';
-								event.dataTransfer.setData( 'text/plain', String( item.id ) );
+								event.dataTransfer.setData(
+									'text/plain',
+									String( item.id )
+								);
 								setDrag( index );
 							} }
 							onDragEnd={ () => setDrag( null ) }
-							onDragOver={ ( event ) => drag !== null && event.preventDefault() }
+							onDragOver={ ( event ) =>
+								drag !== null && event.preventDefault()
+							}
 							onDrop={ ( event ) => {
 								event.preventDefault();
 								if ( drag !== null ) {
@@ -93,21 +118,62 @@ export default function Gallery( { field, id, value, onChange, describedBy, obje
 								setDrag( null );
 							} }
 						>
-							<img src={ item.preview || item.url } alt={ item.alt } />
+							<img
+								src={ item.preview || item.url }
+								alt={ item.alt }
+							/>
 							<div className="cfmb-gallery__item-actions">
-								<Button size="small" icon={ uiIcon( 'arrow-left-alt2' ) } label={ __( 'Move earlier', 'custom-fields-meta-box' ) } disabled={ index === 0 } onClick={ () => move( index, index - 1 ) } />
-								<Button size="small" icon={ uiIcon( 'arrow-right-alt2' ) } label={ __( 'Move later', 'custom-fields-meta-box' ) } disabled={ index === items.length - 1 } onClick={ () => move( index, index + 1 ) } />
+								<Button
+									size="small"
+									icon={ uiIcon( 'arrow-left-alt2' ) }
+									label={ __(
+										'Move earlier',
+										'custom-fields-meta-box'
+									) }
+									disabled={ index === 0 }
+									onClick={ () => move( index, index - 1 ) }
+								/>
+								<Button
+									size="small"
+									icon={ uiIcon( 'arrow-right-alt2' ) }
+									label={ __(
+										'Move later',
+										'custom-fields-meta-box'
+									) }
+									disabled={ index === items.length - 1 }
+									onClick={ () => move( index, index + 1 ) }
+								/>
 								<Button
 									size="small"
 									icon={ uiIcon( 'no-alt' ) }
 									isDestructive
 									label={
 										/* translators: %s: image title */
-										sprintf( __( 'Remove %s', 'custom-fields-meta-box' ), item.title || __( 'image', 'custom-fields-meta-box' ) )
+										sprintf(
+											__(
+												'Remove %s',
+												'custom-fields-meta-box'
+											),
+											item.title ||
+												__(
+													'image',
+													'custom-fields-meta-box'
+												)
+										)
 									}
 									onClick={ () => {
-										onChange( items.filter( ( other ) => other.id !== item.id ) );
-										speak( __( 'Image removed.', 'custom-fields-meta-box' ) );
+										onChange(
+											items.filter(
+												( other ) =>
+													other.id !== item.id
+											)
+										);
+										speak(
+											__(
+												'Image removed.',
+												'custom-fields-meta-box'
+											)
+										);
 									} }
 								/>
 							</div>
@@ -116,11 +182,23 @@ export default function Gallery( { field, id, value, onChange, describedBy, obje
 				</ul>
 			) }
 			<div className="cfmb-gallery__actions">
-				<Button id={ id } variant="secondary" icon={ uiIcon( 'format-gallery' ) } disabled={ max > 0 && items.length >= max } onClick={ open }>
-					{ items.length ? __( 'Add more images', 'custom-fields-meta-box' ) : __( 'Add images', 'custom-fields-meta-box' ) }
+				<Button
+					id={ id }
+					variant="secondary"
+					icon={ uiIcon( 'format-gallery' ) }
+					disabled={ max > 0 && items.length >= max }
+					onClick={ open }
+				>
+					{ items.length
+						? __( 'Add more images', 'custom-fields-meta-box' )
+						: __( 'Add images', 'custom-fields-meta-box' ) }
 				</Button>
 				{ items.length > 0 && (
-					<Button variant="tertiary" isDestructive onClick={ () => onChange( [] ) }>
+					<Button
+						variant="tertiary"
+						isDestructive
+						onClick={ () => onChange( [] ) }
+					>
 						{ __( 'Remove all', 'custom-fields-meta-box' ) }
 					</Button>
 				) }

@@ -4,7 +4,15 @@
 import { useCallback, useEffect, useState } from '@wordpress/element';
 import { Button, FormToggle, Notice, Spinner } from '@wordpress/components';
 import { __, sprintf } from '@wordpress/i18n';
-import { deleteContent, duplicateContent, listContent, restoreContent, syncPull, trashContent, updateContent } from '../../api';
+import {
+	deleteContent,
+	duplicateContent,
+	listContent,
+	restoreContent,
+	syncPull,
+	trashContent,
+	updateContent,
+} from '../../api';
 import { errorSnackbar, snackbar } from '../../notices';
 import ConfirmModal from '../ConfirmModal';
 import SourceBadge from '../SourceBadge';
@@ -29,7 +37,15 @@ export default function ContentList( { kind, navigate } ) {
 		setLoadError( '' );
 		return listContent( kind.kind, view )
 			.then( setItems )
-			.catch( ( error ) => setLoadError( error.message || __( 'The list could not be loaded.', 'custom-fields-meta-box' ) ) );
+			.catch( ( error ) =>
+				setLoadError(
+					error.message ||
+						__(
+							'The list could not be loaded.',
+							'custom-fields-meta-box'
+						)
+				)
+			);
 	}, [ kind.kind, view ] );
 
 	useEffect( () => {
@@ -42,22 +58,40 @@ export default function ContentList( { kind, navigate } ) {
 		try {
 			await task();
 		} catch ( error ) {
-			errorSnackbar( error.message || __( 'That did not work. Please try again.', 'custom-fields-meta-box' ) );
+			errorSnackbar(
+				error.message ||
+					__(
+						'That did not work. Please try again.',
+						'custom-fields-meta-box'
+					)
+			);
 		} finally {
 			setBusy( '' );
 		}
 	};
 
-	const replace = ( saved ) => setItems( ( current ) => current.map( ( item ) => ( item.key === saved.key ? saved : item ) ) );
+	const replace = ( saved ) =>
+		setItems( ( current ) =>
+			current.map( ( item ) => ( item.key === saved.key ? saved : item ) )
+		);
 
 	const toggleActive = ( item ) =>
 		run( item.key, async () => {
-			const saved = await updateContent( kind.kind, { ...item, active: ! item.active } );
+			const saved = await updateContent( kind.kind, {
+				...item,
+				active: ! item.active,
+			} );
 			replace( saved );
 			snackbar(
 				saved.active
-					? /* translators: %s: title */ sprintf( __( '"%s" is active.', 'custom-fields-meta-box' ), saved.title )
-					: /* translators: %s: title */ sprintf( __( '"%s" is inactive.', 'custom-fields-meta-box' ), saved.title )
+					? /* translators: %s: title */ sprintf(
+							__( '"%s" is active.', 'custom-fields-meta-box' ),
+							saved.title
+					  )
+					: /* translators: %s: title */ sprintf(
+							__( '"%s" is inactive.', 'custom-fields-meta-box' ),
+							saved.title
+					  )
 			);
 		} );
 
@@ -65,34 +99,58 @@ export default function ContentList( { kind, navigate } ) {
 		run( item.key, async () => {
 			await duplicateContent( kind.kind, item.key );
 			await load();
-			snackbar( __( 'Copy created. It stays inactive until you turn it on.', 'custom-fields-meta-box' ) );
+			snackbar(
+				__(
+					'Copy created. It stays inactive until you turn it on.',
+					'custom-fields-meta-box'
+				)
+			);
 		} );
 
 	const importItem = ( item ) =>
 		run( item.key, async () => {
-			const result = await syncPull( [ { kind: kind.kind, key: item.key } ] );
+			const result = await syncPull( [
+				{ kind: kind.kind, key: item.key },
+			] );
 			if ( result.errors?.length ) {
 				throw new Error( result.errors[ 0 ].message );
 			}
 			await load();
 			/* translators: %s: title */
-			snackbar( sprintf( __( '"%s" imported. You can edit it here now.', 'custom-fields-meta-box' ), item.title ) );
+			snackbar(
+				sprintf(
+					__(
+						'"%s" imported. You can edit it here now.',
+						'custom-fields-meta-box'
+					),
+					item.title
+				)
+			);
 		} );
 
 	const trash = ( item ) =>
 		run( item.key, async () => {
 			await trashContent( kind.kind, item.key );
-			setItems( ( current ) => current.filter( ( entry ) => entry.key !== item.key ) );
+			setItems( ( current ) =>
+				current.filter( ( entry ) => entry.key !== item.key )
+			);
 			snackbar(
 				/* translators: %s: title */
-				sprintf( __( '"%s" moved to the trash. Its content stays in the database.', 'custom-fields-meta-box' ), item.title ),
+				sprintf(
+					__(
+						'"%s" moved to the trash. Its content stays in the database.',
+						'custom-fields-meta-box'
+					),
+					item.title
+				),
 				[
 					{
 						label: __( 'Undo', 'custom-fields-meta-box' ),
-						onClick: () => run( item.key, async () => {
-							await restoreContent( kind.kind, item.key );
-							await load();
-						} ),
+						onClick: () =>
+							run( item.key, async () => {
+								await restoreContent( kind.kind, item.key );
+								await load();
+							} ),
 					},
 				]
 			);
@@ -101,18 +159,32 @@ export default function ContentList( { kind, navigate } ) {
 	const restore = ( item ) =>
 		run( item.key, async () => {
 			await restoreContent( kind.kind, item.key );
-			setItems( ( current ) => current.filter( ( entry ) => entry.key !== item.key ) );
+			setItems( ( current ) =>
+				current.filter( ( entry ) => entry.key !== item.key )
+			);
 			/* translators: %s: title */
-			snackbar( sprintf( __( '"%s" restored.', 'custom-fields-meta-box' ), item.title ) );
+			snackbar(
+				sprintf(
+					__( '"%s" restored.', 'custom-fields-meta-box' ),
+					item.title
+				)
+			);
 		} );
 
 	const deleteForever = ( item ) =>
 		run( item.key, async () => {
 			setConfirmDelete( null );
 			await deleteContent( kind.kind, item.key );
-			setItems( ( current ) => current.filter( ( entry ) => entry.key !== item.key ) );
+			setItems( ( current ) =>
+				current.filter( ( entry ) => entry.key !== item.key )
+			);
 			/* translators: %s: title */
-			snackbar( sprintf( __( '"%s" deleted.', 'custom-fields-meta-box' ), item.title ) );
+			snackbar(
+				sprintf(
+					__( '"%s" deleted.', 'custom-fields-meta-box' ),
+					item.title
+				)
+			);
 		} );
 
 	const local = ( item ) => item.source && item.source !== 'db';
@@ -128,20 +200,39 @@ export default function ContentList( { kind, navigate } ) {
 
 			<ul className="subsubsub cfmb-list__views">
 				<li>
-					<Button variant="link" className={ view === 'any' ? 'current' : '' } aria-current={ view === 'any' ? 'page' : undefined } onClick={ () => setView( 'any' ) }>
+					<Button
+						variant="link"
+						className={ view === 'any' ? 'current' : '' }
+						aria-current={ view === 'any' ? 'page' : undefined }
+						onClick={ () => setView( 'any' ) }
+					>
 						{ __( 'All', 'custom-fields-meta-box' ) }
 					</Button>
 					{ ' | ' }
 				</li>
 				<li>
-					<Button variant="link" className={ view === 'trash' ? 'current' : '' } aria-current={ view === 'trash' ? 'page' : undefined } onClick={ () => setView( 'trash' ) }>
+					<Button
+						variant="link"
+						className={ view === 'trash' ? 'current' : '' }
+						aria-current={ view === 'trash' ? 'page' : undefined }
+						onClick={ () => setView( 'trash' ) }
+					>
 						{ __( 'Trash', 'custom-fields-meta-box' ) }
 					</Button>
 				</li>
 			</ul>
 
 			{ loadError && (
-				<Notice status="error" isDismissible={ false } actions={ [ { label: __( 'Try again', 'custom-fields-meta-box' ), onClick: load } ] }>
+				<Notice
+					status="error"
+					isDismissible={ false }
+					actions={ [
+						{
+							label: __( 'Try again', 'custom-fields-meta-box' ),
+							onClick: load,
+						},
+					] }
+				>
 					{ loadError }
 				</Notice>
 			) }
@@ -155,15 +246,28 @@ export default function ContentList( { kind, navigate } ) {
 			{ items && items.length === 0 && (
 				<div className="cfmb-empty">
 					{ view === 'trash' ? (
-						<p>{ __( 'The trash is empty.', 'custom-fields-meta-box' ) }</p>
+						<p>
+							{ __(
+								'The trash is empty.',
+								'custom-fields-meta-box'
+							) }
+						</p>
 					) : (
 						<>
-							<span className="cfmb-icon cfmb-empty__icon" aria-hidden="true">
-								{ uiIcon( EMPTY_ICONS[ kind.kind ] || 'groups' ) }
+							<span
+								className="cfmb-icon cfmb-empty__icon"
+								aria-hidden="true"
+							>
+								{ uiIcon(
+									EMPTY_ICONS[ kind.kind ] || 'groups'
+								) }
 							</span>
 							<h2>{ names.empty_title }</h2>
 							<p>{ names.empty_text }</p>
-							<Button variant="primary" onClick={ () => navigate( 'new' ) }>
+							<Button
+								variant="primary"
+								onClick={ () => navigate( 'new' ) }
+							>
 								{ names.add }
 							</Button>
 						</>
@@ -175,14 +279,23 @@ export default function ContentList( { kind, navigate } ) {
 				<table className="wp-list-table widefat fixed striped cfmb-list__table">
 					<thead>
 						<tr>
-							<th scope="col" className="column-primary">{ names.title_label }</th>
+							<th scope="col" className="column-primary">
+								{ names.title_label }
+							</th>
 							<th scope="col">{ names.name_label }</th>
-							{ view !== 'trash' && <th scope="col" className="cfmb-list__narrow">{ __( 'Active', 'custom-fields-meta-box' ) }</th> }
+							{ view !== 'trash' && (
+								<th scope="col" className="cfmb-list__narrow">
+									{ __( 'Active', 'custom-fields-meta-box' ) }
+								</th>
+							) }
 						</tr>
 					</thead>
 					<tbody>
 						{ items.map( ( item ) => (
-							<tr key={ item.key } className={ busy === item.key ? 'is-busy' : '' }>
+							<tr
+								key={ item.key }
+								className={ busy === item.key ? 'is-busy' : '' }
+							>
 								<td className="column-primary">
 									<strong>
 										{ view === 'trash' ? (
@@ -190,7 +303,11 @@ export default function ContentList( { kind, navigate } ) {
 										) : (
 											<a
 												className="row-title"
-												href={ `?page=${ new URL( window.location.href ).searchParams.get( 'page' ) }&item=${ item.key }` }
+												href={ `?page=${ new URL(
+													window.location.href
+												).searchParams.get(
+													'page'
+												) }&item=${ item.key }` }
 												onClick={ ( event ) => {
 													event.preventDefault();
 													navigate( item.key );
@@ -204,29 +321,84 @@ export default function ContentList( { kind, navigate } ) {
 									<div className="cfmb-list__actions">
 										{ view === 'trash' ? (
 											<>
-												<Button variant="link" onClick={ () => restore( item ) }>
-													{ __( 'Restore', 'custom-fields-meta-box' ) }
+												<Button
+													variant="link"
+													onClick={ () =>
+														restore( item )
+													}
+												>
+													{ __(
+														'Restore',
+														'custom-fields-meta-box'
+													) }
 												</Button>
-												<Button variant="link" isDestructive onClick={ () => setConfirmDelete( item ) }>
-													{ __( 'Delete permanently', 'custom-fields-meta-box' ) }
+												<Button
+													variant="link"
+													isDestructive
+													onClick={ () =>
+														setConfirmDelete( item )
+													}
+												>
+													{ __(
+														'Delete permanently',
+														'custom-fields-meta-box'
+													) }
 												</Button>
 											</>
 										) : (
 											<>
-												<Button variant="link" onClick={ () => navigate( item.key ) }>
-													{ local( item ) ? __( 'View', 'custom-fields-meta-box' ) : __( 'Edit', 'custom-fields-meta-box' ) }
+												<Button
+													variant="link"
+													onClick={ () =>
+														navigate( item.key )
+													}
+												>
+													{ local( item )
+														? __(
+																'View',
+																'custom-fields-meta-box'
+														  )
+														: __(
+																'Edit',
+																'custom-fields-meta-box'
+														  ) }
 												</Button>
 												{ local( item ) && (
-													<Button variant="link" onClick={ () => importItem( item ) }>
-														{ __( 'Import to edit', 'custom-fields-meta-box' ) }
+													<Button
+														variant="link"
+														onClick={ () =>
+															importItem( item )
+														}
+													>
+														{ __(
+															'Import to edit',
+															'custom-fields-meta-box'
+														) }
 													</Button>
 												) }
-												<Button variant="link" onClick={ () => duplicate( item ) }>
-													{ __( 'Duplicate', 'custom-fields-meta-box' ) }
+												<Button
+													variant="link"
+													onClick={ () =>
+														duplicate( item )
+													}
+												>
+													{ __(
+														'Duplicate',
+														'custom-fields-meta-box'
+													) }
 												</Button>
 												{ ! local( item ) && (
-													<Button variant="link" isDestructive onClick={ () => trash( item ) }>
-														{ __( 'Trash', 'custom-fields-meta-box' ) }
+													<Button
+														variant="link"
+														isDestructive
+														onClick={ () =>
+															trash( item )
+														}
+													>
+														{ __(
+															'Trash',
+															'custom-fields-meta-box'
+														) }
 													</Button>
 												) }
 											</>
@@ -240,12 +412,23 @@ export default function ContentList( { kind, navigate } ) {
 									<td className="cfmb-list__narrow">
 										<FormToggle
 											checked={ item.active }
-											disabled={ busy === item.key || local( item ) }
+											disabled={
+												busy === item.key ||
+												local( item )
+											}
 											aria-label={
 												/* translators: %s: title */
-												sprintf( __( 'Turn "%s" on', 'custom-fields-meta-box' ), item.title )
+												sprintf(
+													__(
+														'Turn "%s" on',
+														'custom-fields-meta-box'
+													),
+													item.title
+												)
 											}
-											onChange={ () => toggleActive( item ) }
+											onChange={ () =>
+												toggleActive( item )
+											}
 										/>
 									</td>
 								) }
@@ -257,8 +440,14 @@ export default function ContentList( { kind, navigate } ) {
 
 			{ confirmDelete && (
 				<ConfirmModal
-					title={ __( 'Delete permanently?', 'custom-fields-meta-box' ) }
-					confirmLabel={ __( 'Delete permanently', 'custom-fields-meta-box' ) }
+					title={ __(
+						'Delete permanently?',
+						'custom-fields-meta-box'
+					) }
+					confirmLabel={ __(
+						'Delete permanently',
+						'custom-fields-meta-box'
+					) }
 					isDestructive
 					onConfirm={ () => deleteForever( confirmDelete ) }
 					onCancel={ () => setConfirmDelete( null ) }
@@ -266,7 +455,10 @@ export default function ContentList( { kind, navigate } ) {
 					<p>
 						{ sprintf(
 							/* translators: %s: title */
-							__( '"%s" will be deleted for good, along with its sync file in uploads. Posts, terms and values made with it stay in the database.', 'custom-fields-meta-box' ),
+							__(
+								'"%s" will be deleted for good, along with its sync file in uploads. Posts, terms and values made with it stay in the database.',
+								'custom-fields-meta-box'
+							),
 							confirmDelete.title
 						) }
 					</p>

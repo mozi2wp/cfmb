@@ -17,12 +17,28 @@ export default function Color( { field, id, value, onChange, describedBy } ) {
 						type="button"
 						className="cfmb-color__swatch"
 						aria-expanded={ isOpen }
-						aria-label={ color ? sprintf( /* translators: %s: color code */ __( 'Choose color, current %s', 'custom-fields-meta-box' ), color ) : __( 'Choose color', 'custom-fields-meta-box' ) }
+						aria-label={
+							color
+								? sprintf(
+										/* translators: %s: color code */ __(
+											'Choose color, current %s',
+											'custom-fields-meta-box'
+										),
+										color
+								  )
+								: __( 'Choose color', 'custom-fields-meta-box' )
+						}
 						onClick={ onToggle }
 						style={ { '--cfmb-swatch': color || 'transparent' } }
 					/>
 				) }
-				renderContent={ () => <ColorPicker color={ color || '#ffffff' } enableAlpha={ alpha } onChange={ ( next ) => onChange( next ) } /> }
+				renderContent={ () => (
+					<ColorPicker
+						color={ color || '#ffffff' }
+						enableAlpha={ alpha }
+						onChange={ ( next ) => onChange( next ) }
+					/>
+				) }
 			/>
 			<input
 				id={ id }

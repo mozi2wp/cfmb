@@ -3,7 +3,14 @@
  */
 import { __ } from '@wordpress/i18n';
 
-export default function FieldShell( { field, inputId, path, error, labelAsLegend = false, children } ) {
+export default function FieldShell( {
+	field,
+	inputId,
+	path,
+	error,
+	labelAsLegend = false,
+	children,
+} ) {
 	const width = Number( field.wrapper?.width ) || 0;
 	const classes = [
 		'cfmb-field',
@@ -34,28 +41,41 @@ export default function FieldShell( { field, inputId, path, error, labelAsLegend
 		</>
 	);
 
-	const describedBy = [ helpId, errorId ].filter( Boolean ).join( ' ' ) || undefined;
+	const describedBy =
+		[ helpId, errorId ].filter( Boolean ).join( ' ' ) || undefined;
 
 	return (
 		<div
 			className={ classes }
-			style={ width > 0 ? { '--cfmb-field-width': `${ width }%` } : undefined }
+			style={
+				width > 0 ? { '--cfmb-field-width': `${ width }%` } : undefined
+			}
 			data-cfmb-field={ field.key }
 			data-cfmb-path={ path || field.key }
 		>
 			{ labelAsLegend ? (
-				<fieldset className="cfmb-field__fieldset" aria-describedby={ describedBy }>
+				<fieldset
+					className="cfmb-field__fieldset"
+					aria-describedby={ describedBy }
+				>
 					<legend className="cfmb-field__label">{ label }</legend>
-					<div className="cfmb-field__control">{ children( { describedBy } ) }</div>
+					<div className="cfmb-field__control">
+						{ children( { describedBy } ) }
+					</div>
 				</fieldset>
 			) : (
 				<>
 					{ field.label && (
-						<label className="cfmb-field__label" htmlFor={ inputId }>
+						<label
+							className="cfmb-field__label"
+							htmlFor={ inputId }
+						>
 							{ label }
 						</label>
 					) }
-					<div className="cfmb-field__control">{ children( { describedBy } ) }</div>
+					<div className="cfmb-field__control">
+						{ children( { describedBy } ) }
+					</div>
 				</>
 			) }
 			{ field.instructions && (

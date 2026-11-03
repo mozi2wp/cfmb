@@ -17,7 +17,12 @@ export default function Select( { field, id, value, onChange, describedBy } ) {
 				aria-describedby={ describedBy }
 				aria-required={ field.required || undefined }
 				onChange={ ( event ) =>
-					onChange( Array.from( event.target.selectedOptions, ( option ) => option.value ) )
+					onChange(
+						Array.from(
+							event.target.selectedOptions,
+							( option ) => option.value
+						)
+					)
 				}
 			>
 				{ choices.map( ( choice ) => (
@@ -29,7 +34,11 @@ export default function Select( { field, id, value, onChange, describedBy } ) {
 		);
 	}
 
-	const showEmpty = settings.allow_null || value === '' || value === null || value === undefined;
+	const showEmpty =
+		settings.allow_null ||
+		value === '' ||
+		value === null ||
+		value === undefined;
 
 	return (
 		<select
@@ -40,7 +49,12 @@ export default function Select( { field, id, value, onChange, describedBy } ) {
 			aria-required={ field.required || undefined }
 			onChange={ ( event ) => onChange( event.target.value ) }
 		>
-			{ showEmpty && <option value="">{ settings.placeholder || __( '— Select —', 'custom-fields-meta-box' ) }</option> }
+			{ showEmpty && (
+				<option value="">
+					{ settings.placeholder ||
+						__( '— Select —', 'custom-fields-meta-box' ) }
+				</option>
+			) }
 			{ choices.map( ( choice ) => (
 				<option key={ choice.value } value={ choice.value }>
 					{ choice.label }

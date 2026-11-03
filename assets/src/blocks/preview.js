@@ -5,7 +5,22 @@
  */
 import { createElement } from '@wordpress/element';
 
-const VOID = new Set( [ 'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr' ] );
+const VOID = new Set( [
+	'area',
+	'base',
+	'br',
+	'col',
+	'embed',
+	'hr',
+	'img',
+	'input',
+	'link',
+	'meta',
+	'param',
+	'source',
+	'track',
+	'wbr',
+] );
 
 const RENAMED = {
 	class: 'className',
@@ -26,7 +41,11 @@ const RENAMED = {
 };
 
 // Inputs in a preview are for looks only; React would warn about uncontrolled value props.
-const VALUE_ATTRIBUTES = { value: 'defaultValue', checked: 'defaultChecked', selected: 'defaultSelected' };
+const VALUE_ATTRIBUTES = {
+	value: 'defaultValue',
+	checked: 'defaultChecked',
+	selected: 'defaultSelected',
+};
 
 /**
  * Inline style string to a React style object.
@@ -48,7 +67,13 @@ export function parseStyle( text ) {
 			if ( ! name || ! value ) {
 				return;
 			}
-			const key = name.startsWith( '--' ) ? name : name.toLowerCase().replace( /-([a-z])/g, ( _, letter ) => letter.toUpperCase() );
+			const key = name.startsWith( '--' )
+				? name
+				: name
+						.toLowerCase()
+						.replace( /-([a-z])/g, ( _, letter ) =>
+							letter.toUpperCase()
+						);
 			style[ key ] = value;
 		} );
 	return style;
@@ -73,8 +98,14 @@ function parseJson( text, fallback ) {
  */
 export function innerBlocksProps( node ) {
 	const props = {};
-	const allowed = parseJson( node.getAttribute( 'data-allowedblocks' ), undefined );
-	const template = parseJson( node.getAttribute( 'data-template' ), undefined );
+	const allowed = parseJson(
+		node.getAttribute( 'data-allowedblocks' ),
+		undefined
+	);
+	const template = parseJson(
+		node.getAttribute( 'data-template' ),
+		undefined
+	);
 	const lock = node.getAttribute( 'data-templatelock' );
 	const orientation = node.getAttribute( 'data-orientation' );
 
@@ -104,7 +135,8 @@ function elementProps( node, key ) {
 			props.style = parseStyle( attribute.value );
 			return;
 		}
-		props[ VALUE_ATTRIBUTES[ name ] || RENAMED[ name ] || name ] = attribute.value;
+		props[ VALUE_ATTRIBUTES[ name ] || RENAMED[ name ] || name ] =
+			attribute.value;
 	} );
 	return props;
 }
@@ -131,7 +163,9 @@ function convert( node, key, slot ) {
 		return createElement( tag, props );
 	}
 
-	const children = Array.from( node.childNodes ).map( ( child, index ) => convert( child, index, slot ) );
+	const children = Array.from( node.childNodes ).map( ( child, index ) =>
+		convert( child, index, slot )
+	);
 	return createElement( tag, props, ...children );
 }
 
@@ -143,6 +177,11 @@ function convert( node, key, slot ) {
  * @return {Array} Elements.
  */
 export function htmlToElements( html, slot ) {
-	const doc = new window.DOMParser().parseFromString( `<!DOCTYPE html><body>${ html || '' }</body>`, 'text/html' );
-	return Array.from( doc.body.childNodes ).map( ( node, index ) => convert( node, index, slot ) );
+	const doc = new window.DOMParser().parseFromString(
+		`<!DOCTYPE html><body>${ html || '' }</body>`,
+		'text/html'
+	);
+	return Array.from( doc.body.childNodes ).map( ( node, index ) =>
+		convert( node, index, slot )
+	);
 }

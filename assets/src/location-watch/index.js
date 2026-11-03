@@ -12,7 +12,12 @@ import { speak } from '@wordpress/a11y';
 import { __ } from '@wordpress/i18n';
 import { classicState, editorState, stateKey } from './state';
 
-const config = { postId: 0, postType: '', groups: [], ...( window.cfmbLocationWatch || {} ) };
+const config = {
+	postId: 0,
+	postType: '',
+	groups: [],
+	...( window.cfmbLocationWatch || {} ),
+};
 const WAITING = 'cfmb-box-waiting';
 const DELAY = 300;
 
@@ -40,7 +45,12 @@ function apply( matched ) {
 	// Maps and editors inside a box that just appeared need to measure again.
 	window.dispatchEvent( new window.Event( 'resize' ) );
 	if ( shown ) {
-		speak( __( 'More fields are available for this post.', 'custom-fields-meta-box' ) );
+		speak(
+			__(
+				'More fields are available for this post.',
+				'custom-fields-meta-box'
+			)
+		);
 	}
 }
 
@@ -56,7 +66,12 @@ function check( state ) {
 		apiFetch( {
 			path: '/cfmb/v1/location/match',
 			method: 'POST',
-			data: { post_id: config.postId, post_type: config.postType, groups: config.groups, ...state },
+			data: {
+				post_id: config.postId,
+				post_type: config.postType,
+				groups: config.groups,
+				...state,
+			},
 		} )
 			.then( ( response ) => {
 				// An older answer must not undo a newer one.
@@ -107,7 +122,10 @@ domReady( () => {
 		return;
 	}
 	const data = window.wp?.data;
-	if ( document.body.classList.contains( 'block-editor-page' ) && data?.select( 'core/editor' ) ) {
+	if (
+		document.body.classList.contains( 'block-editor-page' ) &&
+		data?.select( 'core/editor' )
+	) {
 		watchBlockEditor( data );
 		return;
 	}

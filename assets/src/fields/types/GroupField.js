@@ -15,7 +15,13 @@ export default function GroupField( { field, value, onChange, path } ) {
 				onChange={ ( key, update ) =>
 					onChange( ( current ) => {
 						const set = current || {};
-						return { ...set, [ key ]: typeof update === 'function' ? update( set[ key ] ) : update };
+						return {
+							...set,
+							[ key ]:
+								typeof update === 'function'
+									? update( set[ key ] )
+									: update,
+						};
 					} )
 				}
 			/>

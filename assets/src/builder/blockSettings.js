@@ -56,12 +56,15 @@ export function blockSlug( text ) {
  * @return {Object} Settings.
  */
 export function blockSettings( raw ) {
-	const value = raw && typeof raw === 'object' && ! Array.isArray( raw ) ? raw : {};
+	const value =
+		raw && typeof raw === 'object' && ! Array.isArray( raw ) ? raw : {};
 	return {
 		...BLOCK_DEFAULTS,
 		...value,
 		supports: { ...BLOCK_DEFAULTS.supports, ...( value.supports || {} ) },
-		alignments: Array.isArray( value.alignments ) ? value.alignments : BLOCK_DEFAULTS.alignments,
+		alignments: Array.isArray( value.alignments )
+			? value.alignments
+			: BLOCK_DEFAULTS.alignments,
 		keywords: Array.isArray( value.keywords ) ? value.keywords : [],
 		styles: Array.isArray( value.styles ) ? value.styles : [],
 		variations: Array.isArray( value.variations ) ? value.variations : [],

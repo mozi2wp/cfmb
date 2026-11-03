@@ -18,13 +18,18 @@ export default function ButtonGroup( { field, id, value, onChange } ) {
 	};
 
 	const onKeyDown = ( event, index ) => {
-		let step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[ event.key ];
+		let step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[
+			event.key
+		];
 		if ( ! step || ! choices.length ) {
 			return;
 		}
 		event.preventDefault();
 		// Left and right follow visual order, which flips in RTL.
-		if ( document.dir === 'rtl' && ( event.key === 'ArrowLeft' || event.key === 'ArrowRight' ) ) {
+		if (
+			document.dir === 'rtl' &&
+			( event.key === 'ArrowLeft' || event.key === 'ArrowRight' )
+		) {
 			step = -step;
 		}
 		const next = ( index + step + choices.length ) % choices.length;
@@ -33,7 +38,12 @@ export default function ButtonGroup( { field, id, value, onChange } ) {
 	};
 
 	return (
-		<div className="cfmb-button-group" role="radiogroup" id={ id } aria-label={ field.label }>
+		<div
+			className="cfmb-button-group"
+			role="radiogroup"
+			id={ id }
+			aria-label={ field.label }
+		>
 			{ choices.map( ( choice, index ) => {
 				const checked = choice.value === value;
 				return (
@@ -44,7 +54,9 @@ export default function ButtonGroup( { field, id, value, onChange } ) {
 						role="radio"
 						aria-checked={ checked }
 						tabIndex={ index === activeIndex ? 0 : -1 }
-						className={ `cfmb-button-group__button${ checked ? ' is-checked' : '' }` }
+						className={ `cfmb-button-group__button${
+							checked ? ' is-checked' : ''
+						}` }
 						onClick={ () => pick( choice ) }
 						onKeyDown={ ( event ) => onKeyDown( event, index ) }
 					>

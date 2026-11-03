@@ -7,9 +7,27 @@
  * sent to the server, which sanitizes and validates it like a meta box save
  * and returns the new `data`. Saving the post waits for that round trip.
  */
-import { useCallback, useEffect, useMemo, useRef, useState } from '@wordpress/element';
-import { BlockControls, InnerBlocks, InspectorControls, useBlockProps } from '@wordpress/block-editor';
-import { Notice, PanelBody, Placeholder, Spinner, ToolbarButton, ToolbarGroup } from '@wordpress/components';
+import {
+	useCallback,
+	useEffect,
+	useMemo,
+	useRef,
+	useState,
+} from '@wordpress/element';
+import {
+	BlockControls,
+	InnerBlocks,
+	InspectorControls,
+	useBlockProps,
+} from '@wordpress/block-editor';
+import {
+	Notice,
+	PanelBody,
+	Placeholder,
+	Spinner,
+	ToolbarButton,
+	ToolbarGroup,
+} from '@wordpress/components';
 import { useRegistry } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 import { renderBlock } from './api';
@@ -19,7 +37,8 @@ import { uiIcon } from '../shared/ui-icons';
 const CONVERT_DELAY = 350;
 const PREVIEW_DELAY = 250;
 
-const isEmpty = ( value ) => ! value || typeof value !== 'object' || Object.keys( value ).length === 0;
+const isEmpty = ( value ) =>
+	! value || typeof value !== 'object' || Object.keys( value ).length === 0;
 const json = ( value ) => JSON.stringify( value ?? {} );
 
 // Block forms report validity to the server round trip, not to the meta box save guard.
@@ -49,7 +68,9 @@ export function errorMessages( errors, groups ) {
 		( fields || [] ).forEach( ( field ) => {
 			labels[ field.key ] = field.label || field.name;
 			collect( field.fields );
-			( field.layouts || [] ).forEach( ( layout ) => collect( layout.fields ) );
+			( field.layouts || [] ).forEach( ( layout ) =>
+				collect( layout.fields )
+			);
 		} );
 	groups.forEach( ( group ) => collect( group.fields ) );
 
@@ -59,9 +80,20 @@ export function errorMessages( errors, groups ) {
 	} );
 }
 
-function FormHost( { name, groups, clientId, latest, hostRef, onEdit, inline } ) {
+function FormHost( {
+	name,
+	groups,
+	clientId,
+	latest,
+	hostRef,
+	onEdit,
+	inline,
+} ) {
 	const GroupForm = window.cfmb?.GroupForm;
-	const [ start ] = useState( () => ( { base: latest.current.data, values: latest.current.values } ) );
+	const [ start ] = useState( () => ( {
+		base: latest.current.data,
+		values: latest.current.values,
+	} ) );
 	const [ id ] = useState( () => Math.random().toString( 36 ).slice( 2 ) );
 
 	useEffect( () => {
@@ -96,14 +128,31 @@ function FormHost( { name, groups, clientId, latest, hostRef, onEdit, inline } )
 	}, [ groups, id, onEdit ] );
 
 	if ( ! GroupForm ) {
-		return <p>{ __( 'The field editor could not load. Reload the page.', 'custom-fields-meta-box' ) }</p>;
+		return (
+			<p>
+				{ __(
+					'The field editor could not load. Reload the page.',
+					'custom-fields-meta-box'
+				) }
+			</p>
+		);
 	}
 
 	if ( ! groups.length ) {
-		return <p className="cfmb-block-form__empty">{ __( 'This block has no fields yet. Add fields to its field group under CFMB.', 'custom-fields-meta-box' ) }</p>;
+		return (
+			<p className="cfmb-block-form__empty">
+				{ __(
+					'This block has no fields yet. Add fields to its field group under CFMB.',
+					'custom-fields-meta-box'
+				) }
+			</p>
+		);
 	}
 
-	const components = { ...( window.cfmb.fieldTypes || {} ), ...( window.cfmb.fieldComponents || {} ) };
+	const components = {
+		...( window.cfmb.fieldTypes || {} ),
+		...( window.cfmb.fieldComponents || {} ),
+	};
 
 	return groups.map( ( group ) => {
 		const form = (
@@ -120,7 +169,9 @@ function FormHost( { name, groups, clientId, latest, hostRef, onEdit, inline } )
 					objectPage: '',
 					objectRef: `block:${ name }`,
 					instance: `${ group.key }@${ clientId }`,
-					idBase: `${ group.key }-${ clientId.slice( 0, 8 ) }${ inline ? '-c' : '' }`,
+					idBase: `${ group.key }-${ clientId.slice( 0, 8 ) }${
+						inline ? '-c' : ''
+					}`,
 				} }
 				input={ inputs[ group.key ] }
 				registry={ localRegistry }
@@ -131,8 +182,16 @@ function FormHost( { name, groups, clientId, latest, hostRef, onEdit, inline } )
 		if ( inline ) {
 			return (
 				<div className="cfmb-block-form__group" key={ group.key }>
-					{ groups.length > 1 && <h3 className="cfmb-block-form__title">{ group.title }</h3> }
-					{ group.description && <p className="cfmb-group__description">{ group.description }</p> }
+					{ groups.length > 1 && (
+						<h3 className="cfmb-block-form__title">
+							{ group.title }
+						</h3>
+					) }
+					{ group.description && (
+						<p className="cfmb-group__description">
+							{ group.description }
+						</p>
+					) }
 					{ form }
 				</div>
 			);
@@ -140,8 +199,18 @@ function FormHost( { name, groups, clientId, latest, hostRef, onEdit, inline } )
 
 		return (
 			<PanelBody key={ group.key } title={ group.title } initialOpen>
-				{ group.description && <p className="cfmb-group__description">{ group.description }</p> }
-				<div className={ `cfmb-group cfmb-group--plain cfmb-group--labels-${ group.labelPlacement || 'top' }` }>{ form }</div>
+				{ group.description && (
+					<p className="cfmb-group__description">
+						{ group.description }
+					</p>
+				) }
+				<div
+					className={ `cfmb-group cfmb-group--plain cfmb-group--labels-${
+						group.labelPlacement || 'top'
+					}` }
+				>
+					{ form }
+				</div>
 			</PanelBody>
 		);
 	} );
@@ -149,9 +218,17 @@ function FormHost( { name, groups, clientId, latest, hostRef, onEdit, inline } )
 
 export default function createEdit( name, definition ) {
 	const groups = definition.groups || [];
-	const defaults = Object.fromEntries( groups.map( ( group ) => [ group.key, group.defaults || {} ] ) );
+	const defaults = Object.fromEntries(
+		groups.map( ( group ) => [ group.key, group.defaults || {} ] )
+	);
 
-	return function Edit( { attributes, setAttributes, clientId, context, isSelected } ) {
+	return function Edit( {
+		attributes,
+		setAttributes,
+		clientId,
+		context,
+		isSelected,
+	} ) {
 		const registry = useRegistry();
 		const mode = attributes.mode || definition.mode || 'preview';
 		const data = attributes.data || {};
@@ -159,7 +236,10 @@ export default function createEdit( name, definition ) {
 		const presentation = json( presentationOf( attributes ) );
 		const postId = context?.postId;
 		const postType = context?.postType;
-		const requestContext = useMemo( () => ( postId ? { postId, postType } : {} ), [ postId, postType ] );
+		const requestContext = useMemo(
+			() => ( postId ? { postId, postType } : {} ),
+			[ postId, postType ]
+		);
 
 		const [ ready, setReady ] = useState( () => isEmpty( data ) );
 		const [ hostVersion, setHostVersion ] = useState( 0 );
@@ -180,7 +260,8 @@ export default function createEdit( name, definition ) {
 		modeRef.current = mode;
 		// What the shown preview was rendered from, so the same preview isn't fetched twice.
 		const previewOf = useRef( '' );
-		const previewKey = ( current ) => `${ json( presentationOf( current ) ) }|${ json( current.data ) }`;
+		const previewKey = ( current ) =>
+			`${ json( presentationOf( current ) ) }|${ json( current.data ) }`;
 
 		const lockKey = `cfmb-block-${ clientId }`;
 		const setBusy = useCallback(
@@ -200,12 +281,17 @@ export default function createEdit( name, definition ) {
 			[ registry, lockKey ]
 		);
 
-		useEffect( () => () => {
-			window.clearTimeout( timer.current );
-			if ( busy.current ) {
-				registry.dispatch( 'core/editor' )?.unlockPostSaving?.( lockKey );
-			}
-		}, [ registry, lockKey ] );
+		useEffect(
+			() => () => {
+				window.clearTimeout( timer.current );
+				if ( busy.current ) {
+					registry
+						.dispatch( 'core/editor' )
+						?.unlockPostSaving?.( lockKey );
+				}
+			},
+			[ registry, lockKey ]
+		);
 
 		// Saved data the forms have not seen yet: on load, and after undo or redo.
 		const loadSnapshot = useCallback( () => {
@@ -224,7 +310,10 @@ export default function createEdit( name, definition ) {
 					if ( seq !== loadSeq.current ) {
 						return;
 					}
-					latest.current = { data: result.data || {}, values: result.values || defaults };
+					latest.current = {
+						data: result.data || {},
+						values: result.values || defaults,
+					};
 					known.current = json( current.data );
 					setFailure( '' );
 					if ( modeRef.current === 'preview' ) {
@@ -234,7 +323,15 @@ export default function createEdit( name, definition ) {
 					setReady( true );
 					setHostVersion( ( version ) => version + 1 );
 				} )
-				.catch( ( error ) => setFailure( error?.message || __( 'The block could not be loaded.', 'custom-fields-meta-box' ) ) )
+				.catch( ( error ) =>
+					setFailure(
+						error?.message ||
+							__(
+								'The block could not be loaded.',
+								'custom-fields-meta-box'
+							)
+					)
+				)
 				.finally( () => setBusy( -1 ) );
 		}, [ requestContext, setBusy ] );
 
@@ -255,28 +352,45 @@ export default function createEdit( name, definition ) {
 
 		// Preview for the current data and presentation (className, align, colors).
 		useEffect( () => {
-			if ( mode !== 'preview' || ! ready || previewOf.current === previewKey( attributesRef.current ) ) {
+			if (
+				mode !== 'preview' ||
+				! ready ||
+				previewOf.current === previewKey( attributesRef.current )
+			) {
 				return undefined;
 			}
 			const seq = ++loadSeq.current;
-			const handle = window.setTimeout( () => {
-				renderBlock( {
-					name,
-					data: attributesRef.current.data || {},
-					attributes: presentationOf( attributesRef.current ),
-					context: requestContext,
-					preview: true,
-					form: false,
-				} )
-					.then( ( result ) => {
-						if ( seq === loadSeq.current ) {
-							previewOf.current = previewKey( attributesRef.current );
-							setFailure( '' );
-							setHtml( result.html || '' );
-						}
+			const handle = window.setTimeout(
+				() => {
+					renderBlock( {
+						name,
+						data: attributesRef.current.data || {},
+						attributes: presentationOf( attributesRef.current ),
+						context: requestContext,
+						preview: true,
+						form: false,
 					} )
-					.catch( ( error ) => setFailure( error?.message || __( 'The preview could not be loaded.', 'custom-fields-meta-box' ) ) );
-			}, html === null ? 0 : PREVIEW_DELAY );
+						.then( ( result ) => {
+							if ( seq === loadSeq.current ) {
+								previewOf.current = previewKey(
+									attributesRef.current
+								);
+								setFailure( '' );
+								setHtml( result.html || '' );
+							}
+						} )
+						.catch( ( error ) =>
+							setFailure(
+								error?.message ||
+									__(
+										'The preview could not be loaded.',
+										'custom-fields-meta-box'
+									)
+							)
+						);
+				},
+				html === null ? 0 : PREVIEW_DELAY
+			);
 			return () => window.clearTimeout( handle );
 			// The preview follows presentation and mode; data changes bring their own preview.
 			// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -305,14 +419,23 @@ export default function createEdit( name, definition ) {
 						return;
 					}
 					const next = result.data || {};
-					latest.current = { data: next, values: result.values || latest.current.values };
+					latest.current = {
+						data: next,
+						values: result.values || latest.current.values,
+					};
 					known.current = json( next );
 					setAttributes( { data: next } );
 					setErrors( result.errors || {} );
 					setFailure( '' );
-					if ( modeRef.current === 'preview' && typeof result.html === 'string' ) {
+					if (
+						modeRef.current === 'preview' &&
+						typeof result.html === 'string'
+					) {
 						loadSeq.current++;
-						previewOf.current = previewKey( { ...attributesRef.current, data: next } );
+						previewOf.current = previewKey( {
+							...attributesRef.current,
+							data: next,
+						} );
 						setHtml( result.html );
 					}
 					// A form that opened while this was on its way started from older values.
@@ -320,7 +443,15 @@ export default function createEdit( name, definition ) {
 						setHostVersion( ( version ) => version + 1 );
 					}
 				} )
-				.catch( ( error ) => setFailure( error?.message || __( 'The changes could not be applied. Try again.', 'custom-fields-meta-box' ) ) )
+				.catch( ( error ) =>
+					setFailure(
+						error?.message ||
+							__(
+								'The changes could not be applied. Try again.',
+								'custom-fields-meta-box'
+							)
+					)
+				)
 				.finally( () => setBusy( -1 ) );
 		}, [ requestContext, setAttributes, setBusy ] );
 
@@ -345,7 +476,8 @@ export default function createEdit( name, definition ) {
 			[ convert, setBusy ]
 		);
 
-		const switchMode = () => setAttributes( { mode: mode === 'edit' ? 'preview' : 'edit' } );
+		const switchMode = () =>
+			setAttributes( { mode: mode === 'edit' ? 'preview' : 'edit' } );
 
 		const blockProps = useBlockProps( {
 			className: `cfmb-block-editor cfmb-block-editor--${ mode }`,
@@ -367,7 +499,12 @@ export default function createEdit( name, definition ) {
 				) }
 				{ messages.length > 0 && (
 					<Notice status="warning" isDismissible={ false }>
-						<p>{ __( 'These values were not saved:', 'custom-fields-meta-box' ) }</p>
+						<p>
+							{ __(
+								'These values were not saved:',
+								'custom-fields-meta-box'
+							) }
+						</p>
 						<ul>
 							{ messages.map( ( message ) => (
 								<li key={ message }>{ message }</li>
@@ -391,12 +528,18 @@ export default function createEdit( name, definition ) {
 			/>
 		);
 
-		const innerBlocksSlot = ( props, key ) => <InnerBlocks key={ key } { ...props } />;
+		const innerBlocksSlot = ( props, key ) => (
+			<InnerBlocks key={ key } { ...props } />
+		);
 
 		let canvas;
 		if ( definition.templateError && mode === 'preview' ) {
 			canvas = (
-				<Placeholder icon={ uiIcon( 'warning' ) } label={ __( 'Template missing', 'custom-fields-meta-box' ) } instructions={ definition.templateError } />
+				<Placeholder
+					icon={ uiIcon( 'warning' ) }
+					label={ __( 'Template missing', 'custom-fields-meta-box' ) }
+					instructions={ definition.templateError }
+				/>
 			);
 		} else if ( mode === 'edit' ) {
 			canvas = (
@@ -420,12 +563,25 @@ export default function createEdit( name, definition ) {
 			canvas = (
 				<Placeholder
 					icon={ uiIcon( 'edit' ) }
-					label={ __( 'Nothing to show yet', 'custom-fields-meta-box' ) }
-					instructions={ __( 'Fill in the block\'s fields in the sidebar, or switch to editing the fields here.', 'custom-fields-meta-box' ) }
+					label={ __(
+						'Nothing to show yet',
+						'custom-fields-meta-box'
+					) }
+					instructions={ __(
+						"Fill in the block's fields in the sidebar, or switch to editing the fields here.",
+						'custom-fields-meta-box'
+					) }
 				/>
 			);
 		} else {
-			canvas = <div className="cfmb-block-editor__preview">{ htmlToElements( html, definition.innerBlocks ? innerBlocksSlot : null ) }</div>;
+			canvas = (
+				<div className="cfmb-block-editor__preview">
+					{ htmlToElements(
+						html,
+						definition.innerBlocks ? innerBlocksSlot : null
+					) }
+				</div>
+			);
 		}
 
 		return (
@@ -433,8 +589,20 @@ export default function createEdit( name, definition ) {
 				<BlockControls>
 					<ToolbarGroup>
 						<ToolbarButton
-							icon={ uiIcon( mode === 'edit' ? 'visibility' : 'edit' ) }
-							label={ mode === 'edit' ? __( 'Show preview', 'custom-fields-meta-box' ) : __( 'Edit fields in the block', 'custom-fields-meta-box' ) }
+							icon={ uiIcon(
+								mode === 'edit' ? 'visibility' : 'edit'
+							) }
+							label={
+								mode === 'edit'
+									? __(
+											'Show preview',
+											'custom-fields-meta-box'
+									  )
+									: __(
+											'Edit fields in the block',
+											'custom-fields-meta-box'
+									  )
+							}
 							onClick={ switchMode }
 							isPressed={ mode === 'edit' }
 						/>
@@ -444,7 +612,9 @@ export default function createEdit( name, definition ) {
 					<InspectorControls>
 						{ mode === 'preview' ? (
 							<>
-								<div className="cfmb-block-sidebar__notices">{ notices }</div>
+								<div className="cfmb-block-sidebar__notices">
+									{ notices }
+								</div>
 								{ host || (
 									<PanelBody>
 										<Spinner />
@@ -453,7 +623,12 @@ export default function createEdit( name, definition ) {
 							</>
 						) : (
 							<PanelBody>
-								<p>{ __( 'The fields are shown in the block. Use the preview button in the toolbar to see the result.', 'custom-fields-meta-box' ) }</p>
+								<p>
+									{ __(
+										'The fields are shown in the block. Use the preview button in the toolbar to see the result.',
+										'custom-fields-meta-box'
+									) }
+								</p>
 							</PanelBody>
 						) }
 					</InspectorControls>

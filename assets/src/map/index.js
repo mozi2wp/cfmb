@@ -15,11 +15,27 @@ const FALLBACK = { lat: 20, lng: 0, zoom: 2 };
 
 function startView( field, place ) {
 	const settings = field.settings || {};
-	if ( place.lat !== '' && place.lng !== '' && Number.isFinite( Number( place.lat ) ) ) {
-		return { lat: Number( place.lat ), lng: Number( place.lng ), zoom: Number( place.zoom ) || Number( settings.zoom ) || 13 };
+	if (
+		place.lat !== '' &&
+		place.lng !== '' &&
+		Number.isFinite( Number( place.lat ) )
+	) {
+		return {
+			lat: Number( place.lat ),
+			lng: Number( place.lng ),
+			zoom: Number( place.zoom ) || Number( settings.zoom ) || 13,
+		};
 	}
-	if ( settings.center_lat !== '' && settings.center_lat !== undefined && Number.isFinite( Number( settings.center_lat ) ) ) {
-		return { lat: Number( settings.center_lat ), lng: Number( settings.center_lng ) || 0, zoom: Number( settings.zoom ) || 13 };
+	if (
+		settings.center_lat !== '' &&
+		settings.center_lat !== undefined &&
+		Number.isFinite( Number( settings.center_lat ) )
+	) {
+		return {
+			lat: Number( settings.center_lat ),
+			lng: Number( settings.center_lng ) || 0,
+			zoom: Number( settings.zoom ) || 13,
+		};
 	}
 	return FALLBACK;
 }
@@ -36,22 +52,47 @@ const round = ( number ) => String( Math.round( number * 1e7 ) / 1e7 );
 function geocode( provider, query ) {
 	if ( provider === 'google' ) {
 		return new Promise( ( resolve, reject ) => {
-			new window.google.maps.Geocoder().geocode( { address: query }, ( results, status ) => {
-				if ( status === 'OK' ) {
-					resolve( results.slice( 0, 5 ).map( ( result ) => ( { label: result.formatted_address, lat: result.geometry.location.lat(), lng: result.geometry.location.lng() } ) ) );
-				} else if ( status === 'ZERO_RESULTS' ) {
-					resolve( [] );
-				} else {
-					reject( new Error( status ) );
+			new window.google.maps.Geocoder().geocode(
+				{ address: query },
+				( results, status ) => {
+					if ( status === 'OK' ) {
+						resolve(
+							results
+								.slice( 0, 5 )
+								.map( ( result ) => ( {
+									label: result.formatted_address,
+									lat: result.geometry.location.lat(),
+									lng: result.geometry.location.lng(),
+								} ) )
+						);
+					} else if ( status === 'ZERO_RESULTS' ) {
+						resolve( [] );
+					} else {
+						reject( new Error( status ) );
+					}
 				}
-			} );
+			);
 		} );
 	}
-	const url = `https://nominatim.openstreetmap.org/search?format=jsonv2&limit=5&q=${ encodeURIComponent( query ) }&accept-language=${ encodeURIComponent( document.documentElement.lang || 'en' ) }`;
+	const url = `https://nominatim.openstreetmap.org/search?format=jsonv2&limit=5&q=${ encodeURIComponent(
+		query
+	) }&accept-language=${ encodeURIComponent(
+		document.documentElement.lang || 'en'
+	) }`;
 	return window
 		.fetch( url, { headers: { Accept: 'application/json' } } )
-		.then( ( response ) => ( response.ok ? response.json() : Promise.reject( new Error( response.statusText ) ) ) )
-		.then( ( places ) => places.map( ( place ) => ( { label: place.display_name, lat: Number( place.lat ), lng: Number( place.lon ) } ) ) );
+		.then( ( response ) =>
+			response.ok
+				? response.json()
+				: Promise.reject( new Error( response.statusText ) )
+		)
+		.then( ( places ) =>
+			places.map( ( place ) => ( {
+				label: place.display_name,
+				lat: Number( place.lat ),
+				lng: Number( place.lon ),
+			} ) )
+		);
 }
 
 /**
@@ -65,12 +106,20 @@ function geocode( provider, query ) {
 function reverseGeocode( provider, lat, lng ) {
 	if ( provider === 'google' ) {
 		return new Promise( ( resolve ) => {
-			new window.google.maps.Geocoder().geocode( { location: { lat, lng } }, ( results, status ) =>
-				resolve( status === 'OK' && results[ 0 ] ? results[ 0 ].formatted_address : '' )
+			new window.google.maps.Geocoder().geocode(
+				{ location: { lat, lng } },
+				( results, status ) =>
+					resolve(
+						status === 'OK' && results[ 0 ]
+							? results[ 0 ].formatted_address
+							: ''
+					)
 			);
 		} );
 	}
-	const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${ lat }&lon=${ lng }&accept-language=${ encodeURIComponent( document.documentElement.lang || 'en' ) }`;
+	const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${ lat }&lon=${ lng }&accept-language=${ encodeURIComponent(
+		document.documentElement.lang || 'en'
+	) }`;
 	return window
 		.fetch( url, { headers: { Accept: 'application/json' } } )
 		.then( ( response ) => ( response.ok ? response.json() : {} ) )
@@ -87,7 +136,9 @@ function loadGoogle( key ) {
 		googleLoading = new Promise( ( resolve, reject ) => {
 			window.cfmbGoogleMapsReady = () => resolve();
 			const script = document.createElement( 'script' );
-			script.src = `https://maps.googleapis.com/maps/api/js?key=${ encodeURIComponent( key ) }&callback=cfmbGoogleMapsReady&loading=async&v=weekly&libraries=marker`;
+			script.src = `https://maps.googleapis.com/maps/api/js?key=${ encodeURIComponent(
+				key
+			) }&callback=cfmbGoogleMapsReady&loading=async&v=weekly&libraries=marker`;
 			script.async = true;
 			script.onerror = () => {
 				googleLoading = null;
@@ -111,7 +162,9 @@ function Canvas( { provider, field, place, onPoint, onZoom } ) {
 	const marker = useRef();
 	const handlers = useRef( {} );
 	handlers.current = { onPoint, onZoom };
-	const [ status, setStatus ] = useState( provider === 'google' ? 'loading' : 'ready' );
+	const [ status, setStatus ] = useState(
+		provider === 'google' ? 'loading' : 'ready'
+	);
 
 	useEffect( () => {
 		const view = startView( field, place );
@@ -122,11 +175,20 @@ function Canvas( { provider, field, place, onPoint, onZoom } ) {
 				.then( () => {
 					const maps = window.google.maps;
 					const mapId = window.cfmbFields?.googleMapId || '';
-					map.current = new maps.Map( node.current, { center: view, zoom: view.zoom, streetViewControl: false, mapTypeControl: false, ...( mapId ? { mapId } : {} ) } );
+					map.current = new maps.Map( node.current, {
+						center: view,
+						zoom: view.zoom,
+						streetViewControl: false,
+						mapTypeControl: false,
+						...( mapId ? { mapId } : {} ),
+					} );
 
 					// Advanced Markers need a Map ID; without one the classic marker still works.
 					if ( mapId && maps.marker?.AdvancedMarkerElement ) {
-						const pin = new maps.marker.AdvancedMarkerElement( { gmpDraggable: true, title: __( 'Place', 'custom-fields-meta-box' ) } );
+						const pin = new maps.marker.AdvancedMarkerElement( {
+							gmpDraggable: true,
+							title: __( 'Place', 'custom-fields-meta-box' ),
+						} );
 						marker.current = {
 							show: ( point ) => {
 								pin.position = point;
@@ -136,12 +198,22 @@ function Canvas( { provider, field, place, onPoint, onZoom } ) {
 						};
 						pin.addListener( 'dragend', () => {
 							const point = pin.position;
-							const lat = typeof point.lat === 'function' ? point.lat() : point.lat;
-							const lng = typeof point.lng === 'function' ? point.lng() : point.lng;
+							const lat =
+								typeof point.lat === 'function'
+									? point.lat()
+									: point.lat;
+							const lng =
+								typeof point.lng === 'function'
+									? point.lng()
+									: point.lng;
 							handlers.current.onPoint( lat, lng );
 						} );
 					} else {
-						const pin = new maps.Marker( { map: map.current, draggable: true, visible: false } );
+						const pin = new maps.Marker( {
+							map: map.current,
+							draggable: true,
+							visible: false,
+						} );
 						marker.current = {
 							show: ( point ) => {
 								pin.setPosition( point );
@@ -149,44 +221,71 @@ function Canvas( { provider, field, place, onPoint, onZoom } ) {
 							},
 							hide: () => pin.setVisible( false ),
 						};
-						pin.addListener( 'dragend', ( event ) => handlers.current.onPoint( event.latLng.lat(), event.latLng.lng() ) );
+						pin.addListener( 'dragend', ( event ) =>
+							handlers.current.onPoint(
+								event.latLng.lat(),
+								event.latLng.lng()
+							)
+						);
 					}
 
 					if ( place.lat !== '' ) {
 						marker.current.show( { lat: view.lat, lng: view.lng } );
 					}
-					map.current.addListener( 'click', ( event ) => handlers.current.onPoint( event.latLng.lat(), event.latLng.lng() ) );
-					map.current.addListener( 'zoom_changed', () => handlers.current.onZoom( map.current.getZoom() ) );
+					map.current.addListener( 'click', ( event ) =>
+						handlers.current.onPoint(
+							event.latLng.lat(),
+							event.latLng.lng()
+						)
+					);
+					map.current.addListener( 'zoom_changed', () =>
+						handlers.current.onZoom( map.current.getZoom() )
+					);
 					setStatus( 'ready' );
 				} )
 				.catch( () => setStatus( 'error' ) );
 			return undefined;
 		}
 
-		map.current = L.map( node.current, { scrollWheelZoom: false } ).setView( [ view.lat, view.lng ], view.zoom );
+		map.current = L.map( node.current, { scrollWheelZoom: false } ).setView(
+			[ view.lat, view.lng ],
+			view.zoom
+		);
 		L.tileLayer( 'https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 			maxZoom: 19,
-			attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+			attribution:
+				'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
 		} ).addTo( map.current );
 		marker.current = L.marker( [ view.lat, view.lng ], {
 			draggable: true,
 			keyboard: true,
 			// Leaflet positions the icon element with a transform, so the shape is drawn on a child.
-			icon: L.divIcon( { className: 'cfmb-map__pin', html: '<span class="cfmb-map__pin-shape"></span>', iconSize: [ 26, 26 ], iconAnchor: [ 13, 26 ] } ),
+			icon: L.divIcon( {
+				className: 'cfmb-map__pin',
+				html: '<span class="cfmb-map__pin-shape"></span>',
+				iconSize: [ 26, 26 ],
+				iconAnchor: [ 13, 26 ],
+			} ),
 		} );
 		if ( place.lat !== '' ) {
 			marker.current.addTo( map.current );
 		}
-		map.current.on( 'click', ( event ) => handlers.current.onPoint( event.latlng.lat, event.latlng.lng ) );
+		map.current.on( 'click', ( event ) =>
+			handlers.current.onPoint( event.latlng.lat, event.latlng.lng )
+		);
 		marker.current.on( 'dragend', () => {
 			const point = marker.current.getLatLng();
 			handlers.current.onPoint( point.lat, point.lng );
 		} );
-		map.current.on( 'zoomend', () => handlers.current.onZoom( map.current.getZoom() ) );
+		map.current.on( 'zoomend', () =>
+			handlers.current.onZoom( map.current.getZoom() )
+		);
 
 		// Maps inside closed tabs, accordions or rows need a size check once they show.
 		if ( window.ResizeObserver ) {
-			observer = new window.ResizeObserver( () => map.current?.invalidateSize() );
+			observer = new window.ResizeObserver( () =>
+				map.current?.invalidateSize()
+			);
 			observer.observe( node.current );
 		}
 
@@ -206,7 +305,13 @@ function Canvas( { provider, field, place, onPoint, onZoom } ) {
 		}
 		const lat = Number( place.lat );
 		const lng = Number( place.lng );
-		const valid = place.lat !== '' && place.lng !== '' && Number.isFinite( lat ) && Number.isFinite( lng ) && Math.abs( lat ) <= 90 && Math.abs( lng ) <= 180;
+		const valid =
+			place.lat !== '' &&
+			place.lng !== '' &&
+			Number.isFinite( lat ) &&
+			Number.isFinite( lng ) &&
+			Math.abs( lat ) <= 90 &&
+			Math.abs( lng ) <= 180;
 
 		if ( provider === 'google' ) {
 			if ( ! valid ) {
@@ -238,16 +343,29 @@ function Canvas( { provider, field, place, onPoint, onZoom } ) {
 			<div
 				ref={ node }
 				className="cfmb-map__canvas"
-				style={ { height: `${ Number( field.settings?.height ) || 320 }px` } }
+				style={ {
+					height: `${ Number( field.settings?.height ) || 320 }px`,
+				} }
 				role="application"
-				aria-label={ __( 'Map. Click to place the pin, or drag the pin to move it.', 'custom-fields-meta-box' ) }
+				aria-label={ __(
+					'Map. Click to place the pin, or drag the pin to move it.',
+					'custom-fields-meta-box'
+				) }
 			/>
 			{ status === 'loading' && (
 				<p className="cfmb-map__status">
-					<Spinner /> { __( 'Loading map…', 'custom-fields-meta-box' ) }
+					<Spinner />{ ' ' }
+					{ __( 'Loading map…', 'custom-fields-meta-box' ) }
 				</p>
 			) }
-			{ status === 'error' && <p className="cfmb-field__error">{ __( 'Google Maps could not load. Check the API key in CFMB settings.', 'custom-fields-meta-box' ) }</p> }
+			{ status === 'error' && (
+				<p className="cfmb-field__error">
+					{ __(
+						'Google Maps could not load. Check the API key in CFMB settings.',
+						'custom-fields-meta-box'
+					) }
+				</p>
+			) }
 		</div>
 	);
 }
@@ -271,11 +389,17 @@ function MapView( { field, id, place, onPlace } ) {
 			if ( address && request === lookup.current ) {
 				onPlace( { address } );
 				/* translators: %s: address */
-				speak( sprintf( __( 'Address set to %s.', 'custom-fields-meta-box' ), address ) );
+				speak(
+					sprintf(
+						__( 'Address set to %s.', 'custom-fields-meta-box' ),
+						address
+					)
+				);
 			}
 		} );
 	};
-	const onZoom = ( zoom ) => placeRef.current.lat !== '' && onPlace( { zoom } );
+	const onZoom = ( zoom ) =>
+		placeRef.current.lat !== '' && onPlace( { zoom } );
 
 	const find = () => {
 		if ( ! query.trim() ) {
@@ -286,23 +410,43 @@ function MapView( { field, id, place, onPlace } ) {
 		geocode( provider, query.trim() )
 			.then( ( places ) => {
 				setResults( places );
-				speak( places.length ? __( 'Places found. Choose one below the search box.', 'custom-fields-meta-box' ) : __( 'No places found.', 'custom-fields-meta-box' ) );
+				speak(
+					places.length
+						? __(
+								'Places found. Choose one below the search box.',
+								'custom-fields-meta-box'
+						  )
+						: __( 'No places found.', 'custom-fields-meta-box' )
+				);
 			} )
-			.catch( () => setError( __( 'Address search is not available right now.', 'custom-fields-meta-box' ) ) )
+			.catch( () =>
+				setError(
+					__(
+						'Address search is not available right now.',
+						'custom-fields-meta-box'
+					)
+				)
+			)
 			.finally( () => setBusy( false ) );
 	};
 
 	return (
 		<div className="cfmb-map__view">
 			<div className="cfmb-map__search">
-				<label className="screen-reader-text" htmlFor={ `${ id }-search` }>
+				<label
+					className="screen-reader-text"
+					htmlFor={ `${ id }-search` }
+				>
 					{ __( 'Search for an address', 'custom-fields-meta-box' ) }
 				</label>
 				<input
 					id={ `${ id }-search` }
 					className="cfmb-input"
 					type="search"
-					placeholder={ __( 'Search for an address', 'custom-fields-meta-box' ) }
+					placeholder={ __(
+						'Search for an address',
+						'custom-fields-meta-box'
+					) }
 					value={ query }
 					onChange={ ( event ) => setQuery( event.target.value ) }
 					onKeyDown={ ( event ) => {
@@ -325,7 +469,12 @@ function MapView( { field, id, place, onPlace } ) {
 								type="button"
 								className="button-link"
 								onClick={ () => {
-									onPlace( { lat: round( result.lat ), lng: round( result.lng ), address: result.label, zoom: placeRef.current.zoom || 15 } );
+									onPlace( {
+										lat: round( result.lat ),
+										lng: round( result.lng ),
+										address: result.label,
+										zoom: placeRef.current.zoom || 15,
+									} );
 									setResults( null );
 								} }
 							>
@@ -335,7 +484,13 @@ function MapView( { field, id, place, onPlace } ) {
 					) ) }
 				</ul>
 			) }
-			<Canvas provider={ provider } field={ field } place={ place } onPoint={ onPoint } onZoom={ onZoom } />
+			<Canvas
+				provider={ provider }
+				field={ field }
+				place={ place }
+				onPoint={ onPoint }
+				onZoom={ onZoom }
+			/>
 		</div>
 	);
 }

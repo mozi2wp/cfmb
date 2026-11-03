@@ -47,7 +47,9 @@ function splitAccordions( fields ) {
 
 	fields.forEach( ( field ) => {
 		if ( field.type === 'accordion' ) {
-			current = field.settings?.endpoint ? null : { accordion: field, fields: [] };
+			current = field.settings?.endpoint
+				? null
+				: { accordion: field, fields: [] };
 			if ( current ) {
 				items.push( current );
 			}
@@ -65,14 +67,22 @@ function hasProblems( fields, values, visible, reveal, path ) {
 	return fields.some(
 		( field ) =>
 			visible[ field.key ] &&
-			validateTree( field, values[ field.key ], reveal.enforceRequired, joinPath( path, field.key ) ).length > 0
+			validateTree(
+				field,
+				values[ field.key ],
+				reveal.enforceRequired,
+				joinPath( path, field.key )
+			).length > 0
 	);
 }
 
 function Accordion( { accordion, children, values, fields, visible, path } ) {
 	const { idBase, reveal } = useForm();
 	const [ open, setOpen ] = useState( !! accordion.settings?.open );
-	const panelId = `${ domId( idBase, joinPath( path, accordion.key ) ) }__panel`;
+	const panelId = `${ domId(
+		idBase,
+		joinPath( path, accordion.key )
+	) }__panel`;
 
 	useEffect( () => {
 		if ( reveal && hasProblems( fields, values, visible, reveal, path ) ) {
@@ -83,17 +93,35 @@ function Accordion( { accordion, children, values, fields, visible, path } ) {
 	}, [ reveal ] );
 
 	return (
-		<div className={ `cfmb-accordion${ open ? ' is-open' : '' }` } data-cfmb-field={ accordion.key }>
+		<div
+			className={ `cfmb-accordion${ open ? ' is-open' : '' }` }
+			data-cfmb-field={ accordion.key }
+		>
 			<h3 className="cfmb-accordion__heading">
-				<button type="button" className="cfmb-accordion__toggle" aria-expanded={ open } aria-controls={ panelId } onClick={ () => setOpen( ! open ) }>
+				<button
+					type="button"
+					className="cfmb-accordion__toggle"
+					aria-expanded={ open }
+					aria-controls={ panelId }
+					onClick={ () => setOpen( ! open ) }
+				>
 					<span>{ accordion.label }</span>
 					<span className="cfmb-accordion__icon" aria-hidden="true" />
 				</button>
 			</h3>
 			{ accordion.instructions && (
-				<p className="cfmb-accordion__instructions" dangerouslySetInnerHTML={ { __html: accordion.instructions } } />
+				<p
+					className="cfmb-accordion__instructions"
+					dangerouslySetInnerHTML={ {
+						__html: accordion.instructions,
+					} }
+				/>
 			) }
-			<div id={ panelId } className="cfmb-accordion__panel cfmb-fields" hidden={ ! open }>
+			<div
+				id={ panelId }
+				className="cfmb-accordion__panel cfmb-fields"
+				hidden={ ! open }
+			>
 				{ children }
 			</div>
 		</div>
@@ -106,7 +134,9 @@ export default function Fields( { fields, values, onChange, path = '' } ) {
 	const sections = useMemo( () => splitTabs( fields ), [ fields ] );
 	const visible = useMemo( () => {
 		const map = {};
-		fields.forEach( ( field ) => ( map[ field.key ] = isVisible( field, values ) ) );
+		fields.forEach(
+			( field ) => ( map[ field.key ] = isVisible( field, values ) )
+		);
 		return map;
 	}, [ fields, values ] );
 	const [ activeTab, setActiveTab ] = useState( 0 );
@@ -117,7 +147,9 @@ export default function Fields( { fields, values, onChange, path = '' } ) {
 		if ( ! reveal ) {
 			return;
 		}
-		const index = sections.tabs.findIndex( ( section ) => hasProblems( section.fields, values, visible, reveal, path ) );
+		const index = sections.tabs.findIndex( ( section ) =>
+			hasProblems( section.fields, values, visible, reveal, path )
+		);
 		if ( index >= 0 ) {
 			setActiveTab( index );
 		}
@@ -140,11 +172,20 @@ export default function Fields( { fields, values, onChange, path = '' } ) {
 
 		if ( ! Control ) {
 			return (
-				<div key={ field.key } className="cfmb-field cfmb-field--unknown">
+				<div
+					key={ field.key }
+					className="cfmb-field cfmb-field--unknown"
+				>
 					<p className="cfmb-field__error">
 						{ field.type === 'preset'
-							? __( 'This preset\'s field group no longer exists. Edit the field group to choose another one.', 'custom-fields-meta-box' )
-							: __( 'This field type is not available. The plugin that adds it may be inactive.', 'custom-fields-meta-box' ) }
+							? __(
+									"This preset's field group no longer exists. Edit the field group to choose another one.",
+									'custom-fields-meta-box'
+							  )
+							: __(
+									'This field type is not available. The plugin that adds it may be inactive.',
+									'custom-fields-meta-box'
+							  ) }
 					</p>
 				</div>
 			);
@@ -179,48 +220,69 @@ export default function Fields( { fields, values, onChange, path = '' } ) {
 
 	const renderList = ( list ) =>
 		splitAccordions( list ).map( ( item ) =>
-			item.accordion ? (
-				visible[ item.accordion.key ] && (
-					<Accordion
-						key={ item.accordion.key }
-						accordion={ item.accordion }
-						fields={ item.fields }
-						values={ values }
-						visible={ visible }
-						path={ path }
-					>
-						{ item.fields.map( renderField ) }
-					</Accordion>
-				)
-			) : (
-				renderField( item.field )
-			)
+			item.accordion
+				? visible[ item.accordion.key ] && (
+						<Accordion
+							key={ item.accordion.key }
+							accordion={ item.accordion }
+							fields={ item.fields }
+							values={ values }
+							visible={ visible }
+							path={ path }
+						>
+							{ item.fields.map( renderField ) }
+						</Accordion>
+				  )
+				: renderField( item.field )
 		);
 
-	const visibleTabs = sections.tabs.map( ( section, index ) => ( { ...section, index } ) ).filter( ( section ) => visible[ section.tab.key ] );
-	const currentTab = visibleTabs.find( ( section ) => section.index === activeTab ) || visibleTabs[ 0 ];
-	const placement = sections.tabs[ 0 ]?.tab.settings?.placement === 'left' ? 'left' : 'top';
+	const visibleTabs = sections.tabs
+		.map( ( section, index ) => ( { ...section, index } ) )
+		.filter( ( section ) => visible[ section.tab.key ] );
+	const currentTab =
+		visibleTabs.find( ( section ) => section.index === activeTab ) ||
+		visibleTabs[ 0 ];
+	const placement =
+		sections.tabs[ 0 ]?.tab.settings?.placement === 'left' ? 'left' : 'top';
 
 	const onTabKeyDown = ( event, position ) => {
-		let step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[ event.key ];
+		let step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[
+			event.key
+		];
 		if ( ! step ) {
 			return;
 		}
 		event.preventDefault();
-		if ( document.dir === 'rtl' && ( event.key === 'ArrowLeft' || event.key === 'ArrowRight' ) ) {
+		if (
+			document.dir === 'rtl' &&
+			( event.key === 'ArrowLeft' || event.key === 'ArrowRight' )
+		) {
 			step = -step;
 		}
-		const next = visibleTabs[ ( position + step + visibleTabs.length ) % visibleTabs.length ];
+		const next =
+			visibleTabs[
+				( position + step + visibleTabs.length ) % visibleTabs.length
+			];
 		setActiveTab( next.index );
 		document.getElementById( `${ tabsId }-${ next.index }` )?.focus();
 	};
 
 	return (
 		<>
-			{ sections.before.length > 0 && <div className="cfmb-fields">{ renderList( sections.before ) }</div> }
+			{ sections.before.length > 0 && (
+				<div className="cfmb-fields">
+					{ renderList( sections.before ) }
+				</div>
+			) }
 			{ visibleTabs.length > 0 && (
 				<div className={ `cfmb-tabs cfmb-tabs--${ placement }` }>
-					<div className="cfmb-tabs__list" role="tablist" aria-orientation={ placement === 'left' ? 'vertical' : 'horizontal' }>
+					<div
+						className="cfmb-tabs__list"
+						role="tablist"
+						aria-orientation={
+							placement === 'left' ? 'vertical' : 'horizontal'
+						}
+					>
 						{ visibleTabs.map( ( section, position ) => {
 							const selected = section === currentTab;
 							return (
@@ -232,9 +294,15 @@ export default function Fields( { fields, values, onChange, path = '' } ) {
 									aria-selected={ selected }
 									aria-controls={ `${ tabsId }-panel-${ section.index }` }
 									tabIndex={ selected ? 0 : -1 }
-									className={ `cfmb-tabs__tab${ selected ? ' is-active' : '' }` }
-									onClick={ () => setActiveTab( section.index ) }
-									onKeyDown={ ( event ) => onTabKeyDown( event, position ) }
+									className={ `cfmb-tabs__tab${
+										selected ? ' is-active' : ''
+									}` }
+									onClick={ () =>
+										setActiveTab( section.index )
+									}
+									onKeyDown={ ( event ) =>
+										onTabKeyDown( event, position )
+									}
 								>
 									{ section.tab.label }
 								</button>

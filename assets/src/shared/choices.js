@@ -30,6 +30,8 @@ export function parseChoiceLines( text ) {
 
 export function formatChoiceLines( choices ) {
 	return ( Array.isArray( choices ) ? choices : [] )
-		.map( ( { value, label } ) => ( value === label ? value : `${ value } : ${ label }` ) )
+		.map( ( { value, label } ) =>
+			value === label ? value : `${ value } : ${ label }`
+		)
 		.join( '\n' );
 }

@@ -22,14 +22,22 @@ function currentRecord( select, context ) {
 	if ( ! context?.postId || ! context?.postType ) {
 		return null;
 	}
-	return select( 'core' ).getEditedEntityRecord( 'postType', context.postType, context.postId ) || null;
+	return (
+		select( 'core' ).getEditedEntityRecord(
+			'postType',
+			context.postType,
+			context.postId
+		) || null
+	);
 }
 
 function labelFor( name, context ) {
 	const list = fieldList( config, context?.postType );
 	const found = list.find( ( item ) => item.args.field === name );
 	/* translators: %s: field name */
-	return found ? found.label : sprintf( __( 'Field: %s', 'custom-fields-meta-box' ), name );
+	return found
+		? found.label
+		: sprintf( __( 'Field: %s', 'custom-fields-meta-box' ), name );
 }
 
 if ( typeof registerBlockBindingsSource === 'function' ) {
@@ -43,32 +51,51 @@ if ( typeof registerBlockBindingsSource === 'function' ) {
 			const { context, bindings } = args;
 			const values = {};
 
-			Object.entries( bindings || {} ).forEach( ( [ attribute, binding ] ) => {
-				const source = binding?.args || {};
-				const name = source.field || source.key;
-				if ( ! name ) {
-					return;
-				}
-
-				if ( isCurrentObject( source.object ) ) {
-					const editable = currentRecord( select, context )?.cfmb_bindings;
-					if ( editable && Object.prototype.hasOwnProperty.call( editable, name ) ) {
-						values[ attribute ] = editable[ name ];
+			Object.entries( bindings || {} ).forEach(
+				( [ attribute, binding ] ) => {
+					const source = binding?.args || {};
+					const name = source.field || source.key;
+					if ( ! name ) {
 						return;
 					}
-				}
 
-				const post = isCurrentObject( source.object ) || source.object === 'author' ? context?.postId || 0 : 0;
-				const parts = select( STORE ).getValue( source.object || '', post, name );
-				const value = pick( parts, attribute );
+					if ( isCurrentObject( source.object ) ) {
+						const editable = currentRecord(
+							select,
+							context
+						)?.cfmb_bindings;
+						if (
+							editable &&
+							Object.prototype.hasOwnProperty.call(
+								editable,
+								name
+							)
+						) {
+							values[ attribute ] = editable[ name ];
+							return;
+						}
+					}
 
-				if ( value !== undefined && value !== '' ) {
-					values[ attribute ] = value;
-				} else if ( ! PLAIN_ATTRIBUTES.includes( attribute ) ) {
-					// Empty text shows the field's name, so the bound block can still be found.
-					values[ attribute ] = labelFor( name, context );
+					const post =
+						isCurrentObject( source.object ) ||
+						source.object === 'author'
+							? context?.postId || 0
+							: 0;
+					const parts = select( STORE ).getValue(
+						source.object || '',
+						post,
+						name
+					);
+					const value = pick( parts, attribute );
+
+					if ( value !== undefined && value !== '' ) {
+						values[ attribute ] = value;
+					} else if ( ! PLAIN_ATTRIBUTES.includes( attribute ) ) {
+						// Empty text shows the field's name, so the bound block can still be found.
+						values[ attribute ] = labelFor( name, context );
+					}
 				}
-			} );
+			);
 
 			return values;
 		},
@@ -89,14 +116,23 @@ if ( typeof registerBlockBindingsSource === 'function' ) {
 			Object.values( bindings || {} ).forEach( ( binding ) => {
 				const source = binding?.args || {};
 				const name = source.field || source.key;
-				if ( name && isCurrentObject( source.object ) && Object.prototype.hasOwnProperty.call( next, name ) ) {
+				if (
+					name &&
+					isCurrentObject( source.object ) &&
+					Object.prototype.hasOwnProperty.call( next, name )
+				) {
 					next[ name ] = binding.newValue ?? '';
 					changed = true;
 				}
 			} );
 
 			if ( changed ) {
-				dispatch( 'core' ).editEntityRecord( 'postType', context.postType, context.postId, { cfmb_bindings: next } );
+				dispatch( 'core' ).editEntityRecord(
+					'postType',
+					context.postType,
+					context.postId,
+					{ cfmb_bindings: next }
+				);
 			}
 		},
 
@@ -112,17 +148,25 @@ if ( typeof registerBlockBindingsSource === 'function' ) {
 
 			// Only the post being edited, not other posts shown in a Query Loop.
 			const editorPost = select( 'core/editor' )?.getCurrentPostId?.();
-			if ( ! context?.postId || String( editorPost ) !== String( context.postId ) ) {
+			if (
+				! context?.postId ||
+				String( editorPost ) !== String( context.postId )
+			) {
 				return false;
 			}
 
 			const editable = currentRecord( select, context )?.cfmb_bindings;
-			return !! editable && Object.prototype.hasOwnProperty.call( editable, name );
+			return (
+				!! editable &&
+				Object.prototype.hasOwnProperty.call( editable, name )
+			);
 		},
 
 		getFieldsList( args ) {
 			const select = selectOf( args );
-			const postType = args.context?.postType || select?.( 'core/editor' )?.getCurrentPostType?.();
+			const postType =
+				args.context?.postType ||
+				select?.( 'core/editor' )?.getCurrentPostType?.();
 			return fieldList( config, postType );
 		},
 	} );

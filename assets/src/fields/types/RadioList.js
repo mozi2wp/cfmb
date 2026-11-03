@@ -3,7 +3,11 @@ export default function RadioList( { field, id, value, onChange } ) {
 	const choices = settings.choices || [];
 
 	return (
-		<ul className={ `cfmb-choice-list cfmb-choice-list--${ settings.layout || 'vertical' }` }>
+		<ul
+			className={ `cfmb-choice-list cfmb-choice-list--${
+				settings.layout || 'vertical'
+			}` }
+		>
 			{ choices.map( ( choice, index ) => (
 				<li key={ choice.value } className="cfmb-choice-list__item">
 					<label>

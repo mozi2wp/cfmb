@@ -12,9 +12,17 @@ import { useForm } from '../context';
 import { search } from '../api';
 import { uiIcon } from '../../shared/ui-icons';
 
-export default function Relationship( { field, id, value, onChange, describedBy } ) {
+export default function Relationship( {
+	field,
+	id,
+	value,
+	onChange,
+	describedBy,
+} ) {
 	const settings = field.settings || {};
-	const filters = Array.isArray( settings.filters ) ? settings.filters : [ 'search', 'post_type' ];
+	const filters = Array.isArray( settings.filters )
+		? settings.filters
+		: [ 'search', 'post_type' ];
 	const selected = Array.isArray( value ) ? value : [];
 	const max = Number( settings.max ) || 0;
 	const results = useSearch( field );
@@ -26,13 +34,19 @@ export default function Relationship( { field, id, value, onChange, describedBy 
 	const debouncedRun = useDebounce( results.run, 250 );
 	const chosenIds = new Set( selected.map( ( item ) => item.id ) );
 	const full = max > 0 && selected.length >= max;
-	const typeOptions = ( Array.isArray( settings.post_type ) && settings.post_type.length ? settings.post_type : Object.keys( window.cfmbFields?.postTypes || {} ) ).filter( Boolean );
+	const typeOptions = (
+		Array.isArray( settings.post_type ) && settings.post_type.length
+			? settings.post_type
+			: Object.keys( window.cfmbFields?.postTypes || {} )
+	).filter( Boolean );
 
 	useEffect( () => {
 		results.run( '', 1 );
 		if ( filters.includes( 'taxonomy' ) ) {
 			search( { group: groupKey, field: field.key, filters: true } )
-				.then( ( list ) => setTermFilters( Array.isArray( list ) ? list : [] ) )
+				.then( ( list ) =>
+					setTermFilters( Array.isArray( list ) ? list : [] )
+				)
 				.catch( () => setTermFilters( [] ) );
 		}
 		// Load the first page and the filter terms once.
@@ -45,13 +59,17 @@ export default function Relationship( { field, id, value, onChange, describedBy 
 		}
 		onChange( [ ...selected, item ] );
 		/* translators: %s: post title */
-		speak( sprintf( __( '%s added.', 'custom-fields-meta-box' ), item.title ) );
+		speak(
+			sprintf( __( '%s added.', 'custom-fields-meta-box' ), item.title )
+		);
 	};
 
 	const remove = ( item ) => {
 		onChange( selected.filter( ( other ) => other.id !== item.id ) );
 		/* translators: %s: post title */
-		speak( sprintf( __( '%s removed.', 'custom-fields-meta-box' ), item.title ) );
+		speak(
+			sprintf( __( '%s removed.', 'custom-fields-meta-box' ), item.title )
+		);
 	};
 
 	const move = ( index, step ) => {
@@ -74,49 +92,91 @@ export default function Relationship( { field, id, value, onChange, describedBy 
 							id={ id }
 							className="cfmb-input"
 							type="search"
-							placeholder={ __( 'Search…', 'custom-fields-meta-box' ) }
-							aria-label={ __( 'Search posts', 'custom-fields-meta-box' ) }
+							placeholder={ __(
+								'Search…',
+								'custom-fields-meta-box'
+							) }
+							aria-label={ __(
+								'Search posts',
+								'custom-fields-meta-box'
+							) }
 							value={ text }
 							onChange={ ( event ) => {
 								setText( event.target.value );
-								debouncedRun( event.target.value, 1, { post_type: postType, term } );
+								debouncedRun( event.target.value, 1, {
+									post_type: postType,
+									term,
+								} );
 							} }
 						/>
 					) }
-					{ filters.includes( 'post_type' ) && typeOptions.length > 1 && (
-						<select
-							className="cfmb-input"
-							aria-label={ __( 'Post type', 'custom-fields-meta-box' ) }
-							value={ postType }
-							onChange={ ( event ) => {
-								setPostType( event.target.value );
-								results.run( text, 1, { post_type: event.target.value, term } );
-							} }
-						>
-							<option value="">{ __( 'All types', 'custom-fields-meta-box' ) }</option>
-							{ typeOptions.map( ( type ) => (
-								<option key={ type } value={ type }>
-									{ window.cfmbFields?.postTypes?.[ type ] || type }
+					{ filters.includes( 'post_type' ) &&
+						typeOptions.length > 1 && (
+							<select
+								className="cfmb-input"
+								aria-label={ __(
+									'Post type',
+									'custom-fields-meta-box'
+								) }
+								value={ postType }
+								onChange={ ( event ) => {
+									setPostType( event.target.value );
+									results.run( text, 1, {
+										post_type: event.target.value,
+										term,
+									} );
+								} }
+							>
+								<option value="">
+									{ __(
+										'All types',
+										'custom-fields-meta-box'
+									) }
 								</option>
-							) ) }
-						</select>
-					) }
+								{ typeOptions.map( ( type ) => (
+									<option key={ type } value={ type }>
+										{ window.cfmbFields?.postTypes?.[
+											type
+										] || type }
+									</option>
+								) ) }
+							</select>
+						) }
 					{ termFilters.length > 0 && (
 						<select
 							className="cfmb-input"
-							aria-label={ __( 'Category or tag', 'custom-fields-meta-box' ) }
+							aria-label={ __(
+								'Category or tag',
+								'custom-fields-meta-box'
+							) }
 							value={ term }
 							onChange={ ( event ) => {
 								setTerm( event.target.value );
-								results.run( text, 1, { post_type: postType, term: event.target.value } );
+								results.run( text, 1, {
+									post_type: postType,
+									term: event.target.value,
+								} );
 							} }
 						>
-							<option value="">{ __( 'Any category or tag', 'custom-fields-meta-box' ) }</option>
+							<option value="">
+								{ __(
+									'Any category or tag',
+									'custom-fields-meta-box'
+								) }
+							</option>
 							{ termFilters.map( ( filter ) => (
-								<optgroup key={ filter.taxonomy } label={ filter.label }>
+								<optgroup
+									key={ filter.taxonomy }
+									label={ filter.label }
+								>
 									{ ordered( filter.terms ).map( ( item ) => (
-										<option key={ item.id } value={ `${ filter.taxonomy }:${ item.id }` }>
-											{ `${ '— '.repeat( item.depth ) }${ item.title }` }
+										<option
+											key={ item.id }
+											value={ `${ filter.taxonomy }:${ item.id }` }
+										>
+											{ `${ '— '.repeat( item.depth ) }${
+												item.title
+											}` }
 										</option>
 									) ) }
 								</optgroup>
@@ -124,12 +184,25 @@ export default function Relationship( { field, id, value, onChange, describedBy 
 						</select>
 					) }
 				</div>
-				<ul className="cfmb-relationship__list" aria-label={ __( 'Posts to choose from', 'custom-fields-meta-box' ) }>
+				<ul
+					className="cfmb-relationship__list"
+					aria-label={ __(
+						'Posts to choose from',
+						'custom-fields-meta-box'
+					) }
+				>
 					{ results.items.map( ( item ) => (
 						<li key={ item.id }>
-							<button type="button" className="cfmb-relationship__choice" disabled={ chosenIds.has( item.id ) || full } onClick={ () => add( item ) }>
+							<button
+								type="button"
+								className="cfmb-relationship__choice"
+								disabled={ chosenIds.has( item.id ) || full }
+								onClick={ () => add( item ) }
+							>
 								<ItemLabel item={ item } />
-								<span className="screen-reader-text">{ __( '(add)', 'custom-fields-meta-box' ) }</span>
+								<span className="screen-reader-text">
+									{ __( '(add)', 'custom-fields-meta-box' ) }
+								</span>
 							</button>
 						</li>
 					) ) }
@@ -138,10 +211,27 @@ export default function Relationship( { field, id, value, onChange, describedBy 
 							<Spinner />
 						</li>
 					) }
-					{ ! results.loading && ! results.items.length && <li className="cfmb-picker__note">{ results.error || __( 'Nothing found.', 'custom-fields-meta-box' ) }</li> }
+					{ ! results.loading && ! results.items.length && (
+						<li className="cfmb-picker__note">
+							{ results.error ||
+								__(
+									'Nothing found.',
+									'custom-fields-meta-box'
+								) }
+						</li>
+					) }
 					{ results.more && ! results.loading && (
 						<li className="cfmb-picker__note">
-							<Button variant="link" onClick={ () => results.run( results.query || '', results.page + 1, { post_type: postType, term } ) }>
+							<Button
+								variant="link"
+								onClick={ () =>
+									results.run(
+										results.query || '',
+										results.page + 1,
+										{ post_type: postType, term }
+									)
+								}
+							>
 								{ __( 'Show more', 'custom-fields-meta-box' ) }
 							</Button>
 						</li>
@@ -153,7 +243,10 @@ export default function Relationship( { field, id, value, onChange, describedBy 
 					{ max > 0
 						? sprintf(
 								/* translators: 1: number chosen, 2: maximum */
-								__( 'Chosen: %1$d of %2$d', 'custom-fields-meta-box' ),
+								__(
+									'Chosen: %1$d of %2$d',
+									'custom-fields-meta-box'
+								),
 								selected.length,
 								max
 						  )
@@ -168,21 +261,52 @@ export default function Relationship( { field, id, value, onChange, describedBy 
 						<li key={ item.id } className="cfmb-picker__item">
 							<ItemLabel item={ item } />
 							<span className="cfmb-picker__item-actions">
-								<Button size="small" icon={ uiIcon( 'arrow-up-alt2' ) } label={ __( 'Move up', 'custom-fields-meta-box' ) } disabled={ index === 0 } onClick={ () => move( index, -1 ) } />
-								<Button size="small" icon={ uiIcon( 'arrow-down-alt2' ) } label={ __( 'Move down', 'custom-fields-meta-box' ) } disabled={ index === selected.length - 1 } onClick={ () => move( index, 1 ) } />
+								<Button
+									size="small"
+									icon={ uiIcon( 'arrow-up-alt2' ) }
+									label={ __(
+										'Move up',
+										'custom-fields-meta-box'
+									) }
+									disabled={ index === 0 }
+									onClick={ () => move( index, -1 ) }
+								/>
+								<Button
+									size="small"
+									icon={ uiIcon( 'arrow-down-alt2' ) }
+									label={ __(
+										'Move down',
+										'custom-fields-meta-box'
+									) }
+									disabled={ index === selected.length - 1 }
+									onClick={ () => move( index, 1 ) }
+								/>
 								<Button
 									size="small"
 									icon={ uiIcon( 'no-alt' ) }
 									label={
 										/* translators: %s: post title */
-										sprintf( __( 'Remove %s', 'custom-fields-meta-box' ), item.title )
+										sprintf(
+											__(
+												'Remove %s',
+												'custom-fields-meta-box'
+											),
+											item.title
+										)
 									}
 									onClick={ () => remove( item ) }
 								/>
 							</span>
 						</li>
 					) ) }
-					{ ! selected.length && <li className="cfmb-picker__note">{ __( 'Pick posts from the list.', 'custom-fields-meta-box' ) }</li> }
+					{ ! selected.length && (
+						<li className="cfmb-picker__note">
+							{ __(
+								'Pick posts from the list.',
+								'custom-fields-meta-box'
+							) }
+						</li>
+					) }
 				</ul>
 			</div>
 		</div>
